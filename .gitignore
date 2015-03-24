@@ -35,3 +35,5 @@ local.properties
 # TeXlipse plugin
 .texlipse
 *.class
+TestRunner/target
+TestRunner/test-output
