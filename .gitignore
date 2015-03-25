@@ -37,3 +37,4 @@ local.properties
 *.class
 TestRunner/target
 TestRunner/test-output
+sqltest.log

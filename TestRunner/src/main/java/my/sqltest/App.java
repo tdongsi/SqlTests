@@ -1,5 +1,8 @@
 package my.sqltest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 
@@ -9,12 +12,13 @@ import com.beust.jcommander.Parameter;
  */
 public class App 
 {
+	private static final Logger logger = LoggerFactory.getLogger(App.class);
 	
 	/**
 	 * Parsing command-line parameter using JCommander
 	 */
 	public static class AppParameter {
-		@Parameter(names = "-url", description = "Server's JDBC URL.", required = true)
+		@Parameter(names = "-url", description = "Test database's JDBC URL.", required = true)
 	    private String url;
 		
 		@Parameter(names = {"-username", "-u"}, description = "Login credentials.", required = true)
@@ -48,5 +52,10 @@ public class App
     {
         AppParameter params = new AppParameter();
         new JCommander(params, args);
+        
+        logger.debug("Database URL: {}", params.getUrl() );
+        logger.debug("Username: {}", params.getUsername());
+        // DO NOT log password
+        logger.debug("SQL file: {}", params.getInputfile());
     }
 }
