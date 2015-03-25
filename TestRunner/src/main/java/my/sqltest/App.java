@@ -1,10 +1,15 @@
 package my.sqltest;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+
+import my.sqltest.JdbcConnections;
 
 /**
  * @author cdongsi
@@ -57,5 +62,19 @@ public class App
         logger.debug("Username: {}", params.getUsername());
         // DO NOT log password
         logger.debug("SQL file: {}", params.getInputfile());
+        
+        Connection conn = JdbcConnections.getVerticaConnection(
+        		params.getUsername(), params.getPassword(), params.getUrl());
+        
+        // do something
+        logger.info("Connected to database");
+        
+        if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("Could not close connection");
+			}
+		}
     }
 }
