@@ -18,9 +18,8 @@ public class AppTest {
 	 */
 	@Test
 	public void testCommandlineParams() {
-		String[] argv = { "-u", "dbadmin", "-p", "password","-url", "jdbc:vertica://192.168.5.133:5433/VMart", "-f", "test.sql"};
-		App.AppParameter params = new App.AppParameter();
-		new JCommander(params, argv);
+		String[] argv = { "-u", "dbadmin", "-p", "password","-d", "jdbc:vertica://192.168.5.133:5433/VMart", "-f", "test.sql"};
+		App.AppParameter params = App.AppParameter.parseCommandLine(argv);
 		
 		Assert.assertEquals(params.getUsername(), "dbadmin");
 		Assert.assertEquals(params.getPassword(), "password");
@@ -30,9 +29,8 @@ public class AppTest {
 	
 	@Test
 	public void testCommandlineParamsFull() {
-		String[] argv = { "-username", "dbadmin", "-password", "password","-url", "jdbc:vertica://192.168.5.133:5433/VMart", "-file", "test.sql"};
-		App.AppParameter params = new App.AppParameter();
-		new JCommander(params, argv);
+		String[] argv = { "-username", "dbadmin", "-password", "password","-d", "jdbc:vertica://192.168.5.133:5433/VMart", "-file", "test.sql"};
+		App.AppParameter params = App.AppParameter.parseCommandLine(argv);
 		
 		Assert.assertEquals(params.getUsername(), "dbadmin");
 		Assert.assertEquals(params.getPassword(), "password");
@@ -42,9 +40,8 @@ public class AppTest {
 	
 	@Test
 	public void testCommandlineParamsMixed() {
-		String[] argv = { "-username", "dbadmin", "-password", "password","-url", "jdbc:vertica://192.168.5.133:5433/VMart", "-f", "test.sql"};
-		App.AppParameter params = new App.AppParameter();
-		new JCommander(params, argv);
+		String[] argv = { "-username", "dbadmin", "-password", "password","-d", "jdbc:vertica://192.168.5.133:5433/VMart", "-f", "test.sql"};
+		App.AppParameter params = App.AppParameter.parseCommandLine(argv);
 		
 		Assert.assertEquals(params.getUsername(), "dbadmin");
 		Assert.assertEquals(params.getPassword(), "password");
