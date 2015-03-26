@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 
 import my.sqltest.JdbcConnections;
 
@@ -25,7 +26,7 @@ public class App
 	 * Parsing command-line parameter using JCommander
 	 */
 	public static class AppParameter {
-		@Parameter(names = {"-databaseUrl", "-d"}, description = "Test database's JDBC URL.", required = true)
+		@Parameter(names = {"-database", "-d"}, description = "Test database's JDBC URL.", required = true)
 	    private String url;
 		
 		@Parameter(names = {"-username", "-u"}, description = "Login credentials.", required = true)
@@ -66,7 +67,13 @@ public class App
 	
     public static void main( String[] args )
     {
-        AppParameter params = AppParameter.parseCommandLine(args);
+        AppParameter params = null;
+        try {
+        	params = AppParameter.parseCommandLine(args);
+		} catch (ParameterException e) {
+			System.out.println("ERROR: " + e.getMessage() );
+			return;
+		}
         
         logger.debug("Database URL: {}", params.getUrl() );
         logger.debug("Username: {}", params.getUsername());
