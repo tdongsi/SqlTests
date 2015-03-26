@@ -12,6 +12,13 @@ public class JdbcConnections {
 	private static final Logger logger = LoggerFactory.getLogger(JdbcConnections.class);
 	
 	/**
+	 * Override default constructor.
+	 */
+	private JdbcConnections() {
+		throw new AssertionError("This utility class should have no instance");
+	}
+	
+	/**
 	 * Return a JDBC connection to a Vertica server.
 	 * 
 	 * @param username

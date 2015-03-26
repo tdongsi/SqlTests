@@ -2,6 +2,8 @@ package my.sqltest;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +35,7 @@ public class App
 		private String password;
 		
 		@Parameter(names = {"-file", "-f"}, description = "SQL file to be tested.", required = true)
-		private String inputfile;
+		private List<String> inputfile = new ArrayList<String>();
 
 		public String getUrl() {
 			return url;
@@ -47,7 +49,7 @@ public class App
 			return password;
 		}
 
-		public String getInputfile() {
+		public List<String> getInputfile() {
 			return inputfile;
 		}
 		
