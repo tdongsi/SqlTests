@@ -12,6 +12,8 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 
+import com.google.common.base.Strings;
+
 import my.sqltest.JdbcConnections;
 
 /**
@@ -37,7 +39,12 @@ public class App
 		
 		@Parameter(names = {"-file", "-f"}, description = "SQL file to be tested.", required = true)
 		private List<String> inputfile = new ArrayList<String>();
-
+		
+		// Vertica-specific hidden option.
+		
+		@Parameter(names = {"-schema", "-s"}, description = "Vertica schema to be tested.", required = false, hidden=true)
+		private String schema;
+		
 		public String getUrl() {
 			return url;
 		}
@@ -54,6 +61,10 @@ public class App
 			return inputfile;
 		}
 		
+		public String getSchema() {
+			return schema;
+		}
+
 		public static AppParameter parseCommandLine(String[] args) {
 			AppParameter params = new AppParameter();
 	        JCommander jc = new JCommander(params);
@@ -79,20 +90,30 @@ public class App
         logger.debug("Username: {}", params.getUsername());
         // DO NOT log password
         logger.debug("SQL file: {}", params.getInputfile());
+        logger.debug("Schema name: {}", Strings.nullToEmpty(params.getSchema()));
         
         Connection conn = JdbcConnections.getVerticaConnection(
         		params.getUsername(), params.getPassword(), params.getUrl());
         
-        // do something
-        logger.info("Connected to database");
+        if (params.getSchema() != null ) {
+        	VerticaUtility.useVerticaSchema(conn, params.getSchema() );
+        }
         
-        if (conn != null) {
-			try {
+        if ( conn != null ) {
+        	logger.info("Connected to database");
+        	
+        	// do something
+        	
+        	// Close connection
+        	try {
 				conn.close();
 			} catch (SQLException e) {
 				logger.error("Could not close connection");
 			}
-		}
+        } else {
+        	logger.error( "Could not connect to the specified database.");
+        }
+
     }
 
 	

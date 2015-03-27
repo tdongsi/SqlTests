@@ -4,9 +4,6 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 import org.testng.Assert;
-import org.testng.AssertJUnit;
-
-import com.beust.jcommander.JCommander;
 
 /**
  * Unit test for simple App.
