@@ -28,6 +28,9 @@ public class App
 	 * Parsing command-line parameter using JCommander
 	 */
 	public static class AppParameter {
+		
+		public static JCommander jc;
+		
 		@Parameter(names = {"-database", "-d"}, description = "Test database's JDBC URL.", required = true)
 	    private String url;
 		
@@ -39,7 +42,7 @@ public class App
 		
 		@Parameter(names = {"-file", "-f"}, description = "SQL file to be tested.", required = true)
 		private List<String> inputfile = new ArrayList<String>();
-		
+				
 		// Vertica-specific hidden option.
 		
 		@Parameter(names = {"-schema", "-s"}, description = "Vertica schema to be tested.", required = false, hidden=true)
@@ -67,10 +70,15 @@ public class App
 
 		public static AppParameter parseCommandLine(String[] args) {
 			AppParameter params = new AppParameter();
-	        JCommander jc = new JCommander(params);
+	        jc = new JCommander(params);
+	        jc.setProgramName("java -jar TestRunner.jar");
+	        
+	        // These are only available in later JCommander version
 //	        jc.setCaseSensitiveOptions(false);
 //	        jc.setAllowAbbreviatedOptions(true);
+	        
 	        jc.parse(args);
+	        
 			return params;
 		}
 		
@@ -83,6 +91,7 @@ public class App
         	params = AppParameter.parseCommandLine(args);
 		} catch (ParameterException e) {
 			System.out.println("ERROR: " + e.getMessage() );
+			AppParameter.jc.usage();
 			return;
 		}
         
