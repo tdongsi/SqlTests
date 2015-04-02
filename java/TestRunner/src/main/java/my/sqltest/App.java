@@ -1,5 +1,6 @@
 package my.sqltest;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class App
 			return password;
 		}
 
-		public List<String> getInputfile() {
+		public List<String> getInputFiles() {
 			return inputfile;
 		}
 		
@@ -98,7 +99,7 @@ public class App
         logger.debug("Database URL: {}", params.getUrl() );
         logger.debug("Username: {}", params.getUsername());
         // DO NOT log password
-        logger.debug("SQL file: {}", params.getInputfile());
+        logger.debug("SQL file: {}", params.getInputFiles());
         logger.debug("Schema name: {}", Strings.nullToEmpty(params.getSchema()));
         
         Connection conn = JdbcConnections.getVerticaConnection(
@@ -112,6 +113,17 @@ public class App
         	logger.info("Connected to database");
         	
         	// do something
+        	SqlRunner runner = new SqlRunner(conn);
+        	try {
+				for ( String file : params.getInputFiles()) {
+					logger.info("Running file: {}", file);
+					runner.runScript(file);
+				}
+			} catch (IOException e1) {
+				logger.error("Error reading one of the files: {}", params.getInputFiles());
+			} catch (SQLException e1) {
+				logger.error("Error executing SQL in file: {}", e1.getMessage());
+			}
         	
         	// Close connection
         	try {
