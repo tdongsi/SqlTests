@@ -38,3 +38,5 @@ local.properties
 **/target
 **/test-output
 sqltest.log
+*.pyc
+PySqlTest.log
