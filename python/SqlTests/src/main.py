@@ -24,6 +24,7 @@ python main.py -username dbadmin -password password
 
 import argparse
 import VerticaUtility
+from vertica_python import connect
 
 import logging
 import MyLogger
@@ -75,13 +76,24 @@ def main():
     myLogger.debug("Database name: %s", args.database)
     myLogger.debug("Schema name: %s", args.schema)
     
-    conn = VerticaUtility.getVerticaConnection(
+    conn = connect(dict(
                 host = args.host,
                 port = args.port,
                 user = args.username,
                 password = args.password,
                 database = args.database
-                                               )
+                ))
+    '''
+    Equivalent to standard usage:
+    
+    connection = connect({
+    'host': '127.0.0.1',
+    'port': 5433,
+    'user': 'some_user',
+    'password': 'some_password',
+    'database': 'a_database'
+    })
+    '''
     
     if conn is not None:
         myLogger.info('Connected to database')

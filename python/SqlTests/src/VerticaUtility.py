@@ -4,20 +4,11 @@ Created on Apr 4, 2015
 @author: cdongsi
 '''
 
-from vertica_python import connect
 
 import logging
 import MyLogger
 myLogger = logging.getLogger('VerticaUtility')
 
-def getVerticaConnection(**kwargs):
-    '''
-    Return a connection to a Vertica server.
-    '''
-    
-    myLogger.debug("Connection parameters: %s", kwargs)
-    connection = connect(kwargs)
-    return connection
 
 def useVerticaSchema(conn, schema):
     '''
