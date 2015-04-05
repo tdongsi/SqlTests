@@ -23,6 +23,7 @@ python main.py -username dbadmin -password password
 '''
 
 import argparse
+import VerticaUtility
 
 import logging
 import MyLogger
@@ -64,8 +65,19 @@ def main():
     myLogger.debug("Username: %s", args.username)
     # DO NOT log password
     myLogger.debug("SQL file: %s", args.inputfile)
-    # TODO: default value for schema
     myLogger.debug("Schema name: %s", args.schema)
+    
+    conn = VerticaUtility.getVerticaConnection(args.username, args.password, args.url)
+    
+    if conn is not None:
+        myLogger.info('Connected to database')
+    
+        if args.schema is not None:
+            pass
+        
+    else:
+        myLogger.error('Could not connect to the specified database.')
+    
 
 if __name__ == '__main__':
     ''' Usage: See the top comment for usage of this script.'''
