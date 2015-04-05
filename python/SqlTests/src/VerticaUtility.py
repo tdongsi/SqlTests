@@ -10,22 +10,13 @@ import logging
 import MyLogger
 myLogger = logging.getLogger('VerticaUtility')
 
-def getVerticaConnection(username, password, url):
+def getVerticaConnection(**kwargs):
     '''
-    Return a JDBC connection to a Vertica server.
-    
-    TODO: update argument parsing to include port and database
+    Return a connection to a Vertica server.
     '''
     
-    myLogger.debug("%s, %s, %s", username, password, url )
-    
-    connection = connect({
-                          'host' : '192.168.5.133',
-                          'user' : username,
-                          'password' : password,
-                          'database' : 'VMart'
-                          })
-    
+    myLogger.debug("Connection parameters: %s", kwargs)
+    connection = connect(kwargs)
     return connection
 
 def useVerticaSchema(conn, schema):
