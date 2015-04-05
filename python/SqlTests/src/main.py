@@ -1,6 +1,24 @@
 '''
 Created on Apr 4, 2015
 
+Usage: main.py [-h] -database URL -username USERNAME -password PASSWORD -file
+               INPUTFILE [-schema SCHEMA]
+
+Script to run SQL scripts and annotated tests in it.
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -database URL       Test database's JDBC URL.
+  -username USERNAME  Login credentials.
+  -password PASSWORD  Login credentials.
+  -file INPUTFILE     SQL file to be tested.
+  -schema SCHEMA      Vertica schema to be tested.
+  
+Example: Running test.sql against the Vertica database on a local VM
+
+python main.py -username dbadmin -password password 
+-database jdbc:vertica://192.168.5.133:5433/VMart -file test.sql -schema IDEA
+
 @author: cdongsi
 '''
 
@@ -15,7 +33,7 @@ class SqlRunner(object):
 
 def main():
     '''
-    TODO
+    Main method: perform argument parsing and start running scripts.
     '''
     
     parser = argparse.ArgumentParser(description='Script to run SQL scripts ' 
@@ -50,4 +68,7 @@ def main():
     myLogger.debug("Schema name: %s", args.schema)
 
 if __name__ == '__main__':
+    ''' Usage: See the top comment for usage of this script.'''
+    
+    print 'Running SQL tests.'
     main()
