@@ -11,7 +11,7 @@ The problems of such approach is:
 
   * SQL test queries are really hard to read in properties file.
     * Each SQL test string must be in a single line. Adding line breaks, such as newline, for clarity is not possible since it will make the test case fail.
-   * Unfortunately, it is very common that SQL test queries are long, with multiple JOIN statements, especially in data mart. Having line breaks, e.g. to separate join statements, WILL definitely help readability of test cases.
+   * Unfortunately, it is very common that SQL test queries are long, with multiple JOIN statements, especially in data mart. Having line breaks, e.g. to separate join statements, **WILL** definitely help readability of test cases.
 
   * Tests are written in Java, making them inaccessible to developers.
    * Most data engineers (in Data Mart teams) are not familiar with Java and TestNG enough to look for and understand failures in test cases.
@@ -25,3 +25,10 @@ In writing tests, prioritize **readability** when possible.
    * If the tests are readable and accessible to developers, they can easily run the tests on their own, without much intervention of QEs.
 
 Note that for testing data mart, JUnit/TestNG is still a powerful framework for defining tests. In many cases, 
+
+
+## Tricks and Tips
+
+Use two EXCEPT queries to verify equality.
+
+Add limit when the expected return of the test SQL query is nothing.
