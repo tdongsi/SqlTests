@@ -4,6 +4,7 @@
   <test name="Test">
     <classes>
       <class name="my.sqltest.AppTest"/>
+      <class name="my.sqltest.connection.VerticaConnectionTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
