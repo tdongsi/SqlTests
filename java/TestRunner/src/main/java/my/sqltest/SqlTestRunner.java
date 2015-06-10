@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * @author cdongsi
  *
  */
-public class SqlRunner {
+public class SqlTestRunner {
 	
 	public static class JsonLiterals {
 		public static final String NAME = "name";
@@ -23,7 +23,7 @@ public class SqlRunner {
 		public static final String FILE = "file";
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(SqlRunner.class);
+	private static final Logger logger = LoggerFactory.getLogger(SqlTestRunner.class);
 	private static ScriptEngine engine;
 
 	private Connection connection;
@@ -31,7 +31,7 @@ public class SqlRunner {
 	/**
 	 * Default constructor
 	 */
-	public SqlRunner(Connection connection) {
+	public SqlTestRunner(Connection connection) {
 		this.connection = connection;
 	}
 
