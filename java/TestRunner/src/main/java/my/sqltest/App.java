@@ -16,6 +16,7 @@ import com.beust.jcommander.ParameterException;
 import com.google.common.base.Strings;
 
 import my.sqltest.JdbcConnections;
+import my.sqltest.vertica.SchemaUtility;
 
 /**
  * @author cdongsi
@@ -106,14 +107,14 @@ public class App
         		params.getUsername(), params.getPassword(), params.getUrl());
         
         if (params.getSchema() != null ) {
-        	VerticaUtility.useVerticaSchema(conn, params.getSchema() );
+        	SchemaUtility.useVerticaSchema(conn, params.getSchema() );
         }
         
         if ( conn != null ) {
         	logger.info("Connected to database");
         	
         	// do something
-        	SqlRunner runner = new SqlRunner(conn);
+        	SqlTestRunner runner = new SqlTestRunner(conn);
         	try {
 				for ( String file : params.getInputFiles()) {
 					logger.info("Running file: {}", file);
