@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "SQL basics"
+title: "SELECT basics"
 date: 2016-08-26 01:39:37 -0700
 comments: true
 categories: 
 - Facebook
 ---
+
+This post is about basic `SELECT` questions (phone-screen level). 
 
 ### Section 1
 
