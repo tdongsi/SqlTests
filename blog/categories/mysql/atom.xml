@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mysql | My Octopress Blog]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2016-08-27T00:14:34-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL Workarounds]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/mysql-workaround/"/>
+    <updated>2016-08-26T01:42:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/mysql-workaround</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>

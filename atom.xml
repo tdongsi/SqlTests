@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-08-26T01:16:30-07:00</updated>
+  <updated>2016-08-27T00:14:34-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,5 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL Workarounds]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/mysql-workaround/"/>
+    <updated>2016-08-26T01:42:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/mysql-workaround</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SELECT Basics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/"/>
+    <updated>2016-08-26T01:39:37-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics</id>
+    <content type="html"><![CDATA[<p>This post is about basic <code>SELECT</code> questions (phone-screen level).</p>
+
+<h3>Section 1</h3>
+
+<figure class='code'><figcaption><span>Given Department schema</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>employees                             projects
+</span><span class='line'>+---------------+---------+           +---------------+---------+
+</span><span class='line'>| id            | int     |&lt;----+  +-&gt;| id            | int     |
+</span><span class='line'>| first_name    | varchar |     |  |  | title         | varchar |
+</span><span class='line'>| last_name     | varchar |     |  |  | start_date    | date    |
+</span><span class='line'>| salary        | int     |     |  |  | end_date      | date    |
+</span><span class='line'>| department_id | int     |--+  |  |  | budget        | int     |
+</span><span class='line'>+---------------+---------+  |  |  |  +---------------+---------+
+</span><span class='line'>                             |  |  |
+</span><span class='line'>departments                  |  |  |  employees_projects
+</span><span class='line'>+---------------+---------+  |  |  |  +---------------+---------+
+</span><span class='line'>| id            | int     |&lt;-+  |  +--| project_id    | int     |
+</span><span class='line'>| name          | varchar |     +-----| employee_id   | int     |
+</span><span class='line'>+---------------+---------+           +---------------+---------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 1</h4>
+
+<figure class='code'><figcaption><span>Question 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Write a query to list the departments that have a total combined salary greater than $40,000.
+</span><span class='line'>
+</span><span class='line'>Expected Output:
+</span><span class='line'>+-------------+----------------+
+</span><span class='line'>| name        | combined_salary|
+</span><span class='line'>+-------------+----------------+
+</span><span class='line'>| Engineering |        130000  |
+</span><span class='line'>| Marketing   |         50000  |
+</span><span class='line'>+-------------+----------------+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The sandbox uses MySQL which does not support WITH clause.
+See more MySQL workaround in <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
+
+<figure class='code'><figcaption><span>Answer 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">WITH</span> <span class="n">dept_total</span> <span class="k">AS</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">as</span> <span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
+</span><span class='line'><span class="k">having</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">40000</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="n">dept_total</span> <span class="n">t</span>
+</span><span class='line'><span class="k">join</span> <span class="n">deparments</span> <span class="n">d</span> <span class="k">on</span> <span class="n">t</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>MySQL Answer 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="p">(</span>
+</span><span class='line'>  <span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">as</span> <span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
+</span><span class='line'><span class="k">having</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">40000</span>
+</span><span class='line'>  <span class="p">)</span> <span class="n">t</span>
+</span><span class='line'>  <span class="k">join</span> <span class="n">departments</span> <span class="n">d</span> <span class="k">ON</span> <span class="n">t</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
 </feed>
