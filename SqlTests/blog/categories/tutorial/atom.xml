@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Mysql | Personal Interview Notes]]></title>
-  <link href="http://tdongsi.github.io/SqlTests/blog/categories/mysql/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Tutorial | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/tutorial/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-08-28T10:48:31-07:00</updated>
+  <updated>2016-08-28T11:00:10-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
