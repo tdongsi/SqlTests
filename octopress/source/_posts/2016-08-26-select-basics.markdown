@@ -1,15 +1,16 @@
 ---
 layout: post
-title: "SELECT basics"
+title: "Questions: SELECT basics"
 date: 2016-08-26 01:39:37 -0700
 comments: true
 categories: 
 - Facebook
+- Questions
 ---
 
 This post is about basic `SELECT` questions (phone-screen level). 
 
-### Section 1
+### Questions
 
 ``` plain Given Department schema
 employees                             projects
@@ -42,6 +43,12 @@ Expected Output:
 +-------------+----------------+
 ```
 
+<!--more-->
+
+### Answers
+
+#### Question 1
+
 The sandbox uses MySQL which does not support WITH clause.
 See more MySQL workaround in [here](http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/).
 
@@ -67,3 +74,4 @@ having total > 40000
   ) t
   join departments d ON t.department_id = d.id
 ```
+
