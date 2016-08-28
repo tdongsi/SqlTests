@@ -50,7 +50,7 @@ Expected Output:
 #### Question 1
 
 The sandbox uses MySQL which does not support WITH clause.
-See more MySQL workaround in [here](http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/).
+See more MySQL workaround in [here](/blog/2016/08/26/mysql-workaround/).
 
 ``` sql Answer 1
 WITH dept_total AS (
