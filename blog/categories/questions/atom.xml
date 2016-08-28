@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Questions | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/questions/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-08-28T01:25:00-07:00</updated>
+  <updated>2016-08-28T10:30:48-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -59,7 +59,7 @@ Expected Output:
 <h4>Question 1</h4>
 
 <p>The sandbox uses MySQL which does not support WITH clause.
-See more MySQL workaround in <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
+See more MySQL workaround in <a href="/blog/2016/08/26/mysql-workaround/">here</a>.</p>
 
 <pre><code class="sql Answer 1">WITH dept_total AS (
 select department_id, sum(salary) as total
