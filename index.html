@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Octopress Blog</title>
-  <meta name="author" content="Your Name">
+  <title>Personal Interview Notes</title>
+  <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="MySQL has traditionally lagged behind in support for the SQL standard.
+Unfortunately, from my experience, MySQL is often used as the sandbox for SQL &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +22,7 @@
   <link rel="canonical" href="http://tdongsi.github.io/SqlTests/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
@@ -35,11 +35,11 @@
 
 </head>
 
-<body   >
+<body    class="collapse-sidebar sidebar-footer" >
   <header role="banner"><hgroup>
-  <h1><a href="/">My Octopress Blog</a></h1>
+  <h1><a href="/">Personal Interview Notes</a></h1>
   
-    <h2>A blogging framework for hackers.</h2>
+    <h2>To err is human; to debug, divine.</h2>
   
 </hgroup>
 
@@ -59,6 +59,10 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://tdongsi.github.io/java">Java</a></li>
+  <li><a href="http://tdongsi.github.io/javascript">JavaScript</a></li>
+  <li><a href="http://tdongsi.github.io/python">Python</a></li>
+  <li><a href="http://tdongsi.github.io/SqlTests">SQL</a></li>
 </ul>
 
 </nav>
@@ -72,7 +76,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2016/08/26/mysql-workaround/">MySQL Workarounds</a></h1>
+      <h1 class="entry-title"><a href="/blog/2016/08/26/mysql-workaround/">Tutorial: MySQL Workarounds</a></h1>
     
     
       <p class="meta">
@@ -88,9 +92,16 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>MySQL has traditionally lagged behind in support for the SQL standard.
+Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
+If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/08/26/mysql-workaround/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -101,7 +112,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2016/08/26/select-basics/">SELECT Basics</a></h1>
+      <h1 class="entry-title"><a href="/blog/2016/08/26/select-basics/">Questions: SELECT Basics</a></h1>
     
     
       <p class="meta">
@@ -119,7 +130,7 @@
 
   <div class="entry-content"><p>This post is about basic <code>SELECT</code> questions (phone-screen level).</p>
 
-<h3>Section 1</h3>
+<h3>Questions</h3>
 
 <figure class='code'><figcaption><span>Given Department schema</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -173,52 +184,14 @@
 </span><span class='line'>+-------------+----------------+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The sandbox uses MySQL which does not support WITH clause.
-See more MySQL workaround in <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
 
-<figure class='code'><figcaption><span>Answer 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">WITH</span> <span class="n">dept_total</span> <span class="k">AS</span> <span class="p">(</span>
-</span><span class='line'><span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">as</span> <span class="n">total</span>
-</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
-</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
-</span><span class='line'><span class="k">having</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">40000</span>
-</span><span class='line'><span class="p">)</span>
-</span><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">total</span>
-</span><span class='line'><span class="k">from</span> <span class="n">dept_total</span> <span class="n">t</span>
-</span><span class='line'><span class="k">join</span> <span class="n">deparments</span> <span class="n">d</span> <span class="k">on</span> <span class="n">t</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>MySQL Answer 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">total</span>
-</span><span class='line'><span class="k">from</span> <span class="p">(</span>
-</span><span class='line'>  <span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">as</span> <span class="n">total</span>
-</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
-</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
-</span><span class='line'><span class="k">having</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">40000</span>
-</span><span class='line'>  <span class="p">)</span> <span class="n">t</span>
-</span><span class='line'>  <span class="k">join</span> <span class="n">departments</span> <span class="n">d</span> <span class="k">ON</span> <span class="n">t</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
-</span></code></pre></td></tr></table></div></figure>
 
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/08/26/select-basics/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -233,21 +206,27 @@ See more MySQL workaround in <a href="http://tdongsi.github.io/blog/2016/08/17/a
 <aside class="sidebar">
   
     <section>
+    <h1>About This Blog</h1>
+    <p>Random interview experience and lessons.</p>
+</section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2016/08/26/mysql-workaround/">MySQL Workarounds</a>
+        <a href="/blog/2016/08/26/mysql-workaround/">Tutorial: MySQL Workarounds</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2016/08/26/select-basics/">SELECT Basics</a>
+        <a href="/blog/2016/08/26/select-basics/">Questions: SELECT Basics</a>
       </li>
     
   </ul>
 </section>
 
-
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/facebook/'>facebook (2)</a></li><li><a href='/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/blog/categories/questions/'>questions (1)</a></li><li><a href='/blog/categories/tutorial/'>tutorial (1)</a></li></ul>
+</section>
 
 
 
@@ -257,7 +236,7 @@ See more MySQL workaround in <a href="http://tdongsi.github.io/blog/2016/08/17/a
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - Your Name -
+  Copyright &copy; 2016 - Cuong Dong-Si -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -265,6 +244,15 @@ See more MySQL workaround in <a href="http://tdongsi.github.io/blog/2016/08/17/a
   
 
 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 
