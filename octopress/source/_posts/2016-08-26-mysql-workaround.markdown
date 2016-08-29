@@ -1,12 +1,13 @@
 ---
 layout: post
 title: "Tutorial: MySQL workarounds"
-date: 2016-08-26 01:42:23 -0700
+date: 2016-08-28 01:42:23 -0700
 comments: true
 categories: 
 - MySQL
 - Facebook
 - Tutorial
+- SQL
 ---
 
 MySQL has traditionally lagged behind in support for the SQL standard. 
