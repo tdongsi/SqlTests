@@ -9,83 +9,72 @@ footer: true
 
 ### Topics
 
+This blog's categories are based on these topics (first order of this list).
+Namely, there will be Java, Python, JavaScript, SQL, Algorithm, Data Structure, Math, Graph, OS, System Design, Database, Network.
 
-	1. Coding
-		1. OOP
-		2. Functional Prog
-		3. Unit testing
-		4. Logging
-		5. Language-specific
-
-	2. Algorithms
-		1. Sorting
-			1. Quick sort
-			2. Merge sort
-			3. Heap sort
-			4. Insertion sort
-			5. Radix sort
-			6. Runtime
-
-		2. Binary search
-		3. Tree
-			1. Construction
-			2. Traversal
-
-		4. Dynamic Programming
-		5. Problems
-		6. Special algorithms you come across
-
-	3. Data structures
-		1. Hashtables
-			1. Implementation: You should be able to implement one using only arrays in your favorite language, in about the space of one interview.
-
-		2. List
-			1. Arrays
-			2. Linked Lists
-			3. Stacks
-			4. Queues
-
-		3. Priority Queues
-			1. Heap: variants
-
-		4. NP-complete problems
-
-	4. Mathematics
-		1. Probability
-
-	5. Graph
-		1. Representation
-			1. 3 ways
-			2. Pros & Cons
-
-		2. BFS
-		3. DFS
-		4. Dijkstra
-		5. A*
-		6. Cycle detection
-
-	6. Operating Systems
-	7. System Design
-	8. Database
-		1. Normalization.
-		2. Normal forms.
-		3. Database interview questions
-
-	9. Network
-	10. Soft questions
+1. Coding: Java, Python, JavaScript, SQL.
+    1. OOP
+    2. Functional Prog
+    3. Unit testing
+    4. Logging
+    4. Package management
+    5. Language-specific
+2. Algorithms
+    1. Sorting
+        1. Quick sort, Merge sort, Heap sort, Insertion sort, Radix sort
+        6. Runtime
+    2. Binary search
+    3. Tree
+        1. Construction
+        2. Traversal
+    4. Dynamic Programming
+    5. Problems
+    6. Special algorithms
+3. Data structures
+    1. Hashtables
+        1. Implementation: You should be able to implement one using only arrays in your favorite language, in one interview.
+    2. List
+        1. Arrays
+        2. Linked Lists
+        3. Stacks
+        4. Queues
+    3. Priority Queues
+        1. Heap: variants of heap (binary, binomial, Fibonacci).
+    4. NP-complete problems
+        1. Traveling salesman. Knapsack problem.
+4. Mathematics
+    1. Probability
+5. Graph
+    1. Representation
+        1. 3 ways
+        2. Pros & Cons
+    2. BFS
+    3. DFS
+    4. Dijkstra
+    5. A*
+    6. Cycle detection
+6. Operating Systems
+    1. Dinasaur book.
+7. System Design
+8. Database
+    1. Normalization.
+    2. Normal forms.
+    3. Database interview questions
+9. Network
+10. Soft questions
 
 #### More on Technical Preparation
 
 Summarized from [this Google doc](https://docs.google.com/presentation/d/1_6c6eu1oaDcJeKGcu43wtal8OeFNL6xMmmoSiDt9l5A/edit?pref=2&pli=1#slide=id.gcb7e7ef4e_478_71).
 
-Algorithms: You will be expected to know the complexity of an algorithm and how you can improve/change it.
+Algorithms: You will be expected to know the complexity of an algorithm and how you can improve/change it. 
 Big-O notation is also known as the run time characteristic of an algorithm. 
 If you get a chance, try to study up on fancier algorithms, such as Dijkstra and A*. 
-For more information on algorithms you can visit TopCoder.
+For more information on algorithms you can visit TopCoder. 
 More on **Sorting**: What common sorting functions are there? On what kind of input data are they efficient, when are they not? What does efficiency mean in these cases in terms of runtime and space used? E.g. in exceptional cases insertion-sort or radix-sort are much better than the generic QuickSort / MergeSort / HeapSort answers.
 
 Testing: Candidates with 3+ years of industry experience should have hands on testing experience. 
-Less than 3 years we look for testing aptitude.  
+Less than 3 years we look for testing aptitude. 
 Expect questions like: How would you unit test the code you write? 
 What interesting inputs or test cases can you think of? 
 How would you design end to end, integration, load and performance or security tests for a real world system, for example Gmail?
@@ -105,18 +94,18 @@ System design: Candidates with 5+ years of industry experience are expected to h
 
 Books:
 
-	1. Programming Interview Exposed
-	2. Programming Perls
-	3. Cracking the Coding Interview
+1. Programming Interview Exposed
+2. Programming Perls
+3. Cracking the Coding Interview
 
 Publications:
 
-	* The Google File System
-	* Bigtable: A Distributed Storage System for Structured Data
-	* MapReduce: Simplified Data Processing on Large Clusters
-	* Google Spanner: Google's Globally-Distributed Database
-	* Google Chubby
+* The Google File System
+* Bigtable: A Distributed Storage System for Structured Data
+* MapReduce: Simplified Data Processing on Large Clusters
+* Google Spanner: Google's Globally-Distributed Database
+* Google Chubby
 
 Others:
 
-* [Student development](https://www.google.com/about/careers/students/guide-to-technical-development.html)
+* [Technical development](https://www.google.com/about/careers/students/guide-to-technical-development.html)
