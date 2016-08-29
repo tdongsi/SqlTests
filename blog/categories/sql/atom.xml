@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Sql | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/sql/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-08-29T00:56:21-07:00</updated>
+  <updated>2016-08-29T01:01:55-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -67,6 +67,77 @@ FROM Scores;
 @prev_col2:=t.Score
 FROM (SELECT Score FROM Scores ORDER BY Score DESC) t,
 (SELECT @dense:=0, @prev_col2:=NULL) var ) x
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: SELECT Basics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/"/>
+    <updated>2016-08-26T01:39:37-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics</id>
+    <content type="html"><![CDATA[<p>This post is about basic <code>SELECT</code> questions (phone-screen level).</p>
+
+<h3>Questions</h3>
+
+<pre><code class="plain Given Department schema">employees                             projects
++---------------+---------+           +---------------+---------+
+| id            | int     |&lt;----+  +-&gt;| id            | int     |
+| first_name    | varchar |     |  |  | title         | varchar |
+| last_name     | varchar |     |  |  | start_date    | date    |
+| salary        | int     |     |  |  | end_date      | date    |
+| department_id | int     |--+  |  |  | budget        | int     |
++---------------+---------+  |  |  |  +---------------+---------+
+                             |  |  |
+departments                  |  |  |  employees_projects
++---------------+---------+  |  |  |  +---------------+---------+
+| id            | int     |&lt;-+  |  +--| project_id    | int     |
+| name          | varchar |     +-----| employee_id   | int     |
++---------------+---------+           +---------------+---------+
+</code></pre>
+
+<h4>Question 1</h4>
+
+<pre><code class="plain Question 1">Write a query to list the departments that have a total combined salary greater than $40,000.
+
+Expected Output:
++-------------+----------------+
+| name        | combined_salary|
++-------------+----------------+
+| Engineering |        130000  |
+| Marketing   |         50000  |
++-------------+----------------+
+</code></pre>
+
+<!--more-->
+
+
+<h3>Answers</h3>
+
+<h4>Question 1</h4>
+
+<p>The sandbox uses MySQL which does not support WITH clause.
+See more MySQL workaround in <a href="/blog/2016/08/28/mysql-workaround/">here</a>.</p>
+
+<pre><code class="sql Answer 1">WITH dept_total AS (
+select department_id, sum(salary) as total
+from employees
+group by department_id
+having total &gt; 40000
+)
+select d.name, t.total
+from dept_total t
+join deparments d on t.department_id = d.id
+</code></pre>
+
+<pre><code class="sql MySQL Answer 1">select d.name, t.total
+from (
+  select department_id, sum(salary) as total
+from employees
+group by department_id
+having total &gt; 40000
+  ) t
+  join departments d ON t.department_id = d.id
 </code></pre>
 ]]></content>
   </entry>
