@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://tdongsi.github.io/SqlTests/blog/2016/08/26/mysql-workaround/</loc>
-<lastmod>2016-08-26T01:42:23-07:00</lastmod>
+<loc>http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround/</loc>
+<lastmod>2016-08-28T01:42:23-07:00</lastmod>
 </url>
 <url>
 <loc>http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/</loc>
@@ -15,6 +15,9 @@
 <loc>http://tdongsi.github.io/SqlTests/</loc>
 </url>
 <url>
+<loc>http://tdongsi.github.io/SqlTests/syllabus/</loc>
+</url>
+<url>
 <loc>http://tdongsi.github.io/SqlTests/blog/categories/facebook/</loc>
 </url>
 <url>
@@ -25,5 +28,8 @@
 </url>
 <url>
 <loc>http://tdongsi.github.io/SqlTests/blog/categories/tutorial/</loc>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/categories/sql/</loc>
 </url>
 </urlset>

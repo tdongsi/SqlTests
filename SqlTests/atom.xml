@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-08-28T11:00:10-07:00</updated>
+  <updated>2016-08-29T00:53:38-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/mysql-workaround/"/>
-    <updated>2016-08-26T01:42:23-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/mysql-workaround</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround/"/>
+    <updated>2016-08-28T01:42:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround</id>
     <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
 Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
 If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
