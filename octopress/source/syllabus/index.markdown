@@ -15,7 +15,7 @@ Namely, there will be Java, Python, JavaScript, SQL, Algorithm, Data Structure, 
 1. Coding: Java, Python, JavaScript, SQL.
     1. OOP
     2. Functional Prog
-    3. Unit testing
+    3. Unit testing ([Python], [Java], [JavaScript]) and [Overall testing](/blog/2016/09/02/tutorial-test-driven-development/)
     4. Logging
     4. Package management
     5. Language-specific
