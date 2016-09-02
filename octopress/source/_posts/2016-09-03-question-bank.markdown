@@ -37,6 +37,91 @@ LinkedIn
 1. Write a function that would find the largest palindrome (phone interview).
 1. Write a Binary Search Tree class with isBST() method that will validate if the tree is a BST (onsite). 
 
+Google
+
+1. Given a list of integers and another integer. Write a program that returns the posible combinations of the list which added, match the integer, numbers can repeat itself.
+2. Write a function to check if a string is palindrome? Write a function to return the largest Palindrome as possible in a given string. Hint: O(N)
+3. Check if Sudoku is valid
+4. You have unsorted array. You must design algorithm to create array where every even value is greater than it's odd neighbors. So if a(i) is value at index i (=0,1,2...n), the result must hold that: a1 < a2 > a3 < a4 > a5...
+5. Merge K sorted lists. 
+6. System design: design a system that given a point on earth will return the highest building in 100m radios. The question was developing. Start by assuming everything in memory. Then assume not everything fits, then use several machines, then consider what happens when one is down. The purpose is to answer as quickly as possible but you have preprocessing time.
+7. 0-1 Knapsack problem. NP-complete/NP-hard.
+8. Design a load balancer for web servers.
+
+Salesforce
+
+1. Q: Explain Encupsulation
+2. Q: Inheritance vs composition
+3. Q: What's the difference between tree and HashTable.
+4. Also asks me to create classes for file system API.
+5. How to ensure locking in Singleton class
+6. Do a producer consumer problem
+7. Reach 2D Pt x to Pt y in spiral form -> right -> down -> left -> up moving 1 point at a time.
+8. Find all words which start from particular letter (case insensitive)
+9. The number of paths in a m x n grid to a given cell?
+10. Given an ordered large array of integers, find all pairs of numbers that add up to a particular given sum.
+11. Given a regular English dictionary, and a word to start with (e.g. "head"), you can only change one letter a time, but every change has to be a word in the dictionary (e.g. head -> heal) What is the quickest way to an end word (e.g. "tail")?
+12. How to efficiently merge two sorted binary trees?
+13. Why its said a good practice to override() hashcode() of an object when you override equals()? 
+14. Given an array of integers, return top K elements from it.
+15. Given 2 unsorted integer arrays, get the intersection of the 2.   
+16. question about finding out the character that occurs most in a given string.
+17. What is the JRE and what does it have to do with .jar files? 
+18. Explain / implement a hash table.
+19. Given 3 tasks from 3 bosses, how would u handle the priority if you could only finish one of them.
+20. Three major difference between C++ and Java.
+21. Given a constant input stream of integers design a way to, at any point, return the current median of that stream.
+22. Get unique items from an array.
+23. given an binary search tree (that is, an ordered tree), how would you find the element of the tree at a particular "index", where index is defined as the position in the tree's ordering.
+24. Fastest way to find the middle node in a linked list
+25. Eliminate the duplicate elements from a given linked list.
+26. Union find algorithm.
+27. clockwise print out a M*N matrix. Solution: recursive
+28. Explain way to optimize SQL.
+    1. http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries
+
+29. Counting the frequency of words in a list.. hashtable with word keys and word count values..
+30. Find Pairs with least absolute difference in an given unsorted array.
+    1. NOTE: if the numbers are in a given range
+
+31. Explain difference in Heap and Stack memory for JVM.
+    1. http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html
+    2. https://www.youtube.com/watch?v=450maTzSIvA
+
+32. Image url parser from an html page and its child pages.  
+33. Implement Que using 2 stacks. write test cases for it.  
+34. Write thread safe singleton class  
+35. what are joins in database, some scenario where u used it
+36. Given two sorted arrays, find the intersection of the two arrays.
+37. Find duplicate from a very large list (trillion) of immutable integers in known range. O(N) and O(1) additional space solution.
+
+Set B
+5. JS - what is eval()
+6. JS - what is the diffenrence between == and ===
+9. How hashmaps work - hashCode and equals operators
+10. Principles of OO - encapsulation, inheritance
+11. What is synchronized?
+12. Big O of data searching on different data structures - array , linked list, hashtable
+13. Java difference of a hashtable and hashmap
+14. Something that you are proud of - code and other - industry related
+15. Describe a development process - engaging client - requirements - etc
+16. Favorite java classes
+17. What does AJAX stands for?
+18. what type of response can you get from and AJAX call - string or XML
+
+Set C:
+1) Describe Singleton in a Real Life Example , like if you want to explain concept of singleton pattern to your grandmother, who don't know the computer at all. what would be your approach.
+2) How would you design a Chat Session (gtalk) ?
+3) write program to calculate power(x,n) in log(n) time
+4) Find intersection node of two linked lists.
+6) Merge two sorted linked lists into one without extra space.
+7) Given an array, which contains integers in the range of 1 to n. one number is missing from it and one number is repeated in array. for ex -- array is {1,2,3,4,4,6,7,8,9} , range given is 1- n(n=9).
+determine which number is missing and which is repeated in array.
+8) given char array = {a,a,a,a,b,b,b,c,c,d,d,,e,,f,f}
+output should be -- {a,4,b,3,c,2,d,2,e,f,2}, i.e. occurrences of every element followed by character, without using other array.
+
+
+
 Others
 
 1. In-order traversal? In-order traversal without recursion?
