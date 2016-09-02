@@ -1,10 +1,11 @@
 ---
 layout: post
-title: "Question bank"
+title: "Algorithm Question bank"
 date: 2016-09-03 23:31:29 -0700
 comments: true
 categories: 
 - Questions
+- Algorithm
 - TODO
 ---
 
@@ -36,6 +37,43 @@ LinkedIn
 1. Write a function that would find the largest palindrome (phone interview).
 1. Write a Binary Search Tree class with isBST() method that will validate if the tree is a BST (onsite). 
 
+Others
+
+1. In-order traversal? In-order traversal without recursion?
+
+Old notes
+
+1) Implement a FIFO queue from 2 FILO stacks
+2) Calculate Fibonacci-like sequence: f(n) = f(n-1) + … + f(n-k) where f(i) = 0 if i < 0 and f(0) = 1. Your algorithm should avoid shifting lots of number.
+3) Given 2 sorted arrays, how do I get the median of the combined 2 arrays.
+4) Given a sorted array and a number k, find 2 number a, b such that a + b = k. Your algorithm should be O(n). If the array is unsorted, can you still do in O(n)? (This question is asked in Google phone interview and Salesforce onsite interview)
+5) Dynamic programming problems: at least one dynamic programming problem will be asked during on-site interview. It's unlikely in a phone interview.
+Given a number n, find a set such that
+
+	* Sum of all the elements should result into n.
+	* Multiplication of all the elements should be greater than any other similar set (whose elements result n when summed up).
+
+[edit]Concurrency
+	1. How to write a thread-safe or reentrant function. What is the difference between a reentrant function.
+
+		* Reentrant and thread-safe is actually two separate concepts.
+Object oriented programming
+	* What is OOP? What is abstraction, encapsulation, inheritance, polymorphism?
+	* 
+		* OOP: a programming paradigm that uses objects to design computer applications. Here, objects are special data structures that consist of data fields and methods interacting with those data fields. OOP techniques includes the followings: data abstraction, encapsulation, inheritance, polymorphism, messaging.
+		* Data abstraction: means that we interact with data in objects using its abstract interface. For example, we access private data of an object using its public methods. It is a mechanism to restrict the access to some of data structure's component, usually to separate the implementation details of the data structure.
+		* Encapsulation: in simple definition, the implementation details of a program is separated from its representation. It means that we separate "what an object can do" and "how the object do it".
+		* Inheritance: is the ability of a class to expand as a subclass, so that the code can be reused.
+		* Polymorphism: is the ability of a class can be considered as different forms.
+		* Message passing: in OOP, a message is the single means to pass control to an object. Alan Kay has argued that message passing is more important than objects in OOP, and that objects themselves are often over-emphasized [2].
+
+
 
 ### Answers
 
+
+3) [5]: The basic idea is that if you are given two arrays A and B and know the length of each, you can check whether an element A[i] is the median in constant time. Suppose that the median is A[i]. Since the array is sorted, it is greater than exactly i − 1 values in array A. Then if it is the median, it is also greater than exactly j = ceil(n/2) − (i − 1) elements in B. It requires constant time to check if B[j] <= A[i] <= B[j + 1]. If A[i] is not the median, then depending on whether A[i] is greater or less than B[j] and B[j + 1], you know that A[i] is either greater than or less than the median. Thus you can binary search for A[i] in O(lg n) worst-case time.
+4) Time O(n) and O(n) for sorted and unsorted array.
+
+	* If the array is sorted, use two pointers at the two ends of the aray.
+	* If the array is not sorted, create a hash table with keys as (k-a[i]). Then look up for each a[i] in the table. Table insertion and table look-up is O(1).

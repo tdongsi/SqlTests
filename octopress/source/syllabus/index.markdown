@@ -26,8 +26,10 @@ Namely, there will be Java, Python, JavaScript, SQL, Algorithm, Data Structure, 
     2. Binary search
     3. Tree
         1. Construction
-        2. Traversal
+        2. Traversal: BFS, DFS, Tree Insert, Tree Height.
+        3. Tries
     4. Dynamic Programming
+    5. Bit Manipulation
     5. Problems
     6. Special algorithms
 3. Data structures
