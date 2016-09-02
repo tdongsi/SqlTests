@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Database Question bank"
-date: 2016-09-02 01:41:54 -0700
+date: 2016-09-12 01:41:54 -0700
 comments: true
 categories: 
 - Questions
