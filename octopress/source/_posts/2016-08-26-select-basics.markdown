@@ -12,6 +12,8 @@ categories:
 
 This post is about basic `SELECT` questions (phone-screen level). 
 
+<!--more-->
+
 ### Questions
 
 ``` plain Given Department schema
@@ -44,8 +46,6 @@ Expected Output:
 | Marketing   |         50000  |
 +-------------+----------------+
 ```
-
-<!--more-->
 
 ### Answers
 

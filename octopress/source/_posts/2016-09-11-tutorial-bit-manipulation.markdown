@@ -17,6 +17,8 @@ categories:
 1. Subtraction using only bit manipulation.
 1. Find odd one out of pairs.
 
+<!--more-->
+
 ### Answers
 
 (1) Addition: Recursive formula `x + y = (x ^ y) + (x & y) << 1` is the most easy to understand.
