@@ -108,7 +108,7 @@ Audience is King. Know your audience.
 	* What level of confidence in data sources?
 
 
-Dashboard layout: F is the most natural for web/desktop viewing.
+Dashboard layout: F layout is the most natural for web/desktop viewing.
 
 
 == Module 5 & 6: Tableau ==

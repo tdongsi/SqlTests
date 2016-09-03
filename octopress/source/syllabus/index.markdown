@@ -15,7 +15,7 @@ Namely, there will be Java, Python, JavaScript, SQL, Algorithm, Data Structure, 
 1. Coding: Java, Python, JavaScript, SQL.
     1. OOP
     2. Functional Prog
-    3. Unit testing ([Python], [Java], [JavaScript]) and [Overall testing](/blog/2016/09/02/tutorial-test-driven-development/)
+    3. Unit testing and [Overall testing](/blog/2016/09/02/tutorial-test-driven-development/)
     4. Logging
     4. Package management
     5. Language-specific
@@ -50,19 +50,18 @@ Namely, there will be Java, Python, JavaScript, SQL, Algorithm, Data Structure, 
     1. Representation
         1. 3 ways
         2. Pros & Cons
-    2. BFS
-    3. DFS
-    4. Dijkstra
-    5. A*
+    2. BFS, DFS
+    4. Dijkstra, A*
     6. Cycle detection
-6. Operating Systems
-    1. Dinasaur book.
-7. System Design
+6. [Operating Systems](/blog/2016/09/07/questions-operating-system-drills/)
+    1. [Dinasaur book](/blog/2016/09/06/tutorial-process-synchronization/)
+7. [System Design](/blog/2016/09/14/system-design-questions/)
 8. Database
-    1. Normalization.
-    2. Normal forms.
-    3. Database interview questions
-9. Network
+    1. [Normalization, normal forms](/blog/2016/09/12/database-question-bank/).
+    2. [Data Warehouse, dimensional modeling](/blog/2016/09/15/tutorial-dimensional-modelling/).
+        1. [Business Analytics](/blog/2016/09/16/tutorial-dashboard-for-business-analytics/).
+    3. [Database interview questions](/blog/2016/09/12/database-question-bank/).
+9. [Network](/blog/2016/09/13/network-question-bank/)
 10. Soft questions
 
 #### More on Technical Preparation
