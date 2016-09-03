@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Facebook | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/facebook/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-08-29T01:01:55-07:00</updated>
+  <updated>2016-09-03T02:06:56-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,6 +12,239 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/"/>
+    <updated>2016-09-16T15:40:35-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics</id>
+    <content type="html"><![CDATA[<p>From &ldquo;Pluralsight: Business Dashboard Fundamentals&rdquo;.</p>
+
+<!--more-->
+
+
+<p>== Module  1 ==
+Ppl looks for different things in data</p>
+
+<pre><code>* Trend: bar, graph
+* Average
+</code></pre>
+
+<p>Above all else, show data.
+Data-pixel ratio: data pixels/non-data pixels.
+How to enhance data-pixel ratio:</p>
+
+<pre><code>* Granularity: depends on the question you want to answer
+* 
+    * monthly if you want to know monthly sales, daily if you want to know what happens last Tuesday.
+    * category or sub-category: you can have category with drill down function.
+
+* Annotation: similar to Granularity. Minimize it to enough to answer the question.
+</code></pre>
+
+<p>Tricks &amp; Tips:</p>
+
+<pre><code>* Plots (over Bars): plot show the trends for different components over time.
+* Sizing Bars: Preserve True Portions: starting Y from 0.
+* 
+    * Sizing Bars: shows proportions, relative progression.
+
+* Scatter Plots: show clusters, outliers.
+* Radio displays: usually a bad idea. Waste of space, hard to discern between slices.
+</code></pre>
+
+<p>== Module 2: Common Charts ==</p>
+
+<p>Basic data Presentation Methods - Chart Types</p>
+
+<pre><code>* Geo-Spatial - Maps: anything related to geographic distribution, i.e., when geography matters. e.g. real estates, oil industry.
+* Correlation - Scatter Plots: two measurements (e.g., sales to profit).
+* Hierarchical - Drill down Tree: data is hierarchical: Category -&gt; Subcateogries.
+* Categorical - Bar Charts: comparing categories (sales by region)
+* Time Series - Line Charts: progression over time. (sales by month)
+* 
+    * NOT: Area Charts.
+
+* Distribution - Histograms: Trying to answer what is “normal”. e.g., home prices, salaries.
+</code></pre>
+
+<p>Others</p>
+
+<pre><code>* Box plot: distribution, percentiles, median in 1 chart.
+* Bullet graph: actuals to target. Invented by Stephen Few.
+* 
+    * Dark bar is actual, reference line is target. Color code bands are average, good, bad target range.
+    * https://en.wikipedia.org/wiki/Bullet_graph
+
+* Sparkline: Multiple line charts. Best used for monitoring dashboard.
+* Heat map: Large combinations of dimensions. Color is everything here.
+</code></pre>
+
+<p>Charts to avoid</p>
+
+<pre><code>* Pie charts: angles make it hard to compare. Usually decorative, not informative. Space is wasted.
+* Polar charts
+* Stacked area charts:
+* 
+    * Only tell the story of the bottom line and the total. Anything in between, you can’t really tell if they are growing or not.
+    * Misleading/Confusing: is the top the total or another category?
+</code></pre>
+
+<p>== Module 3: Dashboard planning ==</p>
+
+<p>Steps:</p>
+
+<pre><code>* User Request
+* Prioritization
+* Planning
+* Design
+* Development
+* Delivery to User
+</code></pre>
+
+<p>== Module 4: Dashboard design ==</p>
+
+<p>Audience is King. Know your audience.</p>
+
+<pre><code>* Who is using it? 
+* Are they technical or prefer dumbed down answers? Are they intimate with data?
+* What is primary objective? What questions that they try to answer? What questions this dashboard MUST answer?
+* What impact of the answer? How will they use metrics? (Role, what decisions they make)
+* When will the dashboard is used? (Weekly? Daily?) Dashboard is exploratory or explanatory?
+* What level of confidence in data sources?
+</code></pre>
+
+<p>Dashboard layout: F layout is the most natural for web/desktop viewing.</p>
+
+<p>== Module 5 &amp; 6: Tableau ==</p>
+
+<p>Connecting to Data:
+You can connect to Excel, text file (csv or tab), or HP Vertica.
+You can specify data import like Excel or using Custom SQL.
+After importing, Tableau may import all data into its own internal data engine (with compression, data reorganization easier for analytics).
+It also divides data into dimensions and measures.
+Dimensions are further categorized into: geographic (e.g., region, postal code), number, text, date (e.g., calendar, order_date).
+Facts are usually numbers but it can be other categories: e.g., geographic for latitude/longitude measures.</p>
+
+<p>Dimensions: context for analysis
+Facts (Measures):</p>
+
+<p>Visualizing data:
+Tableau has “Show Me” button that gives suggestions for different combinations of dimensions and fact data.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/"/>
+    <updated>2016-09-15T15:38:20-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling</id>
+    <content type="html"><![CDATA[<p>From Kimball group reader.</p>
+
+<!--more-->
+
+
+<p>Design items:
+You need to do data profiling to keep data processed to min. One way to profile data changes is to use CDC column.
+Check CDC columns: e.g. last_update_ts. If CDC columns are not available, work with production system DBA to add one.
+Otherwise, check application log file/Message traffic.</p>
+
+<p>Item 1.5
+Divide data into dimension and fact tables: 90% of the time the division is obvious.</p>
+
+<pre><code>* Dimensions: static entities in the environment
+* 
+    * Text descriptions are obvious data going into dimension
+
+* Facts: numeric observations/measurements.
+* 
+    * Unpredictable, numeric numbers are the usual suspects.
+</code></pre>
+
+<p>Grain of fact table = a measurement in physical, real-world.</p>
+
+<p>Design steps:</p>
+
+<pre><code>* Determine the single physical event you want to record -&gt; fact table. Other details will follow in dimension tables.
+* 
+    * What event is a single row in fact table representing? E.g. for fact_sale_event, the grain is literally the beep of the scanner.
+
+* Strive to make facts additive.
+* 
+    * E.g.: Sale event can go into fact table as (price, unit), but the information (sale amount, unit) contains the same information but better since sale amount (aka extended price) = price * unit.
+
+* Some data can be in both. The goal is ease of use, not methodology correctness.
+* 
+    * E.g.: Coverage amount of insurance policies can be in both dim_coverage and fact_sale_event. 
+</code></pre>
+
+<p>Item 1.6
+Bus matrix to communicate/manage dimension tables.</p>
+
+<p>TODO: Table of bus matrix</p>
+
+<p>Item 1.8 Slow Changing Dimensions
+Type 0: Constant. Ignore changes.
+Type 1: Simple overwrite (best used for error correction).
+Type 2: Create another row and save history.
+The standard implementation is: surrogate key (PK), durable ID, … attributes …, effective_start_date, effective_end_date, change_reason, current_flag.</p>
+
+<p>Type 3: Create another column for alternate info.</p>
+
+<p>Item 1.10. Fact tables
+Data warehouse is built on fact tables expressed at the lowest possible grain.
+Higher grain aggregated tables such as category sales by district.
+Three kinds of fact tables:</p>
+
+<pre><code>1. Transaction Grain: corresponds to a measurement taken at a single instant.
+    1. Unpredictably sparse or dense.
+    2. Can be enormous. Cannot guarantee all possible foreign keys represented.
+    3. E.g.: fact_qbo_subscription_event
+
+2. Periodic Snapshot Grain: corresponds to a predefined span of time.
+    1. Predictably dense.
+    2. Can be large even there is no activity.
+    3. E.g.: Account balance for an account at some time.
+
+3. Accumulating Snapshot Grain.
+    1. Fact entries are overwritten and udpated.
+    2. E.g.: Order processing
+</code></pre>
+
+<p>Surrogate Keys (integer key, assigned in sequence) are recommended for Fact tables.
+In Vertica, CREATE SEQUENCE.</p>
+
+<p>Item 4.1
+Too smart interviewers make it harder to extract requirements from business:</p>
+
+<pre><code>* Long-winded questions
+* Even worse, some questions box the interviewee into a corner because of some bias. And the interviewees do not know how to get out.
+* 
+    * Just ask and listen. Let them guide you step by step.
+</code></pre>
+
+<p>Item 5.1-5.3: Compare normalized modeling (3NF) vs dimensional modeling (DM)
+Why dimensional modeling over normalized modeling?</p>
+
+<pre><code>1. Normalized modeling is intended for transactional databases, making update and delete efficient. It’s not needed in BI/DW.
+2. Normalized modeling for a complex business process will result in a very large ER diagram (similar to US cities-freeway maps). Business users cannot simply use that diagram to query what they need to know.
+    1. The result ER is usually overwhelming and cannot be viewed in its entirety.
+    2. E.g.: How to drive from SJ to NY? Maybe going to Sacramento through 580, then to Salt Lake City, and then what? Similarly, you need to know which table to join.
+    3. In the same analogy, it’s actually worse to join the tables since the tables are not static, they are moving cities.
+</code></pre>
+
+<p>Dimensional Modeling: top-down design process.</p>
+
+<pre><code>* each fact table represents a business process.
+* Support two operations: browse and multi-table joins.
+* It is important to keep the dimension tables flat, without being normalized into snowflake structure.
+</code></pre>
+
+<h3>Questions</h3>
+
+<p><a href="http://learndatamodeling.com/blog/data-modeling-interview-questions/">http://learndatamodeling.com/blog/data-modeling-interview-questions/</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
@@ -68,6 +301,70 @@ FROM Scores;
 FROM (SELECT Score FROM Scores ORDER BY Score DESC) t,
 (SELECT @dense:=0, @prev_col2:=NULL) var ) x
 </code></pre>
+
+<h3>Others</h3>
+
+<p>Question
+What you might come up.
+What actually works.
+Notes
+<a href="https://leetcode.com/problems/department-top-three-salaries/">https://leetcode.com/problems/department-top-three-salaries/</a>
+Write a SQL query to find employees who earn the top three salaries in each of the department.
+WITH temp AS (
+select Name, Salary, DepartmentId
+rank() OVER (partition by DepartmentId ORDER BY salary DESC) as rank
+)
+select d.Name as Department, e.Name as Name, e.Salary as Salary
+from temp e
+join Department d on e.DepartmentId = d.Id
+where t.rank &lt;= 3</p>
+
+<p>select d.Name as Department, e.Name as Employee, e.Salary as Salary
+from Employee e
+join Department d on e.DepartmentId = d.Id
+where (
+select count(distinct(e2.salary))
+from Employee e2
+where e.DepartmentId = e2.DepartmentId and e2.salary > e.salary
+) in (0,1,2)
+order by Department, Salary desc
+<a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department">http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department</a>
+For ideas to arrive at the solution.</p>
+
+<p><a href="https://leetcode.com/problems/rank-scores/">https://leetcode.com/problems/rank-scores/</a>
+Write dense_rank.
+select Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS Rank FROM Scores;
+SELECT Score, Rank FROM
+( SELECT t.Score,
+@dense:=IF(@prev_col2=t.Score, @dense, @dense+1) AS Rank,
+@prev_col2:=t.Score
+FROM (SELECT Score FROM Scores ORDER BY Score DESC) t, (SELECT @dense:=0, @prev_col2:=NULL) var ) x
+<a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/</a>
+<a href="https://leetcode.com/problems/delete-duplicate-emails/">https://leetcode.com/problems/delete-duplicate-emails/</a></p>
+
+<p>delete from Person
+where Id not in (select min(Id) from Person group by Email)
+delete from Person
+where Id not in
+(select * from
+(select min(Id) from Person group by Email) x)</p>
+
+<p><a href="https://leetcode.com/problems/nth-highest-salary/">https://leetcode.com/problems/nth-highest-salary/</a>
+N-th highest number in a column
+based on DENSE_RANK()
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      # Write your MySQL query statement below.
+      SELECT MAX(Salary)
+            FROM Employee Emp1
+            WHERE (N-1) = (
+                 SELECT COUNT(DISTINCT(Emp2.Salary))
+                        FROM Employee Emp2
+                        WHERE Emp2.Salary > Emp1.Salary)
+  );
+END
+<a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">https://github.com/kamyu104/LeetCode/tree/master/MySQL</a></p>
 ]]></content>
   </entry>
   
@@ -77,6 +374,9 @@ FROM (SELECT Score FROM Scores ORDER BY Score DESC) t,
     <updated>2016-08-26T01:39:37-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics</id>
     <content type="html"><![CDATA[<p>This post is about basic <code>SELECT</code> questions (phone-screen level).</p>
+
+<!--more-->
+
 
 <h3>Questions</h3>
 
@@ -108,9 +408,6 @@ Expected Output:
 | Marketing   |         50000  |
 +-------------+----------------+
 </code></pre>
-
-<!--more-->
-
 
 <h3>Answers</h3>
 

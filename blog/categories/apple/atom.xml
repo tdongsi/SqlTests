@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Apple | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/apple/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2016-09-03T02:06:56-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/11/tutorial-bit-manipulation/"/>
+    <updated>2016-09-11T01:23:25-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/11/tutorial-bit-manipulation</id>
+    <content type="html"><![CDATA[<h3>Questions</h3>
+
+<ol>
+<li>Addition using only bit manipulation.</li>
+<li>Subtraction using only bit manipulation.</li>
+<li>Find odd one out of pairs.</li>
+</ol>
+
+
+<!--more-->
+
+
+<h3>Answers</h3>
+
+<p>(1) Addition: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
+In code, it is implemented as follows:</p>
+
+<pre><code class="java Addition">    private int add(int a, int b) {
+        if(b == 0)
+            return a;
+
+        return add( a ^ b, (a &amp; b) &lt;&lt; 1);
+    }
+</code></pre>
+
+<p>(2) Subtraction: The recursive formula is <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code>.
+In code, it is implemented as follows:</p>
+
+<pre><code class="java Subtraction">TODO
+</code></pre>
+
+<p>(3) Find odd one.</p>
+
+<p>TODO: From hard-copy notes.</p>
+]]></content>
+  </entry>
+  
+</feed>

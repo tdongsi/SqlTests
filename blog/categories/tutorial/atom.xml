@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tutorial | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/tutorial/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-08-29T01:01:55-07:00</updated>
+  <updated>2016-09-03T02:06:56-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -14,60 +14,771 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround/"/>
-    <updated>2016-08-28T01:42:23-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround</id>
-    <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
-Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
-If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+    <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/"/>
+    <updated>2016-09-16T15:40:35-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics</id>
+    <content type="html"><![CDATA[<p>From &ldquo;Pluralsight: Business Dashboard Fundamentals&rdquo;.</p>
 
 <!--more-->
 
 
-<h3>WITH clause</h3>
+<p>== Module  1 ==
+Ppl looks for different things in data</p>
 
-<p>Use <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">nested subqueries</a>.</p>
-
-<h3>Analytic functions <code>ROW_NUMBER</code>, <code>RANK</code>, and <code>DENSE_RANK</code></h3>
-
-<p>Summary from <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
-
-<pre><code class="sql ROW_NUMBER, RANK, and DENSE_RANK functions in MySQL">-- In Vertica
-SELECT
-ROW_NUMBER () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS row_number,
-RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS rank,
-DENSE_RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS dense_rank,
-t.*
-FROM table_1 t
-
--- In MySQL
-SELECT
-@row_num:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, @row_num+1, 1) AS row_number,
-@rank:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2 AND @prev_col_3=col_3, @rank, @row_num) AS rank,
-@dense:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, IF(@prev_col_3=col_3, @dense, @dense+1), 1) AS dense_rank,
-@prev_col_1 = t.col_1,
-@prev_col_2 = t.col_2,
-@prev_col_3 = t.col_3,
-t.*
-FROM (SELECT * FROM table_1 ORDER BY col_1, col_2, col_3 DESC) t,
-     (SELECT @row_num:=1, @dense:=1, @rank:=1, @prev_col_1:=NULL, @prev_col_2:=NULL, @prev_col_3:=NULL) var
+<pre><code>* Trend: bar, graph
+* Average
 </code></pre>
 
-<p>In the following example, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
+<p>Above all else, show data.
+Data-pixel ratio: data pixels/non-data pixels.
+How to enhance data-pixel ratio:</p>
 
-<pre><code class="sql Solution in Vertica SQL">select Score,
-DENSE_RANK() OVER (ORDER BY Score DESC) AS Rank
-FROM Scores;
+<pre><code>* Granularity: depends on the question you want to answer
+* 
+    * monthly if you want to know monthly sales, daily if you want to know what happens last Tuesday.
+    * category or sub-category: you can have category with drill down function.
+
+* Annotation: similar to Granularity. Minimize it to enough to answer the question.
 </code></pre>
 
-<pre><code class="sql Solution in MySQL">SELECT Score, Rank FROM
-( SELECT t.Score,
-@dense:=IF(@prev_col2=t.Score, @dense, @dense+1) AS Rank,
-@prev_col2:=t.Score
-FROM (SELECT Score FROM Scores ORDER BY Score DESC) t,
-(SELECT @dense:=0, @prev_col2:=NULL) var ) x
+<p>Tricks &amp; Tips:</p>
+
+<pre><code>* Plots (over Bars): plot show the trends for different components over time.
+* Sizing Bars: Preserve True Portions: starting Y from 0.
+* 
+    * Sizing Bars: shows proportions, relative progression.
+
+* Scatter Plots: show clusters, outliers.
+* Radio displays: usually a bad idea. Waste of space, hard to discern between slices.
 </code></pre>
+
+<p>== Module 2: Common Charts ==</p>
+
+<p>Basic data Presentation Methods - Chart Types</p>
+
+<pre><code>* Geo-Spatial - Maps: anything related to geographic distribution, i.e., when geography matters. e.g. real estates, oil industry.
+* Correlation - Scatter Plots: two measurements (e.g., sales to profit).
+* Hierarchical - Drill down Tree: data is hierarchical: Category -&gt; Subcateogries.
+* Categorical - Bar Charts: comparing categories (sales by region)
+* Time Series - Line Charts: progression over time. (sales by month)
+* 
+    * NOT: Area Charts.
+
+* Distribution - Histograms: Trying to answer what is “normal”. e.g., home prices, salaries.
+</code></pre>
+
+<p>Others</p>
+
+<pre><code>* Box plot: distribution, percentiles, median in 1 chart.
+* Bullet graph: actuals to target. Invented by Stephen Few.
+* 
+    * Dark bar is actual, reference line is target. Color code bands are average, good, bad target range.
+    * https://en.wikipedia.org/wiki/Bullet_graph
+
+* Sparkline: Multiple line charts. Best used for monitoring dashboard.
+* Heat map: Large combinations of dimensions. Color is everything here.
+</code></pre>
+
+<p>Charts to avoid</p>
+
+<pre><code>* Pie charts: angles make it hard to compare. Usually decorative, not informative. Space is wasted.
+* Polar charts
+* Stacked area charts:
+* 
+    * Only tell the story of the bottom line and the total. Anything in between, you can’t really tell if they are growing or not.
+    * Misleading/Confusing: is the top the total or another category?
+</code></pre>
+
+<p>== Module 3: Dashboard planning ==</p>
+
+<p>Steps:</p>
+
+<pre><code>* User Request
+* Prioritization
+* Planning
+* Design
+* Development
+* Delivery to User
+</code></pre>
+
+<p>== Module 4: Dashboard design ==</p>
+
+<p>Audience is King. Know your audience.</p>
+
+<pre><code>* Who is using it? 
+* Are they technical or prefer dumbed down answers? Are they intimate with data?
+* What is primary objective? What questions that they try to answer? What questions this dashboard MUST answer?
+* What impact of the answer? How will they use metrics? (Role, what decisions they make)
+* When will the dashboard is used? (Weekly? Daily?) Dashboard is exploratory or explanatory?
+* What level of confidence in data sources?
+</code></pre>
+
+<p>Dashboard layout: F layout is the most natural for web/desktop viewing.</p>
+
+<p>== Module 5 &amp; 6: Tableau ==</p>
+
+<p>Connecting to Data:
+You can connect to Excel, text file (csv or tab), or HP Vertica.
+You can specify data import like Excel or using Custom SQL.
+After importing, Tableau may import all data into its own internal data engine (with compression, data reorganization easier for analytics).
+It also divides data into dimensions and measures.
+Dimensions are further categorized into: geographic (e.g., region, postal code), number, text, date (e.g., calendar, order_date).
+Facts are usually numbers but it can be other categories: e.g., geographic for latitude/longitude measures.</p>
+
+<p>Dimensions: context for analysis
+Facts (Measures):</p>
+
+<p>Visualizing data:
+Tableau has “Show Me” button that gives suggestions for different combinations of dimensions and fact data.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/"/>
+    <updated>2016-09-15T15:38:20-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling</id>
+    <content type="html"><![CDATA[<p>From Kimball group reader.</p>
+
+<!--more-->
+
+
+<p>Design items:
+You need to do data profiling to keep data processed to min. One way to profile data changes is to use CDC column.
+Check CDC columns: e.g. last_update_ts. If CDC columns are not available, work with production system DBA to add one.
+Otherwise, check application log file/Message traffic.</p>
+
+<p>Item 1.5
+Divide data into dimension and fact tables: 90% of the time the division is obvious.</p>
+
+<pre><code>* Dimensions: static entities in the environment
+* 
+    * Text descriptions are obvious data going into dimension
+
+* Facts: numeric observations/measurements.
+* 
+    * Unpredictable, numeric numbers are the usual suspects.
+</code></pre>
+
+<p>Grain of fact table = a measurement in physical, real-world.</p>
+
+<p>Design steps:</p>
+
+<pre><code>* Determine the single physical event you want to record -&gt; fact table. Other details will follow in dimension tables.
+* 
+    * What event is a single row in fact table representing? E.g. for fact_sale_event, the grain is literally the beep of the scanner.
+
+* Strive to make facts additive.
+* 
+    * E.g.: Sale event can go into fact table as (price, unit), but the information (sale amount, unit) contains the same information but better since sale amount (aka extended price) = price * unit.
+
+* Some data can be in both. The goal is ease of use, not methodology correctness.
+* 
+    * E.g.: Coverage amount of insurance policies can be in both dim_coverage and fact_sale_event. 
+</code></pre>
+
+<p>Item 1.6
+Bus matrix to communicate/manage dimension tables.</p>
+
+<p>TODO: Table of bus matrix</p>
+
+<p>Item 1.8 Slow Changing Dimensions
+Type 0: Constant. Ignore changes.
+Type 1: Simple overwrite (best used for error correction).
+Type 2: Create another row and save history.
+The standard implementation is: surrogate key (PK), durable ID, … attributes …, effective_start_date, effective_end_date, change_reason, current_flag.</p>
+
+<p>Type 3: Create another column for alternate info.</p>
+
+<p>Item 1.10. Fact tables
+Data warehouse is built on fact tables expressed at the lowest possible grain.
+Higher grain aggregated tables such as category sales by district.
+Three kinds of fact tables:</p>
+
+<pre><code>1. Transaction Grain: corresponds to a measurement taken at a single instant.
+    1. Unpredictably sparse or dense.
+    2. Can be enormous. Cannot guarantee all possible foreign keys represented.
+    3. E.g.: fact_qbo_subscription_event
+
+2. Periodic Snapshot Grain: corresponds to a predefined span of time.
+    1. Predictably dense.
+    2. Can be large even there is no activity.
+    3. E.g.: Account balance for an account at some time.
+
+3. Accumulating Snapshot Grain.
+    1. Fact entries are overwritten and udpated.
+    2. E.g.: Order processing
+</code></pre>
+
+<p>Surrogate Keys (integer key, assigned in sequence) are recommended for Fact tables.
+In Vertica, CREATE SEQUENCE.</p>
+
+<p>Item 4.1
+Too smart interviewers make it harder to extract requirements from business:</p>
+
+<pre><code>* Long-winded questions
+* Even worse, some questions box the interviewee into a corner because of some bias. And the interviewees do not know how to get out.
+* 
+    * Just ask and listen. Let them guide you step by step.
+</code></pre>
+
+<p>Item 5.1-5.3: Compare normalized modeling (3NF) vs dimensional modeling (DM)
+Why dimensional modeling over normalized modeling?</p>
+
+<pre><code>1. Normalized modeling is intended for transactional databases, making update and delete efficient. It’s not needed in BI/DW.
+2. Normalized modeling for a complex business process will result in a very large ER diagram (similar to US cities-freeway maps). Business users cannot simply use that diagram to query what they need to know.
+    1. The result ER is usually overwhelming and cannot be viewed in its entirety.
+    2. E.g.: How to drive from SJ to NY? Maybe going to Sacramento through 580, then to Salt Lake City, and then what? Similarly, you need to know which table to join.
+    3. In the same analogy, it’s actually worse to join the tables since the tables are not static, they are moving cities.
+</code></pre>
+
+<p>Dimensional Modeling: top-down design process.</p>
+
+<pre><code>* each fact table represents a business process.
+* Support two operations: browse and multi-table joins.
+* It is important to keep the dimension tables flat, without being normalized into snowflake structure.
+</code></pre>
+
+<h3>Questions</h3>
+
+<p><a href="http://learndatamodeling.com/blog/data-modeling-interview-questions/">http://learndatamodeling.com/blog/data-modeling-interview-questions/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[System Design Questions]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions/"/>
+    <updated>2016-09-14T02:13:01-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions</id>
+    <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
+
+<!--more-->
+
+
+<h3>Readings</h3>
+
+<p>For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize scalability problems that AWS services trying to address and replace, for example, &ldquo;AWS Load Balancer&rdquo; with generic load balancer.</p>
+
+<p>Read these to know the broad topics that are expected.</p>
+
+<ol>
+<li><a href="https://www.quora.com/What-system-design-distributed-systems-+-scalability-topics-should-I-study-in-order-to-adequately-prepared-for-a-Google-Software-Engineer-interview">Quora question</a></li>
+<li><a href="https://www.linkedin.com/pulse/technical-design-interview-guide-success-joey-addona">The Technical Design Interview - A Guide to Success</a></li>
+<li><a href="https://www.linkedin.com/pulse/test-design-architecture-interview-tips-success-kane-ho">Test Design &amp; Architecture Interview - Tips to success</a></li>
+</ol>
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>Design a simple file system using OO programming. Just folder and files.</li>
+<li>How to design a load balancer?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<p>(1) Design a simple file system using OO programming. Just folder and files.</p>
+
+<p>Use Composite pattern.</p>
+
+<pre><code class="java">class FileNode {
+  String name;
+}
+
+class File extends FileNode {
+  long size;
+}
+
+class Folder extends FileNode {
+  Collection&lt;FileNode&gt; children;
+}
+</code></pre>
+
+<p>(2) How to design a load balancer?</p>
+
+<p>Simple: hash and assign random. What are pros and cons?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/06/tutorial-process-synchronization/"/>
+    <updated>2016-09-06T00:35:03-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/06/tutorial-process-synchronization</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
+Topics in this chapter are the most intensive and frequently asked during interviews.</p>
+
+<!--more-->
+
+
+<p>This chapter discuss how to prevent concurrent access to shared data that may result in data inconsistency.</p>
+
+<h3>5.1 &amp; 5.2: Critical section</h3>
+
+<p>Consider the producer–consumer problem, which is representative of
+operating systems. Specifically, in Section 3.4.1, we described how a bounded
+buffer could be used to enable processes to share memory.</p>
+
+<pre><code class="cpp Producer process">while (true ) {
+
+  /* produce an item in next produced */
+  while (counter == BUFFER SIZE )
+    ; /* do nothing */
+
+  buffer[in] = next produced;
+  in = (in + 1) % BUFFER SIZE ;
+  counter++;
+}
+</code></pre>
+
+<pre><code class="cpp Consumer process">while (true ) {
+  while (counter == 0)
+    ; /* do nothing */
+
+  next consumed = buffer[out];
+  out = (out + 1) % BUFFER SIZE ;
+  counter--;
+  /* consume the item in next consumed */
+}
+</code></pre>
+
+<p>The above code works incorrectly in multi-thread or process situation, due to parallel modifications to &ldquo;counter&rdquo;.
+When several processes access and manipulate the same data concurrently and the
+outcome of the execution depends on the particular order in which the access
+takes place, is called a race condition.</p>
+
+<p>Critical section: No two processes are executing in their critical sections at the same time.
+Solution to a critical section problem requires:
+Mutual exclusion: only one process in CS at a time.
+Progress: Selection process should not be postponed indefinitely.
+Bounded waiting: once a process request to enter, waiting time is bounded.</p>
+
+<p>Nonpreemptive kernel does not allow a process running in kernel mode to be
+preempted; a kernel-mode process will run until it exits kernel mode, blocks,
+or voluntarily yields control of the CPU. A nonpreemptive kernel is essentially free from race conditions.
+A preemptive kernel may be more responsive, since there is less risk that a
+kernel-mode process will run for an arbitrarily long period.</p>
+
+<h3>5.3: Peterson&rsquo;s algorithm</h3>
+
+<pre><code class="cpp Peterson's algorithm">flag[i] = true
+turn = j
+
+while ( flag[j] &amp;&amp; turn == j ) {
+}
+
+// start of CS
+
+// end of CS
+flag[i] = false flag[j] = true
+turn = i
+
+while( flag[i] &amp;&amp; turn == i ) {
+}
+
+// start of CS
+
+// end of CS
+flag[j] = false
+</code></pre>
+
+<p>NOTE: <a href="http://en.wikipedia.org/wiki/Peterson's_algorithm">Peterson’s algorithm</a> is restricted to two processes.
+Filter algorithm: Peterson&rsquo;s algorithm for N processes
+The filter algorithm generalizes Peterson&rsquo;s algorithm for N processes. It uses N different levels - each represents another &lsquo;waiting room&rsquo;, before the critical section. Each level will allow at least one process to advance, while keeping one process in waiting.</p>
+
+<p><a href="http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms">http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms</a>
+Both processes indicates if the other want to enter CS, it can proceed. If both processes enter at the same time, turn will be set to i and j at the same time, and only one will last.
+Proof of bounded waiting: Pi will enter the CS after at most one entry by Pj.</p>
+
+<pre><code class="plain Analogies of Peterson's algorithm">Peterson's: "I want to enter."                 flag[0]=true;
+            "You can enter next."              turn=1;
+            "If you want to enter and          while(flag[1]==true&amp;&amp;turn==1){
+            it's your turn I'll wait."         }
+            Else: Enter CS!                    // CS
+            "I don't want to enter any more."  flag[0]=false;
+
+Dekker's:   "I want to enter."                 flag[0]=true;
+            "If you want to enter              while(flag[1]==true){
+             and if it's your turn               if(turn!=0){
+             I don't want to enter any more."      flag[0]=false;
+            "If it's your turn                     while(turn!=0){
+             I'll wait."                           }
+            "I want to enter."                     flag[0]=true;
+                                                 }
+                                               }
+            Enter CS!                          // CS
+            "You can enter next."              turn=1;
+            "I don't want to enter any more."  flag[0]=false;
+</code></pre>
+
+<h3>5.4: Sync using hardware</h3>
+
+<p>Protect critical section by locking.</p>
+
+<p>Many modern computer systems therefore provide special hardware
+instructions that allow us either to test and modify the content of a word or
+to swap the contents of two words atomically—that is, as one uninterruptible unit.</p>
+
+<p>Atomic test_and_set() and compare_and_swap() for locking:</p>
+
+<p>boolean test_and_set(boolean <em>target) {
+boolean rv = </em>target;
+*target = true;
+return rv;
+}</p>
+
+<p>int compare_and_swap(int <em>value, int expected, int new value) {
+int temp = </em>value;
+if (<em>value == expected)
+    </em>value = new value;
+return temp;
+}</p>
+
+<p>Simple Mutex with atomic test_and_set()
+Figure 5.5</p>
+
+<p>Bounded-Waiting mutex with atomic test_and_set(): data structure and algorithm
+Figure 5.7</p>
+
+<h3>5.5: Mutex locks</h3>
+
+<p>We use the mutex to lock to protect critical regions and thus prevent race conditions.</p>
+
+<p>Calls to either acquire() or release() must be performed atomically.</p>
+
+<p>acquire() {
+while (!available)
+; /<em> busy wait </em>/
+available = false;
+}</p>
+
+<p>release() {
+available = true;
+}
+Usage:</p>
+
+<p>acquire()</p>
+
+<p>// start of CS</p>
+
+<p>// end of CS</p>
+
+<p>release()</p>
+
+<p>The main disadvantage of the implementation given here is that it requires busy waiting. This type of mutex lock is also called a spinlock.
+Spinlocks do have an advantage, however, in that no context switch is required.</p>
+
+<h3>5.6: Semaphores</h3>
+
+<p>A semaphore S is an integer variable that, apart from initialization, is
+accessed only through two standard atomic operations: wait() and signal().</p>
+
+<p>wait(S) {
+while (S &lt;= 0 )
+; // busy wait
+S&ndash;;
+}</p>
+
+<p>signal(S) {
+S++;
+}</p>
+
+<p>The value of a counting semaphore can range over an unrestricted domain. Versus binary semaphore, which is similar to mutex.
+Counting semaphores can be used to control access to a given resources of a finite number of instances.</p>
+
+<p>We can also use semaphores to solve various synchronization problems.
+For example,consider two concurrently running processes: P1 with a statement
+S1 and P2 with a statement S2 . Suppose we require that S2 be executed only
+after S1 has completed. We can implement this scheme readily by letting P1
+and P2 share a common semaphore synch, initialized to 0. In process P1 , we
+insert the statements
+S1;
+signal(synch);</p>
+
+<p>In process P2 , we insert the statements
+wait(synch);
+S 2 ;</p>
+
+<p>Because synch is initialized to 0, P2 will execute S2 only after P1 has invoked
+signal(synch) , which is after statement S1 has been executed.</p>
+
+<p>Deadlock:
+P 0 P 1
+wait(S); wait(Q);
+wait(Q); wait(S);
+. .
+. .
+. .
+signal(S); signal(Q);
+signal(Q); signal(S);</p>
+
+<p>Priority inversion:
+The problem of priority inversion is when three processes of different priorities L &lt; M &lt; H. H is waiting for L to finish with a certain resource. M process becomes runnable and preempts L. Indirectly, process M with lower priority affects how long process H must wait for resource.
+It occurs when the system has more than two priorities. However, it is almost always the case.
+Solution: priority-inheritance protocol: all processes that use a resource, waited by a higher priority process, will inherit the highest priority until they are done with the resource.</p>
+
+<h4>Semaphore implementation</h4>
+
+<p>The naive definition of wait() and signal() above presents the same problem of busy waiting.
+In actual implementation, when a process execute wait() operation and find that semaphore value is not positive, it must wait. However, instead of busy waiting, the process block itself.
+In this implementation, semaphore values may be negative, while they are never negative in classical definition with busy waiting. If a semaphore value is negative, its magnitude indicates the number of waiting processes (note different order of decrement in wait()).</p>
+
+<p>It is critical that semaphore operations be executed atomically: no two processes can execute wait() and signal() operations on the same semaphore at the same time.
+In a multiprocessor environment, usually compare_and_swap() or spin locks are used to ensure wait() and signal() are atomic.
+So, we admit that busy waiting is NOT eliminated in this implementation. However, busy waiting is limited to CS of the wait() and signal() operations. These CSs are short (about 10 instructions). Thus, CS is almost never occupied, and busy waiting is rare and short, if ever happens.</p>
+
+<h3>5.7: Classic Problems of Synchronization</h3>
+
+<p>Use semaphores for synchronization. Actual implementation can use mutex instead of binary semaphore.</p>
+
+<p>Bounded-Buffer (Consumer-Producer) problem
+Problem: See 5.1.
+Solution: The producer and consumer share the following data structure:
+The mutex is used to provide mutual exclusion for accesses to the buffer pool.
+int n;
+semaphore mutex = 1;
+semaphore empty = n;
+semaphore full = 0</p>
+
+<p>Producer    Consumer
+do {
+&hellip;
+/<em> produce an item in next produced </em>/
+&hellip;
+wait(empty);
+wait(mutex);
+&hellip;
+/<em> add next produced to the buffer </em>/
+&hellip;
+signal(mutex);
+signal(full);
+} while (true);
+do {
+wait(full);
+wait(mutex);
+&hellip;
+/<em> remove an item from buffer to next consumed </em>/
+&hellip;
+signal(mutex);
+signal(empty);
+&hellip;
+/<em> consume the item in next consumed </em>/
+&hellip;
+} while (true);</p>
+
+<p>Reader-Writer problem:
+Writers should have exclusive access while writing to the shared database.
+There are several variants of “reader-writer” problems:
+First problem: No reader to be kept waiting unless a writer has already obtained accesss.
+Second problem: Once writer is ready, that writer perform its write ASAP. No new readers may start reading.
+A solution to either problem may result in starvation.</p>
+
+<p>Solution to first reader-writer problem: shared data structure
+semaphore rw_utex = 1;
+semaphore mutex = 1;
+int read count = 0;
+The mutex semaphore is used to ensure mutual exclusion when the variable read count is updated.
+The read count variable keeps track of how many processes are currently reading the object.
+The semaphore rw_mutex functions as a mutual exclusion semaphore for the writers.</p>
+
+<p>Writer  Reader
+do {
+wait(rw mutex);
+&hellip;
+/<em> writing is performed </em>/
+&hellip;
+signal(rw mutex);
+} while (true);
+do {
+wait(mutex);
+read count++;
+if (read count == 1)
+wait(rw mutex);
+signal(mutex);
+&hellip;
+/<em> reading is performed </em>/
+&hellip;
+wait(mutex);
+read count&ndash;;
+if (read count == 0)
+signal(rw mutex);
+signal(mutex);
+} while (true);</p>
+
+<p>Dining Philosopher problem: This solution can create a deadlock
+semaphore chopstick[5];</p>
+
+<p>do {
+wait(chopstick[i]);
+wait(chopstick[(i+1) % 5]);
+&hellip;
+/<em> eat for awhile </em>/
+&hellip;
+signal(chopstick[i]);
+signal(chopstick[(i+1) % 5]);
+&hellip;
+/<em> think for awhile </em>/
+&hellip;
+} while (true);</p>
+
+<p>Several possible remedies to the deadlock problem are replaced by:
+• Allow at most four philosophers to be sitting simultaneously at the table.
+• Allow a philosopher to pick up her chopsticks only if both chopsticks are
+available (to do this, she must pick them up in a critical section).
+• Use an asymmetric solution—that is,an odd-numbered philosopher picks
+up first her left chopstick and then her right chopstick, whereas an even-
+numbered philosopher picks up her right chopstick and then her left
+chopstick.</p>
+
+<p>In 5.8, we use monitor (equivalent to a waiter to tell which philosopher should eat) to provides deadlock-free solution.
+A deadlock-free solution does not necessarily eliminate the possibility of starvation.</p>
+
+<h3>5.8: Monitors</h3>
+
+<p>Semaphore is not a complete solution. If a single process is not well-behaved (semaphore used incorrectly), the system break down.
+Incorrect order of signal() and wait(): mutual exclusion is no longer guaranteed.
+wait() is used in place of signal(): a deadlock may occur.
+wait() or signal() or both are omitted: mutual exclusion violated or deadlock.</p>
+
+<p>Syntax of a monitor:</p>
+
+<p>Local variables of a monitor can be accessed by only the local functions. Only one process at a time is active within the monitor.
+We also defines condition construct: condition x, y; // condition variables
+The only operations that can be invoked on a condition variable are wait() and signal().
+The operation x.wait(); means that the process invoking this operation is suspended until another process invokes x.signal();
+The x.signal() operation resumes exactly one suspended process. If no process is suspended, then the signal() operation has no effect.
+(Different from semaphore’s signal(): semaphore() signal always change the state of semaphore, condition’s signal() may not).</p>
+
+<p>Dining Philosophers solution using Monitors:
+Monitor is acting like a waiter/moderator. Before a philosopher starts eating, she informs the waiter (invoked operation pickup()) and the waiter will tell her what to do.
+After she is done eating, she again informs the waiter (putdown()). It is still possible that some philosopher will starve to death.</p>
+
+<p>condition self[5];
+allows philosopher i to delay herself when she is hungry but is unable to obtain the chopsticks she needs.</p>
+
+<p>Implement a Monitor with Semaphores
+Check Section 5.8.3 page 229.</p>
+
+<p>Resuming Processes within a Monitor
+One simple solution is to use FIFO ordering.
+Another solution is conditional-wait construct, with c is the priority number input.
+x.wait&copy;;
+When x.signal() is executed, the process with the smallest priority number is resumed next.</p>
+
+<p>Java monitors
+Java uses monitor for thread synchronization.
+Every object in Java has a single lock associated with it. When a method is declared synchronized, calling the method requires owning the lock of the object.
+If the lock is not available, the synchronized method is placed in the entry set for the object’s lock.
+The Java Object class’s method wait() and notify() are similar to wait() and signal() statements for a monitor.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Estimation Theory]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/04/tutorial-estimation-theory/"/>
+    <updated>2016-09-04T23:40:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/04/tutorial-estimation-theory</id>
+    <content type="html"><![CDATA[<p>Math in Estimation theory.</p>
+
+<!--more-->
+
+
+<h3>Basic statistics</h3>
+
+<p>x and z is joinly Guassian when the combined vector y = [x z] is also Gaussian.
+Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The reverse is not true.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>: e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%.
+The first team is Spurs, who took lots of 2s.</p>
+
+<h3>Mingyang&rsquo;s thesis</h3>
+
+<p>Contributions:</p>
+
+<ol>
+<li>Analysis of EKF-SLAM and MSCKF. New estimator (MSCKF 2.0) with correct observability.</li>
+<li>Hybrid estimator that picks either EKF-SLAM formulation or MSCKF 2.0, depending on length of feature tracks.</li>
+<li>Online calibration of the spatial and temporal relationship between visual and inertial sensors.</li>
+<li>Sensor models for rolling shutter cameras and low-cost inertial sensors.
+
+<ol>
+<li>IMU axis misalignment, scale factors, and g-sensitivity affects inertial sensors.</li>
+<li>Image distortions from rolling shutter cameras.</li>
+</ol>
+</li>
+</ol>
+
+
+<p> Why? IMU and cameras are already found in several commercial resource-constrained devices (e.g., mobile phones and AR devices).</p>
+
+<h4>Contribution 1: EKF-SLAM and MSCKF -> MSCKF 2.0</h4>
+
+<p>EKF-SLAM formulation: current pose + feature positions.
+Since we are not doing mapping, only currently visible features are kept -> computational cost is bounded.</p>
+
+<p>MSCKF: a sliding window of poses.
+Measurements are used to impose the constraints on these poses.
+If a new feature is found, add a new pose to the state vector and augment covar matrix accordingly.
+Each feature is tracked until it goes out of field of view, then all of its observations are processed at once.
+A pose is only removed when all features associated with that pose have been processed.</p>
+
+<p>Consistency and accuracy of estimators are correlated.
+A recursive estimator is consistent if the estimation errors are zero-mean and have covariance matrix as reported by the estimator.</p>
+
+<p>Why difference? Assumptions:</p>
+
+<ul>
+<li>In EKF: IMU state and feature positions are jointly Gaussian. With non-linear measurement models, this is a strong assumption.
+
+<ul>
+<li>To improve it, need to pick another feature parameterization to make the measurement model closer to linear.</li>
+</ul>
+</li>
+<li>In MSCKF, there is no feature positions. No assumptions on feature positions are required.</li>
+<li>MSCKF delay linearization: only process each feature when all of its measurement are available -> better estimates -> better Jacobians -> better updates.</li>
+<li>In EKF-SLAM, using fewer observations: e.g., in standard XYZ parameterizaton, it can lead to wildly inaccurate estimates.</li>
+</ul>
+
+
+<h4>Contribution 2: Hybrid estimator, pick one</h4>
+
+<p>N: number of features.
+m: feature length: max number of observations per feature.</p>
+
+<p>MSCKF: O(N) and O(m<sup>3</sup>).
+EKF-SLAM: O(N<sup>3</sup>) and O(m).</p>
+
+<p>MSCKF is faster because of general distribution of features: because of feature detection algorithms, majority of features are detected close to the camera, where it will goes out of the FOV quickly (large N, small m).
+Cheddar Gorge data: many features are close to the car/camera, while a few are really far away.</p>
+
+<p>Depending on the length of feature tracks in current environment, use one.
+Given “many” measurements, nothing is gained by initializing features  observed fewer than m times.
+So, if the features is observed less than m times, use MSCKF. Otherwise, put it in the state vector and use EKF-SLAM.
+m (sliding window size) is to determined empirically: plotting and see the low points.</p>
+
+<h4>Contribution 3: Online camera-to-IMU calibration</h4>
+
+<p>Detailed identifiability analysis of these parameters.
+Time offset between the two measurements.
+The generate cases:</p>
+
+<ol>
+<li>Known cases</li>
+<li><p>Rare cases</p></li>
+<li><p>Degenerate cases: Recovery?</p>
+
+<ul>
+<li>Going in a straight line</li>
+<li>Constant acceleration with no rotation</li>
+<li>Constant velocity (no acceleration) with rotation about gravity vector only.</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Contribution 4: Models for low-cost sensors</h4>
 ]]></content>
   </entry>
   

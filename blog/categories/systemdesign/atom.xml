@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Systemdesign | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/systemdesign/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2016-09-03T02:06:56-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[System Design Questions]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions/"/>
+    <updated>2016-09-14T02:13:01-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions</id>
+    <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
+
+<!--more-->
+
+
+<h3>Readings</h3>
+
+<p>For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize scalability problems that AWS services trying to address and replace, for example, &ldquo;AWS Load Balancer&rdquo; with generic load balancer.</p>
+
+<p>Read these to know the broad topics that are expected.</p>
+
+<ol>
+<li><a href="https://www.quora.com/What-system-design-distributed-systems-+-scalability-topics-should-I-study-in-order-to-adequately-prepared-for-a-Google-Software-Engineer-interview">Quora question</a></li>
+<li><a href="https://www.linkedin.com/pulse/technical-design-interview-guide-success-joey-addona">The Technical Design Interview - A Guide to Success</a></li>
+<li><a href="https://www.linkedin.com/pulse/test-design-architecture-interview-tips-success-kane-ho">Test Design &amp; Architecture Interview - Tips to success</a></li>
+</ol>
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>Design a simple file system using OO programming. Just folder and files.</li>
+<li>How to design a load balancer?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<p>(1) Design a simple file system using OO programming. Just folder and files.</p>
+
+<p>Use Composite pattern.</p>
+
+<pre><code class="java">class FileNode {
+  String name;
+}
+
+class File extends FileNode {
+  long size;
+}
+
+class Folder extends FileNode {
+  Collection&lt;FileNode&gt; children;
+}
+</code></pre>
+
+<p>(2) How to design a load balancer?</p>
+
+<p>Simple: hash and assign random. What are pros and cons?</p>
+]]></content>
+  </entry>
+  
+</feed>

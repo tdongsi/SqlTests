@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Network | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/network/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2016-09-03T02:06:56-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Network Question Bank]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/13/network-question-bank/"/>
+    <updated>2016-09-13T01:45:07-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/13/network-question-bank</id>
+    <content type="html"><![CDATA[<p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>TCP/UDP and how they&rsquo;re used.</li>
+<li>Difference between IPv4 &amp; IPv6.</li>
+<li>How DNS works.</li>
+<li>HTTP and it&rsquo;s various versions.</li>
+<li>Basic understanding of SSL/TLS.</li>
+<li>Other application protocols (FTP, IMAP, SSH etc.)</li>
+<li>What is REST and how it&rsquo;s used.</li>
+</ol>
+
+
+<p>On the practical side, make sure you&rsquo;re very comfortable with the networking stack of your language or framework of choice.</p>
+
+<ol>
+<li>Make calls to an external web service.</li>
+<li>Handle errors and different response codes.</li>
+<li>Be able to serialize/deserialize data.</li>
+<li>Know async concepts.</li>
+<li>Accept user inputs and handle XSS attacks.</li>
+<li>Web - how do you keep information in a web application - cookie vs session</li>
+<li>What is GET and POST - differences</li>
+<li>Difference between PUT and POST.</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<h4>Section A</h4>
+
+<p>(1) See more <a href="http://www.howtogeek.com/190014/htg-explains-what-is-the-difference-between-tcp-and-udp/">here</a>.
+Both TCP and UDP are protocols used for sending packets over Internet.
+Built on top of Internet Protocol (IP). The packets are sent to an IP address.</p>
+
+<p>TCP: Transmission Control Protocol</p>
+
+<ol>
+<li>Two ways: the remote system sends packets back to acknowledge it’s received your packets.</li>
+<li>TCP guarantees the recipient will receive the packets in order by numbering them.</li>
+<li>TCP is about reliability: if ACK is not received, the sender will send packets again.</li>
+<li>Example usage: file download, web.</li>
+</ol>
+
+
+<p>UDP: User Datagram Protocol</p>
+
+<ol>
+<li>Just send the packets to receiver. No waiting for ACK.</li>
+<li>No guarantee: if receivers don’t receive it, too bad.</li>
+<li>No error checking for better performance.</li>
+<li>Example usage: game, live video stream.</li>
+</ol>
+
+
+<h4>Section B</h4>
+
+<p>(3) See more <a href="http://stackoverflow.com/questions/107390/whats-the-difference-between-a-post-and-a-put-http-request">here</a>.</p>
+
+<p>PUT is idempotent: multiple PUT requests will have the same effect. POST is not.
+To give examples of REST-style resources:
+&ldquo;POST /books&rdquo; with a bunch of book information might create a new book, and respond with the new URL identifying that book: &ldquo;/books/5&rdquo;.
+&ldquo;PUT /books/5&rdquo; would have to either create a new book with the id of 5, or replace the existing book with ID 5.</p>
+
+<p>In non-resource style, POST can be used for just about anything that has a side effect. One other difference is that PUT should be idempotent - multiple PUTs of the same data to the same URL should be fine, wheras multiple POSTs might create multiple objects or whatever it is your POST action does.</p>
+]]></content>
+  </entry>
+  
+</feed>

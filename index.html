@@ -9,8 +9,7 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="MySQL has traditionally lagged behind in support for the SQL standard.
-Unfortunately, from my experience, MySQL is often used as the sandbox for SQL &hellip;">
+  <meta name="description" content="From &ldquo;Pluralsight: Business Dashboard Fundamentals&rdquo;. ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +73,7 @@ Unfortunately, from my experience, MySQL is often used as the sandbox for SQL &h
       
   <header>
     
-      <h1 class="entry-title"><a href="/SqlTests/blog/2016/08/28/mysql-workaround/">Tutorial: MySQL Workarounds</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a></h1>
     
     
       <p class="meta">
@@ -83,22 +82,20 @@ Unfortunately, from my experience, MySQL is often used as the sandbox for SQL &h
 
 
 
-<time class='entry-date' datetime='2016-08-28T01:42:23-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:42 am</span></time>
+<time class='entry-date' datetime='2016-09-16T15:40:35-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>3:40 pm</span></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>MySQL has traditionally lagged behind in support for the SQL standard.
-Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
-If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+  <div class="entry-content"><p>From &ldquo;Pluralsight: Business Dashboard Fundamentals&rdquo;.</p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/SqlTests/blog/2016/08/28/mysql-workaround/">Read on &rarr;</a>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/">Read on &rarr;</a>
     </footer>
   
 
@@ -110,7 +107,7 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
       
   <header>
     
-      <h1 class="entry-title"><a href="/SqlTests/blog/2016/08/26/select-basics/">Questions: SELECT Basics</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">Tutorial: Dimensional Modelling</a></h1>
     
     
       <p class="meta">
@@ -119,76 +116,300 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 
 
 
-<time class='entry-date' datetime='2016-08-26T01:39:37-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:39 am</span></time>
+<time class='entry-date' datetime='2016-09-15T15:38:20-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>3:38 pm</span></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>This post is about basic <code>SELECT</code> questions (phone-screen level).</p>
+  <div class="entry-content"><p>From Kimball group reader.</p>
 
-<h3>Questions</h3>
-
-<figure class='code'><figcaption><span>Given Department schema</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>employees                             projects
-</span><span class='line'>+---------------+---------+           +---------------+---------+
-</span><span class='line'>| id            | int     |&lt;----+  +-&gt;| id            | int     |
-</span><span class='line'>| first_name    | varchar |     |  |  | title         | varchar |
-</span><span class='line'>| last_name     | varchar |     |  |  | start_date    | date    |
-</span><span class='line'>| salary        | int     |     |  |  | end_date      | date    |
-</span><span class='line'>| department_id | int     |--+  |  |  | budget        | int     |
-</span><span class='line'>+---------------+---------+  |  |  |  +---------------+---------+
-</span><span class='line'>                             |  |  |
-</span><span class='line'>departments                  |  |  |  employees_projects
-</span><span class='line'>+---------------+---------+  |  |  |  +---------------+---------+
-</span><span class='line'>| id            | int     |&lt;-+  |  +--| project_id    | int     |
-</span><span class='line'>| name          | varchar |     +-----| employee_id   | int     |
-</span><span class='line'>+---------------+---------+           +---------------+---------+</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">Read on &rarr;</a>
+    </footer>
+  
 
 
-<h4>Question 1</h4>
-
-<figure class='code'><figcaption><span>Question 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Write a query to list the departments that have a total combined salary greater than $40,000.
-</span><span class='line'>
-</span><span class='line'>Expected Output:
-</span><span class='line'>+-------------+----------------+
-</span><span class='line'>| name        | combined_salary|
-</span><span class='line'>+-------------+----------------+
-</span><span class='line'>| Engineering |        130000  |
-</span><span class='line'>| Marketing   |         50000  |
-</span><span class='line'>+-------------+----------------+</span></code></pre></td></tr></table></div></figure>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/14/system-design-questions/">System Design Questions</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
+
+
+<time class='entry-date' datetime='2016-09-14T02:13:01-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>2:13 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>How to practice for System Design questions and some design questions.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/14/system-design-questions/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/13/network-question-bank/">Network Question Bank</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-13T01:45:07-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:45 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/13/network-question-bank/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/12/database-question-bank/">Database Question Bank</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-12T01:41:54-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:41 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Questions about database in general. For data warehouse and dimensional modelling, check <a href="/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">this</a>.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/12/database-question-bank/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/11/tutorial-bit-manipulation/">Questions: Bit Manipulation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-11T01:23:25-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:23 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Questions</h3>
+
+<ol>
+<li>Addition using only bit manipulation.</li>
+<li>Subtraction using only bit manipulation.</li>
+<li>Find odd one out of pairs.</li>
+</ol>
 
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/SqlTests/blog/2016/08/26/select-basics/">Read on &rarr;</a>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/11/tutorial-bit-manipulation/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/07/questions-operating-system-drills/">Questions: Operating System Drills</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-07T00:42:41-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:42 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>From &ldquo;Operating System concepts&rdquo; book.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/07/questions-operating-system-drills/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/06/tutorial-process-synchronization/">Tutorial: Process Synchronization</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-06T00:35:03-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:35 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
+Topics in this chapter are the most intensive and frequently asked during interviews.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/06/tutorial-process-synchronization/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/04/tutorial-estimation-theory/">Tutorial: Estimation Theory</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-04T23:40:12-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:40 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Math in Estimation theory.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/04/tutorial-estimation-theory/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/09/03/question-bank/">Glassdoor: Algorithm Question Bank</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-03T23:31:29-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>11:31 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>These questions are gathered from Glassdoor.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/03/question-bank/">Read on &rarr;</a>
     </footer>
   
 
@@ -196,6 +417,8 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/SqlTests/posts/2">&larr; Older</a>
     
     <a href="/SqlTests/blog/archives">Blog Archives</a>
     
@@ -211,11 +434,43 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/SqlTests/blog/2016/08/28/mysql-workaround/">Tutorial: MySQL Workarounds</a>
+        <a href="/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a>
       </li>
     
       <li class="post">
-        <a href="/SqlTests/blog/2016/08/26/select-basics/">Questions: SELECT Basics</a>
+        <a href="/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">Tutorial: Dimensional Modelling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/14/system-design-questions/">System Design Questions</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/13/network-question-bank/">Network Question Bank</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/12/database-question-bank/">Database Question Bank</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/11/tutorial-bit-manipulation/">Questions: Bit Manipulation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/07/questions-operating-system-drills/">Questions: Operating System Drills</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/06/tutorial-process-synchronization/">Tutorial: Process Synchronization</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/04/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/03/question-bank/">Glassdoor: Algorithm Question Bank</a>
       </li>
     
   </ul>
@@ -223,7 +478,7 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/facebook/'>facebook (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (4)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (7)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (1)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (10)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li></ul>
 </section>
 
 

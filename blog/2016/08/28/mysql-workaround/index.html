@@ -170,6 +170,70 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 </span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col2</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">)</span> <span class="n">var</span> <span class="p">)</span> <span class="n">x</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<h3>Others</h3>
+
+<p>Question
+What you might come up.
+What actually works.
+Notes
+<a href="https://leetcode.com/problems/department-top-three-salaries/">https://leetcode.com/problems/department-top-three-salaries/</a>
+Write a SQL query to find employees who earn the top three salaries in each of the department.
+WITH temp AS (
+select Name, Salary, DepartmentId
+rank() OVER (partition by DepartmentId ORDER BY salary DESC) as rank
+)
+select d.Name as Department, e.Name as Name, e.Salary as Salary
+from temp e
+join Department d on e.DepartmentId = d.Id
+where t.rank &lt;= 3</p>
+
+<p>select d.Name as Department, e.Name as Employee, e.Salary as Salary
+from Employee e
+join Department d on e.DepartmentId = d.Id
+where (
+select count(distinct(e2.salary))
+from Employee e2
+where e.DepartmentId = e2.DepartmentId and e2.salary > e.salary
+) in (0,1,2)
+order by Department, Salary desc
+<a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department">http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department</a>
+For ideas to arrive at the solution.</p>
+
+<p><a href="https://leetcode.com/problems/rank-scores/">https://leetcode.com/problems/rank-scores/</a>
+Write dense_rank.
+select Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS Rank FROM Scores;
+SELECT Score, Rank FROM
+( SELECT t.Score,
+@dense:=IF(@prev_col2=t.Score, @dense, @dense+1) AS Rank,
+@prev_col2:=t.Score
+FROM (SELECT Score FROM Scores ORDER BY Score DESC) t, (SELECT @dense:=0, @prev_col2:=NULL) var ) x
+<a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/</a>
+<a href="https://leetcode.com/problems/delete-duplicate-emails/">https://leetcode.com/problems/delete-duplicate-emails/</a></p>
+
+<p>delete from Person
+where Id not in (select min(Id) from Person group by Email)
+delete from Person
+where Id not in
+(select * from
+(select min(Id) from Person group by Email) x)</p>
+
+<p><a href="https://leetcode.com/problems/nth-highest-salary/">https://leetcode.com/problems/nth-highest-salary/</a>
+N-th highest number in a column
+based on DENSE_RANK()
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      # Write your MySQL query statement below.
+      SELECT MAX(Salary)
+            FROM Employee Emp1
+            WHERE (N-1) = (
+                 SELECT COUNT(DISTINCT(Emp2.Salary))
+                        FROM Employee Emp2
+                        WHERE Emp2.Salary > Emp1.Salary)
+  );
+END
+<a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">https://github.com/kamyu104/LeetCode/tree/master/MySQL</a></p>
 </div>
 
 
@@ -190,7 +254,7 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 
 <span class="categories">
   
-    <a class='category' href='/SqlTests/blog/categories/facebook/'>facebook</a>, <a class='category' href='/SqlTests/blog/categories/mysql/'>mysql</a>, <a class='category' href='/SqlTests/blog/categories/sql/'>sql</a>, <a class='category' href='/SqlTests/blog/categories/tutorial/'>tutorial</a>
+    <a class='category' href='/SqlTests/blog/categories/facebook/'>facebook</a>, <a class='category' href='/SqlTests/blog/categories/mysql/'>mysql</a>, <a class='category' href='/SqlTests/blog/categories/sql/'>sql</a>, <a class='category' href='/SqlTests/blog/categories/todo/'>todo</a>, <a class='category' href='/SqlTests/blog/categories/tutorial/'>tutorial</a>
   
 </span>
 
@@ -213,6 +277,8 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
         <a class="basic-alignment left" href="/SqlTests/blog/2016/08/26/select-basics/" title="Previous Post: Questions: SELECT basics">&laquo; Questions: SELECT basics</a>
       
       
+        <a class="basic-alignment right" href="/SqlTests/blog/2016/09/02/tutorial-test-driven-development/" title="Next Post: Tutorial: Test-Driven Development">Tutorial: Test-Driven Development &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -229,11 +295,43 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/SqlTests/blog/2016/08/28/mysql-workaround/">Tutorial: MySQL Workarounds</a>
+        <a href="/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a>
       </li>
     
       <li class="post">
-        <a href="/SqlTests/blog/2016/08/26/select-basics/">Questions: SELECT Basics</a>
+        <a href="/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">Tutorial: Dimensional Modelling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/14/system-design-questions/">System Design Questions</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/13/network-question-bank/">Network Question Bank</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/12/database-question-bank/">Database Question Bank</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/11/tutorial-bit-manipulation/">Questions: Bit Manipulation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/07/questions-operating-system-drills/">Questions: Operating System Drills</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/06/tutorial-process-synchronization/">Tutorial: Process Synchronization</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/04/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/03/question-bank/">Glassdoor: Algorithm Question Bank</a>
       </li>
     
   </ul>
@@ -241,7 +339,7 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/facebook/'>facebook (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (4)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (7)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (1)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (10)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li></ul>
 </section>
 
 
