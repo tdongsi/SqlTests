@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-06T23:27:44-07:00</updated>
+  <updated>2016-09-07T01:01:31-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -67,7 +67,7 @@ In code, it is implemented as follows:</p>
 
 <h3>Questions</h3>
 
-<p>LinkedIn</p>
+<h4>LinkedIn</h4>
 
 <ol>
 <li>Serialize binary tree.</li>
@@ -92,7 +92,7 @@ In code, it is implemented as follows:</p>
 </ol>
 
 
-<p>Google</p>
+<h4>Google</h4>
 
 <ol>
 <li>Given a list of integers and another integer. Write a program that returns the posible combinations of the list which added, match the integer, numbers can repeat itself.</li>
@@ -106,7 +106,7 @@ In code, it is implemented as follows:</p>
 </ol>
 
 
-<p>Salesforce</p>
+<h4>Salesforce</h4>
 
 <ol>
 <li>Q: Explain Encupsulation</li>
@@ -136,27 +136,27 @@ In code, it is implemented as follows:</p>
 <li>Eliminate the duplicate elements from a given linked list.</li>
 <li>Union find algorithm.</li>
 <li>clockwise print out a M*N matrix. Solution: recursive</li>
-<li><p>Explain way to optimize SQL.</p>
+<li>Explain way to optimize SQL.
 
 <ol>
 <li><a href="http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries">http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries</a></li>
 </ol>
 </li>
-<li><p>Counting the frequency of words in a list.. hashtable with word keys and word count values..</p></li>
-<li><p>Find Pairs with least absolute difference in an given unsorted array.</p>
+<li>Counting the frequency of words in a list.. hashtable with word keys and word count values..</li>
+<li>Find Pairs with least absolute difference in an given unsorted array.
 
 <ol>
 <li>NOTE: if the numbers are in a given range</li>
 </ol>
 </li>
-<li><p>Explain difference in Heap and Stack memory for JVM.</p>
+<li>Explain difference in Heap and Stack memory for JVM.
 
 <ol>
 <li><a href="http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html">http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html</a></li>
 <li><a href="https://www.youtube.com/watch?v=450maTzSIvA">https://www.youtube.com/watch?v=450maTzSIvA</a></li>
 </ol>
 </li>
-<li><p>Image url parser from an html page and its child pages.</p></li>
+<li>Image url parser from an html page and its child pages.</li>
 <li>Implement Que using 2 stacks. write test cases for it.</li>
 <li>Write thread safe singleton class</li>
 <li>what are joins in database, some scenario where u used it</li>
@@ -165,75 +165,116 @@ In code, it is implemented as follows:</p>
 </ol>
 
 
-<p>Set B
-5. JS - what is eval()
-6. JS - what is the diffenrence between == and ===
-9. How hashmaps work - hashCode and equals operators
-10. Principles of OO - encapsulation, inheritance
-11. What is synchronized?
-12. Big O of data searching on different data structures - array , linked list, hashtable
-13. Java difference of a hashtable and hashmap
-14. Something that you are proud of - code and other - industry related
-15. Describe a development process - engaging client - requirements - etc
-16. Favorite java classes
-17. What does AJAX stands for?
-18. what type of response can you get from and AJAX call - string or XML</p>
-
-<p>Set C:
-1) Describe Singleton in a Real Life Example , like if you want to explain concept of singleton pattern to your grandmother, who don&rsquo;t know the computer at all. what would be your approach.
-2) How would you design a Chat Session (gtalk) ?
-3) write program to calculate power(x,n) in log(n) time
-4) Find intersection node of two linked lists.
-6) Merge two sorted linked lists into one without extra space.
-7) Given an array, which contains integers in the range of 1 to n. one number is missing from it and one number is repeated in array. for ex &ndash; array is {1,2,3,4,4,6,7,8,9} , range given is 1- n(n=9).
-determine which number is missing and which is repeated in array.
-8) given char array = {a,a,a,a,b,b,b,c,c,d,d,,e,,f,f}
-output should be &ndash; {a,4,b,3,c,2,d,2,e,f,2}, i.e. occurrences of every element followed by character, without using other array.</p>
-
-<p>Others</p>
+<p>Set B</p>
 
 <ol>
+<li>JS - what is eval()</li>
+<li>JS - what is the diffenrence between == and ===</li>
+<li>How hashmaps work - hashCode and equals operators</li>
+<li>Principles of OO - encapsulation, inheritance</li>
+<li>What is synchronized?</li>
+<li>Big O of data searching on different data structures - array , linked list, hashtable</li>
+<li>Java difference of a hashtable and hashmap</li>
+<li>Something that you are proud of - code and other - industry related</li>
+<li>Describe a development process - engaging client - requirements - etc</li>
+<li>Favorite java classes</li>
+<li>What does AJAX stands for?</li>
+<li>what type of response can you get from and AJAX call - string or XML</li>
+</ol>
+
+
+<p>Set C:</p>
+
+<ol>
+<li>Describe Singleton in a Real Life Example , like if you want to explain concept of singleton pattern to your grandmother, who don&rsquo;t know the computer at all. what would be your approach.</li>
+<li>How would you design a Chat Session (gtalk) ?</li>
+<li>write program to calculate power(x,n) in log(n) time</li>
+<li>Find intersection node of two linked lists.</li>
+<li>Merge two sorted linked lists into one without extra space.</li>
+<li>Given an array, which contains integers in the range of 1 to n. one number is missing from it and one number is repeated in array. for ex &ndash; array is {1,2,3,4,4,6,7,8,9} , range given is 1- n(n=9).
+determine which number is missing and which is repeated in array.</li>
+<li>given char array = {a,a,a,a,b,b,b,c,c,d,d,,e,,f,f}
+output should be &ndash; {a,4,b,3,c,2,d,2,e,f,2}, i.e. occurrences of every element followed by character, without using other array.</li>
+</ol>
+
+
+<h4>Others</h4>
+
+<ol>
+<li>Implement a FIFO queue from 2 FILO stacks</li>
+<li>Calculate Fibonacci-like sequence: f(n) = f(n-1) + … + f(n-k) where f(i) = 0 if i &lt; 0 and f(0) = 1. Your algorithm should avoid shifting lots of number.</li>
+<li>Given 2 sorted arrays, how do I get the median of the combined 2 arrays.</li>
+<li>Given a sorted array and a number k, find 2 number a, b such that a + b = k. Your algorithm should be O(n). If the array is unsorted, can you still do in O(n)?</li>
 <li>In-order traversal? In-order traversal without recursion?</li>
 </ol>
 
 
-<p>Old notes</p>
+<h4>Dynamic programming problems</h4>
 
-<p>1) Implement a FIFO queue from 2 FILO stacks
-2) Calculate Fibonacci-like sequence: f(n) = f(n-1) + … + f(n-k) where f(i) = 0 if i &lt; 0 and f(0) = 1. Your algorithm should avoid shifting lots of number.
-3) Given 2 sorted arrays, how do I get the median of the combined 2 arrays.
-4) Given a sorted array and a number k, find 2 number a, b such that a + b = k. Your algorithm should be O(n). If the array is unsorted, can you still do in O(n)? (This question is asked in Google phone interview and Salesforce onsite interview)
-5) Dynamic programming problems: at least one dynamic programming problem will be asked during on-site interview. It&rsquo;s unlikely in a phone interview.
-Given a number n, find a set such that</p>
+<p>At least one dynamic programming problem will be asked during on-site interview.</p>
 
-<pre><code>* Sum of all the elements should result into n.
-* Multiplication of all the elements should be greater than any other similar set (whose elements result n when summed up).
-</code></pre>
+<ol>
+<li>Given a number n, find a set such that
 
-<p>[edit]Concurrency
-    1. How to write a thread-safe or reentrant function. What is the difference between a reentrant function.</p>
+<ul>
+<li>Sum of all the elements should result into n.</li>
+<li>Multiplication of all the elements should be greater than any other similar set (whose elements result n when summed up).</li>
+</ul>
+</li>
+</ol>
 
-<pre><code>    * Reentrant and thread-safe is actually two separate concepts.
-</code></pre>
 
-<p>Object oriented programming
-    * What is OOP? What is abstraction, encapsulation, inheritance, polymorphism?
-    *
-        * OOP: a programming paradigm that uses objects to design computer applications. Here, objects are special data structures that consist of data fields and methods interacting with those data fields. OOP techniques includes the followings: data abstraction, encapsulation, inheritance, polymorphism, messaging.
-        * Data abstraction: means that we interact with data in objects using its abstract interface. For example, we access private data of an object using its public methods. It is a mechanism to restrict the access to some of data structure&rsquo;s component, usually to separate the implementation details of the data structure.
-        * Encapsulation: in simple definition, the implementation details of a program is separated from its representation. It means that we separate &ldquo;what an object can do&rdquo; and &ldquo;how the object do it&rdquo;.
-        * Inheritance: is the ability of a class to expand as a subclass, so that the code can be reused.
-        * Polymorphism: is the ability of a class can be considered as different forms.
-        * Message passing: in OOP, a message is the single means to pass control to an object. Alan Kay has argued that message passing is more important than objects in OOP, and that objects themselves are often over-emphasized [2].</p>
+<h4>Concurrency</h4>
+
+<ol>
+<li>How to write a thread-safe or reentrant function. What is the difference between a reentrant function and thread-safe function?
+
+<ul>
+<li>Reentrant and thread-safe is actually two separate concepts.</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Object oriented programming</h4>
+
+<ol>
+<li>What is OOP? What is abstraction, encapsulation, inheritance, polymorphism?</li>
+</ol>
+
 
 <h3>Answers</h3>
 
-<p>3) [5]: The basic idea is that if you are given two arrays A and B and know the length of each, you can check whether an element A[i] is the median in constant time. Suppose that the median is A[i]. Since the array is sorted, it is greater than exactly i − 1 values in array A. Then if it is the median, it is also greater than exactly j = ceil(n/2) − (i − 1) elements in B. It requires constant time to check if B[j] &lt;= A[i] &lt;= B[j + 1]. If A[i] is not the median, then depending on whether A[i] is greater or less than B[j] and B[j + 1], you know that A[i] is either greater than or less than the median. Thus you can binary search for A[i] in O(lg n) worst-case time.
-4) Time O(n) and O(n) for sorted and unsorted array.</p>
+<h4>Others</h4>
 
-<pre><code>* If the array is sorted, use two pointers at the two ends of the aray.
-* If the array is not sorted, create a hash table with keys as (k-a[i]). Then look up for each a[i] in the table. Table insertion and table look-up is O(1).
-</code></pre>
+<p>(3) Given 2 sorted arrays, how do I get the median of the combined 2 arrays?</p>
+
+<p>The basic idea is that if you are given two arrays A and B and know the length of each, you can check whether an element A[i] is the median in constant time. Suppose that the median is A[i].
+Since the array is sorted, it is greater than exactly i − 1 values in array A.
+Then if it is the median, it is also greater than exactly j = ceil(n/2) − (i − 1) elements in B.
+It requires constant time to check if B[j] &lt;= A[i] &lt;= B[j + 1].
+If A[i] is not the median, then depending on whether A[i] is greater or less than B[j] and B[j + 1], you know that A[i] is either greater than or less than the median.
+Thus you can binary search for A[i] in O(lg n) worst-case time.</p>
+
+<p>(4) Given a sorted array and a number k, find 2 number a, b such that a + b = k.</p>
+
+<p>Time O(n) and O(n) for sorted and unsorted array.
+a) If the array is sorted, use two pointers at the two ends of the aray.
+b) If the array is not sorted, create a hash table with keys as (k-a[i]). Then look up for each a[i] in the table. Table insertion and table look-up is O(1).</p>
+
+<h4>OOP</h4>
+
+<p>(1) What is OOP?</p>
+
+<ul>
+<li>OOP: a programming paradigm that uses objects to design computer applications. Here, objects are special data structures that consist of data fields and methods interacting with those data fields. OOP techniques includes the followings: data abstraction, encapsulation, inheritance, polymorphism, messaging.</li>
+<li>Data abstraction: means that we interact with data in objects using its abstract interface. For example, we access private data of an object using its public methods. It is a mechanism to restrict the access to some of data structure&rsquo;s component, usually to separate the implementation details of the data structure.</li>
+<li>Encapsulation: in simple definition, the implementation details of a program is separated from its representation. It means that we separate &ldquo;what an object can do&rdquo; and &ldquo;how the object do it&rdquo;.</li>
+<li>Inheritance: is the ability of a class to expand as a subclass, so that the code can be reused.</li>
+<li>Polymorphism: is the ability of a class can be considered as different forms.</li>
+<li>Message passing: in OOP, a message is the single means to pass control to an object. Alan Kay has argued that message passing is more important than objects in OOP, and that objects themselves are often over-emphasized.</li>
+</ul>
+
 ]]></content>
   </entry>
   
