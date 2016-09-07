@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-03T02:06:56-07:00</updated>
+  <updated>2016-09-06T23:27:44-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -1511,9 +1511,96 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 <!--more-->
 
 
+<h3>Summary</h3>
+
+<p>Questions in this post and MySQL answers:</p>
+
+<ol>
+<li><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>: Write a SQL query to find employees who earn the top three salaries in each of the department.</li>
+<li><a href="https://leetcode.com/problems/nth-highest-salary/">Question</a>: Write a function that return the given <code>n</code>-th highest salary.</li>
+<li><a href="https://leetcode.com/problems/rank-scores/">Question</a>: Write a SQL query to rank scores (dense_rank).</li>
+<li><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>: Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</li>
+</ol>
+
+
 <h3>WITH clause</h3>
 
 <p>Use <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">nested subqueries</a>.</p>
+
+<p><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>:
+Write a SQL query to find employees who earn the top three salaries in each of the department.</p>
+
+<figure class='code'><figcaption><span>What you might come up</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">WITH</span> <span class="n">temp</span> <span class="k">AS</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Salary</span><span class="p">,</span> <span class="n">DepartmentId</span>
+</span><span class='line'><span class="n">rank</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">DepartmentId</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">salary</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">as</span> <span class="n">rank</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Department</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Salary</span> <span class="k">as</span> <span class="n">Salary</span>
+</span><span class='line'><span class="k">from</span> <span class="n">temp</span> <span class="n">e</span>
+</span><span class='line'><span class="k">join</span> <span class="n">Department</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">Id</span>
+</span><span class='line'><span class="k">where</span> <span class="n">t</span><span class="p">.</span><span class="n">rank</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Answer: based on <a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department%0AFor%20ideas%20to%20arrive%20at%20the%20solution">this</a>.</p>
+
+<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Department</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Employee</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Salary</span> <span class="k">as</span> <span class="n">Salary</span>
+</span><span class='line'><span class="k">from</span> <span class="n">Employee</span> <span class="n">e</span>
+</span><span class='line'><span class="k">join</span> <span class="n">Department</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">Id</span>
+</span><span class='line'><span class="k">where</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="k">distinct</span><span class="p">(</span><span class="n">e2</span><span class="p">.</span><span class="n">salary</span><span class="p">))</span>
+</span><span class='line'><span class="k">from</span> <span class="n">Employee</span> <span class="n">e2</span>
+</span><span class='line'><span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">e2</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="k">and</span> <span class="n">e2</span><span class="p">.</span><span class="n">salary</span> <span class="o">&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">salary</span>
+</span><span class='line'><span class="p">)</span> <span class="k">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="k">order</span> <span class="k">by</span> <span class="n">Department</span><span class="p">,</span> <span class="n">Salary</span> <span class="k">desc</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using the similar idea, one can answer this <a href="https://leetcode.com/problems/nth-highest-salary/">question</a>:
+write a function that return the given <code>n</code>-th highest salary. The solution (without using <code>DENSE_RANK</code>) is:</p>
+
+<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">getNthHighestSalary</span><span class="p">(</span><span class="n">N</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">RETURNS</span> <span class="nb">INT</span>
+</span><span class='line'><span class="k">BEGIN</span>
+</span><span class='line'>  <span class="k">RETURN</span> <span class="p">(</span>
+</span><span class='line'>      <span class="c1">-- Write your MySQL query statement below.</span>
+</span><span class='line'>      <span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">Salary</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">FROM</span> <span class="n">Employee</span> <span class="n">Emp1</span>
+</span><span class='line'>            <span class="k">WHERE</span> <span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span>
+</span><span class='line'>                 <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="p">(</span><span class="n">Emp2</span><span class="p">.</span><span class="n">Salary</span><span class="p">))</span>
+</span><span class='line'>                        <span class="k">FROM</span> <span class="n">Employee</span> <span class="n">Emp2</span>
+</span><span class='line'>                        <span class="k">WHERE</span> <span class="n">Emp2</span><span class="p">.</span><span class="n">Salary</span> <span class="o">&gt;</span> <span class="n">Emp1</span><span class="p">.</span><span class="n">Salary</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">);</span>
+</span><span class='line'><span class="k">END</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h3>Analytic functions <code>ROW_NUMBER</code>, <code>RANK</code>, and <code>DENSE_RANK</code></h3>
 
@@ -1560,7 +1647,7 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>In the following example, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
+<p>In the following <a href="https://leetcode.com/problems/rank-scores/">question</a>, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
 
 <figure class='code'><figcaption><span>Solution in Vertica SQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1588,69 +1675,39 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>Others</h3>
+<h3>Other tricky questions</h3>
 
-<p>Question
-What you might come up.
-What actually works.
-Notes
-<a href="https://leetcode.com/problems/department-top-three-salaries/">https://leetcode.com/problems/department-top-three-salaries/</a>
-Write a SQL query to find employees who earn the top three salaries in each of the department.
-WITH temp AS (
-select Name, Salary, DepartmentId
-rank() OVER (partition by DepartmentId ORDER BY salary DESC) as rank
-)
-select d.Name as Department, e.Name as Name, e.Salary as Salary
-from temp e
-join Department d on e.DepartmentId = d.Id
-where t.rank &lt;= 3</p>
+<p><code>DELETE</code> might not work as you think in MySQL.</p>
 
-<p>select d.Name as Department, e.Name as Employee, e.Salary as Salary
-from Employee e
-join Department d on e.DepartmentId = d.Id
-where (
-select count(distinct(e2.salary))
-from Employee e2
-where e.DepartmentId = e2.DepartmentId and e2.salary > e.salary
-) in (0,1,2)
-order by Department, Salary desc
-<a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department">http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department</a>
-For ideas to arrive at the solution.</p>
+<p><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>:
+Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</p>
 
-<p><a href="https://leetcode.com/problems/rank-scores/">https://leetcode.com/problems/rank-scores/</a>
-Write dense_rank.
-select Score, DENSE_RANK() OVER (ORDER BY Score DESC) AS Rank FROM Scores;
-SELECT Score, Rank FROM
-( SELECT t.Score,
-@dense:=IF(@prev_col2=t.Score, @dense, @dense+1) AS Rank,
-@prev_col2:=t.Score
-FROM (SELECT Score FROM Scores ORDER BY Score DESC) t, (SELECT @dense:=0, @prev_col2:=NULL) var ) x
-<a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/</a>
-<a href="https://leetcode.com/problems/delete-duplicate-emails/">https://leetcode.com/problems/delete-duplicate-emails/</a></p>
+<figure class='code'><figcaption><span>What you might come up</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">delete</span> <span class="k">from</span> <span class="n">Person</span>
+</span><span class='line'><span class="k">where</span> <span class="n">Id</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="k">min</span><span class="p">(</span><span class="n">Id</span><span class="p">)</span> <span class="k">from</span> <span class="n">Person</span> <span class="k">group</span> <span class="k">by</span> <span class="n">Email</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>delete from Person
-where Id not in (select min(Id) from Person group by Email)
-delete from Person
-where Id not in
-(select * from
-(select min(Id) from Person group by Email) x)</p>
 
-<p><a href="https://leetcode.com/problems/nth-highest-salary/">https://leetcode.com/problems/nth-highest-salary/</a>
-N-th highest number in a column
-based on DENSE_RANK()
-CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
-BEGIN
-  RETURN (
-      # Write your MySQL query statement below.
-      SELECT MAX(Salary)
-            FROM Employee Emp1
-            WHERE (N-1) = (
-                 SELECT COUNT(DISTINCT(Emp2.Salary))
-                        FROM Employee Emp2
-                        WHERE Emp2.Salary > Emp1.Salary)
-  );
-END
-<a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">https://github.com/kamyu104/LeetCode/tree/master/MySQL</a></p>
+<p>The above does not work because you need to assign name to the subquery (temporary table).</p>
+
+<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">delete</span> <span class="k">from</span> <span class="n">Person</span>
+</span><span class='line'><span class="k">where</span> <span class="n">Id</span> <span class="k">not</span> <span class="k">in</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="k">min</span><span class="p">(</span><span class="n">Id</span><span class="p">)</span> <span class="k">from</span> <span class="n">Person</span> <span class="k">group</span> <span class="k">by</span> <span class="n">Email</span><span class="p">)</span> <span class="n">x</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>External links</h3>
+
+<ul>
+<li><a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">Leetcode Database Solutions</a></li>
+</ul>
+
 ]]></content>
   </entry>
   
