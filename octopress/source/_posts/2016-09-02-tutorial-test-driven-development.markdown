@@ -9,7 +9,6 @@ categories:
 - Python
 - Java
 - Javascript
-- TODO
 ---
 
 <!-- Reference:
