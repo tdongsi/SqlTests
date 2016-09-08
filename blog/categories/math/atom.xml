@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Math | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/math/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-07T21:11:41-07:00</updated>
+  <updated>2016-09-07T21:18:19-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -30,6 +30,18 @@ Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The revers
 
 <p><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>: e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%.
 The first team in FG% is Spurs, who took lots of 2s.</p>
+
+<h3>Basic Kalman Filter</h3>
+
+<p>TODO</p>
+
+<h4>Kalman Filter</h4>
+
+<h4>Extended Kalman Filter</h4>
+
+<h3>EKF-SLAM formulation</h3>
+
+<p>TODO</p>
 
 <h3>Mingyang&rsquo;s thesis</h3>
 
@@ -108,20 +120,15 @@ m (sliding window size) is to determined empirically: plotting and see the low p
 
 <p>Detailed identifiability analysis of these parameters.
 Time offset between the two measurements.
-The generate cases:</p>
+The degenerate cases are known and rare cases.</p>
 
-<ol>
-<li>Known cases</li>
-<li><p>Rare cases</p></li>
-<li><p>Degenerate cases: Recovery?</p>
+<p>Some degenerate cases are: (Recovery?)</p>
 
 <ul>
 <li>Going in a straight line</li>
 <li>Constant acceleration with no rotation</li>
 <li>Constant velocity (no acceleration) with rotation about gravity vector only.</li>
 </ul>
-</li>
-</ol>
 
 
 <h4>Contribution 4: Models for low-cost sensors</h4>
