@@ -9,8 +9,8 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="Math in Estimation theory. Basic statistics x and z is joinly Guassian when the combined vector y = [x z] is also Gaussian.
-Jointly Gaussian implies &hellip;">
+  <meta name="description" content="Math in Estimation theory. Basic statistics Two vectors x and z is joinly Guassian when the combined vector y = [x z] is also Gaussian.
+Jointly &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,11 +94,11 @@ Jointly Gaussian implies &hellip;">
 
 <h3>Basic statistics</h3>
 
-<p>x and z is joinly Guassian when the combined vector y = [x z] is also Gaussian.
+<p>Two vectors <strong>x</strong> and <strong>z</strong> is joinly Guassian when the combined vector <strong>y</strong> = [x z] is also Gaussian.
 Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The reverse is not true.</p>
 
 <p><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>: e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%.
-The first team is Spurs, who took lots of 2s.</p>
+The first team in FG% is Spurs, who took lots of 2s.</p>
 
 <h3>Mingyang&rsquo;s thesis</h3>
 
@@ -127,7 +127,7 @@ Since we are not doing mapping, only currently visible features are kept -> comp
 
 <p>MSCKF: a sliding window of poses.
 Measurements are used to impose the constraints on these poses.
-If a new feature is found, add a new pose to the state vector and augment covar matrix accordingly.
+If a new feature is found, add a new pose to the state vector and augment covariance matrix accordingly.
 Each feature is tracked until it goes out of field of view, then all of its observations are processed at once.
 A pose is only removed when all features associated with that pose have been processed.</p>
 
@@ -151,14 +151,22 @@ A recursive estimator is consistent if the estimation errors are zero-mean and h
 
 <h4>Contribution 2: Hybrid estimator, pick one</h4>
 
-<p>N: number of features.
-m: feature length: max number of observations per feature.</p>
+<ul>
+<li>N: number of features.</li>
+<li>m: feature length: max number of observations per feature.</li>
+</ul>
 
-<p>MSCKF: O(N) and O(m<sup>3</sup>).
-EKF-SLAM: O(N<sup>3</sup>) and O(m).</p>
+
+<p>Then, the compuational costs of the two estimators are</p>
+
+<ul>
+<li>MSCKF: O(N) and O(m<sup>3</sup>).</li>
+<li>EKF-SLAM: O(N<sup>3</sup>) and O(m).</li>
+</ul>
+
 
 <p>MSCKF is faster because of general distribution of features: because of feature detection algorithms, majority of features are detected close to the camera, where it will goes out of the FOV quickly (large N, small m).
-Cheddar Gorge data: many features are close to the car/camera, while a few are really far away.</p>
+For example, in Cheddar Gorge data, many features are close to the car/camera, while a few are really far away.</p>
 
 <p>Depending on the length of feature tracks in current environment, use one.
 Given “many” measurements, nothing is gained by initializing features  observed fewer than m times.
@@ -186,6 +194,8 @@ The generate cases:</p>
 
 
 <h4>Contribution 4: Models for low-cost sensors</h4>
+
+<p>Measurement models for rolling shutter camera.</p>
 </div>
 
 
@@ -206,7 +216,7 @@ The generate cases:</p>
 
 <span class="categories">
   
-    <a class='category' href='/SqlTests/blog/categories/math/'>math</a>, <a class='category' href='/SqlTests/blog/categories/todo/'>todo</a>, <a class='category' href='/SqlTests/blog/categories/tutorial/'>tutorial</a>
+    <a class='category' href='/SqlTests/blog/categories/math/'>math</a>, <a class='category' href='/SqlTests/blog/categories/tutorial/'>tutorial</a>
   
 </span>
 
@@ -291,7 +301,7 @@ The generate cases:</p>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (1)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (7)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (1)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (6)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li></ul>
 </section>
 
 

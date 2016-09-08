@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tutorial | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/tutorial/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-07T01:01:31-07:00</updated>
+  <updated>2016-09-07T21:11:41-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -687,11 +687,11 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
 
 <h3>Basic statistics</h3>
 
-<p>x and z is joinly Guassian when the combined vector y = [x z] is also Gaussian.
+<p>Two vectors <strong>x</strong> and <strong>z</strong> is joinly Guassian when the combined vector <strong>y</strong> = [x z] is also Gaussian.
 Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The reverse is not true.</p>
 
 <p><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>: e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%.
-The first team is Spurs, who took lots of 2s.</p>
+The first team in FG% is Spurs, who took lots of 2s.</p>
 
 <h3>Mingyang&rsquo;s thesis</h3>
 
@@ -720,7 +720,7 @@ Since we are not doing mapping, only currently visible features are kept -> comp
 
 <p>MSCKF: a sliding window of poses.
 Measurements are used to impose the constraints on these poses.
-If a new feature is found, add a new pose to the state vector and augment covar matrix accordingly.
+If a new feature is found, add a new pose to the state vector and augment covariance matrix accordingly.
 Each feature is tracked until it goes out of field of view, then all of its observations are processed at once.
 A pose is only removed when all features associated with that pose have been processed.</p>
 
@@ -744,14 +744,22 @@ A recursive estimator is consistent if the estimation errors are zero-mean and h
 
 <h4>Contribution 2: Hybrid estimator, pick one</h4>
 
-<p>N: number of features.
-m: feature length: max number of observations per feature.</p>
+<ul>
+<li>N: number of features.</li>
+<li>m: feature length: max number of observations per feature.</li>
+</ul>
 
-<p>MSCKF: O(N) and O(m<sup>3</sup>).
-EKF-SLAM: O(N<sup>3</sup>) and O(m).</p>
+
+<p>Then, the compuational costs of the two estimators are</p>
+
+<ul>
+<li>MSCKF: O(N) and O(m<sup>3</sup>).</li>
+<li>EKF-SLAM: O(N<sup>3</sup>) and O(m).</li>
+</ul>
+
 
 <p>MSCKF is faster because of general distribution of features: because of feature detection algorithms, majority of features are detected close to the camera, where it will goes out of the FOV quickly (large N, small m).
-Cheddar Gorge data: many features are close to the car/camera, while a few are really far away.</p>
+For example, in Cheddar Gorge data, many features are close to the car/camera, while a few are really far away.</p>
 
 <p>Depending on the length of feature tracks in current environment, use one.
 Given “many” measurements, nothing is gained by initializing features  observed fewer than m times.
@@ -779,6 +787,8 @@ The generate cases:</p>
 
 
 <h4>Contribution 4: Models for low-cost sensors</h4>
+
+<p>Measurement models for rolling shutter camera.</p>
 ]]></content>
   </entry>
   
