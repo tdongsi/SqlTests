@@ -19,6 +19,18 @@ Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The revers
 [Simpson’s paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox): e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%. 
 The first team in FG% is Spurs, who took lots of 2s.
 
+### Basic Kalman Filter
+
+TODO
+
+#### Kalman Filter
+
+#### Extended Kalman Filter
+
+### EKF-SLAM formulation
+
+TODO
+
 ### Mingyang's thesis
 
 Contributions:
@@ -76,15 +88,13 @@ m (sliding window size) is to determined empirically: plotting and see the low p
 
 Detailed identifiability analysis of these parameters.
 Time offset between the two measurements.
-The generate cases:
+The degenerate cases are known and rare cases. 
 
-1. Known cases
-2. Rare cases
+Some degenerate cases are: (Recovery?) 
 
-* Degenerate cases: Recovery? 
-    * Going in a straight line
-    * Constant acceleration with no rotation
-    * Constant velocity (no acceleration) with rotation about gravity vector only.
+* Going in a straight line
+* Constant acceleration with no rotation
+* Constant velocity (no acceleration) with rotation about gravity vector only.
 
 
 #### Contribution 4: Models for low-cost sensors
