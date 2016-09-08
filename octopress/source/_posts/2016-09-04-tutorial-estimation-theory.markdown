@@ -6,7 +6,6 @@ comments: true
 categories: 
 - Tutorial
 - Math
-- TODO
 ---
 
 Math in Estimation theory.
@@ -14,11 +13,11 @@ Math in Estimation theory.
 
 ### Basic statistics
 
-x and z is joinly Guassian when the combined vector y = [x z] is also Gaussian.
+Two vectors **x** and **z** is joinly Guassian when the combined vector **y** = [x z] is also Gaussian. 
 Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The reverse is not true.
 
 [Simpson’s paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox): e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%. 
-The first team is Spurs, who took lots of 2s.
+The first team in FG% is Spurs, who took lots of 2s.
 
 ### Mingyang's thesis
 
@@ -40,7 +39,7 @@ Since we are not doing mapping, only currently visible features are kept -> comp
 
 MSCKF: a sliding window of poses.
 Measurements are used to impose the constraints on these poses.
-If a new feature is found, add a new pose to the state vector and augment covar matrix accordingly.
+If a new feature is found, add a new pose to the state vector and augment covariance matrix accordingly.
 Each feature is tracked until it goes out of field of view, then all of its observations are processed at once.
 A pose is only removed when all features associated with that pose have been processed.
 
@@ -57,14 +56,16 @@ Why difference? Assumptions:
 
 #### Contribution 2: Hybrid estimator, pick one
 
-N: number of features.
-m: feature length: max number of observations per feature.
+* N: number of features.
+* m: feature length: max number of observations per feature.
 
-MSCKF: O(N) and O(m^3).
-EKF-SLAM: O(N^3) and O(m).
+Then, the compuational costs of the two estimators are
+
+* MSCKF: O(N) and O(m^3).
+* EKF-SLAM: O(N^3) and O(m).
 
 MSCKF is faster because of general distribution of features: because of feature detection algorithms, majority of features are detected close to the camera, where it will goes out of the FOV quickly (large N, small m).
-Cheddar Gorge data: many features are close to the car/camera, while a few are really far away.
+For example, in Cheddar Gorge data, many features are close to the car/camera, while a few are really far away.
 
 Depending on the length of feature tracks in current environment, use one.
 Given “many” measurements, nothing is gained by initializing features  observed fewer than m times.
@@ -87,3 +88,5 @@ The generate cases:
 
 
 #### Contribution 4: Models for low-cost sensors
+
+Measurement models for rolling shutter camera.

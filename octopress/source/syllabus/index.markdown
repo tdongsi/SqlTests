@@ -63,6 +63,9 @@ Namely, there will be Java, Python, JavaScript, SQL, Algorithm, Data Structure, 
     3. [Database interview questions](/blog/2016/09/12/database-question-bank/).
 9. [Network](/blog/2016/09/13/network-question-bank/)
 10. Soft questions
+11. Specialized areas
+    1. [Estimation + Computer vision](/blog/2016/09/04/tutorial-estimation-theory/)
+    1. Machine Learning
 
 #### More on Technical Preparation
 
