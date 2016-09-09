@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Todo | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/todo/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-08T22:43:01-07:00</updated>
+  <updated>2016-09-08T23:01:36-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,264 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/"/>
-    <updated>2016-09-16T15:40:35-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics</id>
-    <content type="html"><![CDATA[<p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
-
-<!--more-->
-
-
-<h3>General guidelines for dashboard</h3>
-
-<p>Ppl looks for different things in data. You have to find out what answers users look for in dashboard.</p>
-
-<ul>
-<li>Trend: bar, graph</li>
-<li>Aggregation: Average, Sum, Max, Min.</li>
-</ul>
-
-
-<p>Above all else, show data.
-Trying to improve data-pixel ratio: data pixels/non-data pixels.
-How to enhance data-pixel ratio:</p>
-
-<ul>
-<li>Granularity: depends on the question you want to answer
-
-<ul>
-<li>monthly if you want to know monthly sales, daily if you want to know what happens last Tuesday.</li>
-<li>category or sub-category: you can have category with drill down function.</li>
-</ul>
-</li>
-<li>Annotation: similar to Granularity. Minimize it to enough to answer the question.</li>
-</ul>
-
-
-<p>Tricks &amp; Tips:</p>
-
-<ul>
-<li>Plots (over Bars): plot show the trends for different components over time.</li>
-<li>Sizing Bars: Preserve True Portions: starting Y from 0.
-
-<ul>
-<li>Sizing Bars: shows proportions, relative progression.</li>
-</ul>
-</li>
-<li>Scatter Plots: show clusters, outliers.</li>
-<li>Radio displays: usually a bad idea. Waste of space, hard to discern between slices.</li>
-</ul>
-
-
-<h3>Module 2: Common Charts</h3>
-
-<p>Basic data Presentation Methods - Chart Types</p>
-
-<ul>
-<li>Geo-Spatial - Maps: anything related to geographic distribution, i.e., when geography matters. e.g. real estates, oil industry.</li>
-<li>Correlation - Scatter Plots: two measurements (e.g., sales to profit).</li>
-<li>Hierarchical - Drill down Tree: data is hierarchical: Category -> Subcateogries.</li>
-<li>Categorical - Bar Charts: comparing categories (sales by region)</li>
-<li>Time Series - Line Charts: progression over time. (sales by month)
-
-<ul>
-<li>Avoid: Stacked Area Charts. If you have more than two lines, Area Charts do not give any information except for the bottom and the total.</li>
-</ul>
-</li>
-<li>Distribution - Histograms: Trying to answer what is “normal”. e.g., home prices, salaries.</li>
-</ul>
-
-
-<p>Others</p>
-
-<ul>
-<li>Box plot: distribution, percentiles, median in 1 chart.</li>
-<li>Bullet graph: actuals to target. Invented by Stephen Few.
-
-<ul>
-<li>Dark bar is actual, reference line is target. Color code bands are average, good, bad target range.</li>
-<li><a href="https://en.wikipedia.org/wiki/Bullet_graph">https://en.wikipedia.org/wiki/Bullet_graph</a></li>
-</ul>
-</li>
-<li>Sparkline: Multiple line charts. Best used for monitoring dashboard.</li>
-<li>Heat map: Large combinations of dimensions. Color is everything here.</li>
-</ul>
-
-
-<p>Charts to avoid</p>
-
-<ul>
-<li>Pie charts: angles make it hard to compare. Usually decorative, not informative. Space is wasted.</li>
-<li>Polar charts</li>
-<li>Stacked area charts:
-
-<ul>
-<li>Only tell the story of the bottom line and the total. Anything in between, you can’t really tell if they are growing or not.</li>
-<li>Misleading/Confusing: is the top the total or another category?</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>Module 3: Dashboard planning</h3>
-
-<p>Steps:</p>
-
-<ul>
-<li>User Request</li>
-<li>Prioritization</li>
-<li>Planning</li>
-<li>Design</li>
-<li>Development</li>
-<li>Delivery to User</li>
-</ul>
-
-
-<h3>Module 4: Dashboard design</h3>
-
-<p>Audience is King. Know your audience.</p>
-
-<ul>
-<li>Who is using it?</li>
-<li>Are they technical or prefer dumbed down answers? Are they intimate with data?</li>
-<li>What is primary objective? What questions that they try to answer? What questions this dashboard MUST answer?</li>
-<li>What impact of the answer? How will they use metrics? (Role, what decisions they make)</li>
-<li>When will the dashboard is used? (Weekly? Daily?) Dashboard is exploratory or explanatory?</li>
-<li>What level of confidence in data sources?</li>
-</ul>
-
-
-<p>Dashboard layout: F layout is the most natural for web/desktop viewing.</p>
-
-<h3>Module 5 &amp; 6: Tableau</h3>
-
-<p>Connecting to Data:
-You can connect to Excel, text file (csv or tab), or HP Vertica.
-You can specify data import like Excel or using Custom SQL.
-After importing, Tableau may import all data into its own internal data engine (with compression, data reorganization easier for analytics).
-It also divides data into dimensions and measures.
-Dimensions are further categorized into: geographic (e.g., region, postal code), number, text, date (e.g., calendar, order_date).
-Facts are usually numbers but it can be other categories: e.g., geographic for latitude/longitude measures.</p>
-
-<p>Visualizing data:
-Tableau has “Show Me” button that gives suggestions for different combinations of dimensions and fact data.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/"/>
-    <updated>2016-09-15T15:38:20-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling</id>
-    <content type="html"><![CDATA[<p>From Kimball group reader.</p>
-
-<!--more-->
-
-
-<p>Design items:
-You need to do data profiling to keep data processed to min. One way to profile data changes is to use CDC column.
-Check CDC columns: e.g. last_update_ts. If CDC columns are not available, work with production system DBA to add one.
-Otherwise, check application log file/Message traffic.</p>
-
-<p>Item 1.5
-Divide data into dimension and fact tables: 90% of the time the division is obvious.</p>
-
-<pre><code>* Dimensions: static entities in the environment
-* 
-    * Text descriptions are obvious data going into dimension
-
-* Facts: numeric observations/measurements.
-* 
-    * Unpredictable, numeric numbers are the usual suspects.
-</code></pre>
-
-<p>Grain of fact table = a measurement in physical, real-world.</p>
-
-<p>Design steps:</p>
-
-<pre><code>* Determine the single physical event you want to record -&gt; fact table. Other details will follow in dimension tables.
-* 
-    * What event is a single row in fact table representing? E.g. for fact_sale_event, the grain is literally the beep of the scanner.
-
-* Strive to make facts additive.
-* 
-    * E.g.: Sale event can go into fact table as (price, unit), but the information (sale amount, unit) contains the same information but better since sale amount (aka extended price) = price * unit.
-
-* Some data can be in both. The goal is ease of use, not methodology correctness.
-* 
-    * E.g.: Coverage amount of insurance policies can be in both dim_coverage and fact_sale_event. 
-</code></pre>
-
-<p>Item 1.6
-Bus matrix to communicate/manage dimension tables.</p>
-
-<p>TODO: Table of bus matrix</p>
-
-<p>Item 1.8 Slow Changing Dimensions
-Type 0: Constant. Ignore changes.
-Type 1: Simple overwrite (best used for error correction).
-Type 2: Create another row and save history.
-The standard implementation is: surrogate key (PK), durable ID, … attributes …, effective_start_date, effective_end_date, change_reason, current_flag.</p>
-
-<p>Type 3: Create another column for alternate info.</p>
-
-<p>Item 1.10. Fact tables
-Data warehouse is built on fact tables expressed at the lowest possible grain.
-Higher grain aggregated tables such as category sales by district.
-Three kinds of fact tables:</p>
-
-<pre><code>1. Transaction Grain: corresponds to a measurement taken at a single instant.
-    1. Unpredictably sparse or dense.
-    2. Can be enormous. Cannot guarantee all possible foreign keys represented.
-    3. E.g.: fact_qbo_subscription_event
-
-2. Periodic Snapshot Grain: corresponds to a predefined span of time.
-    1. Predictably dense.
-    2. Can be large even there is no activity.
-    3. E.g.: Account balance for an account at some time.
-
-3. Accumulating Snapshot Grain.
-    1. Fact entries are overwritten and udpated.
-    2. E.g.: Order processing
-</code></pre>
-
-<p>Surrogate Keys (integer key, assigned in sequence) are recommended for Fact tables.
-In Vertica, CREATE SEQUENCE.</p>
-
-<p>Item 4.1
-Too smart interviewers make it harder to extract requirements from business:</p>
-
-<pre><code>* Long-winded questions
-* Even worse, some questions box the interviewee into a corner because of some bias. And the interviewees do not know how to get out.
-* 
-    * Just ask and listen. Let them guide you step by step.
-</code></pre>
-
-<p>Item 5.1-5.3: Compare normalized modeling (3NF) vs dimensional modeling (DM)
-Why dimensional modeling over normalized modeling?</p>
-
-<pre><code>1. Normalized modeling is intended for transactional databases, making update and delete efficient. It’s not needed in BI/DW.
-2. Normalized modeling for a complex business process will result in a very large ER diagram (similar to US cities-freeway maps). Business users cannot simply use that diagram to query what they need to know.
-    1. The result ER is usually overwhelming and cannot be viewed in its entirety.
-    2. E.g.: How to drive from SJ to NY? Maybe going to Sacramento through 580, then to Salt Lake City, and then what? Similarly, you need to know which table to join.
-    3. In the same analogy, it’s actually worse to join the tables since the tables are not static, they are moving cities.
-</code></pre>
-
-<p>Dimensional Modeling: top-down design process.</p>
-
-<pre><code>* each fact table represents a business process.
-* Support two operations: browse and multi-table joins.
-* It is important to keep the dimension tables flat, without being normalized into snowflake structure.
-</code></pre>
-
-<h3>Questions</h3>
-
-<p><a href="http://learndatamodeling.com/blog/data-modeling-interview-questions/">http://learndatamodeling.com/blog/data-modeling-interview-questions/</a></p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
@@ -720,6 +462,77 @@ Java uses monitor for thread synchronization.
 Every object in Java has a single lock associated with it. When a method is declared synchronized, calling the method requires owning the lock of the object.
 If the lock is not available, the synchronized method is placed in the entry set for the object’s lock.
 The Java Object class’s method wait() and notify() are similar to wait() and signal() statements for a monitor.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: SELECT Basics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/"/>
+    <updated>2016-08-26T01:39:37-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics</id>
+    <content type="html"><![CDATA[<p>This post is about basic <code>SELECT</code> questions (phone-screen level).</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<pre><code class="plain Given Department schema">employees                             projects
++---------------+---------+           +---------------+---------+
+| id            | int     |&lt;----+  +-&gt;| id            | int     |
+| first_name    | varchar |     |  |  | title         | varchar |
+| last_name     | varchar |     |  |  | start_date    | date    |
+| salary        | int     |     |  |  | end_date      | date    |
+| department_id | int     |--+  |  |  | budget        | int     |
++---------------+---------+  |  |  |  +---------------+---------+
+                             |  |  |
+departments                  |  |  |  employees_projects
++---------------+---------+  |  |  |  +---------------+---------+
+| id            | int     |&lt;-+  |  +--| project_id    | int     |
+| name          | varchar |     +-----| employee_id   | int     |
++---------------+---------+           +---------------+---------+
+</code></pre>
+
+<h4>Question 1</h4>
+
+<pre><code class="plain Question 1">Write a query to list the departments that have a total combined salary greater than $40,000.
+
+Expected Output:
++-------------+----------------+
+| name        | combined_salary|
++-------------+----------------+
+| Engineering |        130000  |
+| Marketing   |         50000  |
++-------------+----------------+
+</code></pre>
+
+<h3>Answers</h3>
+
+<h4>Question 1</h4>
+
+<p>The sandbox uses MySQL which does not support WITH clause.
+See more MySQL workaround in <a href="/blog/2016/08/28/mysql-workaround/">here</a>.</p>
+
+<pre><code class="sql Answer 1">WITH dept_total AS (
+select department_id, sum(salary) as total
+from employees
+group by department_id
+having total &gt; 40000
+)
+select d.name, t.total
+from dept_total t
+join deparments d on t.department_id = d.id
+</code></pre>
+
+<pre><code class="sql MySQL Answer 1">select d.name, t.total
+from (
+  select department_id, sum(salary) as total
+from employees
+group by department_id
+having total &gt; 40000
+  ) t
+  join departments d ON t.department_id = d.id
+</code></pre>
 ]]></content>
   </entry>
   
