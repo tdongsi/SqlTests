@@ -6,7 +6,6 @@ comments: true
 categories: 
 - Database
 - Tutorial
-- TODO
 - Facebook
 ---
 
