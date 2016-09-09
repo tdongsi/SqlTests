@@ -95,7 +95,7 @@ OLTP and OLAP points of view?
 
 (1) http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html
 
-### Section B
+#### Section B
 
 (1) Normalizing: remove redundancy -> remove update and delete anomaly -> more efficient data storage and consistent data.
 
