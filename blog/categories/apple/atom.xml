@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apple | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/apple/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-08T23:01:36-07:00</updated>
+  <updated>2016-09-09T00:27:04-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -23,7 +23,8 @@
 <ol>
 <li>Addition using only bit manipulation.</li>
 <li>Subtraction using only bit manipulation.</li>
-<li>Find odd one out of pairs.</li>
+<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
+<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
 </ol>
 
 
@@ -32,7 +33,7 @@
 
 <h3>Answers</h3>
 
-<p>(1) Addition: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
+<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
 In code, it is implemented as follows:</p>
 
 <pre><code class="java Addition">    private int add(int a, int b) {
@@ -43,15 +44,24 @@ In code, it is implemented as follows:</p>
     }
 </code></pre>
 
-<p>(2) Subtraction: The recursive formula is <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code>.
+<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
 In code, it is implemented as follows:</p>
 
-<pre><code class="java Subtraction">TODO
+<pre><code class="java Subtraction">    private int subtract(int a, int b) {
+        if(b == 0)
+            return a;
+
+        return subtract( a ^ b, (~a &amp; b) &lt;&lt; 1);
+    }
 </code></pre>
 
 <p>(3) Find odd one.</p>
 
-<p>TODO: From hard-copy notes.</p>
+<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
+
+<p>(4) Quickly determine if a number is a power of 2.</p>
+
+<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
 ]]></content>
   </entry>
   

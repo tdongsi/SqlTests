@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Database | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/database/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-08T23:01:36-07:00</updated>
+  <updated>2016-09-09T00:27:04-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -436,7 +436,7 @@ OLTP and OLAP points of view?</li>
 
 <p>(1) <a href="http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html">http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html</a></p>
 
-<h3>Section B</h3>
+<h4>Section B</h4>
 
 <p>(1) Normalizing: remove redundancy -> remove update and delete anomaly -> more efficient data storage and consistent data.</p>
 

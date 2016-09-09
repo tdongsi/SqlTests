@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-08T23:01:36-07:00</updated>
+  <updated>2016-09-09T00:27:04-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -588,7 +588,7 @@ OLTP and OLAP points of view?</li>
 
 <p>(1) <a href="http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html">http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html</a></p>
 
-<h3>Section B</h3>
+<h4>Section B</h4>
 
 <p>(1) Normalizing: remove redundancy -> remove update and delete anomaly -> more efficient data storage and consistent data.</p>
 
@@ -654,7 +654,8 @@ It&rsquo;ll run faster that way.</p>
 <ol>
 <li>Addition using only bit manipulation.</li>
 <li>Subtraction using only bit manipulation.</li>
-<li>Find odd one out of pairs.</li>
+<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
+<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
 </ol>
 
 
@@ -663,7 +664,7 @@ It&rsquo;ll run faster that way.</p>
 
 <h3>Answers</h3>
 
-<p>(1) Addition: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
+<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
 In code, it is implemented as follows:</p>
 
 <figure class='code'><figcaption><span>Addition</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -681,17 +682,31 @@ In code, it is implemented as follows:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>(2) Subtraction: The recursive formula is <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code>.
+<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
 In code, it is implemented as follows:</p>
 
 <figure class='code'><figcaption><span>Subtraction</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">TODO</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">subtract</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">subtract</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(~</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>(3) Find odd one.</p>
 
-<p>TODO: From hard-copy notes.</p>
+<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
+
+<p>(4) Quickly determine if a number is a power of 2.</p>
+
+<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
 ]]></content>
   </entry>
   

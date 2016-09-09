@@ -11,7 +11,7 @@
   
   <meta name="description" content="Questions Addition using only bit manipulation.
 Subtraction using only bit manipulation.
-Find odd one out of pairs. Answers (1) Addition: Recursive &hellip;">
+Odd Man Out: Given an unsorted array of integers where every &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,7 +93,8 @@ Find odd one out of pairs. Answers (1) Addition: Recursive &hellip;">
 <ol>
 <li>Addition using only bit manipulation.</li>
 <li>Subtraction using only bit manipulation.</li>
-<li>Find odd one out of pairs.</li>
+<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
+<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
 </ol>
 
 
@@ -102,7 +103,7 @@ Find odd one out of pairs. Answers (1) Addition: Recursive &hellip;">
 
 <h3>Answers</h3>
 
-<p>(1) Addition: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
+<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
 In code, it is implemented as follows:</p>
 
 <figure class='code'><figcaption><span>Addition</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -120,17 +121,31 @@ In code, it is implemented as follows:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>(2) Subtraction: The recursive formula is <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code>.
+<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
 In code, it is implemented as follows:</p>
 
 <figure class='code'><figcaption><span>Subtraction</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">TODO</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">subtract</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">subtract</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(~</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>(3) Find odd one.</p>
 
-<p>TODO: From hard-copy notes.</p>
+<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
+
+<p>(4) Quickly determine if a number is a power of 2.</p>
+
+<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
 </div>
 
 
@@ -151,7 +166,7 @@ In code, it is implemented as follows:</p>
 
 <span class="categories">
   
-    <a class='category' href='/SqlTests/blog/categories/algorithm/'>algorithm</a>, <a class='category' href='/SqlTests/blog/categories/apple/'>apple</a>, <a class='category' href='/SqlTests/blog/categories/questions/'>questions</a>, <a class='category' href='/SqlTests/blog/categories/todo/'>todo</a>
+    <a class='category' href='/SqlTests/blog/categories/algorithm/'>algorithm</a>, <a class='category' href='/SqlTests/blog/categories/apple/'>apple</a>, <a class='category' href='/SqlTests/blog/categories/questions/'>questions</a>
   
 </span>
 
@@ -236,7 +251,7 @@ In code, it is implemented as follows:</p>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (1)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (4)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (1)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (3)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li></ul>
 </section>
 
 
