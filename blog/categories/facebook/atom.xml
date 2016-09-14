@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Facebook | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/facebook/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-09T00:27:04-07:00</updated>
+  <updated>2016-09-13T23:43:22-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -690,18 +690,18 @@ where Id not in
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Questions: SELECT Basics]]></title>
+    <title type="html"><![CDATA[Questions: SQL Basics]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/"/>
     <updated>2016-08-26T01:39:37-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics</id>
-    <content type="html"><![CDATA[<p>This post is about basic <code>SELECT</code> questions (phone-screen level).</p>
+    <content type="html"><![CDATA[<p>This post is about basic DDL, <code>SELECT</code> questions (phone-screen level).</p>
 
 <!--more-->
 
 
 <h3>Questions</h3>
 
-<pre><code class="plain Given Department schema">employees                             projects
+<pre><code class="plain Given Department schema for Questions 1-3">employees                             projects
 +---------------+---------+           +---------------+---------+
 | id            | int     |&lt;----+  +-&gt;| id            | int     |
 | first_name    | varchar |     |  |  | title         | varchar |
@@ -730,6 +730,140 @@ Expected Output:
 +-------------+----------------+
 </code></pre>
 
+<h4>Question 2</h4>
+
+<pre><code class="plain Question 2">List the current projects and employees assigned to them.
+
+Output:
++------------+-----------+--------------------------+
+| first_name | last_name | title                    |
++------------+-----------+--------------------------+
+| John       | Smith     | Update TPS Reports       |
+| Ava        | Muffinson | Design 3 New Silly Walks |
+| Cailin     | Ninson    | Build a cool site        |
+| Mike       | Peterson  | Build a cool site        |
+| Ian        | Peterson  | Build a cool site        |
++------------+-----------+--------------------------+
+</code></pre>
+
+<h4>Question 3</h4>
+
+<pre><code class="plain Question 3">Who's the highest paid person per department?
+
+Output:
++------------+-----------+-------------+--------+
+| first_name | last_name | name        | salary |
++------------+-----------+-------------+--------+
+| John       | Smith     | Reporting   |  20000 |
+| Ian        | Peterson  | Engineering |  80000 |
+| John       | Mills     | Marketing   |  50000 |
+| Ava        | Muffinson | Silly Walks |  10000 |
++------------+-----------+-------------+--------+
+</code></pre>
+
+<h4>Question 4</h4>
+
+<pre><code class="plain Given fact_sales table">create table fact_sales (
+  dateid date not null,
+  fruit varchar(10),
+  sold int
+);
+
+insert into fact_sales
+values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Apple', 31); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Orange', 19); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Apple', 37); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Orange', 26); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Apple', 21); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Orange', 23); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Apple', 35); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Orange', 27);
+
+fact_sales
++------------+--------+------+
+| dateid     | fruit  | sold |
++------------+--------+------+
+| 2015-01-01 | Apple  |   31 |
+| 2015-01-01 | Orange |   19 |
+| 2015-01-02 | Apple  |   37 |
+| 2015-01-02 | Orange |   26 |
+| 2015-01-03 | Apple  |   21 |
+| 2015-01-03 | Orange |   23 |
+| 2015-01-04 | Apple  |   35 |
+| 2015-01-04 | Orange |   27 |
++------------+--------+------+
+</code></pre>
+
+<pre><code class="plain Question 4">What is the difference between Apples and Oranges sold each day?
+
+Output:
++------------+------+
+| dateid     | sold |
++------------+------+
+| 2015-01-01 |   12 |
+| 2015-01-02 |   11 |
+| 2015-01-03 |   -2 |
+| 2015-01-04 |    8 |
++------------+------+
+</code></pre>
+
+<h4>Question 5</h4>
+
+<pre><code class="plain Given schema">fct_request
++------------+------------+---------------+
+| dateid     | sender_uid | recipient_uid |
++------------+------------+---------------+
+| 2015-01-01 |          1 |             2 |
+| 2015-01-01 |          1 |             4 |
+| 2015-01-02 |          3 |             1 |
+| 2015-01-03 |          4 |             5 |
++------------+------------+---------------+
+
+fct_accept
++------------+--------------+------------+
+| dateid     | accepter_uid | sender_uid |
++------------+--------------+------------+
+| 2015-01-01 |            2 |          1 |
+| 2015-01-02 |            4 |          1 |
+| 2015-01-02 |            1 |          3 |
++------------+--------------+------------+
+
+Rules:
+1. You can only send a friend request to a person one time.
+2. You cannot send a friend request to someone who has already sent you a friend request.
+</code></pre>
+
+<pre><code class="plain Question 5">What percent of friend requests are accepted?
+Data might be not perfect.
+</code></pre>
+
+<h4>Question 6</h4>
+
+<p>Create DDL (table and foreign keys) for several tables in a provided ERD.
+ERD contains at least one many to many relationship.
+For example: Player(personID, school) and Team(teamID, name).
+Player and Team will have a many to many relationship.</p>
+
+<h4>Question 7</h4>
+
+<p>This question is a bit advanced.</p>
+
+<p>You have a table where you have <code>date</code>, <code>user_id</code>, <code>song_id</code> and <code>count</code>.
+It shows at the end of each day how many times in her history a user has listened to a given song.
+So count is cumulative sum.
+You have to update this on a daily basis based on a second table that records in real time when a user listens to a given song.
+Basically, at the end of each day, you go to this second table and pull a count of each user/song combination and then add this count to the first table that has the lifetime count.
+If it is the first time a user has listened to a given song, you won&rsquo;t have this pair in the lifetime table, so you have to create the pair there and then add the count of the last day.</p>
+
+<p>For simplicity, assume the tables are fact_event: (date, user_id, song_id) and snapshot: (date, user_id, song_id, count).</p>
+
 <h3>Answers</h3>
 
 <h4>Question 1</h4>
@@ -756,6 +890,122 @@ group by department_id
 having total &gt; 40000
   ) t
   join departments d ON t.department_id = d.id
+</code></pre>
+
+<h4>Question 2</h4>
+
+<pre><code class="sql Answer 2">select e.first_name, e.last_name, p.title
+from employees_projects ep
+join employees e on ep.employee_id = e.id
+join projects p on ep.project_id = p.id;
+</code></pre>
+
+<h4>Question 3</h4>
+
+<p>Again, the sandbox is MySQL and <code>dense_rank</code> is not available.</p>
+
+<pre><code class="sql Answer 3">select e.first_name, e.last_name, d.name, e.salary
+FROM employees e
+JOIN departments d on e.department_id = d.id
+WHERE (e.department_id, e.salary) in
+(
+select department_id, max(salary) AS salary
+from employees
+group by department_id
+)
+</code></pre>
+
+<h4>Question 4</h4>
+
+<p>You can self-join the table to get the following answer.</p>
+
+<pre><code class="sql Naive answer">select orange.dateid, apple.sold - orange.sold
+from fact_sales orange
+join fact_sales apple on orange.dateid = apple.dateid
+and orange.fruit = 'Orange' and apple.fruit = 'Apple';
+</code></pre>
+
+<p>However, recall that in dimensional modeling, fact tables usually have huge number of rows.
+Therefore, the expected answer should avoid joining such a huge table.</p>
+
+<pre><code class="sql Expected answer">select dateid, sum(mod_sold)
+from (
+select dateid, case when fruit = 'Apple'  then sold else -sold end as mod_sold
+from fact_sales
+) t
+group by dateid;
+</code></pre>
+
+<h4>Question 5</h4>
+
+<pre><code class="sql Answer 5">select count(requested), sum(accepted)
+FROM (
+select r.sender_uid as requested, CASE when a.sender_uid is null then 0 else 1 end as accepted
+from fct_request r
+left join fct_accept a on r.sender_uid = a.sender_uid and r.recipient_uid = a.accepter_uid
+) t
+</code></pre>
+
+<h4>Question 6</h4>
+
+<p>You should create a <code>teamPlayer</code> table with foreign keys to <code>Team</code> and <code>Player</code> tables as primary key.
+You are expected to write the following DDL statements.</p>
+
+<pre><code class="sql DDL for teamPlayer">CREATE TABLE teamPlayer
+(
+playerID INT NOT NULL, 
+teamID INT NOT NULL,
+PRIMARY KEY(playerID, teamID)
+);
+
+alter table teamPlayer
+add constraint 
+  fk_teamPlayer__Player foreign key(playerID) references Player(personID);
+
+alter table teamPlayer
+add constraint 
+  fk_teamPlayer__Team foreign key(teamID) references Team(teamID);
+</code></pre>
+
+<h4>Question 7</h4>
+
+<p><strong>Scenario 1</strong>: Overwrite the snapshot. Date column in snapshot is the last modified date.</p>
+
+<pre><code>create temporary table temp
+AS
+(select user_id, song_id, count(*)
+from fact_event
+where date &gt; (select max(date) from snapshot)
+group by user_id, song_id
+);
+
+UPDATE snapshot as s
+SET date = current_date, s.count = s.count + t.count
+FROM temp t
+WHERE s.user_id = t.user_id AND s.song_id = t.song_id;
+
+--- (MySQL: UPDATE might be different)
+
+INSERT snapshot (date, user_id, song_id, count)
+SELECT current_date, user_id, song_id, count
+from temp
+where (user_id, song_id) not in (select user_id, song_id from snapshot) x;
+</code></pre>
+
+<p><strong>Scenario 2</strong>: Append new snapshot for each date.</p>
+
+<pre><code class="sql">create temporary table temp
+AS
+(select user_id, song_id, count(*)
+from fact_event
+where date &gt; (select max(date) from snapshot)
+group by user_id, song_id
+);
+
+insert into snapshot (date, user_id, song_id, count)
+select current_date, t.user_id, t.song_id, t.count + coalesce(s.count, 0)
+from temp t
+join snapshot s on t.user_id = s.user_id and t.song_id = s.song_id and s.date = current_date-1;
 </code></pre>
 ]]></content>
   </entry>
