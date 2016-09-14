@@ -4,7 +4,7 @@
 
 url: http://tdongsi.github.io/SqlTests
 title: Personal Interview Notes
-subtitle: "Neither success or failure is ever final."
+subtitle: "Neither success nor failure is ever final."
 author: Cuong Dong-Si
 simple_search: https://www.google.com/search
 description:
@@ -29,7 +29,7 @@ email:
 root: /SqlTests
 permalink: /blog/:year/:month/:day/:title/
 source: source
-destination: public
+destination: public/SqlTests
 plugins: plugins
 code_dir: download/code
 category_dir: blog/categories

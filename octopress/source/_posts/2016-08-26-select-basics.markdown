@@ -7,7 +7,6 @@ categories:
 - Facebook
 - Questions
 - SQL
-- TODO
 ---
 
 This post is about basic `SELECT` questions (phone-screen level). 
@@ -16,7 +15,7 @@ This post is about basic `SELECT` questions (phone-screen level).
 
 ### Questions
 
-``` plain Given Department schema
+``` plain Given Department schema for Questions 1-3
 employees                             projects
 +---------------+---------+           +---------------+---------+
 | id            | int     |<----+  +->| id            | int     |
@@ -45,6 +44,126 @@ Expected Output:
 | Engineering |        130000  |
 | Marketing   |         50000  |
 +-------------+----------------+
+```
+
+#### Question 2
+
+``` plain Question 2
+List the current projects and employees assigned to them.
+
+Output:
++------------+-----------+--------------------------+
+| first_name | last_name | title                    |
++------------+-----------+--------------------------+
+| John       | Smith     | Update TPS Reports       |
+| Ava        | Muffinson | Design 3 New Silly Walks |
+| Cailin     | Ninson    | Build a cool site        |
+| Mike       | Peterson  | Build a cool site        |
+| Ian        | Peterson  | Build a cool site        |
++------------+-----------+--------------------------+
+```
+
+#### Question 3
+
+``` plain Question 3
+Who's the highest paid person per department?
+
+Output:
++------------+-----------+-------------+--------+
+| first_name | last_name | name        | salary |
++------------+-----------+-------------+--------+
+| John       | Smith     | Reporting   |  20000 |
+| Ian        | Peterson  | Engineering |  80000 |
+| John       | Mills     | Marketing   |  50000 |
+| Ava        | Muffinson | Silly Walks |  10000 |
++------------+-----------+-------------+--------+
+```
+
+#### Question 4
+
+``` plain Given fact_sales table
+create table fact_sales (
+  dateid date not null,
+  fruit varchar(10),
+  sold int
+);
+
+insert into fact_sales
+values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Apple', 31); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Orange', 19); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Apple', 37); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Orange', 26); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Apple', 21); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Orange', 23); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Apple', 35); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Orange', 27);
+
+fact_sales
++------------+--------+------+
+| dateid     | fruit  | sold |
++------------+--------+------+
+| 2015-01-01 | Apple  |   31 |
+| 2015-01-01 | Orange |   19 |
+| 2015-01-02 | Apple  |   37 |
+| 2015-01-02 | Orange |   26 |
+| 2015-01-03 | Apple  |   21 |
+| 2015-01-03 | Orange |   23 |
+| 2015-01-04 | Apple  |   35 |
+| 2015-01-04 | Orange |   27 |
++------------+--------+------+
+```
+
+``` plain Question 4
+What is the difference between Apples and Oranges sold each day?
+
+Output:
++------------+------+
+| dateid     | sold |
++------------+------+
+| 2015-01-01 |   12 |
+| 2015-01-02 |   11 |
+| 2015-01-03 |   -2 |
+| 2015-01-04 |    8 |
++------------+------+
+```
+
+#### Question 5
+
+``` plain Given schema
+fct_request
++------------+------------+---------------+
+| dateid     | sender_uid | recipient_uid |
++------------+------------+---------------+
+| 2015-01-01 |          1 |             2 |
+| 2015-01-01 |          1 |             4 |
+| 2015-01-02 |          3 |             1 |
+| 2015-01-03 |          4 |             5 |
++------------+------------+---------------+
+
+fct_accept
++------------+--------------+------------+
+| dateid     | accepter_uid | sender_uid |
++------------+--------------+------------+
+| 2015-01-01 |            2 |          1 |
+| 2015-01-02 |            4 |          1 |
+| 2015-01-02 |            1 |          3 |
++------------+--------------+------------+
+
+Rules:
+1. You can only send a friend request to a person one time.
+2. You cannot send a friend request to someone who has already sent you a friend request.
+```
+
+``` plain Question 5
+What percent of friend requests are accepted?
+Data might be not perfect.
 ```
 
 ### Answers
@@ -77,3 +196,61 @@ having total > 40000
   join departments d ON t.department_id = d.id
 ```
 
+#### Question 2
+
+``` sql Answer 2
+select e.first_name, e.last_name, p.title
+from employees_projects ep
+join employees e on ep.employee_id = e.id
+join projects p on ep.project_id = p.id;
+```
+
+#### Question 3
+
+Again, the sandbox is MySQL and `dense_rank` is not available. 
+
+``` sql Answer 3
+select e.first_name, e.last_name, d.name, e.salary
+FROM employees e
+JOIN departments d on e.department_id = d.id
+WHERE (e.department_id, e.salary) in
+(
+select department_id, max(salary) AS salary
+from employees
+group by department_id
+)
+```
+
+#### Question 4
+
+You can self-join the table to get the following answer.
+
+``` sql Naive answer
+select orange.dateid, apple.sold - orange.sold
+from fact_sales orange
+join fact_sales apple on orange.dateid = apple.dateid
+and orange.fruit = 'Orange' and apple.fruit = 'Apple';
+```
+
+However, recall that in dimensional modeling, fact tables usually have huge number of rows.
+Therefore, the expected answer should avoid joining such a huge table.
+
+``` sql Expected answer
+select dateid, sum(mod_sold)
+from (
+select dateid, case when fruit = 'Apple'  then sold else -sold end as mod_sold
+from fact_sales
+) t
+group by dateid;
+```
+
+#### Question 5
+
+``` sql Answer 5
+select count(requested), sum(accepted)
+FROM (
+select r.sender_uid as requested, CASE when a.sender_uid is null then 0 else 1 end as accepted
+from fct_request r
+left join fct_accept a on r.sender_uid = a.sender_uid and r.recipient_uid = a.accepter_uid
+) t
+```
