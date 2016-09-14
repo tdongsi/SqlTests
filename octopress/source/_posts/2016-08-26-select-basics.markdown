@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Questions: SELECT basics"
+title: "Questions: SQL basics"
 date: 2016-08-26 01:39:37 -0700
 comments: true
 categories: 
@@ -9,7 +9,7 @@ categories:
 - SQL
 ---
 
-This post is about basic `SELECT` questions (phone-screen level). 
+This post is about basic DDL, `SELECT` questions (phone-screen level). 
 
 <!--more-->
 
@@ -166,6 +166,26 @@ What percent of friend requests are accepted?
 Data might be not perfect.
 ```
 
+#### Question 6
+
+Create DDL (table and foreign keys) for several tables in a provided ERD. 
+ERD contains at least one many to many relationship. 
+For example: Player(personID, school) and Team(teamID, name).
+Player and Team will have a many to many relationship.
+
+#### Question 7
+
+This question is a bit advanced.
+
+You have a table where you have `date`, `user_id`, `song_id` and `count`. 
+It shows at the end of each day how many times in her history a user has listened to a given song. 
+So count is cumulative sum. 
+You have to update this on a daily basis based on a second table that records in real time when a user listens to a given song. 
+Basically, at the end of each day, you go to this second table and pull a count of each user/song combination and then add this count to the first table that has the lifetime count.
+If it is the first time a user has listened to a given song, you won't have this pair in the lifetime table, so you have to create the pair there and then add the count of the last day.
+
+For simplicity, assume the tables are fact_event: (date, user_id, song_id) and snapshot: (date, user_id, song_id, count).
+
 ### Answers
 
 #### Question 1
@@ -253,4 +273,69 @@ select r.sender_uid as requested, CASE when a.sender_uid is null then 0 else 1 e
 from fct_request r
 left join fct_accept a on r.sender_uid = a.sender_uid and r.recipient_uid = a.accepter_uid
 ) t
+```
+
+#### Question 6
+
+You should create a `teamPlayer` table with foreign keys to `Team` and `Player` tables as primary key.
+You are expected to write the following DDL statements.
+
+``` sql DDL for teamPlayer
+CREATE TABLE teamPlayer
+(
+playerID INT NOT NULL, 
+teamID INT NOT NULL,
+PRIMARY KEY(playerID, teamID)
+);
+
+alter table teamPlayer
+add constraint 
+  fk_teamPlayer__Player foreign key(playerID) references Player(personID);
+
+alter table teamPlayer
+add constraint 
+  fk_teamPlayer__Team foreign key(teamID) references Team(teamID);
+``` 
+
+#### Question 7
+
+**Scenario 1**: Overwrite the snapshot. Date column in snapshot is the last modified date.
+
+```
+create temporary table temp
+AS
+(select user_id, song_id, count(*)
+from fact_event
+where date > (select max(date) from snapshot)
+group by user_id, song_id
+);
+
+UPDATE snapshot as s
+SET date = current_date, s.count = s.count + t.count
+FROM temp t
+WHERE s.user_id = t.user_id AND s.song_id = t.song_id;
+
+--- (MySQL: UPDATE might be different)
+
+INSERT snapshot (date, user_id, song_id, count)
+SELECT current_date, user_id, song_id, count
+from temp
+where (user_id, song_id) not in (select user_id, song_id from snapshot) x;
+```
+
+**Scenario 2**: Append new snapshot for each date.
+
+``` sql
+create temporary table temp
+AS
+(select user_id, song_id, count(*)
+from fact_event
+where date > (select max(date) from snapshot)
+group by user_id, song_id
+);
+
+insert into snapshot (date, user_id, song_id, count)
+select current_date, t.user_id, t.song_id, t.count + coalesce(s.count, 0)
+from temp t
+join snapshot s on t.user_id = s.user_id and t.song_id = s.song_id and s.date = current_date-1;
 ```
