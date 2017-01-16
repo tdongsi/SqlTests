@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Testing | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/testing/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2016-09-14T00:03:50-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/02/tutorial-test-driven-development/"/>
+    <updated>2016-09-02T22:57:00-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/02/tutorial-test-driven-development</id>
+    <content type="html"><![CDATA[<!-- Reference:
+Evernote: "QE cheat sheet"
+-->
+
+
+<p>Test-driven development has become more and more important.
+As pointed out in <a href="/syllabus/">this</a>, candidates with 3+ years of industry experience should be able to demonstrate testing experience.
+You should expect testing questions come up, even when you interview for developer positions.</p>
+
+<!--more-->
+
+
+<h3>Type of tests</h3>
+
+<p>This is useful for the open questions of &ldquo;How do you test X?&rdquo; type.
+X can be anything that are not related to software.
+It would be awesome if you can come up with a creative test case that interviewers won&rsquo;t think of.
+However, you are usually expected to hit broadly and methodically different categories of tests, instead of keeping listing different test cases of a test category.
+Knowing these kind of tests can also help you keep talking without running out of ideas.</p>
+
+<ul>
+<li>Unit testing</li>
+<li>Integration testing</li>
+<li>Functional testing</li>
+<li>Load testing</li>
+<li>Stress testing</li>
+<li>Performance testing</li>
+<li>Install/Uninstall testing</li>
+<li>UI testing</li>
+<li>Localization testing (language, market-ready)</li>
+<li>Security testing</li>
+<li>Acceptance testing</li>
+<li>Regression testing</li>
+</ul>
+
+
+<p>Other general types:</p>
+
+<ul>
+<li>White-box testing</li>
+<li>Black-box testing</li>
+<li>Beta testing</li>
+</ul>
+
+
+<p>Questions that I will ask myself if I am the interviewer.</p>
+
+<ul>
+<li>Does the candidate ask good questions to understand the feature or he/she just simply making assumptions?</li>
+<li>Is the candidate covering negative and boundary conditions?</li>
+<li>Is the candidate trying to break the feature? Any interesting test cases you haven’t thought of?</li>
+<li>Is the candidate covering non-functional tests such as performance, scalability, security, etc.?</li>
+</ul>
+
+
+<p>Make sure that you pass all those minimum expections: ask clarifying questions and highlight assumptions.</p>
+
+<h3>Example of a testing question</h3>
+
+<p>For example, the interviewer will give you a question: &ldquo;Given a string, reverse it word by word&rdquo;.
+You proceed to solve it and write it on the whiteboard.
+The follow-up question would be &ldquo;How would you test it?&rdquo;.</p>
+
+<p>(1) General</p>
+
+<ul>
+<li>&ldquo;Hello World&rdquo; => &ldquo;World Hello&rdquo;</li>
+<li>&ldquo;Foo Bar Baz&rdquo; => &ldquo;Baz Bar Foo&rdquo;</li>
+<li>What happens with unicode?</li>
+<li>What about tabs and newlines? Do newlines end up in the beginning or end?</li>
+<li>What about unicode whitespace?</li>
+<li>What about numbers? What about special characters like ! and #.</li>
+</ul>
+
+
+<p>(2) Boundary</p>
+
+<ul>
+<li>Null string: null => what happens?</li>
+<li>Empty string: &ldquo;&rdquo; => &ldquo;&rdquo;</li>
+<li>Really long string => What happens?</li>
+<li>What about a one really really long word?</li>
+<li>What if you just give a string of spaces <code>"     "</code> => <code>"     "</code>?</li>
+<li>What if you give a really string of letters separated by spaces? <code>"a a a a a a a a a a a a a a a a a a aa a"</code></li>
+<li>Does it handle Chinese well?</li>
+<li>What if there&rsquo;s multiple spaces? Are they respected? <code>"a a a b ob"</code></li>
+</ul>
+
+
+<p>(3) Exceptional</p>
+
+<ul>
+<li>What happens when you give a really long string (like from <code>/dev/random</code>)?</li>
+<li>How can the function run out of memory?</li>
+<li>What if the type is incorrect? Could happen in Python.</li>
+<li>null => depends on specification. Might not be possible in languages like Haskell.</li>
+</ul>
+
+
+<p>Four and five are bonus stuff that I like to cover or have been asked of me in the past.
+They generally aren&rsquo;t the first three that I think of when I&rsquo;m asked to test a function though.</p>
+
+<p>(4) Performance - Running time</p>
+
+<p>I would explain the space complexity I expect out of my solution.
+I would draw a simple graph of what it would probably look like.
+I would then provide a set of sample points that I would take to see the space complexity.
+Some sample points I would take are 0, 1, 5, 10, <code>100</code>, <code>1,000</code>, <code>10,000</code>, <code>100,000</code>, <code>1,000,000</code> until I hit some barrier and then draw more fine grain values in between.
+Basically, I&rsquo;d increase the input exponentially and then increase granularity from there.</p>
+
+<p>(5) Performancce - Space complexity</p>
+
+<p>Very similar to (4), I would explain the space complexity I expect out of my solution.
+I would draw a simple graph of what it would probably look like.
+I would then provide a set of sample points that I would take to see the space complexity.
+Personally, I would mention that many languages like Java allow you to run at a reduced heap size like 4 MB so that you can hit <code>OutOfMemory</code> exceptions very quickly with reasonably sized inputs, if the complexity isn&rsquo;t managed properly.</p>
+]]></content>
+  </entry>
+  
+</feed>

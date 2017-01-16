@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>System Design Questions - Personal Interview Notes</title>
+  <meta name="author" content="Cuong Dong-Si">
+
+  
+  <meta name="description" content="How to practice for System Design questions and some design questions. Readings For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions/">
+  <link href="/SqlTests/favicon.png" rel="icon">
+  <link href="/SqlTests/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
+  <script src="/SqlTests/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/SqlTests/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body    class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/SqlTests/">Personal Interview Notes</a></h1>
+  
+    <h2>Neither success nor failure is ever final.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="tdongsi.github.io/SqlTests">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/SqlTests/">Blog Home</a></li>
+  <li><a href="/SqlTests/blog/archives">Archives</a></li>
+  <li><a href="/SqlTests/syllabus">Syllabus</a></li>
+  <li><a href="http://tdongsi.github.io">Personal Home</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">System Design Questions</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-09-14T02:13:01-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>2:13 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>How to practice for System Design questions and some design questions.</p>
+
+<!--more-->
+
+
+<h3>Readings</h3>
+
+<p>For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize scalability problems that AWS services trying to address and replace, for example, &ldquo;AWS Load Balancer&rdquo; with generic load balancer.</p>
+
+<p>Read these to know the broad topics that are expected.</p>
+
+<ol>
+<li><a href="https://www.quora.com/What-system-design-distributed-systems-+-scalability-topics-should-I-study-in-order-to-adequately-prepared-for-a-Google-Software-Engineer-interview">Quora question</a></li>
+<li><a href="https://www.linkedin.com/pulse/technical-design-interview-guide-success-joey-addona">The Technical Design Interview - A Guide to Success</a></li>
+<li><a href="https://www.linkedin.com/pulse/test-design-architecture-interview-tips-success-kane-ho">Test Design &amp; Architecture Interview - Tips to success</a></li>
+</ol>
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>Design a simple file system using OO programming. Just folder and files.</li>
+<li>How to design a load balancer?</li>
+<li>How to design Facebook News Feed?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<p>(1) Design a simple file system using OO programming. Just folder and files.</p>
+
+<p>Use Composite pattern.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">FileNode</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">File</span> <span class="kd">extends</span> <span class="n">FileNode</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kt">long</span> <span class="n">size</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Folder</span> <span class="kd">extends</span> <span class="n">FileNode</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">Collection</span><span class="o">&lt;</span><span class="n">FileNode</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(2) How to design a load balancer?</p>
+
+<p>Simple: hash and assign random. What are pros and cons?</p>
+
+<p>(3) Design Facebook News Feed.
+From <a href="https://www.reddit.com/r/cscareerquestions/comments/4ytbz3/design_facebook_news_feed_my_solution_to_the/">here</a>:</p>
+
+<p>First some numbers to get the scale of the problem:</p>
+
+<ul>
+<li>number of users: 10<sup>9</sup></li>
+<li>number of users during a peak hour (upper bound): 10<sup>8</sup></li>
+<li>number of posts during a peak hour: 10<sup>6</sup></li>
+<li>number of other activities during a peak hour (likes, comments, saves): 10<sup>10</sup></li>
+<li>almost all users have less than 10<sup>3</sup> friends</li>
+</ul>
+
+
+<p>The News Feed is constructed mainly based on the activity of user&rsquo;s important Facebook friends.
+An important friend is a user who is my friend and I have interacted with him/her at least somewhat during recent months.
+Interaction might include liking his/her comment, commenting on their post, chatting together, being marked on the same photo, etc.
+We assume the backend maintains the list of important friends.
+It might be updated perhaps every 60 minutes.
+This ordering might be quite fuzzy.
+Random perturbations of this ordering might lead to users being able to rediscover friends who they have mostly stopped interacting with.
+The primary purpose of distinguishing important friends is to make the feed more interesting.
+Another advantage is reduction of hotspots: there might be people with >10<sup>4</sup> friends, but we assume that every Facebook user has at most 10<sup>2</sup> important friends.</p>
+
+<p><strong>Minimum Viable Product</strong>: The Facebook News Feed of each user is a merge of the recent posts made by all his/her important friends sorted by the score of the post.
+The score of the post is ideally proportional to how interesting the post is to our user.
+The score depends on: how old the post is (older posts are less interesting), how many likes the post received, how many likes the post received from user&rsquo;s important friends or friends, &hellip;</p>
+
+<p>We primarily care about delivering an interesting News Feed. On the other hand, we don&rsquo;t really care about being able to produce an infinitely long News Feed. If our infrastructure implies that the feed is limited to 10<sup>00</sup> items and the user cannot scroll further. There are very few legitimate uses for having infinitely scrollable feed.</p>
+
+<p>Overview of the infrastructure:</p>
+
+<ul>
+<li>Firewall</li>
+<li>Load balancer</li>
+<li>Front-end web servers</li>
+<li>Memcache servers or Redis servers or something similar</li>
+<li>Distributed database servers</li>
+</ul>
+
+
+<p>Let&rsquo;s see what happens when the user requests his News Feed:</p>
+
+<ul>
+<li>The request is specified by: the id of user whose feed we&rsquo;re displaying and the number N of requested posts.</li>
+<li>The load balancer redirects the request to one of the web servers. It also decrypts the request. Within the datacenter, we only use unencrypted connections. To do the above, the load balancer keeps statistics of the numbers of requests each server is handling. Possibly, the load balancer might decide to start up a new server or schedule a shutdown of a server to save power. The web server checks if the user is authenticated. This is done by retrieving user&rsquo;s session data from a Google BigTable. If not logged in, s/he is redirected to the login page. If N is too large and not coming from a verified computer (like Facebook&rsquo;s API server), we reject the request and log information about a suspicious request.</li>
+<li>The web server queries memcache for the list of important friends of the user in question.</li>
+<li>Almost always, memcache will have this list ready in memory for all users who are currently logged in (after login, we immediately prefetch this data into memcache). The peak number of users is 10<sup>8</sup>, the number of important users at most 10<sup>2</sup>, each user is represented by an 8 byte identifier. This is an upper bound of 10<sup>11</sup> bytes, which is 100 GB of memory. Even with significant overhead, room for growth and a safety factor for situations when an unexpectedly large number of users logs in at the same time (e.g., when presidential election results are announced), this can still be stored in operating memory of a single server. A distributed memcache implementation is not going to have a problem here. For each important friend, the web server sends a request for this friend&rsquo;s Activity List. Activity List is a list of his posts, likes, comments, uploaded photos, instances of being marked on a photo, etc. Each item contains a timestamp (32 bits), item type (post, comment, share, &hellip;), id of the item (e.g., the id of the post or comment), the destination id (for example, the id of the post on which the comment was made) and privacy setting (1 byte). This is 22 bytes in total. Only identifiers are stored. The data are populated at the end of the computation.</li>
+<li>These lists are stored in a distributed database hidden behind caching servers. There is 10<sup>9</sup> users, each has at most 10<sup>3</sup> items in their Activity List. This is 22 * 10<sup>12</sup> = 22 TB of memory. <strong> It is certainly possible to store this in a distributed file system. </strong>A distributed memcache on 128 servers each with 250 GB RAM would also handle this. Therefore, we can assume all these lists are almost always in memory.</li>
+<li>Each item in each of these lists is assigned Relevancy Value. This depends on: The importance of the friend from whose Activity List the item is. How recent the item is. The number of likes and shares the item has (this only makes sense in the case of posts or photos). The number of likes from the user&rsquo;s other important friends. Surely, a like from 3 of my friends is more important than 10 likes from random strangers. We can access this information since we have retrieved the Activity Lists of every single important friend of the user. Since these lists include their likes and the ids of liked posts, we can specifically compute the numbers from the retrieved data. The user&rsquo;s prefered content type. Some users might like photos more than text. We remember this for each user and adjust the weight accordingly. Private posts that should not be visible to the user are removed at this point.</li>
+<li>We sort each of these lists using the Relevancy Value and merge them.</li>
+<li>We send this list to a content service. This service replaces all identifiers with the corresponding content (text, image links, names of users instead of user ids, &hellip;)</li>
+<li>The web server uses a template to convert this into HTML.</li>
+</ul>
+
+
+<p>There are two questions to ponder:</p>
+
+<ul>
+<li>When the News Feed is requested again in the future, do we recalculate it from scratch? We could store the sequence calculated in one of the last steps in cache and only compute the beginning of the feed (that is: we would only compute what is new). This might make almost-infinite scrolling possible in certain cases. However, we would need to handle some corner cases. For example, the list is only approximately ordered according to the timestamp.</li>
+<li>The above described the read path. It remains to analyze the write path: what happens when a user submits a content, likes something, etc. Well, we simply add this to his Activity List. In the case of posts, images, &hellip; we also store it on a content service server.</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cuong Dong-Si</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-09-14T02:13:01-07:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>2:13 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/SqlTests/blog/categories/questions/'>questions</a>, <a class='category' href='/SqlTests/blog/categories/systemdesign/'>systemdesign</a>, <a class='category' href='/SqlTests/blog/categories/tutorial/'>tutorial</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/SqlTests/blog/2016/09/13/network-question-bank/" title="Previous Post: Network Question bank">&laquo; Network Question bank</a>
+      
+      
+        <a class="basic-alignment right" href="/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/" title="Next Post: Tutorial: Dimensional Modelling">Tutorial: Dimensional Modelling &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+    <h1>About This Blog</h1>
+    <p>Random interview experience and lessons.</p>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">Tutorial: Dimensional Modelling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/14/system-design-questions/">System Design Questions</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/13/network-question-bank/">Network Question Bank</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/12/database-question-bank/">Database Question Bank</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/11/tutorial-bit-manipulation/">Questions: Bit Manipulation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/07/questions-operating-system-drills/">Questions: Operating System Drills</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/06/tutorial-process-synchronization/">Tutorial: Process Synchronization</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/04/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/03/question-bank/">Glassdoor: Algorithm Question Bank</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (1)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li></ul>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Cuong Dong-Si -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

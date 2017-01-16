@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Questions | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/questions/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2016-09-14T00:03:50-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[System Design Questions]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions/"/>
+    <updated>2016-09-14T02:13:01-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions</id>
+    <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
+
+<!--more-->
+
+
+<h3>Readings</h3>
+
+<p>For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize scalability problems that AWS services trying to address and replace, for example, &ldquo;AWS Load Balancer&rdquo; with generic load balancer.</p>
+
+<p>Read these to know the broad topics that are expected.</p>
+
+<ol>
+<li><a href="https://www.quora.com/What-system-design-distributed-systems-+-scalability-topics-should-I-study-in-order-to-adequately-prepared-for-a-Google-Software-Engineer-interview">Quora question</a></li>
+<li><a href="https://www.linkedin.com/pulse/technical-design-interview-guide-success-joey-addona">The Technical Design Interview - A Guide to Success</a></li>
+<li><a href="https://www.linkedin.com/pulse/test-design-architecture-interview-tips-success-kane-ho">Test Design &amp; Architecture Interview - Tips to success</a></li>
+</ol>
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>Design a simple file system using OO programming. Just folder and files.</li>
+<li>How to design a load balancer?</li>
+<li>How to design Facebook News Feed?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<p>(1) Design a simple file system using OO programming. Just folder and files.</p>
+
+<p>Use Composite pattern.</p>
+
+<pre><code class="java">class FileNode {
+  String name;
+}
+
+class File extends FileNode {
+  long size;
+}
+
+class Folder extends FileNode {
+  Collection&lt;FileNode&gt; children;
+}
+</code></pre>
+
+<p>(2) How to design a load balancer?</p>
+
+<p>Simple: hash and assign random. What are pros and cons?</p>
+
+<p>(3) Design Facebook News Feed.
+From <a href="https://www.reddit.com/r/cscareerquestions/comments/4ytbz3/design_facebook_news_feed_my_solution_to_the/">here</a>:</p>
+
+<p>First some numbers to get the scale of the problem:</p>
+
+<ul>
+<li>number of users: 10<sup>9</sup></li>
+<li>number of users during a peak hour (upper bound): 10<sup>8</sup></li>
+<li>number of posts during a peak hour: 10<sup>6</sup></li>
+<li>number of other activities during a peak hour (likes, comments, saves): 10<sup>10</sup></li>
+<li>almost all users have less than 10<sup>3</sup> friends</li>
+</ul>
+
+
+<p>The News Feed is constructed mainly based on the activity of user&rsquo;s important Facebook friends.
+An important friend is a user who is my friend and I have interacted with him/her at least somewhat during recent months.
+Interaction might include liking his/her comment, commenting on their post, chatting together, being marked on the same photo, etc.
+We assume the backend maintains the list of important friends.
+It might be updated perhaps every 60 minutes.
+This ordering might be quite fuzzy.
+Random perturbations of this ordering might lead to users being able to rediscover friends who they have mostly stopped interacting with.
+The primary purpose of distinguishing important friends is to make the feed more interesting.
+Another advantage is reduction of hotspots: there might be people with >10<sup>4</sup> friends, but we assume that every Facebook user has at most 10<sup>2</sup> important friends.</p>
+
+<p><strong>Minimum Viable Product</strong>: The Facebook News Feed of each user is a merge of the recent posts made by all his/her important friends sorted by the score of the post.
+The score of the post is ideally proportional to how interesting the post is to our user.
+The score depends on: how old the post is (older posts are less interesting), how many likes the post received, how many likes the post received from user&rsquo;s important friends or friends, &hellip;</p>
+
+<p>We primarily care about delivering an interesting News Feed. On the other hand, we don&rsquo;t really care about being able to produce an infinitely long News Feed. If our infrastructure implies that the feed is limited to 10<sup>00</sup> items and the user cannot scroll further. There are very few legitimate uses for having infinitely scrollable feed.</p>
+
+<p>Overview of the infrastructure:</p>
+
+<ul>
+<li>Firewall</li>
+<li>Load balancer</li>
+<li>Front-end web servers</li>
+<li>Memcache servers or Redis servers or something similar</li>
+<li>Distributed database servers</li>
+</ul>
+
+
+<p>Let&rsquo;s see what happens when the user requests his News Feed:</p>
+
+<ul>
+<li>The request is specified by: the id of user whose feed we&rsquo;re displaying and the number N of requested posts.</li>
+<li>The load balancer redirects the request to one of the web servers. It also decrypts the request. Within the datacenter, we only use unencrypted connections. To do the above, the load balancer keeps statistics of the numbers of requests each server is handling. Possibly, the load balancer might decide to start up a new server or schedule a shutdown of a server to save power. The web server checks if the user is authenticated. This is done by retrieving user&rsquo;s session data from a Google BigTable. If not logged in, s/he is redirected to the login page. If N is too large and not coming from a verified computer (like Facebook&rsquo;s API server), we reject the request and log information about a suspicious request.</li>
+<li>The web server queries memcache for the list of important friends of the user in question.</li>
+<li>Almost always, memcache will have this list ready in memory for all users who are currently logged in (after login, we immediately prefetch this data into memcache). The peak number of users is 10<sup>8</sup>, the number of important users at most 10<sup>2</sup>, each user is represented by an 8 byte identifier. This is an upper bound of 10<sup>11</sup> bytes, which is 100 GB of memory. Even with significant overhead, room for growth and a safety factor for situations when an unexpectedly large number of users logs in at the same time (e.g., when presidential election results are announced), this can still be stored in operating memory of a single server. A distributed memcache implementation is not going to have a problem here. For each important friend, the web server sends a request for this friend&rsquo;s Activity List. Activity List is a list of his posts, likes, comments, uploaded photos, instances of being marked on a photo, etc. Each item contains a timestamp (32 bits), item type (post, comment, share, &hellip;), id of the item (e.g., the id of the post or comment), the destination id (for example, the id of the post on which the comment was made) and privacy setting (1 byte). This is 22 bytes in total. Only identifiers are stored. The data are populated at the end of the computation.</li>
+<li>These lists are stored in a distributed database hidden behind caching servers. There is 10<sup>9</sup> users, each has at most 10<sup>3</sup> items in their Activity List. This is 22 * 10<sup>12</sup> = 22 TB of memory. <strong> It is certainly possible to store this in a distributed file system. </strong>A distributed memcache on 128 servers each with 250 GB RAM would also handle this. Therefore, we can assume all these lists are almost always in memory.</li>
+<li>Each item in each of these lists is assigned Relevancy Value. This depends on: The importance of the friend from whose Activity List the item is. How recent the item is. The number of likes and shares the item has (this only makes sense in the case of posts or photos). The number of likes from the user&rsquo;s other important friends. Surely, a like from 3 of my friends is more important than 10 likes from random strangers. We can access this information since we have retrieved the Activity Lists of every single important friend of the user. Since these lists include their likes and the ids of liked posts, we can specifically compute the numbers from the retrieved data. The user&rsquo;s prefered content type. Some users might like photos more than text. We remember this for each user and adjust the weight accordingly. Private posts that should not be visible to the user are removed at this point.</li>
+<li>We sort each of these lists using the Relevancy Value and merge them.</li>
+<li>We send this list to a content service. This service replaces all identifiers with the corresponding content (text, image links, names of users instead of user ids, &hellip;)</li>
+<li>The web server uses a template to convert this into HTML.</li>
+</ul>
+
+
+<p>There are two questions to ponder:</p>
+
+<ul>
+<li>When the News Feed is requested again in the future, do we recalculate it from scratch? We could store the sequence calculated in one of the last steps in cache and only compute the beginning of the feed (that is: we would only compute what is new). This might make almost-infinite scrolling possible in certain cases. However, we would need to handle some corner cases. For example, the list is only approximately ordered according to the timestamp.</li>
+<li>The above described the read path. It remains to analyze the write path: what happens when a user submits a content, likes something, etc. Well, we simply add this to his Activity List. In the case of posts, images, &hellip; we also store it on a content service server.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Network Question Bank]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/13/network-question-bank/"/>
+    <updated>2016-09-13T01:45:07-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/13/network-question-bank</id>
+    <content type="html"><![CDATA[<p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>TCP/UDP and how they&rsquo;re used.</li>
+<li>Difference between IPv4 &amp; IPv6.</li>
+<li>How DNS works.</li>
+<li>HTTP and it&rsquo;s various versions.</li>
+<li>Basic understanding of SSL/TLS.</li>
+<li>Other application protocols (FTP, IMAP, SSH etc.)</li>
+<li>What is REST and how it&rsquo;s used.</li>
+</ol>
+
+
+<p>On the practical side, make sure you&rsquo;re very comfortable with the networking stack of your language or framework of choice.</p>
+
+<ol>
+<li>Make calls to an external web service.</li>
+<li>Handle errors and different response codes.</li>
+<li>Be able to serialize/deserialize data.</li>
+<li>Know async concepts.</li>
+<li>Accept user inputs and handle XSS attacks.</li>
+<li>Web - how do you keep information in a web application - cookie vs session</li>
+<li>What is GET and POST - differences</li>
+<li>Difference between PUT and POST.</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<h4>Section A</h4>
+
+<p>(1) See more <a href="http://www.howtogeek.com/190014/htg-explains-what-is-the-difference-between-tcp-and-udp/">here</a>.
+Both TCP and UDP are protocols used for sending packets over Internet.
+Built on top of Internet Protocol (IP). The packets are sent to an IP address.</p>
+
+<p>TCP: Transmission Control Protocol</p>
+
+<ol>
+<li>Two ways: the remote system sends packets back to acknowledge it’s received your packets.</li>
+<li>TCP guarantees the recipient will receive the packets in order by numbering them.</li>
+<li>TCP is about reliability: if ACK is not received, the sender will send packets again.</li>
+<li>Example usage: file download, web.</li>
+</ol>
+
+
+<p>UDP: User Datagram Protocol</p>
+
+<ol>
+<li>Just send the packets to receiver. No waiting for ACK.</li>
+<li>No guarantee: if receivers don’t receive it, too bad.</li>
+<li>No error checking for better performance.</li>
+<li>Example usage: game, live video stream.</li>
+</ol>
+
+
+<h4>Section B</h4>
+
+<p>(3) See more <a href="http://stackoverflow.com/questions/107390/whats-the-difference-between-a-post-and-a-put-http-request">here</a>.</p>
+
+<p>PUT is idempotent: multiple PUT requests will have the same effect. POST is not.
+To give examples of REST-style resources:
+&ldquo;POST /books&rdquo; with a bunch of book information might create a new book, and respond with the new URL identifying that book: &ldquo;/books/5&rdquo;.
+&ldquo;PUT /books/5&rdquo; would have to either create a new book with the id of 5, or replace the existing book with ID 5.</p>
+
+<p>In non-resource style, POST can be used for just about anything that has a side effect. One other difference is that PUT should be idempotent - multiple PUTs of the same data to the same URL should be fine, wheras multiple POSTs might create multiple objects or whatever it is your POST action does.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Database Question Bank]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/12/database-question-bank/"/>
+    <updated>2016-09-12T01:41:54-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/12/database-question-bank</id>
+    <content type="html"><![CDATA[<p>Questions about database in general. For data warehouse and dimensional modelling, check <a href="/blog/2016/09/15/tutorial-dimensional-modelling/">this</a>.</p>
+
+<!--more-->
+
+
+<h3>Relational Database topics</h3>
+
+<p>Basics</p>
+
+<ul>
+<li>SELECTing columns from a table</li>
+<li>Aggregates Part 1: COUNT, SUM, MAX/MIN</li>
+<li>Aggregates Part 2: DISTINCT, GROUP BY, HAVING</li>
+</ul>
+
+
+<p>Intermediate</p>
+
+<ul>
+<li>JOINs, ANSI-89 and ANSI-92 syntax</li>
+<li>UNION vs UNION ALL</li>
+<li>NULL handling: COALESCE &amp; Native NULL handling</li>
+<li>Subqueries: IN, EXISTS, and inline views</li>
+<li>Subqueries: Correlated</li>
+<li>WITH syntax: Subquery Factoring/CTE</li>
+<li>Views</li>
+</ul>
+
+
+<p>Advanced Topics</p>
+
+<ul>
+<li>Functions, Stored Procedures, Packages</li>
+<li>Pivoting data: CASE &amp; PIVOT syntax</li>
+<li>Hierarchical Queries</li>
+<li>Cursors: Implicit and Explicit</li>
+<li>Triggers</li>
+<li>Dynamic SQL</li>
+<li>Materialized Views</li>
+<li>Query Optimization: Indexes</li>
+<li>Query Optimization: Explain Plans</li>
+<li>Query Optimization: Profiling</li>
+<li>Data Modelling: Normal Forms, 1 through 3</li>
+<li>Data Modelling: Primary &amp; Foreign Keys</li>
+<li>Data Modelling: Table Constraints</li>
+<li>Data Modelling: Link/Corrollary Tables</li>
+<li>Full Text Searching</li>
+<li>XML</li>
+<li>Isolation Levels</li>
+<li>Entity Relationship Diagrams (ERDs), Logical and Physical</li>
+<li>Transactions: COMMIT, ROLLBACK, Error Handling</li>
+</ul>
+
+
+<h4>References</h4>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/2119859/questions-every-good-database-sql-developer-should-be-able-to-answer">http://stackoverflow.com/questions/2119859/questions-every-good-database-sql-developer-should-be-able-to-answer</a></li>
+<li><a href="http://www.careercup.com/page?pid=database-interview-questions">http://www.careercup.com/page?pid=database-interview-questions</a></li>
+</ul>
+
+
+<h3>Questions</h3>
+
+<p>(1) Given these two databases:</p>
+
+<pre><code class="plain Given databases">id name id name 
+-- ---- -- ---- 
+1 Pirate 1 Rutabaga 
+2 Monkey 2 Pirate 
+3 Ninja 3 Darth Vader 
+4 Spaghetti 4 Ninja
+</code></pre>
+
+<p>Explain the following JOINs:</p>
+
+<ol>
+<li>INNER JOIN</li>
+<li>LEFT and RIGHT OUTER JOIN</li>
+<li>FULL JOIN</li>
+<li>CROSS JOIN</li>
+</ol>
+
+
+<p>B set:</p>
+
+<ol>
+<li>What is normalization and why is it important?</li>
+<li>What are some situations where you would de-normalize data?</li>
+<li>What is a transaction and why is it important?</li>
+<li>What is referential integrity and why is it important?</li>
+<li>What steps would to take to investigate reports of slow database performance?</li>
+<li>What is an index and how does it help your database?</li>
+<li>If someone were to make the claim that: &ldquo;every SELECT always include DISTINCT&rdquo;; how would you comment on the claim?
+OLTP and OLAP points of view?</li>
+</ol>
+
+
+<h3>Answer keys</h3>
+
+<h4>Section A</h4>
+
+<p>(1) <a href="http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html">http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html</a></p>
+
+<h4>Section B</h4>
+
+<p>(1) Normalizing: remove redundancy -> remove update and delete anomaly -> more efficient data storage and consistent data.</p>
+
+<p>Summary from Introduction to Databases
+To reduce redundancy. From redundancy, it will lead to update and delete anomaly.
+E.g.: dim_company: region/country info will be repeated -> redundancy.
+E.g.: North Korea and South Korea merged into Korea -> delete those regions will delete companies -> delete anomaly.</p>
+
+<p>Popular normal forms:</p>
+
+<p>BCNF: For each functional dependency A-> B, A is key.
+Functional dependency: A -> B: same A leads to same B. E.g.: ID -> name.</p>
+
+<p>4NF: Functional dependency + Multivalued dependency.
+Multivalued dependency: A ->> B, C: each A lead to all combo (B x C). E.g.: ID -> region x language
+4NF: For each multivalued dependency A ->> B, C, A is key. I.e.: (A, B, C) is decomposed to (A, B) and (A, C).</p>
+
+<p>(2) When there is no data update or deletion. For example: data warehouse situations.
+Analytical processing: joining multiple tables is not efficient. The SQL queries are hard to write.</p>
+
+<p>(3)Why is transaction is important:</p>
+
+<ul>
+<li>Concurrency: Ensure consistent data read/write while providing concurrent data access.</li>
+<li>Failure-tolerance: Resilience to system failures.</li>
+</ul>
+
+
+<p>A transaction is a sequence of SQL statements treated as a unit. The effect of a transaction is either full or none at all.
+Transactions appear to run in isolation.</p>
+
+<p>ACID: atomic, consistency, isolation, durability</p>
+
+<p>(4) You have a foreign key, reference to another table.
+When that key is deleted from the other table, referential integrity is compromised.</p>
+
+<p>(5) Check current state: hang processes, long running queries.
+Optimize SQL queries.
+Indexes.</p>
+
+<p>(6) What is it: persistent data structure, stored in database.
+Purpose: improve data lookup performance.
+Instead of scanning a whole relational table for a record, using the index, the location of a record can be returned almost immediately.
+Implementation: Balanced trees (B tree, B+ tree), Hash Map (for equality condition only)</p>
+
+<p>A database index is a data structure that improves the speed of data retrieval operations on a database table at the cost of additional writes and storage space to maintain the index data structure.
+An index is a copy of select columns of data from a table that can be searched very efficiently that also includes a low-level disk block address or direct link to the complete row of data it was copied from.</p>
+
+<p>(7) OLTP: Suppose your query is correct, and does not return any duplicates, then including DISTINCT simply forces the RDBMS to check your result (zero benefit, and a lot of additional processing).
+Suppose your query is incorrect, and does return duplicates, then including DISTINCT simply hides the problem (again with additional processing).
+It would be better to spot the problem and fix your query.
+It&rsquo;ll run faster that way.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/11/tutorial-bit-manipulation/"/>
+    <updated>2016-09-11T01:23:25-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/11/tutorial-bit-manipulation</id>
+    <content type="html"><![CDATA[<h3>Questions</h3>
+
+<ol>
+<li>Addition using only bit manipulation.</li>
+<li>Subtraction using only bit manipulation.</li>
+<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
+<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
+</ol>
+
+
+<!--more-->
+
+
+<h3>Answers</h3>
+
+<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
+In code, it is implemented as follows:</p>
+
+<pre><code class="java Addition">    private int add(int a, int b) {
+        if(b == 0)
+            return a;
+
+        return add( a ^ b, (a &amp; b) &lt;&lt; 1);
+    }
+</code></pre>
+
+<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
+In code, it is implemented as follows:</p>
+
+<pre><code class="java Subtraction">    private int subtract(int a, int b) {
+        if(b == 0)
+            return a;
+
+        return subtract( a ^ b, (~a &amp; b) &lt;&lt; 1);
+    }
+</code></pre>
+
+<p>(3) Find odd one.</p>
+
+<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
+
+<p>(4) Quickly determine if a number is a power of 2.</p>
+
+<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: Operating System Drills]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/07/questions-operating-system-drills/"/>
+    <updated>2016-09-07T00:42:41-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/07/questions-operating-system-drills</id>
+    <content type="html"><![CDATA[<p>From &ldquo;Operating System concepts&rdquo; book.</p>
+
+<!--more-->
+
+
+<p>Drill:</p>
+
+<ol>
+<li>Chapter 1: Storage device hierarchy</li>
+<li>Chapter 2: System calls and Linux examples. System boot.</li>
+<li>Chapter 3: Process diagram. Process state diagram. Zombie, orphan process. Practice Exercise 3.1, 3.2.</li>
+</ol>
+
+
+<p>Links:</p>
+
+<ul>
+<li><a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/">http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/</a></li>
+<li><a href="http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/">http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/</a></li>
+<li><a href="http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/">http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/</a></li>
+</ul>
+
+
+<p>Practice exercises:</p>
+
+<ul>
+<li><a href="http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html">http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

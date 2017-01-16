@@ -1,0 +1,792 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Questions: SQL Basics - Personal Interview Notes</title>
+  <meta name="author" content="Cuong Dong-Si">
+
+  
+  <meta name="description" content="This post is about basic DDL, SELECT questions (phone-screen level). Questions Given Department schema for Questions 1-31
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/">
+  <link href="/SqlTests/favicon.png" rel="icon">
+  <link href="/SqlTests/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
+  <script src="/SqlTests/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/SqlTests/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body    class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/SqlTests/">Personal Interview Notes</a></h1>
+  
+    <h2>Neither success nor failure is ever final.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="tdongsi.github.io/SqlTests">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/SqlTests/">Blog Home</a></li>
+  <li><a href="/SqlTests/blog/archives">Archives</a></li>
+  <li><a href="/SqlTests/syllabus">Syllabus</a></li>
+  <li><a href="http://tdongsi.github.io">Personal Home</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Questions: SQL Basics</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-08-26T01:39:37-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:39 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This post is about basic DDL, <code>SELECT</code> questions (phone-screen level).</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<figure class='code'><figcaption><span>Given Department schema for Questions 1-3</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>employees                             projects
+</span><span class='line'>+---------------+---------+           +---------------+---------+
+</span><span class='line'>| id            | int     |&lt;----+  +-&gt;| id            | int     |
+</span><span class='line'>| first_name    | varchar |     |  |  | title         | varchar |
+</span><span class='line'>| last_name     | varchar |     |  |  | start_date    | date    |
+</span><span class='line'>| salary        | int     |     |  |  | end_date      | date    |
+</span><span class='line'>| department_id | int     |--+  |  |  | budget        | int     |
+</span><span class='line'>+---------------+---------+  |  |  |  +---------------+---------+
+</span><span class='line'>                             |  |  |
+</span><span class='line'>departments                  |  |  |  employees_projects
+</span><span class='line'>+---------------+---------+  |  |  |  +---------------+---------+
+</span><span class='line'>| id            | int     |&lt;-+  |  +--| project_id    | int     |
+</span><span class='line'>| name          | varchar |     +-----| employee_id   | int     |
+</span><span class='line'>+---------------+---------+           +---------------+---------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 1</h4>
+
+<figure class='code'><figcaption><span>Question 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Write a query to list the departments that have a total combined salary greater than $40,000.
+</span><span class='line'>
+</span><span class='line'>Expected Output:
+</span><span class='line'>+-------------+----------------+
+</span><span class='line'>| name        | combined_salary|
+</span><span class='line'>+-------------+----------------+
+</span><span class='line'>| Engineering |        130000  |
+</span><span class='line'>| Marketing   |         50000  |
+</span><span class='line'>+-------------+----------------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 2</h4>
+
+<figure class='code'><figcaption><span>Question 2</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>List the current projects and employees assigned to them.
+</span><span class='line'>
+</span><span class='line'>Output:
+</span><span class='line'>+------------+-----------+--------------------------+
+</span><span class='line'>| first_name | last_name | title                    |
+</span><span class='line'>+------------+-----------+--------------------------+
+</span><span class='line'>| John       | Smith     | Update TPS Reports       |
+</span><span class='line'>| Ava        | Muffinson | Design 3 New Silly Walks |
+</span><span class='line'>| Cailin     | Ninson    | Build a cool site        |
+</span><span class='line'>| Mike       | Peterson  | Build a cool site        |
+</span><span class='line'>| Ian        | Peterson  | Build a cool site        |
+</span><span class='line'>+------------+-----------+--------------------------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 3</h4>
+
+<figure class='code'><figcaption><span>Question 3</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Who's the highest paid person per department?
+</span><span class='line'>
+</span><span class='line'>Output:
+</span><span class='line'>+------------+-----------+-------------+--------+
+</span><span class='line'>| first_name | last_name | name        | salary |
+</span><span class='line'>+------------+-----------+-------------+--------+
+</span><span class='line'>| John       | Smith     | Reporting   |  20000 |
+</span><span class='line'>| Ian        | Peterson  | Engineering |  80000 |
+</span><span class='line'>| John       | Mills     | Marketing   |  50000 |
+</span><span class='line'>| Ava        | Muffinson | Silly Walks |  10000 |
+</span><span class='line'>+------------+-----------+-------------+--------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 4</h4>
+
+<figure class='code'><figcaption><span>Given fact_sales table</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>create table fact_sales (
+</span><span class='line'>  dateid date not null,
+</span><span class='line'>  fruit varchar(10),
+</span><span class='line'>  sold int
+</span><span class='line'>);
+</span><span class='line'>
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Apple', 31); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Orange', 19); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Apple', 37); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Orange', 26); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Apple', 21); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Orange', 23); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Apple', 35); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Orange', 27);
+</span><span class='line'>
+</span><span class='line'>fact_sales
+</span><span class='line'>+------------+--------+------+
+</span><span class='line'>| dateid     | fruit  | sold |
+</span><span class='line'>+------------+--------+------+
+</span><span class='line'>| 2015-01-01 | Apple  |   31 |
+</span><span class='line'>| 2015-01-01 | Orange |   19 |
+</span><span class='line'>| 2015-01-02 | Apple  |   37 |
+</span><span class='line'>| 2015-01-02 | Orange |   26 |
+</span><span class='line'>| 2015-01-03 | Apple  |   21 |
+</span><span class='line'>| 2015-01-03 | Orange |   23 |
+</span><span class='line'>| 2015-01-04 | Apple  |   35 |
+</span><span class='line'>| 2015-01-04 | Orange |   27 |
+</span><span class='line'>+------------+--------+------+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Question 4</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>What is the difference between Apples and Oranges sold each day?
+</span><span class='line'>
+</span><span class='line'>Output:
+</span><span class='line'>+------------+------+
+</span><span class='line'>| dateid     | sold |
+</span><span class='line'>+------------+------+
+</span><span class='line'>| 2015-01-01 |   12 |
+</span><span class='line'>| 2015-01-02 |   11 |
+</span><span class='line'>| 2015-01-03 |   -2 |
+</span><span class='line'>| 2015-01-04 |    8 |
+</span><span class='line'>+------------+------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 5</h4>
+
+<figure class='code'><figcaption><span>Given schema</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fct_request
+</span><span class='line'>+------------+------------+---------------+
+</span><span class='line'>| dateid     | sender_uid | recipient_uid |
+</span><span class='line'>+------------+------------+---------------+
+</span><span class='line'>| 2015-01-01 |          1 |             2 |
+</span><span class='line'>| 2015-01-01 |          1 |             4 |
+</span><span class='line'>| 2015-01-02 |          3 |             1 |
+</span><span class='line'>| 2015-01-03 |          4 |             5 |
+</span><span class='line'>+------------+------------+---------------+
+</span><span class='line'>
+</span><span class='line'>fct_accept
+</span><span class='line'>+------------+--------------+------------+
+</span><span class='line'>| dateid     | accepter_uid | sender_uid |
+</span><span class='line'>+------------+--------------+------------+
+</span><span class='line'>| 2015-01-01 |            2 |          1 |
+</span><span class='line'>| 2015-01-02 |            4 |          1 |
+</span><span class='line'>| 2015-01-02 |            1 |          3 |
+</span><span class='line'>+------------+--------------+------------+
+</span><span class='line'>
+</span><span class='line'>Rules:
+</span><span class='line'>1. You can only send a friend request to a person one time.
+</span><span class='line'>2. You cannot send a friend request to someone who has already sent you a friend request.</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Question 5</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>What percent of friend requests are accepted?
+</span><span class='line'>Data might be not perfect.</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 6</h4>
+
+<p>Create DDL (table and foreign keys) for several tables in a provided ERD.
+ERD contains at least one many to many relationship.
+For example: Player(personID, school) and Team(teamID, name).
+Player and Team will have a many to many relationship.</p>
+
+<h4>Question 7</h4>
+
+<p>This question is a bit advanced.</p>
+
+<p>You have a table where you have <code>date</code>, <code>user_id</code>, <code>song_id</code> and <code>count</code>.
+It shows at the end of each day how many times in her history a user has listened to a given song.
+So count is cumulative sum.
+You have to update this on a daily basis based on a second table that records in real time when a user listens to a given song.
+Basically, at the end of each day, you go to this second table and pull a count of each user/song combination and then add this count to the first table that has the lifetime count.
+If it is the first time a user has listened to a given song, you won&rsquo;t have this pair in the lifetime table, so you have to create the pair there and then add the count of the last day.</p>
+
+<p>For simplicity, assume the tables are fact_event: (date, user_id, song_id) and snapshot: (date, user_id, song_id, count).</p>
+
+<h3>Answers</h3>
+
+<h4>Question 1</h4>
+
+<p>The sandbox uses MySQL which does not support WITH clause.
+See more MySQL workaround in <a href="/SqlTests/blog/2016/08/28/mysql-workaround/">here</a>.</p>
+
+<figure class='code'><figcaption><span>Answer 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">WITH</span> <span class="n">dept_total</span> <span class="k">AS</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">as</span> <span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
+</span><span class='line'><span class="k">having</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">40000</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="n">dept_total</span> <span class="n">t</span>
+</span><span class='line'><span class="k">join</span> <span class="n">deparments</span> <span class="n">d</span> <span class="k">on</span> <span class="n">t</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>MySQL Answer 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="p">(</span>
+</span><span class='line'>  <span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">as</span> <span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
+</span><span class='line'><span class="k">having</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">40000</span>
+</span><span class='line'>  <span class="p">)</span> <span class="n">t</span>
+</span><span class='line'>  <span class="k">join</span> <span class="n">departments</span> <span class="n">d</span> <span class="k">ON</span> <span class="n">t</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 2</h4>
+
+<figure class='code'><figcaption><span>Answer 2</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">title</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees_projects</span> <span class="n">ep</span>
+</span><span class='line'><span class="k">join</span> <span class="n">employees</span> <span class="n">e</span> <span class="k">on</span> <span class="n">ep</span><span class="p">.</span><span class="n">employee_id</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">id</span>
+</span><span class='line'><span class="k">join</span> <span class="n">projects</span> <span class="n">p</span> <span class="k">on</span> <span class="n">ep</span><span class="p">.</span><span class="n">project_id</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 3</h4>
+
+<p>Again, the sandbox is MySQL and <code>dense_rank</code> is not available.</p>
+
+<figure class='code'><figcaption><span>Answer 3</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">salary</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">employees</span> <span class="n">e</span>
+</span><span class='line'><span class="k">JOIN</span> <span class="n">departments</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">salary</span><span class="p">)</span> <span class="k">in</span>
+</span><span class='line'><span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">max</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">AS</span> <span class="n">salary</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
+</span><span class='line'><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 4</h4>
+
+<p>You can self-join the table to get the following answer.</p>
+
+<figure class='code'><figcaption><span>Naive answer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">orange</span><span class="p">.</span><span class="n">dateid</span><span class="p">,</span> <span class="n">apple</span><span class="p">.</span><span class="n">sold</span> <span class="o">-</span> <span class="n">orange</span><span class="p">.</span><span class="n">sold</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fact_sales</span> <span class="n">orange</span>
+</span><span class='line'><span class="k">join</span> <span class="n">fact_sales</span> <span class="n">apple</span> <span class="k">on</span> <span class="n">orange</span><span class="p">.</span><span class="n">dateid</span> <span class="o">=</span> <span class="n">apple</span><span class="p">.</span><span class="n">dateid</span>
+</span><span class='line'><span class="k">and</span> <span class="n">orange</span><span class="p">.</span><span class="n">fruit</span> <span class="o">=</span> <span class="s1">&#39;Orange&#39;</span> <span class="k">and</span> <span class="n">apple</span><span class="p">.</span><span class="n">fruit</span> <span class="o">=</span> <span class="s1">&#39;Apple&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, recall that in dimensional modeling, fact tables usually have huge number of rows.
+Therefore, the expected answer should avoid joining such a huge table.</p>
+
+<figure class='code'><figcaption><span>Expected answer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">dateid</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">mod_sold</span><span class="p">)</span>
+</span><span class='line'><span class="k">from</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">dateid</span><span class="p">,</span> <span class="k">case</span> <span class="k">when</span> <span class="n">fruit</span> <span class="o">=</span> <span class="s1">&#39;Apple&#39;</span>  <span class="k">then</span> <span class="n">sold</span> <span class="k">else</span> <span class="o">-</span><span class="n">sold</span> <span class="k">end</span> <span class="k">as</span> <span class="n">mod_sold</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fact_sales</span>
+</span><span class='line'><span class="p">)</span> <span class="n">t</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">dateid</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 5</h4>
+
+<figure class='code'><figcaption><span>Answer 5</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">requested</span><span class="p">),</span> <span class="k">sum</span><span class="p">(</span><span class="n">accepted</span><span class="p">)</span>
+</span><span class='line'><span class="k">FROM</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">r</span><span class="p">.</span><span class="n">sender_uid</span> <span class="k">as</span> <span class="n">requested</span><span class="p">,</span> <span class="k">CASE</span> <span class="k">when</span> <span class="n">a</span><span class="p">.</span><span class="n">sender_uid</span> <span class="k">is</span> <span class="k">null</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">end</span> <span class="k">as</span> <span class="n">accepted</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fct_request</span> <span class="n">r</span>
+</span><span class='line'><span class="k">left</span> <span class="k">join</span> <span class="n">fct_accept</span> <span class="n">a</span> <span class="k">on</span> <span class="n">r</span><span class="p">.</span><span class="n">sender_uid</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">sender_uid</span> <span class="k">and</span> <span class="n">r</span><span class="p">.</span><span class="n">recipient_uid</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">accepter_uid</span>
+</span><span class='line'><span class="p">)</span> <span class="n">t</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 6</h4>
+
+<p>You should create a <code>teamPlayer</code> table with foreign keys to <code>Team</code> and <code>Player</code> tables as primary key.
+You are expected to write the following DDL statements.</p>
+
+<figure class='code'><figcaption><span>DDL for teamPlayer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">teamPlayer</span>
+</span><span class='line'><span class="p">(</span>
+</span><span class='line'><span class="n">playerID</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'><span class="n">teamID</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'><span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">playerID</span><span class="p">,</span> <span class="n">teamID</span><span class="p">)</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">alter</span> <span class="k">table</span> <span class="n">teamPlayer</span>
+</span><span class='line'><span class="k">add</span> <span class="k">constraint</span>
+</span><span class='line'>  <span class="n">fk_teamPlayer__Player</span> <span class="k">foreign</span> <span class="k">key</span><span class="p">(</span><span class="n">playerID</span><span class="p">)</span> <span class="k">references</span> <span class="n">Player</span><span class="p">(</span><span class="n">personID</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">alter</span> <span class="k">table</span> <span class="n">teamPlayer</span>
+</span><span class='line'><span class="k">add</span> <span class="k">constraint</span>
+</span><span class='line'>  <span class="n">fk_teamPlayer__Team</span> <span class="k">foreign</span> <span class="k">key</span><span class="p">(</span><span class="n">teamID</span><span class="p">)</span> <span class="k">references</span> <span class="n">Team</span><span class="p">(</span><span class="n">teamID</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h4>Question 7</h4>
+
+<p><strong>Scenario 1</strong>: Overwrite the snapshot. Date column in snapshot is the last modified date.</p>
+
+<figure class='code'><figcaption><span>DDL for teamPlayer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">create</span> <span class="k">temporary</span> <span class="k">table</span> <span class="n">temp</span>
+</span><span class='line'><span class="k">AS</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fact_event</span>
+</span><span class='line'><span class="k">where</span> <span class="nb">date</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span> <span class="k">from</span> <span class="n">snapshot</span><span class="p">)</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">UPDATE</span> <span class="n">snapshot</span> <span class="k">as</span> <span class="n">s</span>
+</span><span class='line'><span class="k">SET</span> <span class="nb">date</span> <span class="o">=</span> <span class="k">current_date</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="k">count</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="k">count</span> <span class="o">+</span> <span class="n">t</span><span class="p">.</span><span class="k">count</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">temp</span> <span class="n">t</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">s</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">user_id</span> <span class="k">AND</span> <span class="n">s</span><span class="p">.</span><span class="n">song_id</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">song_id</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">--- (MySQL: UPDATE might be different)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">INSERT</span> <span class="n">snapshot</span> <span class="p">(</span><span class="nb">date</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span><span class="p">)</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="k">current_date</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span>
+</span><span class='line'><span class="k">from</span> <span class="n">temp</span>
+</span><span class='line'><span class="k">where</span> <span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">)</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span> <span class="k">from</span> <span class="n">snapshot</span><span class="p">)</span> <span class="n">x</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Scenario 2</strong>: Append new snapshot for each date.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">create</span> <span class="k">temporary</span> <span class="k">table</span> <span class="n">temp</span>
+</span><span class='line'><span class="k">AS</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fact_event</span>
+</span><span class='line'><span class="k">where</span> <span class="nb">date</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span> <span class="k">from</span> <span class="n">snapshot</span><span class="p">)</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">insert</span> <span class="k">into</span> <span class="n">snapshot</span> <span class="p">(</span><span class="nb">date</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span><span class="p">)</span>
+</span><span class='line'><span class="k">select</span> <span class="k">current_date</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">song_id</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="k">count</span> <span class="o">+</span> <span class="n">coalesce</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="k">count</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="k">from</span> <span class="n">temp</span> <span class="n">t</span>
+</span><span class='line'><span class="k">join</span> <span class="n">snapshot</span> <span class="n">s</span> <span class="k">on</span> <span class="n">t</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">user_id</span> <span class="k">and</span> <span class="n">t</span><span class="p">.</span><span class="n">song_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">song_id</span> <span class="k">and</span> <span class="n">s</span><span class="p">.</span><span class="nb">date</span> <span class="o">=</span> <span class="k">current_date</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cuong Dong-Si</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-08-26T01:39:37-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:39 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/SqlTests/blog/categories/facebook/'>facebook</a>, <a class='category' href='/SqlTests/blog/categories/questions/'>questions</a>, <a class='category' href='/SqlTests/blog/categories/sql/'>sql</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/SqlTests/blog/2016/08/28/mysql-workaround/" title="Next Post: Tutorial: MySQL workarounds">Tutorial: MySQL workarounds &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+    <h1>About This Blog</h1>
+    <p>Random interview experience and lessons.</p>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">Tutorial: Dimensional Modelling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/14/system-design-questions/">System Design Questions</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/13/network-question-bank/">Network Question Bank</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/12/database-question-bank/">Database Question Bank</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/11/tutorial-bit-manipulation/">Questions: Bit Manipulation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/07/questions-operating-system-drills/">Questions: Operating System Drills</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/06/tutorial-process-synchronization/">Tutorial: Process Synchronization</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/04/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/09/03/question-bank/">Glassdoor: Algorithm Question Bank</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (2)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (1)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li></ul>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Cuong Dong-Si -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
