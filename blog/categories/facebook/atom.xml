@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Facebook | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/facebook/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2016-09-14T00:03:50-07:00</updated>
+  <updated>2017-01-15T19:11:50-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -564,7 +564,7 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 
 <h3>Summary</h3>
 
-<p>Questions in this post and MySQL answers:</p>
+<p>In this post, the following interview questions will be presented and, then, potential pitfalls and answers in MySQL will be explained:</p>
 
 <ol>
 <li><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>: Write a SQL query to find employees who earn the top three salaries in each of the department.</li>
