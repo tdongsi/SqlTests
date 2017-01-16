@@ -19,7 +19,7 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 
 ### Summary
 
-Questions in this post and MySQL answers:
+In this post, the following interview questions will be presented and, then, potential pitfalls and answers in MySQL will be explained:
 
 1. [Question](https://leetcode.com/problems/department-top-three-salaries/): Write a SQL query to find employees who earn the top three salaries in each of the department.
 1. [Question](https://leetcode.com/problems/nth-highest-salary/): Write a function that return the given `n`-th highest salary.
