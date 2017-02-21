@@ -8,7 +8,11 @@ categories:
 - Vertica
 ---
 
-In Python and Java, splitting strings is straight forward
+It is not so straight-forward for splitting strings in SQL, including but not limited to comma-separated strings.
+
+<!--more-->
+
+In Python and Java, splitting delimited strings is straight forward.
 
 ``` plain
 // Python
@@ -18,13 +22,13 @@ In Python and Java, splitting strings is straight forward
 
 ```
 
-It is not so straight-forward for splitting strings, including but not limited to comma-separated strings.
-As shown in [the last post](/blog/2016/08/17/analytic-functions-in-mysql/), not all SQL dialects are equal.
+As shown in [another blog post](http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/), not all SQL dialects are equal.
 Different database systems have different ways of doing so in SQL, as shown in the following links (1, 2)
 
 http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x
 
 http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns
+
 
 This post will throws another into that mess.
 
