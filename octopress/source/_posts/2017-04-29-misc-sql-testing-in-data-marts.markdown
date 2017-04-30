@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "(Pt. 0) SQL testing in Data Marts"
-date: 2016-12-01 23:50:37 -0700
+date: 2015-12-01 23:50:37 -0700
 comments: true
 categories: 
 - Testing
