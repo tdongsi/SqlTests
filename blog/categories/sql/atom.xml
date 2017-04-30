@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Sql | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/sql/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-01-15T19:11:50-08:00</updated>
+  <updated>2017-04-29T23:41:23-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -14,149 +14,67 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround/"/>
-    <updated>2016-08-28T01:42:23-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround</id>
-    <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
-Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
-If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+    <title type="html"><![CDATA[Vertica SQL: Splitting String]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/06/vertica-sql-splitting-string/"/>
+    <updated>2016-08-06T12:27:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/06/vertica-sql-splitting-string</id>
+    <content type="html"><![CDATA[<p>It is not so straight-forward for splitting strings in SQL, including but not limited to comma-separated strings.</p>
 
 <!--more-->
 
 
-<h3>Summary</h3>
+<p>In Python and Java, splitting delimited strings is straight forward.</p>
 
-<p>In this post, the following interview questions will be presented and, then, potential pitfalls and answers in MySQL will be explained:</p>
+<pre><code class="plain">// Python
+"example string here".split()
 
-<ol>
-<li><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>: Write a SQL query to find employees who earn the top three salaries in each of the department.</li>
-<li><a href="https://leetcode.com/problems/nth-highest-salary/">Question</a>: Write a function that return the given <code>n</code>-th highest salary.</li>
-<li><a href="https://leetcode.com/problems/rank-scores/">Question</a>: Write a SQL query to rank scores (dense_rank).</li>
-<li><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>: Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</li>
-</ol>
-
-
-<h3>WITH clause</h3>
-
-<p>Use <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">nested subqueries</a>.</p>
-
-<p><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>:
-Write a SQL query to find employees who earn the top three salaries in each of the department.</p>
-
-<pre><code class="sql What you might come up">WITH temp AS (
-select Name, Salary, DepartmentId
-rank() OVER (partition by DepartmentId ORDER BY salary DESC) as rank
-)
-select d.Name as Department, e.Name as Name, e.Salary as Salary
-from temp e
-join Department d on e.DepartmentId = d.Id
-where t.rank &lt;= 3
+// Java: using Guava's Splitter
 </code></pre>
 
-<p>Answer: based on <a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department%0AFor%20ideas%20to%20arrive%20at%20the%20solution">this</a>.</p>
+<p>As shown in <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">another blog post</a>, not all SQL dialects are equal.
+Different database systems have different ways of doing so in SQL, as shown in the following links (1, 2)</p>
 
-<pre><code class="sql What actually works">select d.Name as Department, e.Name as Employee, e.Salary as Salary
-from Employee e
-join Department d on e.DepartmentId = d.Id
-where (
-select count(distinct(e2.salary))
-from Employee e2
-where e.DepartmentId = e2.DepartmentId and e2.salary &gt; e.salary
-) in (0,1,2)
-order by Department, Salary desc
+<p><a href="http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x">http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x</a></p>
+
+<p><a href="http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns">http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns</a></p>
+
+<p>This post will throws another into that mess.</p>
+
+<pre><code class="sql Spitting comma-separated strings">SELECT
+label_key,
+SPLIT_PART(labels, ',', row_num) AS Label
+FROM
+(SELECT ROW_NUMBER() OVER () AS row_num FROM tables) row_nums
+JOIN label_map i
+WHERE SPLIT_PART(labels, ',', row_num) &lt;&gt; '';
 </code></pre>
 
-<p>Using the similar idea, one can answer this <a href="https://leetcode.com/problems/nth-highest-salary/">question</a>:
-write a function that return the given <code>n</code>-th highest salary. The solution (without using <code>DENSE_RANK</code>) is:</p>
+<h3>Original</h3>
 
-<pre><code class="sql What actually works">CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
-BEGIN
-  RETURN (
-      -- Write your MySQL query statement below.
-      SELECT MAX(Salary)
-            FROM Employee Emp1
-            WHERE (N-1) = (
-                 SELECT COUNT(DISTINCT(Emp2.Salary))
-                        FROM Employee Emp2
-                        WHERE Emp2.Salary &gt; Emp1.Salary)
-  );
-END
+<pre><code class="sql Example data">INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (415862,'EMS_Tax,YE2016,getwell,locals_manual,noncritical1,ye_taxopsmh');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (436631,'CCB_Reviewed,PSP_Bugs,PSP_Priority_Backlog,need_followup');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (443409,'EMS_Tax,PXCare,Tools_Team,,workflow');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (490209,null);
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (490210,'');
 </code></pre>
 
-<h3>Analytic functions <code>ROW_NUMBER</code>, <code>RANK</code>, and <code>DENSE_RANK</code></h3>
-
-<p>Summary from <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
-
-<pre><code class="sql ROW_NUMBER, RANK, and DENSE_RANK functions in MySQL">-- In Vertica
-SELECT
-ROW_NUMBER () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS row_number,
-RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS rank,
-DENSE_RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS dense_rank,
-t.*
-FROM table_1 t
-
--- In MySQL
-SELECT
-@row_num:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, @row_num+1, 1) AS row_number,
-@rank:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2 AND @prev_col_3=col_3, @rank, @row_num) AS rank,
-@dense:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, IF(@prev_col_3=col_3, @dense, @dense+1), 1) AS dense_rank,
-@prev_col_1 = t.col_1,
-@prev_col_2 = t.col_2,
-@prev_col_3 = t.col_3,
-t.*
-FROM (SELECT * FROM table_1 ORDER BY col_1, col_2, col_3 DESC) t,
-     (SELECT @row_num:=1, @dense:=1, @rank:=1, @prev_col_1:=NULL, @prev_col_2:=NULL, @prev_col_3:=NULL) var
+<pre><code class="sql String splitting code">SELECT
+jmap.dm_jira_key,
+SPLIT_PART(labels, ',', row_num) AS Label
+FROM
+(SELECT ROW_NUMBER() OVER () AS row_num FROM tables) row_nums
+CROSS JOIN stg_all_jira_issues_vw i
+INNER JOIN helper_jira_key jmap ON i.jira_id = jmap.jira_id AND i.source_system_key = jmap.source_system_key
+WHERE SPLIT_PART(labels, ',', row_num) &lt;&gt; '';
 </code></pre>
-
-<p>In the following <a href="https://leetcode.com/problems/rank-scores/">question</a>, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
-
-<pre><code class="sql Solution in Vertica SQL">select Score,
-DENSE_RANK() OVER (ORDER BY Score DESC) AS Rank
-FROM Scores;
-</code></pre>
-
-<pre><code class="sql Solution in MySQL">SELECT Score, Rank FROM
-( SELECT t.Score,
-@dense:=IF(@prev_col2=t.Score, @dense, @dense+1) AS Rank,
-@prev_col2:=t.Score
-FROM (SELECT Score FROM Scores ORDER BY Score DESC) t,
-(SELECT @dense:=0, @prev_col2:=NULL) var ) x
-</code></pre>
-
-<h3>Other tricky questions</h3>
-
-<p><code>DELETE</code> might not work as you think in MySQL.</p>
-
-<p><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>:
-Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</p>
-
-<pre><code class="sql What you might come up">delete from Person
-where Id not in (select min(Id) from Person group by Email);
-</code></pre>
-
-<p>The above does not work because you need to assign name to the subquery (temporary table).</p>
-
-<pre><code class="sql What actually works">delete from Person
-where Id not in
-(select * from
-(select min(Id) from Person group by Email) x);
-</code></pre>
-
-<h3>External links</h3>
-
-<ul>
-<li><a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">Leetcode Database Solutions</a></li>
-</ul>
-
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Questions: SQL Basics]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/"/>
-    <updated>2016-08-26T01:39:37-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/02/select-basics/"/>
+    <updated>2016-08-02T01:39:37-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/02/select-basics</id>
     <content type="html"><![CDATA[<p>This post is about basic DDL, <code>SELECT</code> questions (phone-screen level).</p>
 
 <!--more-->
@@ -470,6 +388,145 @@ select current_date, t.user_id, t.song_id, t.count + coalesce(s.count, 0)
 from temp t
 join snapshot s on t.user_id = s.user_id and t.song_id = s.song_id and s.date = current_date-1;
 </code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/01/mysql-workaround/"/>
+    <updated>2016-08-01T01:42:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/01/mysql-workaround</id>
+    <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
+Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
+If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+
+<!--more-->
+
+
+<h3>Summary</h3>
+
+<p>In this post, the following interview questions will be presented and, then, potential pitfalls and answers in MySQL will be explained:</p>
+
+<ol>
+<li><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>: Write a SQL query to find employees who earn the top three salaries in each of the department.</li>
+<li><a href="https://leetcode.com/problems/nth-highest-salary/">Question</a>: Write a function that return the given <code>n</code>-th highest salary.</li>
+<li><a href="https://leetcode.com/problems/rank-scores/">Question</a>: Write a SQL query to rank scores (dense_rank).</li>
+<li><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>: Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</li>
+</ol>
+
+
+<h3>WITH clause</h3>
+
+<p>Use <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">nested subqueries</a>.</p>
+
+<p><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>:
+Write a SQL query to find employees who earn the top three salaries in each of the department.</p>
+
+<pre><code class="sql What you might come up">WITH temp AS (
+select Name, Salary, DepartmentId
+rank() OVER (partition by DepartmentId ORDER BY salary DESC) as rank
+)
+select d.Name as Department, e.Name as Name, e.Salary as Salary
+from temp e
+join Department d on e.DepartmentId = d.Id
+where t.rank &lt;= 3
+</code></pre>
+
+<p>Answer: based on <a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department%0AFor%20ideas%20to%20arrive%20at%20the%20solution">this</a>.</p>
+
+<pre><code class="sql What actually works">select d.Name as Department, e.Name as Employee, e.Salary as Salary
+from Employee e
+join Department d on e.DepartmentId = d.Id
+where (
+select count(distinct(e2.salary))
+from Employee e2
+where e.DepartmentId = e2.DepartmentId and e2.salary &gt; e.salary
+) in (0,1,2)
+order by Department, Salary desc
+</code></pre>
+
+<p>Using the similar idea, one can answer this <a href="https://leetcode.com/problems/nth-highest-salary/">question</a>:
+write a function that return the given <code>n</code>-th highest salary. The solution (without using <code>DENSE_RANK</code>) is:</p>
+
+<pre><code class="sql What actually works">CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      -- Write your MySQL query statement below.
+      SELECT MAX(Salary)
+            FROM Employee Emp1
+            WHERE (N-1) = (
+                 SELECT COUNT(DISTINCT(Emp2.Salary))
+                        FROM Employee Emp2
+                        WHERE Emp2.Salary &gt; Emp1.Salary)
+  );
+END
+</code></pre>
+
+<h3>Analytic functions <code>ROW_NUMBER</code>, <code>RANK</code>, and <code>DENSE_RANK</code></h3>
+
+<p>Summary from <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
+
+<pre><code class="sql ROW_NUMBER, RANK, and DENSE_RANK functions in MySQL">-- In Vertica
+SELECT
+ROW_NUMBER () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS row_number,
+RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS rank,
+DENSE_RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS dense_rank,
+t.*
+FROM table_1 t
+
+-- In MySQL
+SELECT
+@row_num:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, @row_num+1, 1) AS row_number,
+@rank:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2 AND @prev_col_3=col_3, @rank, @row_num) AS rank,
+@dense:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, IF(@prev_col_3=col_3, @dense, @dense+1), 1) AS dense_rank,
+@prev_col_1 = t.col_1,
+@prev_col_2 = t.col_2,
+@prev_col_3 = t.col_3,
+t.*
+FROM (SELECT * FROM table_1 ORDER BY col_1, col_2, col_3 DESC) t,
+     (SELECT @row_num:=1, @dense:=1, @rank:=1, @prev_col_1:=NULL, @prev_col_2:=NULL, @prev_col_3:=NULL) var
+</code></pre>
+
+<p>In the following <a href="https://leetcode.com/problems/rank-scores/">question</a>, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
+
+<pre><code class="sql Solution in Vertica SQL">select Score,
+DENSE_RANK() OVER (ORDER BY Score DESC) AS Rank
+FROM Scores;
+</code></pre>
+
+<pre><code class="sql Solution in MySQL">SELECT Score, Rank FROM
+( SELECT t.Score,
+@dense:=IF(@prev_col2=t.Score, @dense, @dense+1) AS Rank,
+@prev_col2:=t.Score
+FROM (SELECT Score FROM Scores ORDER BY Score DESC) t,
+(SELECT @dense:=0, @prev_col2:=NULL) var ) x
+</code></pre>
+
+<h3>Other tricky questions</h3>
+
+<p><code>DELETE</code> might not work as you think in MySQL.</p>
+
+<p><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>:
+Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</p>
+
+<pre><code class="sql What you might come up">delete from Person
+where Id not in (select min(Id) from Person group by Email);
+</code></pre>
+
+<p>The above does not work because you need to assign name to the subquery (temporary table).</p>
+
+<pre><code class="sql What actually works">delete from Person
+where Id not in
+(select * from
+(select min(Id) from Person group by Email) x);
+</code></pre>
+
+<h3>External links</h3>
+
+<ul>
+<li><a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">Leetcode Database Solutions</a></li>
+</ul>
+
 ]]></content>
   </entry>
   

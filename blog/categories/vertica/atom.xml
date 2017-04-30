@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Vertica | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/vertica/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2017-04-29T23:41:23-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Vertica SQL: Splitting String]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/06/vertica-sql-splitting-string/"/>
+    <updated>2016-08-06T12:27:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/06/vertica-sql-splitting-string</id>
+    <content type="html"><![CDATA[<p>It is not so straight-forward for splitting strings in SQL, including but not limited to comma-separated strings.</p>
+
+<!--more-->
+
+
+<p>In Python and Java, splitting delimited strings is straight forward.</p>
+
+<pre><code class="plain">// Python
+"example string here".split()
+
+// Java: using Guava's Splitter
+</code></pre>
+
+<p>As shown in <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">another blog post</a>, not all SQL dialects are equal.
+Different database systems have different ways of doing so in SQL, as shown in the following links (1, 2)</p>
+
+<p><a href="http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x">http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x</a></p>
+
+<p><a href="http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns">http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns</a></p>
+
+<p>This post will throws another into that mess.</p>
+
+<pre><code class="sql Spitting comma-separated strings">SELECT
+label_key,
+SPLIT_PART(labels, ',', row_num) AS Label
+FROM
+(SELECT ROW_NUMBER() OVER () AS row_num FROM tables) row_nums
+JOIN label_map i
+WHERE SPLIT_PART(labels, ',', row_num) &lt;&gt; '';
+</code></pre>
+
+<h3>Original</h3>
+
+<pre><code class="sql Example data">INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (415862,'EMS_Tax,YE2016,getwell,locals_manual,noncritical1,ye_taxopsmh');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (436631,'CCB_Reviewed,PSP_Bugs,PSP_Priority_Backlog,need_followup');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (443409,'EMS_Tax,PXCare,Tools_Team,,workflow');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (490209,null);
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (490210,'');
+</code></pre>
+
+<pre><code class="sql String splitting code">SELECT
+jmap.dm_jira_key,
+SPLIT_PART(labels, ',', row_num) AS Label
+FROM
+(SELECT ROW_NUMBER() OVER () AS row_num FROM tables) row_nums
+CROSS JOIN stg_all_jira_issues_vw i
+INNER JOIN helper_jira_key jmap ON i.jira_id = jmap.jira_id AND i.source_system_key = jmap.source_system_key
+WHERE SPLIT_PART(labels, ',', row_num) &lt;&gt; '';
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-01-15T19:11:50-08:00</updated>
+  <updated>2017-04-29T23:41:23-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/06/tutorial-process-synchronization/"/>
-    <updated>2016-09-06T00:35:03-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/06/tutorial-process-synchronization</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization/"/>
+    <updated>2016-06-02T00:35:03-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization</id>
     <content type="html"><![CDATA[<p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
 Topics in this chapter are the most intensive and frequently asked during interviews.</p>
 
@@ -388,9 +388,9 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/02/tutorial-test-driven-development/"/>
-    <updated>2016-09-02T22:57:00-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/02/tutorial-test-driven-development</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development/"/>
+    <updated>2016-01-01T21:57:00-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development</id>
     <content type="html"><![CDATA[<!-- Reference:
 Evernote: "QE cheat sheet"
 -->

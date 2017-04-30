@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-01-15T19:11:50-08:00</updated>
+  <updated>2017-04-29T23:41:23-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -14,10 +14,299 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Tutorial: Estimation Theory]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/11/01/tutorial-estimation-theory/"/>
+    <updated>2016-11-01T23:40:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/11/01/tutorial-estimation-theory</id>
+    <content type="html"><![CDATA[<p>Math in Estimation theory.</p>
+
+<!--more-->
+
+
+<h3>Basic statistics</h3>
+
+<p>Two vectors <strong>x</strong> and <strong>z</strong> is joinly Guassian when the combined vector <strong>y</strong> = [x z] is also Gaussian.
+Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The reverse is not true.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>: e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%.
+The first team in FG% is Spurs, who took lots of 2s.</p>
+
+<h3>Basic Kalman Filter</h3>
+
+<p>TODO</p>
+
+<h4>Kalman Filter</h4>
+
+<h4>Extended Kalman Filter</h4>
+
+<h3>EKF-SLAM formulation</h3>
+
+<p>TODO</p>
+
+<h3>Mingyang&rsquo;s thesis</h3>
+
+<p>Contributions:</p>
+
+<ol>
+<li>Analysis of EKF-SLAM and MSCKF. New estimator (MSCKF 2.0) with correct observability.</li>
+<li>Hybrid estimator that picks either EKF-SLAM formulation or MSCKF 2.0, depending on length of feature tracks.</li>
+<li>Online calibration of the spatial and temporal relationship between visual and inertial sensors.</li>
+<li>Sensor models for rolling shutter cameras and low-cost inertial sensors.
+
+<ol>
+<li>IMU axis misalignment, scale factors, and g-sensitivity affects inertial sensors.</li>
+<li>Image distortions from rolling shutter cameras.</li>
+</ol>
+</li>
+</ol>
+
+
+<p> Why? IMU and cameras are already found in several commercial resource-constrained devices (e.g., mobile phones and AR devices).</p>
+
+<h4>Contribution 1: EKF-SLAM and MSCKF -> MSCKF 2.0</h4>
+
+<p>EKF-SLAM formulation: current pose + feature positions.
+Since we are not doing mapping, only currently visible features are kept -> computational cost is bounded.</p>
+
+<p>MSCKF: a sliding window of poses.
+Measurements are used to impose the constraints on these poses.
+If a new feature is found, add a new pose to the state vector and augment covariance matrix accordingly.
+Each feature is tracked until it goes out of field of view, then all of its observations are processed at once.
+A pose is only removed when all features associated with that pose have been processed.</p>
+
+<p>Consistency and accuracy of estimators are correlated.
+A recursive estimator is consistent if the estimation errors are zero-mean and have covariance matrix as reported by the estimator.</p>
+
+<p>Why difference? Assumptions:</p>
+
+<ul>
+<li>In EKF: IMU state and feature positions are jointly Gaussian. With non-linear measurement models, this is a strong assumption.
+
+<ul>
+<li>To improve it, need to pick another feature parameterization to make the measurement model closer to linear.</li>
+</ul>
+</li>
+<li>In MSCKF, there is no feature positions. No assumptions on feature positions are required.</li>
+<li>MSCKF delay linearization: only process each feature when all of its measurement are available -> better estimates -> better Jacobians -> better updates.</li>
+<li>In EKF-SLAM, using fewer observations: e.g., in standard XYZ parameterizaton, it can lead to wildly inaccurate estimates.</li>
+</ul>
+
+
+<h4>Contribution 2: Hybrid estimator, pick one</h4>
+
+<ul>
+<li>N: number of features.</li>
+<li>m: feature length: max number of observations per feature.</li>
+</ul>
+
+
+<p>Then, the compuational costs of the two estimators are</p>
+
+<ul>
+<li>MSCKF: O(N) and O(m<sup>3</sup>).</li>
+<li>EKF-SLAM: O(N<sup>3</sup>) and O(m).</li>
+</ul>
+
+
+<p>MSCKF is faster because of general distribution of features: because of feature detection algorithms, majority of features are detected close to the camera, where it will goes out of the FOV quickly (large N, small m).
+For example, in Cheddar Gorge data, many features are close to the car/camera, while a few are really far away.</p>
+
+<p>Depending on the length of feature tracks in current environment, use one.
+Given “many” measurements, nothing is gained by initializing features  observed fewer than m times.
+So, if the features is observed less than m times, use MSCKF. Otherwise, put it in the state vector and use EKF-SLAM.
+m (sliding window size) is to determined empirically: plotting and see the low points.</p>
+
+<h4>Contribution 3: Online camera-to-IMU calibration</h4>
+
+<p>Detailed identifiability analysis of these parameters.
+Time offset between the two measurements.
+The degenerate cases are known and rare cases.</p>
+
+<p>Some degenerate cases are: (Recovery?)</p>
+
+<ul>
+<li>Going in a straight line</li>
+<li>Constant acceleration with no rotation</li>
+<li>Constant velocity (no acceleration) with rotation about gravity vector only.</li>
+</ul>
+
+
+<h4>Contribution 4: Models for low-cost sensors</h4>
+
+<p>Measurement models for rolling shutter camera.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Network Question Bank]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/01/network-question-bank/"/>
+    <updated>2016-09-01T01:45:07-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/01/network-question-bank</id>
+    <content type="html"><![CDATA[<p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>TCP/UDP and how they&rsquo;re used.</li>
+<li>Difference between IPv4 &amp; IPv6.</li>
+<li>How DNS works.</li>
+<li>HTTP and it&rsquo;s various versions.</li>
+<li>Basic understanding of SSL/TLS.</li>
+<li>Other application protocols (FTP, IMAP, SSH etc.)</li>
+<li>What is REST and how it&rsquo;s used.</li>
+</ol>
+
+
+<p>On the practical side, make sure you&rsquo;re very comfortable with the networking stack of your language or framework of choice.</p>
+
+<ol>
+<li>Make calls to an external web service.</li>
+<li>Handle errors and different response codes.</li>
+<li>Be able to serialize/deserialize data.</li>
+<li>Know async concepts.</li>
+<li>Accept user inputs and handle XSS attacks.</li>
+<li>Web - how do you keep information in a web application - cookie vs session</li>
+<li>What is GET and POST - differences</li>
+<li>Difference between PUT and POST.</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<h4>Section A</h4>
+
+<p>(1) See more <a href="http://www.howtogeek.com/190014/htg-explains-what-is-the-difference-between-tcp-and-udp/">here</a>.
+Both TCP and UDP are protocols used for sending packets over Internet.
+Built on top of Internet Protocol (IP). The packets are sent to an IP address.</p>
+
+<p>TCP: Transmission Control Protocol</p>
+
+<ol>
+<li>Two ways: the remote system sends packets back to acknowledge it’s received your packets.</li>
+<li>TCP guarantees the recipient will receive the packets in order by numbering them.</li>
+<li>TCP is about reliability: if ACK is not received, the sender will send packets again.</li>
+<li>Example usage: file download, web.</li>
+</ol>
+
+
+<p>UDP: User Datagram Protocol</p>
+
+<ol>
+<li>Just send the packets to receiver. No waiting for ACK.</li>
+<li>No guarantee: if receivers don’t receive it, too bad.</li>
+<li>No error checking for better performance.</li>
+<li>Example usage: game, live video stream.</li>
+</ol>
+
+
+<h4>Section B</h4>
+
+<p>(3) See more <a href="http://stackoverflow.com/questions/107390/whats-the-difference-between-a-post-and-a-put-http-request">here</a>.</p>
+
+<p>PUT is idempotent: multiple PUT requests will have the same effect. POST is not.
+To give examples of REST-style resources:
+&ldquo;POST /books&rdquo; with a bunch of book information might create a new book, and respond with the new URL identifying that book: &ldquo;/books/5&rdquo;.
+&ldquo;PUT /books/5&rdquo; would have to either create a new book with the id of 5, or replace the existing book with ID 5.</p>
+
+<p>In non-resource style, POST can be used for just about anything that has a side effect. One other difference is that PUT should be idempotent - multiple PUTs of the same data to the same URL should be fine, wheras multiple POSTs might create multiple objects or whatever it is your POST action does.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Vertica SQL: Splitting String]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/06/vertica-sql-splitting-string/"/>
+    <updated>2016-08-06T12:27:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/06/vertica-sql-splitting-string</id>
+    <content type="html"><![CDATA[<p>It is not so straight-forward for splitting strings in SQL, including but not limited to comma-separated strings.</p>
+
+<!--more-->
+
+
+<p>In Python and Java, splitting delimited strings is straight forward.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Python
+</span><span class='line'>"example string here".split()
+</span><span class='line'>
+</span><span class='line'>// Java: using Guava's Splitter
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As shown in <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">another blog post</a>, not all SQL dialects are equal.
+Different database systems have different ways of doing so in SQL, as shown in the following links (1, 2)</p>
+
+<p><a href="http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x">http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x</a></p>
+
+<p><a href="http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns">http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns</a></p>
+
+<p>This post will throws another into that mess.</p>
+
+<figure class='code'><figcaption><span>Spitting comma-separated strings</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="n">label_key</span><span class="p">,</span>
+</span><span class='line'><span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Label</span>
+</span><span class='line'><span class="k">FROM</span>
+</span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">()</span> <span class="k">AS</span> <span class="n">row_num</span> <span class="k">FROM</span> <span class="n">tables</span><span class="p">)</span> <span class="n">row_nums</span>
+</span><span class='line'><span class="k">JOIN</span> <span class="n">label_map</span> <span class="n">i</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Original</h3>
+
+<figure class='code'><figcaption><span>Example data</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">415862</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,YE2016,getwell,locals_manual,noncritical1,ye_taxopsmh&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">436631</span><span class="p">,</span><span class="s1">&#39;CCB_Reviewed,PSP_Bugs,PSP_Priority_Backlog,need_followup&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">443409</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,PXCare,Tools_Team,,workflow&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">490209</span><span class="p">,</span><span class="k">null</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">490210</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>String splitting code</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="n">jmap</span><span class="p">.</span><span class="n">dm_jira_key</span><span class="p">,</span>
+</span><span class='line'><span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Label</span>
+</span><span class='line'><span class="k">FROM</span>
+</span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">()</span> <span class="k">AS</span> <span class="n">row_num</span> <span class="k">FROM</span> <span class="n">tables</span><span class="p">)</span> <span class="n">row_nums</span>
+</span><span class='line'><span class="k">CROSS</span> <span class="k">JOIN</span> <span class="n">stg_all_jira_issues_vw</span> <span class="n">i</span>
+</span><span class='line'><span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">helper_jira_key</span> <span class="n">jmap</span> <span class="k">ON</span> <span class="n">i</span><span class="p">.</span><span class="n">jira_id</span> <span class="o">=</span> <span class="n">jmap</span><span class="p">.</span><span class="n">jira_id</span> <span class="k">AND</span> <span class="n">i</span><span class="p">.</span><span class="n">source_system_key</span> <span class="o">=</span> <span class="n">jmap</span><span class="p">.</span><span class="n">source_system_key</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics/"/>
-    <updated>2016-09-16T15:40:35-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/16/tutorial-dashboard-for-business-analytics</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/05/tutorial-dashboard-for-business-analytics/"/>
+    <updated>2016-08-05T15:40:35-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/05/tutorial-dashboard-for-business-analytics</id>
     <content type="html"><![CDATA[<p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
 
 <!--more-->
@@ -161,9 +450,9 @@ Tableau has “Show Me” button that gives suggestions for different combinatio
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/"/>
-    <updated>2016-09-15T15:38:20-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/04/tutorial-dimensional-modelling/"/>
+    <updated>2016-08-04T15:38:20-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/04/tutorial-dimensional-modelling</id>
     <content type="html"><![CDATA[<p>From Kimball group reader.</p>
 
 <!--more-->
@@ -328,221 +617,10 @@ In Vertica, CREATE SEQUENCE.</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[System Design Questions]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions/"/>
-    <updated>2016-09-14T02:13:01-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/14/system-design-questions</id>
-    <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
-
-<!--more-->
-
-
-<h3>Readings</h3>
-
-<p>For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize scalability problems that AWS services trying to address and replace, for example, &ldquo;AWS Load Balancer&rdquo; with generic load balancer.</p>
-
-<p>Read these to know the broad topics that are expected.</p>
-
-<ol>
-<li><a href="https://www.quora.com/What-system-design-distributed-systems-+-scalability-topics-should-I-study-in-order-to-adequately-prepared-for-a-Google-Software-Engineer-interview">Quora question</a></li>
-<li><a href="https://www.linkedin.com/pulse/technical-design-interview-guide-success-joey-addona">The Technical Design Interview - A Guide to Success</a></li>
-<li><a href="https://www.linkedin.com/pulse/test-design-architecture-interview-tips-success-kane-ho">Test Design &amp; Architecture Interview - Tips to success</a></li>
-</ol>
-
-
-<h3>Questions</h3>
-
-<ol>
-<li>Design a simple file system using OO programming. Just folder and files.</li>
-<li>How to design a load balancer?</li>
-<li>How to design Facebook News Feed?</li>
-</ol>
-
-
-<h3>Answers</h3>
-
-<p>(1) Design a simple file system using OO programming. Just folder and files.</p>
-
-<p>Use Composite pattern.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">FileNode</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">class</span> <span class="nc">File</span> <span class="kd">extends</span> <span class="n">FileNode</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kt">long</span> <span class="n">size</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">class</span> <span class="nc">Folder</span> <span class="kd">extends</span> <span class="n">FileNode</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">Collection</span><span class="o">&lt;</span><span class="n">FileNode</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(2) How to design a load balancer?</p>
-
-<p>Simple: hash and assign random. What are pros and cons?</p>
-
-<p>(3) Design Facebook News Feed.
-From <a href="https://www.reddit.com/r/cscareerquestions/comments/4ytbz3/design_facebook_news_feed_my_solution_to_the/">here</a>:</p>
-
-<p>First some numbers to get the scale of the problem:</p>
-
-<ul>
-<li>number of users: 10<sup>9</sup></li>
-<li>number of users during a peak hour (upper bound): 10<sup>8</sup></li>
-<li>number of posts during a peak hour: 10<sup>6</sup></li>
-<li>number of other activities during a peak hour (likes, comments, saves): 10<sup>10</sup></li>
-<li>almost all users have less than 10<sup>3</sup> friends</li>
-</ul>
-
-
-<p>The News Feed is constructed mainly based on the activity of user&rsquo;s important Facebook friends.
-An important friend is a user who is my friend and I have interacted with him/her at least somewhat during recent months.
-Interaction might include liking his/her comment, commenting on their post, chatting together, being marked on the same photo, etc.
-We assume the backend maintains the list of important friends.
-It might be updated perhaps every 60 minutes.
-This ordering might be quite fuzzy.
-Random perturbations of this ordering might lead to users being able to rediscover friends who they have mostly stopped interacting with.
-The primary purpose of distinguishing important friends is to make the feed more interesting.
-Another advantage is reduction of hotspots: there might be people with >10<sup>4</sup> friends, but we assume that every Facebook user has at most 10<sup>2</sup> important friends.</p>
-
-<p><strong>Minimum Viable Product</strong>: The Facebook News Feed of each user is a merge of the recent posts made by all his/her important friends sorted by the score of the post.
-The score of the post is ideally proportional to how interesting the post is to our user.
-The score depends on: how old the post is (older posts are less interesting), how many likes the post received, how many likes the post received from user&rsquo;s important friends or friends, &hellip;</p>
-
-<p>We primarily care about delivering an interesting News Feed. On the other hand, we don&rsquo;t really care about being able to produce an infinitely long News Feed. If our infrastructure implies that the feed is limited to 10<sup>00</sup> items and the user cannot scroll further. There are very few legitimate uses for having infinitely scrollable feed.</p>
-
-<p>Overview of the infrastructure:</p>
-
-<ul>
-<li>Firewall</li>
-<li>Load balancer</li>
-<li>Front-end web servers</li>
-<li>Memcache servers or Redis servers or something similar</li>
-<li>Distributed database servers</li>
-</ul>
-
-
-<p>Let&rsquo;s see what happens when the user requests his News Feed:</p>
-
-<ul>
-<li>The request is specified by: the id of user whose feed we&rsquo;re displaying and the number N of requested posts.</li>
-<li>The load balancer redirects the request to one of the web servers. It also decrypts the request. Within the datacenter, we only use unencrypted connections. To do the above, the load balancer keeps statistics of the numbers of requests each server is handling. Possibly, the load balancer might decide to start up a new server or schedule a shutdown of a server to save power. The web server checks if the user is authenticated. This is done by retrieving user&rsquo;s session data from a Google BigTable. If not logged in, s/he is redirected to the login page. If N is too large and not coming from a verified computer (like Facebook&rsquo;s API server), we reject the request and log information about a suspicious request.</li>
-<li>The web server queries memcache for the list of important friends of the user in question.</li>
-<li>Almost always, memcache will have this list ready in memory for all users who are currently logged in (after login, we immediately prefetch this data into memcache). The peak number of users is 10<sup>8</sup>, the number of important users at most 10<sup>2</sup>, each user is represented by an 8 byte identifier. This is an upper bound of 10<sup>11</sup> bytes, which is 100 GB of memory. Even with significant overhead, room for growth and a safety factor for situations when an unexpectedly large number of users logs in at the same time (e.g., when presidential election results are announced), this can still be stored in operating memory of a single server. A distributed memcache implementation is not going to have a problem here. For each important friend, the web server sends a request for this friend&rsquo;s Activity List. Activity List is a list of his posts, likes, comments, uploaded photos, instances of being marked on a photo, etc. Each item contains a timestamp (32 bits), item type (post, comment, share, &hellip;), id of the item (e.g., the id of the post or comment), the destination id (for example, the id of the post on which the comment was made) and privacy setting (1 byte). This is 22 bytes in total. Only identifiers are stored. The data are populated at the end of the computation.</li>
-<li>These lists are stored in a distributed database hidden behind caching servers. There is 10<sup>9</sup> users, each has at most 10<sup>3</sup> items in their Activity List. This is 22 * 10<sup>12</sup> = 22 TB of memory. <strong> It is certainly possible to store this in a distributed file system. </strong>A distributed memcache on 128 servers each with 250 GB RAM would also handle this. Therefore, we can assume all these lists are almost always in memory.</li>
-<li>Each item in each of these lists is assigned Relevancy Value. This depends on: The importance of the friend from whose Activity List the item is. How recent the item is. The number of likes and shares the item has (this only makes sense in the case of posts or photos). The number of likes from the user&rsquo;s other important friends. Surely, a like from 3 of my friends is more important than 10 likes from random strangers. We can access this information since we have retrieved the Activity Lists of every single important friend of the user. Since these lists include their likes and the ids of liked posts, we can specifically compute the numbers from the retrieved data. The user&rsquo;s prefered content type. Some users might like photos more than text. We remember this for each user and adjust the weight accordingly. Private posts that should not be visible to the user are removed at this point.</li>
-<li>We sort each of these lists using the Relevancy Value and merge them.</li>
-<li>We send this list to a content service. This service replaces all identifiers with the corresponding content (text, image links, names of users instead of user ids, &hellip;)</li>
-<li>The web server uses a template to convert this into HTML.</li>
-</ul>
-
-
-<p>There are two questions to ponder:</p>
-
-<ul>
-<li>When the News Feed is requested again in the future, do we recalculate it from scratch? We could store the sequence calculated in one of the last steps in cache and only compute the beginning of the feed (that is: we would only compute what is new). This might make almost-infinite scrolling possible in certain cases. However, we would need to handle some corner cases. For example, the list is only approximately ordered according to the timestamp.</li>
-<li>The above described the read path. It remains to analyze the write path: what happens when a user submits a content, likes something, etc. Well, we simply add this to his Activity List. In the case of posts, images, &hellip; we also store it on a content service server.</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Network Question Bank]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/13/network-question-bank/"/>
-    <updated>2016-09-13T01:45:07-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/13/network-question-bank</id>
-    <content type="html"><![CDATA[<p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
-
-<!--more-->
-
-
-<h3>Questions</h3>
-
-<ol>
-<li>TCP/UDP and how they&rsquo;re used.</li>
-<li>Difference between IPv4 &amp; IPv6.</li>
-<li>How DNS works.</li>
-<li>HTTP and it&rsquo;s various versions.</li>
-<li>Basic understanding of SSL/TLS.</li>
-<li>Other application protocols (FTP, IMAP, SSH etc.)</li>
-<li>What is REST and how it&rsquo;s used.</li>
-</ol>
-
-
-<p>On the practical side, make sure you&rsquo;re very comfortable with the networking stack of your language or framework of choice.</p>
-
-<ol>
-<li>Make calls to an external web service.</li>
-<li>Handle errors and different response codes.</li>
-<li>Be able to serialize/deserialize data.</li>
-<li>Know async concepts.</li>
-<li>Accept user inputs and handle XSS attacks.</li>
-<li>Web - how do you keep information in a web application - cookie vs session</li>
-<li>What is GET and POST - differences</li>
-<li>Difference between PUT and POST.</li>
-</ol>
-
-
-<h3>Answers</h3>
-
-<h4>Section A</h4>
-
-<p>(1) See more <a href="http://www.howtogeek.com/190014/htg-explains-what-is-the-difference-between-tcp-and-udp/">here</a>.
-Both TCP and UDP are protocols used for sending packets over Internet.
-Built on top of Internet Protocol (IP). The packets are sent to an IP address.</p>
-
-<p>TCP: Transmission Control Protocol</p>
-
-<ol>
-<li>Two ways: the remote system sends packets back to acknowledge it’s received your packets.</li>
-<li>TCP guarantees the recipient will receive the packets in order by numbering them.</li>
-<li>TCP is about reliability: if ACK is not received, the sender will send packets again.</li>
-<li>Example usage: file download, web.</li>
-</ol>
-
-
-<p>UDP: User Datagram Protocol</p>
-
-<ol>
-<li>Just send the packets to receiver. No waiting for ACK.</li>
-<li>No guarantee: if receivers don’t receive it, too bad.</li>
-<li>No error checking for better performance.</li>
-<li>Example usage: game, live video stream.</li>
-</ol>
-
-
-<h4>Section B</h4>
-
-<p>(3) See more <a href="http://stackoverflow.com/questions/107390/whats-the-difference-between-a-post-and-a-put-http-request">here</a>.</p>
-
-<p>PUT is idempotent: multiple PUT requests will have the same effect. POST is not.
-To give examples of REST-style resources:
-&ldquo;POST /books&rdquo; with a bunch of book information might create a new book, and respond with the new URL identifying that book: &ldquo;/books/5&rdquo;.
-&ldquo;PUT /books/5&rdquo; would have to either create a new book with the id of 5, or replace the existing book with ID 5.</p>
-
-<p>In non-resource style, POST can be used for just about anything that has a side effect. One other difference is that PUT should be idempotent - multiple PUTs of the same data to the same URL should be fine, wheras multiple POSTs might create multiple objects or whatever it is your POST action does.</p>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Database Question Bank]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/12/database-question-bank/"/>
-    <updated>2016-09-12T01:41:54-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/12/database-question-bank</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/03/database-question-bank/"/>
+    <updated>2016-08-03T01:41:54-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/03/database-question-bank</id>
     <content type="html"><![CDATA[<p>Questions about database in general. For data warehouse and dimensional modelling, check <a href="http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">this</a>.</p>
 
 <!--more-->
@@ -710,1231 +788,10 @@ It&rsquo;ll run faster that way.</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/11/tutorial-bit-manipulation/"/>
-    <updated>2016-09-11T01:23:25-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/11/tutorial-bit-manipulation</id>
-    <content type="html"><![CDATA[<h3>Questions</h3>
-
-<ol>
-<li>Addition using only bit manipulation.</li>
-<li>Subtraction using only bit manipulation.</li>
-<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
-<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
-</ol>
-
-
-<!--more-->
-
-
-<h3>Answers</h3>
-
-<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
-In code, it is implemented as follows:</p>
-
-<figure class='code'><figcaption><span>Addition</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">add</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
-In code, it is implemented as follows:</p>
-
-<figure class='code'><figcaption><span>Subtraction</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">subtract</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">subtract</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(~</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(3) Find odd one.</p>
-
-<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
-
-<p>(4) Quickly determine if a number is a power of 2.</p>
-
-<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Questions: Operating System Drills]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/07/questions-operating-system-drills/"/>
-    <updated>2016-09-07T00:42:41-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/07/questions-operating-system-drills</id>
-    <content type="html"><![CDATA[<p>From &ldquo;Operating System concepts&rdquo; book.</p>
-
-<!--more-->
-
-
-<p>Drill:</p>
-
-<ol>
-<li>Chapter 1: Storage device hierarchy</li>
-<li>Chapter 2: System calls and Linux examples. System boot.</li>
-<li>Chapter 3: Process diagram. Process state diagram. Zombie, orphan process. Practice Exercise 3.1, 3.2.</li>
-</ol>
-
-
-<p>Links:</p>
-
-<ul>
-<li><a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/">http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/</a></li>
-<li><a href="http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/">http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/</a></li>
-<li><a href="http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/">http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/</a></li>
-</ul>
-
-
-<p>Practice exercises:</p>
-
-<ul>
-<li><a href="http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html">http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/06/tutorial-process-synchronization/"/>
-    <updated>2016-09-06T00:35:03-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/06/tutorial-process-synchronization</id>
-    <content type="html"><![CDATA[<p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
-Topics in this chapter are the most intensive and frequently asked during interviews.</p>
-
-<!--more-->
-
-
-<p>This chapter discuss how to prevent concurrent access to shared data that may result in data inconsistency.</p>
-
-<h3>5.1 &amp; 5.2: Critical section</h3>
-
-<p>Consider the producer–consumer problem, which is representative of
-operating systems. Specifically, in Section 3.4.1, we described how a bounded
-buffer could be used to enable processes to share memory.</p>
-
-<figure class='code'><figcaption><span>Producer process</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="cm">/* produce an item in next produced */</span>
-</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">)</span>
-</span><span class='line'>    <span class="p">;</span> <span class="cm">/* do nothing */</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">buffer</span><span class="p">[</span><span class="n">in</span><span class="p">]</span> <span class="o">=</span> <span class="n">next</span> <span class="n">produced</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">in</span> <span class="o">=</span> <span class="p">(</span><span class="n">in</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">;</span>
-</span><span class='line'>  <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>Consumer process</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">;</span> <span class="cm">/* do nothing */</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">next</span> <span class="n">consumed</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="n">out</span><span class="p">];</span>
-</span><span class='line'>  <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="n">out</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">;</span>
-</span><span class='line'>  <span class="n">counter</span><span class="o">--</span><span class="p">;</span>
-</span><span class='line'>  <span class="cm">/* consume the item in next consumed */</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The above code works incorrectly in multi-thread or process situation, due to parallel modifications to &ldquo;counter&rdquo;.
-When several processes access and manipulate the same data concurrently and the
-outcome of the execution depends on the particular order in which the access
-takes place, is called a race condition.</p>
-
-<p>Critical section: No two processes are executing in their critical sections at the same time.
-Solution to a critical section problem requires:
-Mutual exclusion: only one process in CS at a time.
-Progress: Selection process should not be postponed indefinitely.
-Bounded waiting: once a process request to enter, waiting time is bounded.</p>
-
-<p>Nonpreemptive kernel does not allow a process running in kernel mode to be
-preempted; a kernel-mode process will run until it exits kernel mode, blocks,
-or voluntarily yields control of the CPU. A nonpreemptive kernel is essentially free from race conditions.
-A preemptive kernel may be more responsive, since there is less risk that a
-kernel-mode process will run for an arbitrarily long period.</p>
-
-<h3>5.3: Peterson&rsquo;s algorithm</h3>
-
-<figure class='code'><figcaption><span>Peterson's algorithm</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span>
-</span><span class='line'><span class="n">turn</span> <span class="o">=</span> <span class="n">j</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">while</span> <span class="p">(</span> <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="n">j</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// start of CS</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// end of CS</span>
-</span><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span>    <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span>
-</span><span class='line'><span class="n">turn</span> <span class="o">=</span> <span class="n">i</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">while</span><span class="p">(</span> <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="n">i</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// start of CS</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// end of CS</span>
-</span><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>NOTE: <a href="http://en.wikipedia.org/wiki/Peterson's_algorithm">Peterson’s algorithm</a> is restricted to two processes.
-Filter algorithm: Peterson&rsquo;s algorithm for N processes
-The filter algorithm generalizes Peterson&rsquo;s algorithm for N processes. It uses N different levels - each represents another &lsquo;waiting room&rsquo;, before the critical section. Each level will allow at least one process to advance, while keeping one process in waiting.</p>
-
-<p><a href="http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms">http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms</a>
-Both processes indicates if the other want to enter CS, it can proceed. If both processes enter at the same time, turn will be set to i and j at the same time, and only one will last.
-Proof of bounded waiting: Pi will enter the CS after at most one entry by Pj.</p>
-
-<figure class='code'><figcaption><span>Analogies of Peterson's algorithm</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Peterson's: "I want to enter."                 flag[0]=true;
-</span><span class='line'>            "You can enter next."              turn=1;
-</span><span class='line'>            "If you want to enter and          while(flag[1]==true&&turn==1){
-</span><span class='line'>            it's your turn I'll wait."         }
-</span><span class='line'>            Else: Enter CS!                    // CS
-</span><span class='line'>            "I don't want to enter any more."  flag[0]=false;
-</span><span class='line'>
-</span><span class='line'>Dekker's:   "I want to enter."                 flag[0]=true;
-</span><span class='line'>            "If you want to enter              while(flag[1]==true){
-</span><span class='line'>             and if it's your turn               if(turn!=0){
-</span><span class='line'>             I don't want to enter any more."      flag[0]=false;
-</span><span class='line'>            "If it's your turn                     while(turn!=0){
-</span><span class='line'>             I'll wait."                           }
-</span><span class='line'>            "I want to enter."                     flag[0]=true;
-</span><span class='line'>                                                 }
-</span><span class='line'>                                               }
-</span><span class='line'>            Enter CS!                          // CS
-</span><span class='line'>            "You can enter next."              turn=1;
-</span><span class='line'>            "I don't want to enter any more."  flag[0]=false;</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>5.4: Sync using hardware</h3>
-
-<p>Protect critical section by locking.</p>
-
-<p>Many modern computer systems therefore provide special hardware
-instructions that allow us either to test and modify the content of a word or
-to swap the contents of two words atomically—that is, as one uninterruptible unit.</p>
-
-<p>Atomic test_and_set() and compare_and_swap() for locking:</p>
-
-<p>boolean test_and_set(boolean <em>target) {
-boolean rv = </em>target;
-*target = true;
-return rv;
-}</p>
-
-<p>int compare_and_swap(int <em>value, int expected, int new value) {
-int temp = </em>value;
-if (<em>value == expected)
-    </em>value = new value;
-return temp;
-}</p>
-
-<p>Simple Mutex with atomic test_and_set()
-Figure 5.5</p>
-
-<p>Bounded-Waiting mutex with atomic test_and_set(): data structure and algorithm
-Figure 5.7</p>
-
-<h3>5.5: Mutex locks</h3>
-
-<p>We use the mutex to lock to protect critical regions and thus prevent race conditions.</p>
-
-<p>Calls to either acquire() or release() must be performed atomically.</p>
-
-<p>acquire() {
-while (!available)
-; /<em> busy wait </em>/
-available = false;
-}</p>
-
-<p>release() {
-available = true;
-}
-Usage:</p>
-
-<p>acquire()</p>
-
-<p>// start of CS</p>
-
-<p>// end of CS</p>
-
-<p>release()</p>
-
-<p>The main disadvantage of the implementation given here is that it requires busy waiting. This type of mutex lock is also called a spinlock.
-Spinlocks do have an advantage, however, in that no context switch is required.</p>
-
-<h3>5.6: Semaphores</h3>
-
-<p>A semaphore S is an integer variable that, apart from initialization, is
-accessed only through two standard atomic operations: wait() and signal().</p>
-
-<p>wait(S) {
-while (S &lt;= 0 )
-; // busy wait
-S&ndash;;
-}</p>
-
-<p>signal(S) {
-S++;
-}</p>
-
-<p>The value of a counting semaphore can range over an unrestricted domain. Versus binary semaphore, which is similar to mutex.
-Counting semaphores can be used to control access to a given resources of a finite number of instances.</p>
-
-<p>We can also use semaphores to solve various synchronization problems.
-For example,consider two concurrently running processes: P1 with a statement
-S1 and P2 with a statement S2 . Suppose we require that S2 be executed only
-after S1 has completed. We can implement this scheme readily by letting P1
-and P2 share a common semaphore synch, initialized to 0. In process P1 , we
-insert the statements
-S1;
-signal(synch);</p>
-
-<p>In process P2 , we insert the statements
-wait(synch);
-S 2 ;</p>
-
-<p>Because synch is initialized to 0, P2 will execute S2 only after P1 has invoked
-signal(synch) , which is after statement S1 has been executed.</p>
-
-<p>Deadlock:
-P 0 P 1
-wait(S); wait(Q);
-wait(Q); wait(S);
-. .
-. .
-. .
-signal(S); signal(Q);
-signal(Q); signal(S);</p>
-
-<p>Priority inversion:
-The problem of priority inversion is when three processes of different priorities L &lt; M &lt; H. H is waiting for L to finish with a certain resource. M process becomes runnable and preempts L. Indirectly, process M with lower priority affects how long process H must wait for resource.
-It occurs when the system has more than two priorities. However, it is almost always the case.
-Solution: priority-inheritance protocol: all processes that use a resource, waited by a higher priority process, will inherit the highest priority until they are done with the resource.</p>
-
-<h4>Semaphore implementation</h4>
-
-<p>The naive definition of wait() and signal() above presents the same problem of busy waiting.
-In actual implementation, when a process execute wait() operation and find that semaphore value is not positive, it must wait. However, instead of busy waiting, the process block itself.
-In this implementation, semaphore values may be negative, while they are never negative in classical definition with busy waiting. If a semaphore value is negative, its magnitude indicates the number of waiting processes (note different order of decrement in wait()).</p>
-
-<p>It is critical that semaphore operations be executed atomically: no two processes can execute wait() and signal() operations on the same semaphore at the same time.
-In a multiprocessor environment, usually compare_and_swap() or spin locks are used to ensure wait() and signal() are atomic.
-So, we admit that busy waiting is NOT eliminated in this implementation. However, busy waiting is limited to CS of the wait() and signal() operations. These CSs are short (about 10 instructions). Thus, CS is almost never occupied, and busy waiting is rare and short, if ever happens.</p>
-
-<h3>5.7: Classic Problems of Synchronization</h3>
-
-<p>Use semaphores for synchronization. Actual implementation can use mutex instead of binary semaphore.</p>
-
-<p>Bounded-Buffer (Consumer-Producer) problem
-Problem: See 5.1.
-Solution: The producer and consumer share the following data structure:
-The mutex is used to provide mutual exclusion for accesses to the buffer pool.
-int n;
-semaphore mutex = 1;
-semaphore empty = n;
-semaphore full = 0</p>
-
-<p>Producer    Consumer
-do {
-&hellip;
-/<em> produce an item in next produced </em>/
-&hellip;
-wait(empty);
-wait(mutex);
-&hellip;
-/<em> add next produced to the buffer </em>/
-&hellip;
-signal(mutex);
-signal(full);
-} while (true);
-do {
-wait(full);
-wait(mutex);
-&hellip;
-/<em> remove an item from buffer to next consumed </em>/
-&hellip;
-signal(mutex);
-signal(empty);
-&hellip;
-/<em> consume the item in next consumed </em>/
-&hellip;
-} while (true);</p>
-
-<p>Reader-Writer problem:
-Writers should have exclusive access while writing to the shared database.
-There are several variants of “reader-writer” problems:
-First problem: No reader to be kept waiting unless a writer has already obtained accesss.
-Second problem: Once writer is ready, that writer perform its write ASAP. No new readers may start reading.
-A solution to either problem may result in starvation.</p>
-
-<p>Solution to first reader-writer problem: shared data structure
-semaphore rw_utex = 1;
-semaphore mutex = 1;
-int read count = 0;
-The mutex semaphore is used to ensure mutual exclusion when the variable read count is updated.
-The read count variable keeps track of how many processes are currently reading the object.
-The semaphore rw_mutex functions as a mutual exclusion semaphore for the writers.</p>
-
-<p>Writer  Reader
-do {
-wait(rw mutex);
-&hellip;
-/<em> writing is performed </em>/
-&hellip;
-signal(rw mutex);
-} while (true);
-do {
-wait(mutex);
-read count++;
-if (read count == 1)
-wait(rw mutex);
-signal(mutex);
-&hellip;
-/<em> reading is performed </em>/
-&hellip;
-wait(mutex);
-read count&ndash;;
-if (read count == 0)
-signal(rw mutex);
-signal(mutex);
-} while (true);</p>
-
-<p>Dining Philosopher problem: This solution can create a deadlock
-semaphore chopstick[5];</p>
-
-<p>do {
-wait(chopstick[i]);
-wait(chopstick[(i+1) % 5]);
-&hellip;
-/<em> eat for awhile </em>/
-&hellip;
-signal(chopstick[i]);
-signal(chopstick[(i+1) % 5]);
-&hellip;
-/<em> think for awhile </em>/
-&hellip;
-} while (true);</p>
-
-<p>Several possible remedies to the deadlock problem are replaced by:
-• Allow at most four philosophers to be sitting simultaneously at the table.
-• Allow a philosopher to pick up her chopsticks only if both chopsticks are
-available (to do this, she must pick them up in a critical section).
-• Use an asymmetric solution—that is,an odd-numbered philosopher picks
-up first her left chopstick and then her right chopstick, whereas an even-
-numbered philosopher picks up her right chopstick and then her left
-chopstick.</p>
-
-<p>In 5.8, we use monitor (equivalent to a waiter to tell which philosopher should eat) to provides deadlock-free solution.
-A deadlock-free solution does not necessarily eliminate the possibility of starvation.</p>
-
-<h3>5.8: Monitors</h3>
-
-<p>Semaphore is not a complete solution. If a single process is not well-behaved (semaphore used incorrectly), the system break down.
-Incorrect order of signal() and wait(): mutual exclusion is no longer guaranteed.
-wait() is used in place of signal(): a deadlock may occur.
-wait() or signal() or both are omitted: mutual exclusion violated or deadlock.</p>
-
-<p>Syntax of a monitor:</p>
-
-<p>Local variables of a monitor can be accessed by only the local functions. Only one process at a time is active within the monitor.
-We also defines condition construct: condition x, y; // condition variables
-The only operations that can be invoked on a condition variable are wait() and signal().
-The operation x.wait(); means that the process invoking this operation is suspended until another process invokes x.signal();
-The x.signal() operation resumes exactly one suspended process. If no process is suspended, then the signal() operation has no effect.
-(Different from semaphore’s signal(): semaphore() signal always change the state of semaphore, condition’s signal() may not).</p>
-
-<p>Dining Philosophers solution using Monitors:
-Monitor is acting like a waiter/moderator. Before a philosopher starts eating, she informs the waiter (invoked operation pickup()) and the waiter will tell her what to do.
-After she is done eating, she again informs the waiter (putdown()). It is still possible that some philosopher will starve to death.</p>
-
-<p>condition self[5];
-allows philosopher i to delay herself when she is hungry but is unable to obtain the chopsticks she needs.</p>
-
-<p>Implement a Monitor with Semaphores
-Check Section 5.8.3 page 229.</p>
-
-<p>Resuming Processes within a Monitor
-One simple solution is to use FIFO ordering.
-Another solution is conditional-wait construct, with c is the priority number input.
-x.wait&copy;;
-When x.signal() is executed, the process with the smallest priority number is resumed next.</p>
-
-<p>Java monitors
-Java uses monitor for thread synchronization.
-Every object in Java has a single lock associated with it. When a method is declared synchronized, calling the method requires owning the lock of the object.
-If the lock is not available, the synchronized method is placed in the entry set for the object’s lock.
-The Java Object class’s method wait() and notify() are similar to wait() and signal() statements for a monitor.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tutorial: Estimation Theory]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/04/tutorial-estimation-theory/"/>
-    <updated>2016-09-04T23:40:12-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/04/tutorial-estimation-theory</id>
-    <content type="html"><![CDATA[<p>Math in Estimation theory.</p>
-
-<!--more-->
-
-
-<h3>Basic statistics</h3>
-
-<p>Two vectors <strong>x</strong> and <strong>z</strong> is joinly Guassian when the combined vector <strong>y</strong> = [x z] is also Gaussian.
-Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The reverse is not true.</p>
-
-<p><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>: e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%.
-The first team in FG% is Spurs, who took lots of 2s.</p>
-
-<h3>Basic Kalman Filter</h3>
-
-<p>TODO</p>
-
-<h4>Kalman Filter</h4>
-
-<h4>Extended Kalman Filter</h4>
-
-<h3>EKF-SLAM formulation</h3>
-
-<p>TODO</p>
-
-<h3>Mingyang&rsquo;s thesis</h3>
-
-<p>Contributions:</p>
-
-<ol>
-<li>Analysis of EKF-SLAM and MSCKF. New estimator (MSCKF 2.0) with correct observability.</li>
-<li>Hybrid estimator that picks either EKF-SLAM formulation or MSCKF 2.0, depending on length of feature tracks.</li>
-<li>Online calibration of the spatial and temporal relationship between visual and inertial sensors.</li>
-<li>Sensor models for rolling shutter cameras and low-cost inertial sensors.
-
-<ol>
-<li>IMU axis misalignment, scale factors, and g-sensitivity affects inertial sensors.</li>
-<li>Image distortions from rolling shutter cameras.</li>
-</ol>
-</li>
-</ol>
-
-
-<p> Why? IMU and cameras are already found in several commercial resource-constrained devices (e.g., mobile phones and AR devices).</p>
-
-<h4>Contribution 1: EKF-SLAM and MSCKF -> MSCKF 2.0</h4>
-
-<p>EKF-SLAM formulation: current pose + feature positions.
-Since we are not doing mapping, only currently visible features are kept -> computational cost is bounded.</p>
-
-<p>MSCKF: a sliding window of poses.
-Measurements are used to impose the constraints on these poses.
-If a new feature is found, add a new pose to the state vector and augment covariance matrix accordingly.
-Each feature is tracked until it goes out of field of view, then all of its observations are processed at once.
-A pose is only removed when all features associated with that pose have been processed.</p>
-
-<p>Consistency and accuracy of estimators are correlated.
-A recursive estimator is consistent if the estimation errors are zero-mean and have covariance matrix as reported by the estimator.</p>
-
-<p>Why difference? Assumptions:</p>
-
-<ul>
-<li>In EKF: IMU state and feature positions are jointly Gaussian. With non-linear measurement models, this is a strong assumption.
-
-<ul>
-<li>To improve it, need to pick another feature parameterization to make the measurement model closer to linear.</li>
-</ul>
-</li>
-<li>In MSCKF, there is no feature positions. No assumptions on feature positions are required.</li>
-<li>MSCKF delay linearization: only process each feature when all of its measurement are available -> better estimates -> better Jacobians -> better updates.</li>
-<li>In EKF-SLAM, using fewer observations: e.g., in standard XYZ parameterizaton, it can lead to wildly inaccurate estimates.</li>
-</ul>
-
-
-<h4>Contribution 2: Hybrid estimator, pick one</h4>
-
-<ul>
-<li>N: number of features.</li>
-<li>m: feature length: max number of observations per feature.</li>
-</ul>
-
-
-<p>Then, the compuational costs of the two estimators are</p>
-
-<ul>
-<li>MSCKF: O(N) and O(m<sup>3</sup>).</li>
-<li>EKF-SLAM: O(N<sup>3</sup>) and O(m).</li>
-</ul>
-
-
-<p>MSCKF is faster because of general distribution of features: because of feature detection algorithms, majority of features are detected close to the camera, where it will goes out of the FOV quickly (large N, small m).
-For example, in Cheddar Gorge data, many features are close to the car/camera, while a few are really far away.</p>
-
-<p>Depending on the length of feature tracks in current environment, use one.
-Given “many” measurements, nothing is gained by initializing features  observed fewer than m times.
-So, if the features is observed less than m times, use MSCKF. Otherwise, put it in the state vector and use EKF-SLAM.
-m (sliding window size) is to determined empirically: plotting and see the low points.</p>
-
-<h4>Contribution 3: Online camera-to-IMU calibration</h4>
-
-<p>Detailed identifiability analysis of these parameters.
-Time offset between the two measurements.
-The degenerate cases are known and rare cases.</p>
-
-<p>Some degenerate cases are: (Recovery?)</p>
-
-<ul>
-<li>Going in a straight line</li>
-<li>Constant acceleration with no rotation</li>
-<li>Constant velocity (no acceleration) with rotation about gravity vector only.</li>
-</ul>
-
-
-<h4>Contribution 4: Models for low-cost sensors</h4>
-
-<p>Measurement models for rolling shutter camera.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Glassdoor: Algorithm Question Bank]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/03/question-bank/"/>
-    <updated>2016-09-03T23:31:29-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/03/question-bank</id>
-    <content type="html"><![CDATA[<p>These questions are gathered from Glassdoor.</p>
-
-<!--more-->
-
-
-<h3>Questions</h3>
-
-<h4>LinkedIn</h4>
-
-<ol>
-<li>Serialize binary tree.</li>
-<li>Count the number of occurrences of a given element in a sorted array.</li>
-<li>Modify binary search to find the index of first/last occurrence of x in the array. Two binary searches.</li>
-<li>Design a program to take a string and store, each character, into an array. The array should return a count of each character when called. [The interviewer was clearly trying to blur the lines between a simple program and a MapReduce]</li>
-<li>Senior Test Engineer: A user logs in to a website with proper credentials and the user is taken to a blank page. How would you troubleshoot that?</li>
-<li>Senior Test Engineer: Create a stack with the usual push() &amp; pop(), but with an additional function getMiddle() that returns the middle element of the stack in constant time.</li>
-<li>Senior Test Engineer: Search a sorted array for the first element larger than k.</li>
-<li>You have a potentially very-large set of documents, which are potentially very-large, and contain text. For searching these documents, they&rsquo;ve been pre-processed into a (very-large) table mapping words to the set of documents that contain each word. E.g. (word) : (documents (referenced by ID) containing that word) Apple: 1, 4, 5, 6, 32 Banana: 5, 6, 7, 9, 32 Cantaloupe: 1, 2, 6 &hellip; Clients will pass in a set &hellip;</li>
-<li>Given a nested list of integers, return the sum of all integers in the list weighted by their depth For example, given the list <code>[[1,1],2,[1,1]]</code> the function should return 10 (four 1 at depth 2, one 2 at depth 1). Answer: Recursion or Use a stack while iterating through the input string.</li>
-<li>Create an isNumber(string) function. Handle signed / unsigned, floating point, any number of digits, etc. Probably commas, and currency signs, or whatever. It was open ended and governed by whatever unit tests he wanted you to make it work against.</li>
-<li>Find out at least one 3 elements array in a given integer array. The 3 elements have to be able to form a triangle.</li>
-<li>Write a program to replace 0s with 5 in a given number. Eg: 1208 -> 1258, 120096045 -> 125596545</li>
-<li>Write a function to find the power of a<sup>b</sup></li>
-<li>Find the minimum distance between 2 words in a dictionary</li>
-<li>Evaluate a post-fix expression</li>
-<li>Given an array of numbers , replace each number with the product of all the numbers divided by the number at that index without using the division operator.</li>
-<li>Write a function that, given a list of integers (both positive and negative) returns the sum of the contiguous subsequence with maximum sum. Thus, given the sequence (1, 2, -4, 1, 3, -2, 3, -1) it should return 5.</li>
-<li>Write a function that would find the largest palindrome (phone interview).</li>
-<li>Write a Binary Search Tree class with isBST() method that will validate if the tree is a BST (onsite).</li>
-</ol>
-
-
-<h4>Google</h4>
-
-<ol>
-<li>Given a list of integers and another integer. Write a program that returns the posible combinations of the list which added, match the integer, numbers can repeat itself.</li>
-<li>Write a function to check if a string is palindrome? Write a function to return the largest Palindrome as possible in a given string. Hint: O(N)</li>
-<li>Check if Sudoku is valid</li>
-<li>You have unsorted array. You must design algorithm to create array where every even value is greater than it&rsquo;s odd neighbors. So if a(i) is value at index i (=0,1,2&hellip;n), the result must hold that: a1 &lt; a2 > a3 &lt; a4 > a5&hellip;</li>
-<li>Merge K sorted lists.</li>
-<li>System design: design a system that given a point on earth will return the highest building in 100m radios. The question was developing. Start by assuming everything in memory. Then assume not everything fits, then use several machines, then consider what happens when one is down. The purpose is to answer as quickly as possible but you have preprocessing time.</li>
-<li>0-1 Knapsack problem. NP-complete/NP-hard.</li>
-<li>Design a load balancer for web servers.</li>
-</ol>
-
-
-<h4>Salesforce</h4>
-
-<ol>
-<li>Q: Explain Encupsulation</li>
-<li>Q: Inheritance vs composition</li>
-<li>Q: What&rsquo;s the difference between tree and HashTable.</li>
-<li>Also asks me to create classes for file system API.</li>
-<li>How to ensure locking in Singleton class</li>
-<li>Do a producer consumer problem</li>
-<li>Reach 2D Pt x to Pt y in spiral form -> right -> down -> left -> up moving 1 point at a time.</li>
-<li>Find all words which start from particular letter (case insensitive)</li>
-<li>The number of paths in a m x n grid to a given cell?</li>
-<li>Given an ordered large array of integers, find all pairs of numbers that add up to a particular given sum.</li>
-<li>Given a regular English dictionary, and a word to start with (e.g. &ldquo;head&rdquo;), you can only change one letter a time, but every change has to be a word in the dictionary (e.g. head -> heal) What is the quickest way to an end word (e.g. &ldquo;tail&rdquo;)?</li>
-<li>How to efficiently merge two sorted binary trees?</li>
-<li>Why its said a good practice to override() hashcode() of an object when you override equals()?</li>
-<li>Given an array of integers, return top K elements from it.</li>
-<li>Given 2 unsorted integer arrays, get the intersection of the 2.</li>
-<li>question about finding out the character that occurs most in a given string.</li>
-<li>What is the JRE and what does it have to do with .jar files?</li>
-<li>Explain / implement a hash table.</li>
-<li>Given 3 tasks from 3 bosses, how would u handle the priority if you could only finish one of them.</li>
-<li>Three major difference between C++ and Java.</li>
-<li>Given a constant input stream of integers design a way to, at any point, return the current median of that stream.</li>
-<li>Get unique items from an array.</li>
-<li>given an binary search tree (that is, an ordered tree), how would you find the element of the tree at a particular &ldquo;index&rdquo;, where index is defined as the position in the tree&rsquo;s ordering.</li>
-<li>Fastest way to find the middle node in a linked list</li>
-<li>Eliminate the duplicate elements from a given linked list.</li>
-<li>Union find algorithm.</li>
-<li>clockwise print out a M*N matrix. Solution: recursive</li>
-<li>Explain way to optimize SQL.
-
-<ol>
-<li><a href="http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries">http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries</a></li>
-</ol>
-</li>
-<li>Counting the frequency of words in a list.. hashtable with word keys and word count values..</li>
-<li>Find Pairs with least absolute difference in an given unsorted array.
-
-<ol>
-<li>NOTE: if the numbers are in a given range</li>
-</ol>
-</li>
-<li>Explain difference in Heap and Stack memory for JVM.
-
-<ol>
-<li><a href="http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html">http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html</a></li>
-<li><a href="https://www.youtube.com/watch?v=450maTzSIvA">https://www.youtube.com/watch?v=450maTzSIvA</a></li>
-</ol>
-</li>
-<li>Image url parser from an html page and its child pages.</li>
-<li>Implement Que using 2 stacks. write test cases for it.</li>
-<li>Write thread safe singleton class</li>
-<li>what are joins in database, some scenario where u used it</li>
-<li>Given two sorted arrays, find the intersection of the two arrays.</li>
-<li>Find duplicate from a very large list (trillion) of immutable integers in known range. O(N) and O(1) additional space solution.</li>
-</ol>
-
-
-<p>Set B</p>
-
-<ol>
-<li>JS - what is eval()</li>
-<li>JS - what is the diffenrence between == and ===</li>
-<li>How hashmaps work - hashCode and equals operators</li>
-<li>Principles of OO - encapsulation, inheritance</li>
-<li>What is synchronized?</li>
-<li>Big O of data searching on different data structures - array , linked list, hashtable</li>
-<li>Java difference of a hashtable and hashmap</li>
-<li>Something that you are proud of - code and other - industry related</li>
-<li>Describe a development process - engaging client - requirements - etc</li>
-<li>Favorite java classes</li>
-<li>What does AJAX stands for?</li>
-<li>what type of response can you get from and AJAX call - string or XML</li>
-</ol>
-
-
-<p>Set C:</p>
-
-<ol>
-<li>Describe Singleton in a Real Life Example , like if you want to explain concept of singleton pattern to your grandmother, who don&rsquo;t know the computer at all. what would be your approach.</li>
-<li>How would you design a Chat Session (gtalk) ?</li>
-<li>write program to calculate power(x,n) in log(n) time</li>
-<li>Find intersection node of two linked lists.</li>
-<li>Merge two sorted linked lists into one without extra space.</li>
-<li>Given an array, which contains integers in the range of 1 to n. one number is missing from it and one number is repeated in array. for ex &ndash; array is {1,2,3,4,4,6,7,8,9} , range given is 1- n(n=9).
-determine which number is missing and which is repeated in array.</li>
-<li>given char array = {a,a,a,a,b,b,b,c,c,d,d,,e,,f,f}
-output should be &ndash; {a,4,b,3,c,2,d,2,e,f,2}, i.e. occurrences of every element followed by character, without using other array.</li>
-</ol>
-
-
-<h4>Others</h4>
-
-<ol>
-<li>Implement a FIFO queue from 2 FILO stacks</li>
-<li>Calculate Fibonacci-like sequence: f(n) = f(n-1) + … + f(n-k) where f(i) = 0 if i &lt; 0 and f(0) = 1. Your algorithm should avoid shifting lots of number.</li>
-<li>Given 2 sorted arrays, how do I get the median of the combined 2 arrays.</li>
-<li>Given a sorted array and a number k, find 2 number a, b such that a + b = k. Your algorithm should be O(n). If the array is unsorted, can you still do in O(n)?</li>
-<li>In-order traversal? In-order traversal without recursion?</li>
-</ol>
-
-
-<h4>Dynamic programming problems</h4>
-
-<p>At least one dynamic programming problem will be asked during on-site interview.</p>
-
-<ol>
-<li>Given a number n, find a set such that
-
-<ul>
-<li>Sum of all the elements should result into n.</li>
-<li>Multiplication of all the elements should be greater than any other similar set (whose elements result n when summed up).</li>
-</ul>
-</li>
-</ol>
-
-
-<h4>Concurrency</h4>
-
-<ol>
-<li>How to write a thread-safe or reentrant function. What is the difference between a reentrant function and thread-safe function?
-
-<ul>
-<li>Reentrant and thread-safe is actually two separate concepts.</li>
-</ul>
-</li>
-</ol>
-
-
-<h4>Object oriented programming</h4>
-
-<ol>
-<li>What is OOP? What is abstraction, encapsulation, inheritance, polymorphism?</li>
-</ol>
-
-
-<h3>Answers</h3>
-
-<h4>Others</h4>
-
-<p>(3) Given 2 sorted arrays, how do I get the median of the combined 2 arrays?</p>
-
-<p>The basic idea is that if you are given two arrays A and B and know the length of each, you can check whether an element A[i] is the median in constant time. Suppose that the median is A[i].
-Since the array is sorted, it is greater than exactly i − 1 values in array A.
-Then if it is the median, it is also greater than exactly j = ceil(n/2) − (i − 1) elements in B.
-It requires constant time to check if B[j] &lt;= A[i] &lt;= B[j + 1].
-If A[i] is not the median, then depending on whether A[i] is greater or less than B[j] and B[j + 1], you know that A[i] is either greater than or less than the median.
-Thus you can binary search for A[i] in O(lg n) worst-case time.</p>
-
-<p>(4) Given a sorted array and a number k, find 2 number a, b such that a + b = k.</p>
-
-<p>Time O(n) and O(n) for sorted and unsorted array.
-a) If the array is sorted, use two pointers at the two ends of the aray.
-b) If the array is not sorted, create a hash table with keys as (k-a[i]). Then look up for each a[i] in the table. Table insertion and table look-up is O(1).</p>
-
-<h4>OOP</h4>
-
-<p>(1) What is OOP?</p>
-
-<ul>
-<li>OOP: a programming paradigm that uses objects to design computer applications. Here, objects are special data structures that consist of data fields and methods interacting with those data fields. OOP techniques includes the followings: data abstraction, encapsulation, inheritance, polymorphism, messaging.</li>
-<li>Data abstraction: means that we interact with data in objects using its abstract interface. For example, we access private data of an object using its public methods. It is a mechanism to restrict the access to some of data structure&rsquo;s component, usually to separate the implementation details of the data structure.</li>
-<li>Encapsulation: in simple definition, the implementation details of a program is separated from its representation. It means that we separate &ldquo;what an object can do&rdquo; and &ldquo;how the object do it&rdquo;.</li>
-<li>Inheritance: is the ability of a class to expand as a subclass, so that the code can be reused.</li>
-<li>Polymorphism: is the ability of a class can be considered as different forms.</li>
-<li>Message passing: in OOP, a message is the single means to pass control to an object. Alan Kay has argued that message passing is more important than objects in OOP, and that objects themselves are often over-emphasized.</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/02/tutorial-test-driven-development/"/>
-    <updated>2016-09-02T22:57:00-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/02/tutorial-test-driven-development</id>
-    <content type="html"><![CDATA[<!-- Reference:
-Evernote: "QE cheat sheet"
--->
-
-
-<p>Test-driven development has become more and more important.
-As pointed out in <a href="http://tdongsi.github.io/SqlTests/syllabus/">this</a>, candidates with 3+ years of industry experience should be able to demonstrate testing experience.
-You should expect testing questions come up, even when you interview for developer positions.</p>
-
-<!--more-->
-
-
-<h3>Type of tests</h3>
-
-<p>This is useful for the open questions of &ldquo;How do you test X?&rdquo; type.
-X can be anything that are not related to software.
-It would be awesome if you can come up with a creative test case that interviewers won&rsquo;t think of.
-However, you are usually expected to hit broadly and methodically different categories of tests, instead of keeping listing different test cases of a test category.
-Knowing these kind of tests can also help you keep talking without running out of ideas.</p>
-
-<ul>
-<li>Unit testing</li>
-<li>Integration testing</li>
-<li>Functional testing</li>
-<li>Load testing</li>
-<li>Stress testing</li>
-<li>Performance testing</li>
-<li>Install/Uninstall testing</li>
-<li>UI testing</li>
-<li>Localization testing (language, market-ready)</li>
-<li>Security testing</li>
-<li>Acceptance testing</li>
-<li>Regression testing</li>
-</ul>
-
-
-<p>Other general types:</p>
-
-<ul>
-<li>White-box testing</li>
-<li>Black-box testing</li>
-<li>Beta testing</li>
-</ul>
-
-
-<p>Questions that I will ask myself if I am the interviewer.</p>
-
-<ul>
-<li>Does the candidate ask good questions to understand the feature or he/she just simply making assumptions?</li>
-<li>Is the candidate covering negative and boundary conditions?</li>
-<li>Is the candidate trying to break the feature? Any interesting test cases you haven’t thought of?</li>
-<li>Is the candidate covering non-functional tests such as performance, scalability, security, etc.?</li>
-</ul>
-
-
-<p>Make sure that you pass all those minimum expections: ask clarifying questions and highlight assumptions.</p>
-
-<h3>Example of a testing question</h3>
-
-<p>For example, the interviewer will give you a question: &ldquo;Given a string, reverse it word by word&rdquo;.
-You proceed to solve it and write it on the whiteboard.
-The follow-up question would be &ldquo;How would you test it?&rdquo;.</p>
-
-<p>(1) General</p>
-
-<ul>
-<li>&ldquo;Hello World&rdquo; => &ldquo;World Hello&rdquo;</li>
-<li>&ldquo;Foo Bar Baz&rdquo; => &ldquo;Baz Bar Foo&rdquo;</li>
-<li>What happens with unicode?</li>
-<li>What about tabs and newlines? Do newlines end up in the beginning or end?</li>
-<li>What about unicode whitespace?</li>
-<li>What about numbers? What about special characters like ! and #.</li>
-</ul>
-
-
-<p>(2) Boundary</p>
-
-<ul>
-<li>Null string: null => what happens?</li>
-<li>Empty string: &ldquo;&rdquo; => &ldquo;&rdquo;</li>
-<li>Really long string => What happens?</li>
-<li>What about a one really really long word?</li>
-<li>What if you just give a string of spaces <code>"     "</code> => <code>"     "</code>?</li>
-<li>What if you give a really string of letters separated by spaces? <code>"a a a a a a a a a a a a a a a a a a aa a"</code></li>
-<li>Does it handle Chinese well?</li>
-<li>What if there&rsquo;s multiple spaces? Are they respected? <code>"a a a b ob"</code></li>
-</ul>
-
-
-<p>(3) Exceptional</p>
-
-<ul>
-<li>What happens when you give a really long string (like from <code>/dev/random</code>)?</li>
-<li>How can the function run out of memory?</li>
-<li>What if the type is incorrect? Could happen in Python.</li>
-<li>null => depends on specification. Might not be possible in languages like Haskell.</li>
-</ul>
-
-
-<p>Four and five are bonus stuff that I like to cover or have been asked of me in the past.
-They generally aren&rsquo;t the first three that I think of when I&rsquo;m asked to test a function though.</p>
-
-<p>(4) Performance - Running time</p>
-
-<p>I would explain the space complexity I expect out of my solution.
-I would draw a simple graph of what it would probably look like.
-I would then provide a set of sample points that I would take to see the space complexity.
-Some sample points I would take are 0, 1, 5, 10, <code>100</code>, <code>1,000</code>, <code>10,000</code>, <code>100,000</code>, <code>1,000,000</code> until I hit some barrier and then draw more fine grain values in between.
-Basically, I&rsquo;d increase the input exponentially and then increase granularity from there.</p>
-
-<p>(5) Performancce - Space complexity</p>
-
-<p>Very similar to (4), I would explain the space complexity I expect out of my solution.
-I would draw a simple graph of what it would probably look like.
-I would then provide a set of sample points that I would take to see the space complexity.
-Personally, I would mention that many languages like Java allow you to run at a reduced heap size like 4 MB so that you can hit <code>OutOfMemory</code> exceptions very quickly with reasonably sized inputs, if the complexity isn&rsquo;t managed properly.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround/"/>
-    <updated>2016-08-28T01:42:23-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround</id>
-    <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
-Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
-If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
-
-<!--more-->
-
-
-<h3>Summary</h3>
-
-<p>In this post, the following interview questions will be presented and, then, potential pitfalls and answers in MySQL will be explained:</p>
-
-<ol>
-<li><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>: Write a SQL query to find employees who earn the top three salaries in each of the department.</li>
-<li><a href="https://leetcode.com/problems/nth-highest-salary/">Question</a>: Write a function that return the given <code>n</code>-th highest salary.</li>
-<li><a href="https://leetcode.com/problems/rank-scores/">Question</a>: Write a SQL query to rank scores (dense_rank).</li>
-<li><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>: Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</li>
-</ol>
-
-
-<h3>WITH clause</h3>
-
-<p>Use <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">nested subqueries</a>.</p>
-
-<p><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>:
-Write a SQL query to find employees who earn the top three salaries in each of the department.</p>
-
-<figure class='code'><figcaption><span>What you might come up</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">WITH</span> <span class="n">temp</span> <span class="k">AS</span> <span class="p">(</span>
-</span><span class='line'><span class="k">select</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Salary</span><span class="p">,</span> <span class="n">DepartmentId</span>
-</span><span class='line'><span class="n">rank</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">DepartmentId</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">salary</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">as</span> <span class="n">rank</span>
-</span><span class='line'><span class="p">)</span>
-</span><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Department</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Salary</span> <span class="k">as</span> <span class="n">Salary</span>
-</span><span class='line'><span class="k">from</span> <span class="n">temp</span> <span class="n">e</span>
-</span><span class='line'><span class="k">join</span> <span class="n">Department</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">Id</span>
-</span><span class='line'><span class="k">where</span> <span class="n">t</span><span class="p">.</span><span class="n">rank</span> <span class="o">&lt;=</span> <span class="mi">3</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Answer: based on <a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department%0AFor%20ideas%20to%20arrive%20at%20the%20solution">this</a>.</p>
-
-<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Department</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Employee</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Salary</span> <span class="k">as</span> <span class="n">Salary</span>
-</span><span class='line'><span class="k">from</span> <span class="n">Employee</span> <span class="n">e</span>
-</span><span class='line'><span class="k">join</span> <span class="n">Department</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">Id</span>
-</span><span class='line'><span class="k">where</span> <span class="p">(</span>
-</span><span class='line'><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="k">distinct</span><span class="p">(</span><span class="n">e2</span><span class="p">.</span><span class="n">salary</span><span class="p">))</span>
-</span><span class='line'><span class="k">from</span> <span class="n">Employee</span> <span class="n">e2</span>
-</span><span class='line'><span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">e2</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="k">and</span> <span class="n">e2</span><span class="p">.</span><span class="n">salary</span> <span class="o">&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">salary</span>
-</span><span class='line'><span class="p">)</span> <span class="k">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-</span><span class='line'><span class="k">order</span> <span class="k">by</span> <span class="n">Department</span><span class="p">,</span> <span class="n">Salary</span> <span class="k">desc</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Using the similar idea, one can answer this <a href="https://leetcode.com/problems/nth-highest-salary/">question</a>:
-write a function that return the given <code>n</code>-th highest salary. The solution (without using <code>DENSE_RANK</code>) is:</p>
-
-<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">getNthHighestSalary</span><span class="p">(</span><span class="n">N</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">RETURNS</span> <span class="nb">INT</span>
-</span><span class='line'><span class="k">BEGIN</span>
-</span><span class='line'>  <span class="k">RETURN</span> <span class="p">(</span>
-</span><span class='line'>      <span class="c1">-- Write your MySQL query statement below.</span>
-</span><span class='line'>      <span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">Salary</span><span class="p">)</span>
-</span><span class='line'>            <span class="k">FROM</span> <span class="n">Employee</span> <span class="n">Emp1</span>
-</span><span class='line'>            <span class="k">WHERE</span> <span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span>
-</span><span class='line'>                 <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="p">(</span><span class="n">Emp2</span><span class="p">.</span><span class="n">Salary</span><span class="p">))</span>
-</span><span class='line'>                        <span class="k">FROM</span> <span class="n">Employee</span> <span class="n">Emp2</span>
-</span><span class='line'>                        <span class="k">WHERE</span> <span class="n">Emp2</span><span class="p">.</span><span class="n">Salary</span> <span class="o">&gt;</span> <span class="n">Emp1</span><span class="p">.</span><span class="n">Salary</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">);</span>
-</span><span class='line'><span class="k">END</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Analytic functions <code>ROW_NUMBER</code>, <code>RANK</code>, and <code>DENSE_RANK</code></h3>
-
-<p>Summary from <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
-
-<figure class='code'><figcaption><span>ROW_NUMBER, RANK, and DENSE_RANK functions in MySQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">-- In Vertica</span>
-</span><span class='line'><span class="k">SELECT</span>
-</span><span class='line'><span class="n">ROW_NUMBER</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">row_number</span><span class="p">,</span>
-</span><span class='line'><span class="n">RANK</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span>
-</span><span class='line'><span class="n">DENSE_RANK</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">dense_rank</span><span class="p">,</span>
-</span><span class='line'><span class="n">t</span><span class="p">.</span><span class="o">*</span>
-</span><span class='line'><span class="k">FROM</span> <span class="n">table_1</span> <span class="n">t</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">-- In MySQL</span>
-</span><span class='line'><span class="k">SELECT</span>
-</span><span class='line'><span class="o">@</span><span class="n">row_num</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_1</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_1</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_2</span><span class="p">,</span> <span class="o">@</span><span class="n">row_num</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">row_number</span><span class="p">,</span>
-</span><span class='line'><span class="o">@</span><span class="n">rank</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_1</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_1</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_2</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_3</span><span class="o">=</span><span class="n">col_3</span><span class="p">,</span> <span class="o">@</span><span class="n">rank</span><span class="p">,</span> <span class="o">@</span><span class="n">row_num</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span>
-</span><span class='line'><span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_1</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_1</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_2</span><span class="p">,</span> <span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_3</span><span class="o">=</span><span class="n">col_3</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">dense_rank</span><span class="p">,</span>
-</span><span class='line'><span class="o">@</span><span class="n">prev_col_1</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">col_1</span><span class="p">,</span>
-</span><span class='line'><span class="o">@</span><span class="n">prev_col_2</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">col_2</span><span class="p">,</span>
-</span><span class='line'><span class="o">@</span><span class="n">prev_col_3</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">col_3</span><span class="p">,</span>
-</span><span class='line'><span class="n">t</span><span class="p">.</span><span class="o">*</span>
-</span><span class='line'><span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">table_1</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span><span class="p">,</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="n">t</span><span class="p">,</span>
-</span><span class='line'>     <span class="p">(</span><span class="k">SELECT</span> <span class="o">@</span><span class="n">row_num</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">@</span><span class="n">rank</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col_1</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col_3</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">)</span> <span class="n">var</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In the following <a href="https://leetcode.com/problems/rank-scores/">question</a>, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
-
-<figure class='code'><figcaption><span>Solution in Vertica SQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">Score</span><span class="p">,</span>
-</span><span class='line'><span class="n">DENSE_RANK</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">Score</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Rank</span>
-</span><span class='line'><span class="k">FROM</span> <span class="n">Scores</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>Solution in MySQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="n">Score</span><span class="p">,</span> <span class="n">Rank</span> <span class="k">FROM</span>
-</span><span class='line'><span class="p">(</span> <span class="k">SELECT</span> <span class="n">t</span><span class="p">.</span><span class="n">Score</span><span class="p">,</span>
-</span><span class='line'><span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">Score</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Rank</span><span class="p">,</span>
-</span><span class='line'><span class="o">@</span><span class="n">prev_col2</span><span class="p">:</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">Score</span>
-</span><span class='line'><span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">Score</span> <span class="k">FROM</span> <span class="n">Scores</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">Score</span> <span class="k">DESC</span><span class="p">)</span> <span class="n">t</span><span class="p">,</span>
-</span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col2</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">)</span> <span class="n">var</span> <span class="p">)</span> <span class="n">x</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Other tricky questions</h3>
-
-<p><code>DELETE</code> might not work as you think in MySQL.</p>
-
-<p><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>:
-Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</p>
-
-<figure class='code'><figcaption><span>What you might come up</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">delete</span> <span class="k">from</span> <span class="n">Person</span>
-</span><span class='line'><span class="k">where</span> <span class="n">Id</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="k">min</span><span class="p">(</span><span class="n">Id</span><span class="p">)</span> <span class="k">from</span> <span class="n">Person</span> <span class="k">group</span> <span class="k">by</span> <span class="n">Email</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The above does not work because you need to assign name to the subquery (temporary table).</p>
-
-<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">delete</span> <span class="k">from</span> <span class="n">Person</span>
-</span><span class='line'><span class="k">where</span> <span class="n">Id</span> <span class="k">not</span> <span class="k">in</span>
-</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span>
-</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="k">min</span><span class="p">(</span><span class="n">Id</span><span class="p">)</span> <span class="k">from</span> <span class="n">Person</span> <span class="k">group</span> <span class="k">by</span> <span class="n">Email</span><span class="p">)</span> <span class="n">x</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>External links</h3>
-
-<ul>
-<li><a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">Leetcode Database Solutions</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Questions: SQL Basics]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics/"/>
-    <updated>2016-08-26T01:39:37-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/26/select-basics</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/02/select-basics/"/>
+    <updated>2016-08-02T01:39:37-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/02/select-basics</id>
     <content type="html"><![CDATA[<p>This post is about basic DDL, <code>SELECT</code> questions (phone-screen level).</p>
 
 <!--more-->
@@ -2474,6 +1331,1236 @@ You are expected to write the following DDL statements.</p>
 </span><span class='line'><span class="k">join</span> <span class="n">snapshot</span> <span class="n">s</span> <span class="k">on</span> <span class="n">t</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">user_id</span> <span class="k">and</span> <span class="n">t</span><span class="p">.</span><span class="n">song_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">song_id</span> <span class="k">and</span> <span class="n">s</span><span class="p">.</span><span class="nb">date</span> <span class="o">=</span> <span class="k">current_date</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/01/mysql-workaround/"/>
+    <updated>2016-08-01T01:42:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/01/mysql-workaround</id>
+    <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
+Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
+If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+
+<!--more-->
+
+
+<h3>Summary</h3>
+
+<p>In this post, the following interview questions will be presented and, then, potential pitfalls and answers in MySQL will be explained:</p>
+
+<ol>
+<li><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>: Write a SQL query to find employees who earn the top three salaries in each of the department.</li>
+<li><a href="https://leetcode.com/problems/nth-highest-salary/">Question</a>: Write a function that return the given <code>n</code>-th highest salary.</li>
+<li><a href="https://leetcode.com/problems/rank-scores/">Question</a>: Write a SQL query to rank scores (dense_rank).</li>
+<li><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>: Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</li>
+</ol>
+
+
+<h3>WITH clause</h3>
+
+<p>Use <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">nested subqueries</a>.</p>
+
+<p><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>:
+Write a SQL query to find employees who earn the top three salaries in each of the department.</p>
+
+<figure class='code'><figcaption><span>What you might come up</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">WITH</span> <span class="n">temp</span> <span class="k">AS</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Salary</span><span class="p">,</span> <span class="n">DepartmentId</span>
+</span><span class='line'><span class="n">rank</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">DepartmentId</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">salary</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">as</span> <span class="n">rank</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Department</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Salary</span> <span class="k">as</span> <span class="n">Salary</span>
+</span><span class='line'><span class="k">from</span> <span class="n">temp</span> <span class="n">e</span>
+</span><span class='line'><span class="k">join</span> <span class="n">Department</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">Id</span>
+</span><span class='line'><span class="k">where</span> <span class="n">t</span><span class="p">.</span><span class="n">rank</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Answer: based on <a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department%0AFor%20ideas%20to%20arrive%20at%20the%20solution">this</a>.</p>
+
+<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Department</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Employee</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Salary</span> <span class="k">as</span> <span class="n">Salary</span>
+</span><span class='line'><span class="k">from</span> <span class="n">Employee</span> <span class="n">e</span>
+</span><span class='line'><span class="k">join</span> <span class="n">Department</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">Id</span>
+</span><span class='line'><span class="k">where</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="k">distinct</span><span class="p">(</span><span class="n">e2</span><span class="p">.</span><span class="n">salary</span><span class="p">))</span>
+</span><span class='line'><span class="k">from</span> <span class="n">Employee</span> <span class="n">e2</span>
+</span><span class='line'><span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">e2</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="k">and</span> <span class="n">e2</span><span class="p">.</span><span class="n">salary</span> <span class="o">&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">salary</span>
+</span><span class='line'><span class="p">)</span> <span class="k">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="k">order</span> <span class="k">by</span> <span class="n">Department</span><span class="p">,</span> <span class="n">Salary</span> <span class="k">desc</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using the similar idea, one can answer this <a href="https://leetcode.com/problems/nth-highest-salary/">question</a>:
+write a function that return the given <code>n</code>-th highest salary. The solution (without using <code>DENSE_RANK</code>) is:</p>
+
+<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">getNthHighestSalary</span><span class="p">(</span><span class="n">N</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">RETURNS</span> <span class="nb">INT</span>
+</span><span class='line'><span class="k">BEGIN</span>
+</span><span class='line'>  <span class="k">RETURN</span> <span class="p">(</span>
+</span><span class='line'>      <span class="c1">-- Write your MySQL query statement below.</span>
+</span><span class='line'>      <span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">Salary</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">FROM</span> <span class="n">Employee</span> <span class="n">Emp1</span>
+</span><span class='line'>            <span class="k">WHERE</span> <span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span>
+</span><span class='line'>                 <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="p">(</span><span class="n">Emp2</span><span class="p">.</span><span class="n">Salary</span><span class="p">))</span>
+</span><span class='line'>                        <span class="k">FROM</span> <span class="n">Employee</span> <span class="n">Emp2</span>
+</span><span class='line'>                        <span class="k">WHERE</span> <span class="n">Emp2</span><span class="p">.</span><span class="n">Salary</span> <span class="o">&gt;</span> <span class="n">Emp1</span><span class="p">.</span><span class="n">Salary</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">);</span>
+</span><span class='line'><span class="k">END</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Analytic functions <code>ROW_NUMBER</code>, <code>RANK</code>, and <code>DENSE_RANK</code></h3>
+
+<p>Summary from <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
+
+<figure class='code'><figcaption><span>ROW_NUMBER, RANK, and DENSE_RANK functions in MySQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">-- In Vertica</span>
+</span><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="n">ROW_NUMBER</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">row_number</span><span class="p">,</span>
+</span><span class='line'><span class="n">RANK</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span>
+</span><span class='line'><span class="n">DENSE_RANK</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">dense_rank</span><span class="p">,</span>
+</span><span class='line'><span class="n">t</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">table_1</span> <span class="n">t</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- In MySQL</span>
+</span><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="o">@</span><span class="n">row_num</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_1</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_1</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_2</span><span class="p">,</span> <span class="o">@</span><span class="n">row_num</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">row_number</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">rank</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_1</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_1</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_2</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_3</span><span class="o">=</span><span class="n">col_3</span><span class="p">,</span> <span class="o">@</span><span class="n">rank</span><span class="p">,</span> <span class="o">@</span><span class="n">row_num</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_1</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_1</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_2</span><span class="p">,</span> <span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_3</span><span class="o">=</span><span class="n">col_3</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">dense_rank</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">prev_col_1</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">col_1</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">prev_col_2</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">col_2</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">prev_col_3</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">col_3</span><span class="p">,</span>
+</span><span class='line'><span class="n">t</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">table_1</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span><span class="p">,</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="n">t</span><span class="p">,</span>
+</span><span class='line'>     <span class="p">(</span><span class="k">SELECT</span> <span class="o">@</span><span class="n">row_num</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">@</span><span class="n">rank</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col_1</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col_3</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">)</span> <span class="n">var</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the following <a href="https://leetcode.com/problems/rank-scores/">question</a>, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
+
+<figure class='code'><figcaption><span>Solution in Vertica SQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">Score</span><span class="p">,</span>
+</span><span class='line'><span class="n">DENSE_RANK</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">Score</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Rank</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">Scores</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Solution in MySQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="n">Score</span><span class="p">,</span> <span class="n">Rank</span> <span class="k">FROM</span>
+</span><span class='line'><span class="p">(</span> <span class="k">SELECT</span> <span class="n">t</span><span class="p">.</span><span class="n">Score</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">Score</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Rank</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">prev_col2</span><span class="p">:</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">Score</span>
+</span><span class='line'><span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">Score</span> <span class="k">FROM</span> <span class="n">Scores</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">Score</span> <span class="k">DESC</span><span class="p">)</span> <span class="n">t</span><span class="p">,</span>
+</span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col2</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">)</span> <span class="n">var</span> <span class="p">)</span> <span class="n">x</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Other tricky questions</h3>
+
+<p><code>DELETE</code> might not work as you think in MySQL.</p>
+
+<p><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>:
+Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</p>
+
+<figure class='code'><figcaption><span>What you might come up</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">delete</span> <span class="k">from</span> <span class="n">Person</span>
+</span><span class='line'><span class="k">where</span> <span class="n">Id</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="k">min</span><span class="p">(</span><span class="n">Id</span><span class="p">)</span> <span class="k">from</span> <span class="n">Person</span> <span class="k">group</span> <span class="k">by</span> <span class="n">Email</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above does not work because you need to assign name to the subquery (temporary table).</p>
+
+<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">delete</span> <span class="k">from</span> <span class="n">Person</span>
+</span><span class='line'><span class="k">where</span> <span class="n">Id</span> <span class="k">not</span> <span class="k">in</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="k">min</span><span class="p">(</span><span class="n">Id</span><span class="p">)</span> <span class="k">from</span> <span class="n">Person</span> <span class="k">group</span> <span class="k">by</span> <span class="n">Email</span><span class="p">)</span> <span class="n">x</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>External links</h3>
+
+<ul>
+<li><a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">Leetcode Database Solutions</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[System Design Questions]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/07/01/system-design-questions/"/>
+    <updated>2016-07-01T02:13:01-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/07/01/system-design-questions</id>
+    <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
+
+<!--more-->
+
+
+<h3>Readings</h3>
+
+<p>For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize scalability problems that AWS services trying to address and replace, for example, &ldquo;AWS Load Balancer&rdquo; with generic load balancer.</p>
+
+<p>Read these to know the broad topics that are expected.</p>
+
+<ol>
+<li><a href="https://www.quora.com/What-system-design-distributed-systems-+-scalability-topics-should-I-study-in-order-to-adequately-prepared-for-a-Google-Software-Engineer-interview">Quora question</a></li>
+<li><a href="https://www.linkedin.com/pulse/technical-design-interview-guide-success-joey-addona">The Technical Design Interview - A Guide to Success</a></li>
+<li><a href="https://www.linkedin.com/pulse/test-design-architecture-interview-tips-success-kane-ho">Test Design &amp; Architecture Interview - Tips to success</a></li>
+</ol>
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>Design a simple file system using OO programming. Just folder and files.</li>
+<li>How to design a load balancer?</li>
+<li>How to design Facebook News Feed?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<p>(1) Design a simple file system using OO programming. Just folder and files.</p>
+
+<p>Use Composite pattern.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">FileNode</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">File</span> <span class="kd">extends</span> <span class="n">FileNode</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kt">long</span> <span class="n">size</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Folder</span> <span class="kd">extends</span> <span class="n">FileNode</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">Collection</span><span class="o">&lt;</span><span class="n">FileNode</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(2) How to design a load balancer?</p>
+
+<p>Simple: hash and assign random. What are pros and cons?</p>
+
+<p>(3) Design Facebook News Feed.
+From <a href="https://www.reddit.com/r/cscareerquestions/comments/4ytbz3/design_facebook_news_feed_my_solution_to_the/">here</a>:</p>
+
+<p>First some numbers to get the scale of the problem:</p>
+
+<ul>
+<li>number of users: 10<sup>9</sup></li>
+<li>number of users during a peak hour (upper bound): 10<sup>8</sup></li>
+<li>number of posts during a peak hour: 10<sup>6</sup></li>
+<li>number of other activities during a peak hour (likes, comments, saves): 10<sup>10</sup></li>
+<li>almost all users have less than 10<sup>3</sup> friends</li>
+</ul>
+
+
+<p>The News Feed is constructed mainly based on the activity of user&rsquo;s important Facebook friends.
+An important friend is a user who is my friend and I have interacted with him/her at least somewhat during recent months.
+Interaction might include liking his/her comment, commenting on their post, chatting together, being marked on the same photo, etc.
+We assume the backend maintains the list of important friends.
+It might be updated perhaps every 60 minutes.
+This ordering might be quite fuzzy.
+Random perturbations of this ordering might lead to users being able to rediscover friends who they have mostly stopped interacting with.
+The primary purpose of distinguishing important friends is to make the feed more interesting.
+Another advantage is reduction of hotspots: there might be people with >10<sup>4</sup> friends, but we assume that every Facebook user has at most 10<sup>2</sup> important friends.</p>
+
+<p><strong>Minimum Viable Product</strong>: The Facebook News Feed of each user is a merge of the recent posts made by all his/her important friends sorted by the score of the post.
+The score of the post is ideally proportional to how interesting the post is to our user.
+The score depends on: how old the post is (older posts are less interesting), how many likes the post received, how many likes the post received from user&rsquo;s important friends or friends, &hellip;</p>
+
+<p>We primarily care about delivering an interesting News Feed. On the other hand, we don&rsquo;t really care about being able to produce an infinitely long News Feed. If our infrastructure implies that the feed is limited to 10<sup>00</sup> items and the user cannot scroll further. There are very few legitimate uses for having infinitely scrollable feed.</p>
+
+<p>Overview of the infrastructure:</p>
+
+<ul>
+<li>Firewall</li>
+<li>Load balancer</li>
+<li>Front-end web servers</li>
+<li>Memcache servers or Redis servers or something similar</li>
+<li>Distributed database servers</li>
+</ul>
+
+
+<p>Let&rsquo;s see what happens when the user requests his News Feed:</p>
+
+<ul>
+<li>The request is specified by: the id of user whose feed we&rsquo;re displaying and the number N of requested posts.</li>
+<li>The load balancer redirects the request to one of the web servers. It also decrypts the request. Within the datacenter, we only use unencrypted connections. To do the above, the load balancer keeps statistics of the numbers of requests each server is handling. Possibly, the load balancer might decide to start up a new server or schedule a shutdown of a server to save power. The web server checks if the user is authenticated. This is done by retrieving user&rsquo;s session data from a Google BigTable. If not logged in, s/he is redirected to the login page. If N is too large and not coming from a verified computer (like Facebook&rsquo;s API server), we reject the request and log information about a suspicious request.</li>
+<li>The web server queries memcache for the list of important friends of the user in question.</li>
+<li>Almost always, memcache will have this list ready in memory for all users who are currently logged in (after login, we immediately prefetch this data into memcache). The peak number of users is 10<sup>8</sup>, the number of important users at most 10<sup>2</sup>, each user is represented by an 8 byte identifier. This is an upper bound of 10<sup>11</sup> bytes, which is 100 GB of memory. Even with significant overhead, room for growth and a safety factor for situations when an unexpectedly large number of users logs in at the same time (e.g., when presidential election results are announced), this can still be stored in operating memory of a single server. A distributed memcache implementation is not going to have a problem here. For each important friend, the web server sends a request for this friend&rsquo;s Activity List. Activity List is a list of his posts, likes, comments, uploaded photos, instances of being marked on a photo, etc. Each item contains a timestamp (32 bits), item type (post, comment, share, &hellip;), id of the item (e.g., the id of the post or comment), the destination id (for example, the id of the post on which the comment was made) and privacy setting (1 byte). This is 22 bytes in total. Only identifiers are stored. The data are populated at the end of the computation.</li>
+<li>These lists are stored in a distributed database hidden behind caching servers. There is 10<sup>9</sup> users, each has at most 10<sup>3</sup> items in their Activity List. This is 22 * 10<sup>12</sup> = 22 TB of memory. <strong> It is certainly possible to store this in a distributed file system. </strong>A distributed memcache on 128 servers each with 250 GB RAM would also handle this. Therefore, we can assume all these lists are almost always in memory.</li>
+<li>Each item in each of these lists is assigned Relevancy Value. This depends on: The importance of the friend from whose Activity List the item is. How recent the item is. The number of likes and shares the item has (this only makes sense in the case of posts or photos). The number of likes from the user&rsquo;s other important friends. Surely, a like from 3 of my friends is more important than 10 likes from random strangers. We can access this information since we have retrieved the Activity Lists of every single important friend of the user. Since these lists include their likes and the ids of liked posts, we can specifically compute the numbers from the retrieved data. The user&rsquo;s prefered content type. Some users might like photos more than text. We remember this for each user and adjust the weight accordingly. Private posts that should not be visible to the user are removed at this point.</li>
+<li>We sort each of these lists using the Relevancy Value and merge them.</li>
+<li>We send this list to a content service. This service replaces all identifiers with the corresponding content (text, image links, names of users instead of user ids, &hellip;)</li>
+<li>The web server uses a template to convert this into HTML.</li>
+</ul>
+
+
+<p>There are two questions to ponder:</p>
+
+<ul>
+<li>When the News Feed is requested again in the future, do we recalculate it from scratch? We could store the sequence calculated in one of the last steps in cache and only compute the beginning of the feed (that is: we would only compute what is new). This might make almost-infinite scrolling possible in certain cases. However, we would need to handle some corner cases. For example, the list is only approximately ordered according to the timestamp.</li>
+<li>The above described the read path. It remains to analyze the write path: what happens when a user submits a content, likes something, etc. Well, we simply add this to his Activity List. In the case of posts, images, &hellip; we also store it on a content service server.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: Operating System Drills]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/03/questions-operating-system-drills/"/>
+    <updated>2016-06-03T00:42:41-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/06/03/questions-operating-system-drills</id>
+    <content type="html"><![CDATA[<p>From &ldquo;Operating System concepts&rdquo; book.</p>
+
+<!--more-->
+
+
+<p>Drill:</p>
+
+<ol>
+<li>Chapter 1: Storage device hierarchy</li>
+<li>Chapter 2: System calls and Linux examples. System boot.</li>
+<li>Chapter 3: Process diagram. Process state diagram. Zombie, orphan process. Practice Exercise 3.1, 3.2.</li>
+</ol>
+
+
+<p>Links:</p>
+
+<ul>
+<li><a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/">http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/</a></li>
+<li><a href="http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/">http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/</a></li>
+<li><a href="http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/">http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/</a></li>
+</ul>
+
+
+<p>Practice exercises:</p>
+
+<ul>
+<li><a href="http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html">http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization/"/>
+    <updated>2016-06-02T00:35:03-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
+Topics in this chapter are the most intensive and frequently asked during interviews.</p>
+
+<!--more-->
+
+
+<p>This chapter discuss how to prevent concurrent access to shared data that may result in data inconsistency.</p>
+
+<h3>5.1 &amp; 5.2: Critical section</h3>
+
+<p>Consider the producer–consumer problem, which is representative of
+operating systems. Specifically, in Section 3.4.1, we described how a bounded
+buffer could be used to enable processes to share memory.</p>
+
+<figure class='code'><figcaption><span>Producer process</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">/* produce an item in next produced */</span>
+</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">)</span>
+</span><span class='line'>    <span class="p">;</span> <span class="cm">/* do nothing */</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">buffer</span><span class="p">[</span><span class="n">in</span><span class="p">]</span> <span class="o">=</span> <span class="n">next</span> <span class="n">produced</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">in</span> <span class="o">=</span> <span class="p">(</span><span class="n">in</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">;</span>
+</span><span class='line'>  <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Consumer process</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">;</span> <span class="cm">/* do nothing */</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">next</span> <span class="n">consumed</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="n">out</span><span class="p">];</span>
+</span><span class='line'>  <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="n">out</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">;</span>
+</span><span class='line'>  <span class="n">counter</span><span class="o">--</span><span class="p">;</span>
+</span><span class='line'>  <span class="cm">/* consume the item in next consumed */</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above code works incorrectly in multi-thread or process situation, due to parallel modifications to &ldquo;counter&rdquo;.
+When several processes access and manipulate the same data concurrently and the
+outcome of the execution depends on the particular order in which the access
+takes place, is called a race condition.</p>
+
+<p>Critical section: No two processes are executing in their critical sections at the same time.
+Solution to a critical section problem requires:
+Mutual exclusion: only one process in CS at a time.
+Progress: Selection process should not be postponed indefinitely.
+Bounded waiting: once a process request to enter, waiting time is bounded.</p>
+
+<p>Nonpreemptive kernel does not allow a process running in kernel mode to be
+preempted; a kernel-mode process will run until it exits kernel mode, blocks,
+or voluntarily yields control of the CPU. A nonpreemptive kernel is essentially free from race conditions.
+A preemptive kernel may be more responsive, since there is less risk that a
+kernel-mode process will run for an arbitrarily long period.</p>
+
+<h3>5.3: Peterson&rsquo;s algorithm</h3>
+
+<figure class='code'><figcaption><span>Peterson's algorithm</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span>
+</span><span class='line'><span class="n">turn</span> <span class="o">=</span> <span class="n">j</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span> <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="n">j</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// start of CS</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// end of CS</span>
+</span><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span>    <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span>
+</span><span class='line'><span class="n">turn</span> <span class="o">=</span> <span class="n">i</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span><span class="p">(</span> <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="n">i</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// start of CS</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// end of CS</span>
+</span><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>NOTE: <a href="http://en.wikipedia.org/wiki/Peterson's_algorithm">Peterson’s algorithm</a> is restricted to two processes.
+Filter algorithm: Peterson&rsquo;s algorithm for N processes
+The filter algorithm generalizes Peterson&rsquo;s algorithm for N processes. It uses N different levels - each represents another &lsquo;waiting room&rsquo;, before the critical section. Each level will allow at least one process to advance, while keeping one process in waiting.</p>
+
+<p><a href="http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms">http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms</a>
+Both processes indicates if the other want to enter CS, it can proceed. If both processes enter at the same time, turn will be set to i and j at the same time, and only one will last.
+Proof of bounded waiting: Pi will enter the CS after at most one entry by Pj.</p>
+
+<figure class='code'><figcaption><span>Analogies of Peterson's algorithm</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Peterson's: "I want to enter."                 flag[0]=true;
+</span><span class='line'>            "You can enter next."              turn=1;
+</span><span class='line'>            "If you want to enter and          while(flag[1]==true&&turn==1){
+</span><span class='line'>            it's your turn I'll wait."         }
+</span><span class='line'>            Else: Enter CS!                    // CS
+</span><span class='line'>            "I don't want to enter any more."  flag[0]=false;
+</span><span class='line'>
+</span><span class='line'>Dekker's:   "I want to enter."                 flag[0]=true;
+</span><span class='line'>            "If you want to enter              while(flag[1]==true){
+</span><span class='line'>             and if it's your turn               if(turn!=0){
+</span><span class='line'>             I don't want to enter any more."      flag[0]=false;
+</span><span class='line'>            "If it's your turn                     while(turn!=0){
+</span><span class='line'>             I'll wait."                           }
+</span><span class='line'>            "I want to enter."                     flag[0]=true;
+</span><span class='line'>                                                 }
+</span><span class='line'>                                               }
+</span><span class='line'>            Enter CS!                          // CS
+</span><span class='line'>            "You can enter next."              turn=1;
+</span><span class='line'>            "I don't want to enter any more."  flag[0]=false;</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>5.4: Sync using hardware</h3>
+
+<p>Protect critical section by locking.</p>
+
+<p>Many modern computer systems therefore provide special hardware
+instructions that allow us either to test and modify the content of a word or
+to swap the contents of two words atomically—that is, as one uninterruptible unit.</p>
+
+<p>Atomic test_and_set() and compare_and_swap() for locking:</p>
+
+<p>boolean test_and_set(boolean <em>target) {
+boolean rv = </em>target;
+*target = true;
+return rv;
+}</p>
+
+<p>int compare_and_swap(int <em>value, int expected, int new value) {
+int temp = </em>value;
+if (<em>value == expected)
+    </em>value = new value;
+return temp;
+}</p>
+
+<p>Simple Mutex with atomic test_and_set()
+Figure 5.5</p>
+
+<p>Bounded-Waiting mutex with atomic test_and_set(): data structure and algorithm
+Figure 5.7</p>
+
+<h3>5.5: Mutex locks</h3>
+
+<p>We use the mutex to lock to protect critical regions and thus prevent race conditions.</p>
+
+<p>Calls to either acquire() or release() must be performed atomically.</p>
+
+<p>acquire() {
+while (!available)
+; /<em> busy wait </em>/
+available = false;
+}</p>
+
+<p>release() {
+available = true;
+}
+Usage:</p>
+
+<p>acquire()</p>
+
+<p>// start of CS</p>
+
+<p>// end of CS</p>
+
+<p>release()</p>
+
+<p>The main disadvantage of the implementation given here is that it requires busy waiting. This type of mutex lock is also called a spinlock.
+Spinlocks do have an advantage, however, in that no context switch is required.</p>
+
+<h3>5.6: Semaphores</h3>
+
+<p>A semaphore S is an integer variable that, apart from initialization, is
+accessed only through two standard atomic operations: wait() and signal().</p>
+
+<p>wait(S) {
+while (S &lt;= 0 )
+; // busy wait
+S&ndash;;
+}</p>
+
+<p>signal(S) {
+S++;
+}</p>
+
+<p>The value of a counting semaphore can range over an unrestricted domain. Versus binary semaphore, which is similar to mutex.
+Counting semaphores can be used to control access to a given resources of a finite number of instances.</p>
+
+<p>We can also use semaphores to solve various synchronization problems.
+For example,consider two concurrently running processes: P1 with a statement
+S1 and P2 with a statement S2 . Suppose we require that S2 be executed only
+after S1 has completed. We can implement this scheme readily by letting P1
+and P2 share a common semaphore synch, initialized to 0. In process P1 , we
+insert the statements
+S1;
+signal(synch);</p>
+
+<p>In process P2 , we insert the statements
+wait(synch);
+S 2 ;</p>
+
+<p>Because synch is initialized to 0, P2 will execute S2 only after P1 has invoked
+signal(synch) , which is after statement S1 has been executed.</p>
+
+<p>Deadlock:
+P 0 P 1
+wait(S); wait(Q);
+wait(Q); wait(S);
+. .
+. .
+. .
+signal(S); signal(Q);
+signal(Q); signal(S);</p>
+
+<p>Priority inversion:
+The problem of priority inversion is when three processes of different priorities L &lt; M &lt; H. H is waiting for L to finish with a certain resource. M process becomes runnable and preempts L. Indirectly, process M with lower priority affects how long process H must wait for resource.
+It occurs when the system has more than two priorities. However, it is almost always the case.
+Solution: priority-inheritance protocol: all processes that use a resource, waited by a higher priority process, will inherit the highest priority until they are done with the resource.</p>
+
+<h4>Semaphore implementation</h4>
+
+<p>The naive definition of wait() and signal() above presents the same problem of busy waiting.
+In actual implementation, when a process execute wait() operation and find that semaphore value is not positive, it must wait. However, instead of busy waiting, the process block itself.
+In this implementation, semaphore values may be negative, while they are never negative in classical definition with busy waiting. If a semaphore value is negative, its magnitude indicates the number of waiting processes (note different order of decrement in wait()).</p>
+
+<p>It is critical that semaphore operations be executed atomically: no two processes can execute wait() and signal() operations on the same semaphore at the same time.
+In a multiprocessor environment, usually compare_and_swap() or spin locks are used to ensure wait() and signal() are atomic.
+So, we admit that busy waiting is NOT eliminated in this implementation. However, busy waiting is limited to CS of the wait() and signal() operations. These CSs are short (about 10 instructions). Thus, CS is almost never occupied, and busy waiting is rare and short, if ever happens.</p>
+
+<h3>5.7: Classic Problems of Synchronization</h3>
+
+<p>Use semaphores for synchronization. Actual implementation can use mutex instead of binary semaphore.</p>
+
+<p>Bounded-Buffer (Consumer-Producer) problem
+Problem: See 5.1.
+Solution: The producer and consumer share the following data structure:
+The mutex is used to provide mutual exclusion for accesses to the buffer pool.
+int n;
+semaphore mutex = 1;
+semaphore empty = n;
+semaphore full = 0</p>
+
+<p>Producer    Consumer
+do {
+&hellip;
+/<em> produce an item in next produced </em>/
+&hellip;
+wait(empty);
+wait(mutex);
+&hellip;
+/<em> add next produced to the buffer </em>/
+&hellip;
+signal(mutex);
+signal(full);
+} while (true);
+do {
+wait(full);
+wait(mutex);
+&hellip;
+/<em> remove an item from buffer to next consumed </em>/
+&hellip;
+signal(mutex);
+signal(empty);
+&hellip;
+/<em> consume the item in next consumed </em>/
+&hellip;
+} while (true);</p>
+
+<p>Reader-Writer problem:
+Writers should have exclusive access while writing to the shared database.
+There are several variants of “reader-writer” problems:
+First problem: No reader to be kept waiting unless a writer has already obtained accesss.
+Second problem: Once writer is ready, that writer perform its write ASAP. No new readers may start reading.
+A solution to either problem may result in starvation.</p>
+
+<p>Solution to first reader-writer problem: shared data structure
+semaphore rw_utex = 1;
+semaphore mutex = 1;
+int read count = 0;
+The mutex semaphore is used to ensure mutual exclusion when the variable read count is updated.
+The read count variable keeps track of how many processes are currently reading the object.
+The semaphore rw_mutex functions as a mutual exclusion semaphore for the writers.</p>
+
+<p>Writer  Reader
+do {
+wait(rw mutex);
+&hellip;
+/<em> writing is performed </em>/
+&hellip;
+signal(rw mutex);
+} while (true);
+do {
+wait(mutex);
+read count++;
+if (read count == 1)
+wait(rw mutex);
+signal(mutex);
+&hellip;
+/<em> reading is performed </em>/
+&hellip;
+wait(mutex);
+read count&ndash;;
+if (read count == 0)
+signal(rw mutex);
+signal(mutex);
+} while (true);</p>
+
+<p>Dining Philosopher problem: This solution can create a deadlock
+semaphore chopstick[5];</p>
+
+<p>do {
+wait(chopstick[i]);
+wait(chopstick[(i+1) % 5]);
+&hellip;
+/<em> eat for awhile </em>/
+&hellip;
+signal(chopstick[i]);
+signal(chopstick[(i+1) % 5]);
+&hellip;
+/<em> think for awhile </em>/
+&hellip;
+} while (true);</p>
+
+<p>Several possible remedies to the deadlock problem are replaced by:
+• Allow at most four philosophers to be sitting simultaneously at the table.
+• Allow a philosopher to pick up her chopsticks only if both chopsticks are
+available (to do this, she must pick them up in a critical section).
+• Use an asymmetric solution—that is,an odd-numbered philosopher picks
+up first her left chopstick and then her right chopstick, whereas an even-
+numbered philosopher picks up her right chopstick and then her left
+chopstick.</p>
+
+<p>In 5.8, we use monitor (equivalent to a waiter to tell which philosopher should eat) to provides deadlock-free solution.
+A deadlock-free solution does not necessarily eliminate the possibility of starvation.</p>
+
+<h3>5.8: Monitors</h3>
+
+<p>Semaphore is not a complete solution. If a single process is not well-behaved (semaphore used incorrectly), the system break down.
+Incorrect order of signal() and wait(): mutual exclusion is no longer guaranteed.
+wait() is used in place of signal(): a deadlock may occur.
+wait() or signal() or both are omitted: mutual exclusion violated or deadlock.</p>
+
+<p>Syntax of a monitor:</p>
+
+<p>Local variables of a monitor can be accessed by only the local functions. Only one process at a time is active within the monitor.
+We also defines condition construct: condition x, y; // condition variables
+The only operations that can be invoked on a condition variable are wait() and signal().
+The operation x.wait(); means that the process invoking this operation is suspended until another process invokes x.signal();
+The x.signal() operation resumes exactly one suspended process. If no process is suspended, then the signal() operation has no effect.
+(Different from semaphore’s signal(): semaphore() signal always change the state of semaphore, condition’s signal() may not).</p>
+
+<p>Dining Philosophers solution using Monitors:
+Monitor is acting like a waiter/moderator. Before a philosopher starts eating, she informs the waiter (invoked operation pickup()) and the waiter will tell her what to do.
+After she is done eating, she again informs the waiter (putdown()). It is still possible that some philosopher will starve to death.</p>
+
+<p>condition self[5];
+allows philosopher i to delay herself when she is hungry but is unable to obtain the chopsticks she needs.</p>
+
+<p>Implement a Monitor with Semaphores
+Check Section 5.8.3 page 229.</p>
+
+<p>Resuming Processes within a Monitor
+One simple solution is to use FIFO ordering.
+Another solution is conditional-wait construct, with c is the priority number input.
+x.wait&copy;;
+When x.signal() is executed, the process with the smallest priority number is resumed next.</p>
+
+<p>Java monitors
+Java uses monitor for thread synchronization.
+Every object in Java has a single lock associated with it. When a method is declared synchronized, calling the method requires owning the lock of the object.
+If the lock is not available, the synchronized method is placed in the entry set for the object’s lock.
+The Java Object class’s method wait() and notify() are similar to wait() and signal() statements for a monitor.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Glassdoor: Algorithm Question Bank]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/01/question-bank/"/>
+    <updated>2016-02-01T22:31:29-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/01/question-bank</id>
+    <content type="html"><![CDATA[<p>These questions are gathered from Glassdoor.</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<h4>LinkedIn</h4>
+
+<ol>
+<li>Serialize binary tree.</li>
+<li>Count the number of occurrences of a given element in a sorted array.</li>
+<li>Modify binary search to find the index of first/last occurrence of x in the array. Two binary searches.</li>
+<li>Design a program to take a string and store, each character, into an array. The array should return a count of each character when called. [The interviewer was clearly trying to blur the lines between a simple program and a MapReduce]</li>
+<li>Senior Test Engineer: A user logs in to a website with proper credentials and the user is taken to a blank page. How would you troubleshoot that?</li>
+<li>Senior Test Engineer: Create a stack with the usual push() &amp; pop(), but with an additional function getMiddle() that returns the middle element of the stack in constant time.</li>
+<li>Senior Test Engineer: Search a sorted array for the first element larger than k.</li>
+<li>You have a potentially very-large set of documents, which are potentially very-large, and contain text. For searching these documents, they&rsquo;ve been pre-processed into a (very-large) table mapping words to the set of documents that contain each word. E.g. (word) : (documents (referenced by ID) containing that word) Apple: 1, 4, 5, 6, 32 Banana: 5, 6, 7, 9, 32 Cantaloupe: 1, 2, 6 &hellip; Clients will pass in a set &hellip;</li>
+<li>Given a nested list of integers, return the sum of all integers in the list weighted by their depth For example, given the list <code>[[1,1],2,[1,1]]</code> the function should return 10 (four 1 at depth 2, one 2 at depth 1). Answer: Recursion or Use a stack while iterating through the input string.</li>
+<li>Create an isNumber(string) function. Handle signed / unsigned, floating point, any number of digits, etc. Probably commas, and currency signs, or whatever. It was open ended and governed by whatever unit tests he wanted you to make it work against.</li>
+<li>Find out at least one 3 elements array in a given integer array. The 3 elements have to be able to form a triangle.</li>
+<li>Write a program to replace 0s with 5 in a given number. Eg: 1208 -> 1258, 120096045 -> 125596545</li>
+<li>Write a function to find the power of a<sup>b</sup></li>
+<li>Find the minimum distance between 2 words in a dictionary</li>
+<li>Evaluate a post-fix expression</li>
+<li>Given an array of numbers , replace each number with the product of all the numbers divided by the number at that index without using the division operator.</li>
+<li>Write a function that, given a list of integers (both positive and negative) returns the sum of the contiguous subsequence with maximum sum. Thus, given the sequence (1, 2, -4, 1, 3, -2, 3, -1) it should return 5.</li>
+<li>Write a function that would find the largest palindrome (phone interview).</li>
+<li>Write a Binary Search Tree class with isBST() method that will validate if the tree is a BST (onsite).</li>
+</ol>
+
+
+<h4>Google</h4>
+
+<ol>
+<li>Given a list of integers and another integer. Write a program that returns the posible combinations of the list which added, match the integer, numbers can repeat itself.</li>
+<li>Write a function to check if a string is palindrome? Write a function to return the largest Palindrome as possible in a given string. Hint: O(N)</li>
+<li>Check if Sudoku is valid</li>
+<li>You have unsorted array. You must design algorithm to create array where every even value is greater than it&rsquo;s odd neighbors. So if a(i) is value at index i (=0,1,2&hellip;n), the result must hold that: a1 &lt; a2 > a3 &lt; a4 > a5&hellip;</li>
+<li>Merge K sorted lists.</li>
+<li>System design: design a system that given a point on earth will return the highest building in 100m radios. The question was developing. Start by assuming everything in memory. Then assume not everything fits, then use several machines, then consider what happens when one is down. The purpose is to answer as quickly as possible but you have preprocessing time.</li>
+<li>0-1 Knapsack problem. NP-complete/NP-hard.</li>
+<li>Design a load balancer for web servers.</li>
+</ol>
+
+
+<h4>Salesforce</h4>
+
+<ol>
+<li>Q: Explain Encupsulation</li>
+<li>Q: Inheritance vs composition</li>
+<li>Q: What&rsquo;s the difference between tree and HashTable.</li>
+<li>Also asks me to create classes for file system API.</li>
+<li>How to ensure locking in Singleton class</li>
+<li>Do a producer consumer problem</li>
+<li>Reach 2D Pt x to Pt y in spiral form -> right -> down -> left -> up moving 1 point at a time.</li>
+<li>Find all words which start from particular letter (case insensitive)</li>
+<li>The number of paths in a m x n grid to a given cell?</li>
+<li>Given an ordered large array of integers, find all pairs of numbers that add up to a particular given sum.</li>
+<li>Given a regular English dictionary, and a word to start with (e.g. &ldquo;head&rdquo;), you can only change one letter a time, but every change has to be a word in the dictionary (e.g. head -> heal) What is the quickest way to an end word (e.g. &ldquo;tail&rdquo;)?</li>
+<li>How to efficiently merge two sorted binary trees?</li>
+<li>Why its said a good practice to override() hashcode() of an object when you override equals()?</li>
+<li>Given an array of integers, return top K elements from it.</li>
+<li>Given 2 unsorted integer arrays, get the intersection of the 2.</li>
+<li>question about finding out the character that occurs most in a given string.</li>
+<li>What is the JRE and what does it have to do with .jar files?</li>
+<li>Explain / implement a hash table.</li>
+<li>Given 3 tasks from 3 bosses, how would u handle the priority if you could only finish one of them.</li>
+<li>Three major difference between C++ and Java.</li>
+<li>Given a constant input stream of integers design a way to, at any point, return the current median of that stream.</li>
+<li>Get unique items from an array.</li>
+<li>given an binary search tree (that is, an ordered tree), how would you find the element of the tree at a particular &ldquo;index&rdquo;, where index is defined as the position in the tree&rsquo;s ordering.</li>
+<li>Fastest way to find the middle node in a linked list</li>
+<li>Eliminate the duplicate elements from a given linked list.</li>
+<li>Union find algorithm.</li>
+<li>clockwise print out a M*N matrix. Solution: recursive</li>
+<li>Explain way to optimize SQL.
+
+<ol>
+<li><a href="http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries">http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries</a></li>
+</ol>
+</li>
+<li>Counting the frequency of words in a list.. hashtable with word keys and word count values..</li>
+<li>Find Pairs with least absolute difference in an given unsorted array.
+
+<ol>
+<li>NOTE: if the numbers are in a given range</li>
+</ol>
+</li>
+<li>Explain difference in Heap and Stack memory for JVM.
+
+<ol>
+<li><a href="http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html">http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=450maTzSIvA">https://www.youtube.com/watch?v=450maTzSIvA</a></li>
+</ol>
+</li>
+<li>Image url parser from an html page and its child pages.</li>
+<li>Implement Que using 2 stacks. write test cases for it.</li>
+<li>Write thread safe singleton class</li>
+<li>what are joins in database, some scenario where u used it</li>
+<li>Given two sorted arrays, find the intersection of the two arrays.</li>
+<li>Find duplicate from a very large list (trillion) of immutable integers in known range. O(N) and O(1) additional space solution.</li>
+</ol>
+
+
+<p>Set B</p>
+
+<ol>
+<li>JS - what is eval()</li>
+<li>JS - what is the diffenrence between == and ===</li>
+<li>How hashmaps work - hashCode and equals operators</li>
+<li>Principles of OO - encapsulation, inheritance</li>
+<li>What is synchronized?</li>
+<li>Big O of data searching on different data structures - array , linked list, hashtable</li>
+<li>Java difference of a hashtable and hashmap</li>
+<li>Something that you are proud of - code and other - industry related</li>
+<li>Describe a development process - engaging client - requirements - etc</li>
+<li>Favorite java classes</li>
+<li>What does AJAX stands for?</li>
+<li>what type of response can you get from and AJAX call - string or XML</li>
+</ol>
+
+
+<p>Set C:</p>
+
+<ol>
+<li>Describe Singleton in a Real Life Example , like if you want to explain concept of singleton pattern to your grandmother, who don&rsquo;t know the computer at all. what would be your approach.</li>
+<li>How would you design a Chat Session (gtalk) ?</li>
+<li>write program to calculate power(x,n) in log(n) time</li>
+<li>Find intersection node of two linked lists.</li>
+<li>Merge two sorted linked lists into one without extra space.</li>
+<li>Given an array, which contains integers in the range of 1 to n. one number is missing from it and one number is repeated in array. for ex &ndash; array is {1,2,3,4,4,6,7,8,9} , range given is 1- n(n=9).
+determine which number is missing and which is repeated in array.</li>
+<li>given char array = {a,a,a,a,b,b,b,c,c,d,d,,e,,f,f}
+output should be &ndash; {a,4,b,3,c,2,d,2,e,f,2}, i.e. occurrences of every element followed by character, without using other array.</li>
+</ol>
+
+
+<h4>Others</h4>
+
+<ol>
+<li>Implement a FIFO queue from 2 FILO stacks</li>
+<li>Calculate Fibonacci-like sequence: f(n) = f(n-1) + … + f(n-k) where f(i) = 0 if i &lt; 0 and f(0) = 1. Your algorithm should avoid shifting lots of number.</li>
+<li>Given 2 sorted arrays, how do I get the median of the combined 2 arrays.</li>
+<li>Given a sorted array and a number k, find 2 number a, b such that a + b = k. Your algorithm should be O(n). If the array is unsorted, can you still do in O(n)?</li>
+<li>In-order traversal? In-order traversal without recursion?</li>
+</ol>
+
+
+<h4>Dynamic programming problems</h4>
+
+<p>At least one dynamic programming problem will be asked during on-site interview.</p>
+
+<ol>
+<li>Given a number n, find a set such that
+
+<ul>
+<li>Sum of all the elements should result into n.</li>
+<li>Multiplication of all the elements should be greater than any other similar set (whose elements result n when summed up).</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Concurrency</h4>
+
+<ol>
+<li>How to write a thread-safe or reentrant function. What is the difference between a reentrant function and thread-safe function?
+
+<ul>
+<li>Reentrant and thread-safe is actually two separate concepts.</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Object oriented programming</h4>
+
+<ol>
+<li>What is OOP? What is abstraction, encapsulation, inheritance, polymorphism?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<h4>Others</h4>
+
+<p>(3) Given 2 sorted arrays, how do I get the median of the combined 2 arrays?</p>
+
+<p>The basic idea is that if you are given two arrays A and B and know the length of each, you can check whether an element A[i] is the median in constant time. Suppose that the median is A[i].
+Since the array is sorted, it is greater than exactly i − 1 values in array A.
+Then if it is the median, it is also greater than exactly j = ceil(n/2) − (i − 1) elements in B.
+It requires constant time to check if B[j] &lt;= A[i] &lt;= B[j + 1].
+If A[i] is not the median, then depending on whether A[i] is greater or less than B[j] and B[j + 1], you know that A[i] is either greater than or less than the median.
+Thus you can binary search for A[i] in O(lg n) worst-case time.</p>
+
+<p>(4) Given a sorted array and a number k, find 2 number a, b such that a + b = k.</p>
+
+<p>Time O(n) and O(n) for sorted and unsorted array.
+a) If the array is sorted, use two pointers at the two ends of the aray.
+b) If the array is not sorted, create a hash table with keys as (k-a[i]). Then look up for each a[i] in the table. Table insertion and table look-up is O(1).</p>
+
+<h4>OOP</h4>
+
+<p>(1) What is OOP?</p>
+
+<ul>
+<li>OOP: a programming paradigm that uses objects to design computer applications. Here, objects are special data structures that consist of data fields and methods interacting with those data fields. OOP techniques includes the followings: data abstraction, encapsulation, inheritance, polymorphism, messaging.</li>
+<li>Data abstraction: means that we interact with data in objects using its abstract interface. For example, we access private data of an object using its public methods. It is a mechanism to restrict the access to some of data structure&rsquo;s component, usually to separate the implementation details of the data structure.</li>
+<li>Encapsulation: in simple definition, the implementation details of a program is separated from its representation. It means that we separate &ldquo;what an object can do&rdquo; and &ldquo;how the object do it&rdquo;.</li>
+<li>Inheritance: is the ability of a class to expand as a subclass, so that the code can be reused.</li>
+<li>Polymorphism: is the ability of a class can be considered as different forms.</li>
+<li>Message passing: in OOP, a message is the single means to pass control to an object. Alan Kay has argued that message passing is more important than objects in OOP, and that objects themselves are often over-emphasized.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/01/tutorial-bit-manipulation/"/>
+    <updated>2016-02-01T00:23:25-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/01/tutorial-bit-manipulation</id>
+    <content type="html"><![CDATA[<h3>Questions</h3>
+
+<ol>
+<li>Addition using only bit manipulation.</li>
+<li>Subtraction using only bit manipulation.</li>
+<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
+<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
+</ol>
+
+
+<!--more-->
+
+
+<h3>Answers</h3>
+
+<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
+In code, it is implemented as follows:</p>
+
+<figure class='code'><figcaption><span>Addition</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">add</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
+In code, it is implemented as follows:</p>
+
+<figure class='code'><figcaption><span>Subtraction</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">subtract</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">subtract</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(~</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(3) Find odd one.</p>
+
+<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
+
+<p>(4) Quickly determine if a number is a power of 2.</p>
+
+<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development/"/>
+    <updated>2016-01-01T21:57:00-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development</id>
+    <content type="html"><![CDATA[<!-- Reference:
+Evernote: "QE cheat sheet"
+-->
+
+
+<p>Test-driven development has become more and more important.
+As pointed out in <a href="http://tdongsi.github.io/SqlTests/syllabus/">this</a>, candidates with 3+ years of industry experience should be able to demonstrate testing experience.
+You should expect testing questions come up, even when you interview for developer positions.</p>
+
+<!--more-->
+
+
+<h3>Type of tests</h3>
+
+<p>This is useful for the open questions of &ldquo;How do you test X?&rdquo; type.
+X can be anything that are not related to software.
+It would be awesome if you can come up with a creative test case that interviewers won&rsquo;t think of.
+However, you are usually expected to hit broadly and methodically different categories of tests, instead of keeping listing different test cases of a test category.
+Knowing these kind of tests can also help you keep talking without running out of ideas.</p>
+
+<ul>
+<li>Unit testing</li>
+<li>Integration testing</li>
+<li>Functional testing</li>
+<li>Load testing</li>
+<li>Stress testing</li>
+<li>Performance testing</li>
+<li>Install/Uninstall testing</li>
+<li>UI testing</li>
+<li>Localization testing (language, market-ready)</li>
+<li>Security testing</li>
+<li>Acceptance testing</li>
+<li>Regression testing</li>
+</ul>
+
+
+<p>Other general types:</p>
+
+<ul>
+<li>White-box testing</li>
+<li>Black-box testing</li>
+<li>Beta testing</li>
+</ul>
+
+
+<p>Questions that I will ask myself if I am the interviewer.</p>
+
+<ul>
+<li>Does the candidate ask good questions to understand the feature or he/she just simply making assumptions?</li>
+<li>Is the candidate covering negative and boundary conditions?</li>
+<li>Is the candidate trying to break the feature? Any interesting test cases you haven’t thought of?</li>
+<li>Is the candidate covering non-functional tests such as performance, scalability, security, etc.?</li>
+</ul>
+
+
+<p>Make sure that you pass all those minimum expections: ask clarifying questions and highlight assumptions.</p>
+
+<h3>Example of a testing question</h3>
+
+<p>For example, the interviewer will give you a question: &ldquo;Given a string, reverse it word by word&rdquo;.
+You proceed to solve it and write it on the whiteboard.
+The follow-up question would be &ldquo;How would you test it?&rdquo;.</p>
+
+<p>(1) General</p>
+
+<ul>
+<li>&ldquo;Hello World&rdquo; => &ldquo;World Hello&rdquo;</li>
+<li>&ldquo;Foo Bar Baz&rdquo; => &ldquo;Baz Bar Foo&rdquo;</li>
+<li>What happens with unicode?</li>
+<li>What about tabs and newlines? Do newlines end up in the beginning or end?</li>
+<li>What about unicode whitespace?</li>
+<li>What about numbers? What about special characters like ! and #.</li>
+</ul>
+
+
+<p>(2) Boundary</p>
+
+<ul>
+<li>Null string: null => what happens?</li>
+<li>Empty string: &ldquo;&rdquo; => &ldquo;&rdquo;</li>
+<li>Really long string => What happens?</li>
+<li>What about a one really really long word?</li>
+<li>What if you just give a string of spaces <code>"     "</code> => <code>"     "</code>?</li>
+<li>What if you give a really string of letters separated by spaces? <code>"a a a a a a a a a a a a a a a a a a aa a"</code></li>
+<li>Does it handle Chinese well?</li>
+<li>What if there&rsquo;s multiple spaces? Are they respected? <code>"a a a b ob"</code></li>
+</ul>
+
+
+<p>(3) Exceptional</p>
+
+<ul>
+<li>What happens when you give a really long string (like from <code>/dev/random</code>)?</li>
+<li>How can the function run out of memory?</li>
+<li>What if the type is incorrect? Could happen in Python.</li>
+<li>null => depends on specification. Might not be possible in languages like Haskell.</li>
+</ul>
+
+
+<p>Four and five are bonus stuff that I like to cover or have been asked of me in the past.
+They generally aren&rsquo;t the first three that I think of when I&rsquo;m asked to test a function though.</p>
+
+<p>(4) Performance - Running time</p>
+
+<p>I would explain the space complexity I expect out of my solution.
+I would draw a simple graph of what it would probably look like.
+I would then provide a set of sample points that I would take to see the space complexity.
+Some sample points I would take are 0, 1, 5, 10, <code>100</code>, <code>1,000</code>, <code>10,000</code>, <code>100,000</code>, <code>1,000,000</code> until I hit some barrier and then draw more fine grain values in between.
+Basically, I&rsquo;d increase the input exponentially and then increase granularity from there.</p>
+
+<p>(5) Performancce - Space complexity</p>
+
+<p>Very similar to (4), I would explain the space complexity I expect out of my solution.
+I would draw a simple graph of what it would probably look like.
+I would then provide a set of sample points that I would take to see the space complexity.
+Personally, I would mention that many languages like Java allow you to run at a reduced heap size like 4 MB so that you can hit <code>OutOfMemory</code> exceptions very quickly with reasonably sized inputs, if the complexity isn&rsquo;t managed properly.</p>
 ]]></content>
   </entry>
   
