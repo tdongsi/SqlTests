@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Network Question bank"
-date: 2016-09-13 01:45:07 -0700
+date: 2016-09-01 01:45:07 -0700
 comments: true
 categories: 
 - Questions

@@ -7,10 +7,21 @@ sharing: true
 footer: true
 ---
 
-### Topics
+### Organization
 
-This blog's categories are based on these topics (first order of this list).
+This blog is intentionally private, for personal reference and reflection, and not linked to anywhere.
+If you (a stranger) stumble upon this site, feel free to walk away now.
+
+This blog's categories are based on these topics (first order of the list in the next section).
 Namely, there will be Java, Python, JavaScript, SQL, Algorithm, Data Structure, Math, Graph, OS, System Design, Database, Network.
+
+When writing a post, specify the month by the number of the topic.
+For example, posts that are related to "Algorithm" should be February 2016.
+The year will be always 2016.
+
+December is reserved to random topics, for posts that have been removed from the main blog.
+
+### Topics
 
 1. Coding: Java, Python, JavaScript, SQL.
     1. OOP
@@ -63,9 +74,11 @@ Namely, there will be Java, Python, JavaScript, SQL, Algorithm, Data Structure, 
     3. [Database interview questions](/blog/2016/09/12/database-question-bank/).
 9. [Network](/blog/2016/09/13/network-question-bank/)
 10. Soft questions
-11. Specialized areas
+11. Specialized areas: I used to work with these areas extensively.
     1. [Estimation + Computer vision](/blog/2016/09/04/tutorial-estimation-theory/)
     1. Machine Learning
+12. Random hidden notes
+    1. Sql Test Runner: test automation approaches for SQL-based ETL processes. Category:SqlRunner.
 
 #### More on Technical Preparation
 

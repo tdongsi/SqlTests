@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tutorial: Dimensional Modelling"
-date: 2016-09-15 15:38:20 -0700
+date: 2016-08-04 15:38:20 -0700
 comments: true
 categories: 
 - Tutorial
