@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2017/04/29/misc-extending-for-data-parity-checks/</loc>
+<lastmod>2017-04-29T23:48:01-07:00</lastmod>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2017/04/29/misc-extending-sql-test-runner/</loc>
+<lastmod>2017-04-29T23:47:43-07:00</lastmod>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2017/04/29/misc-big-data-functional-tests-vs-unit-tests/</loc>
+<lastmod>2017-04-29T23:47:20-07:00</lastmod>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2017/04/29/misc-sql-unit-testing/</loc>
+<lastmod>2017-04-29T23:46:53-07:00</lastmod>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2017/04/29/misc-testing-incremental-data-update/</loc>
+<lastmod>2017-04-29T23:46:43-07:00</lastmod>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2017/04/29/misc-sql-test-runner/</loc>
+<lastmod>2017-04-29T23:46:17-07:00</lastmod>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2016/12/02/misc-functional-testing-for-data-marts/</loc>
+<lastmod>2016-12-02T22:45:38-08:00</lastmod>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2016/12/01/misc-sql-testing-in-data-marts/</loc>
+<lastmod>2016-12-01T22:50:37-08:00</lastmod>
+</url>
+<url>
 <loc>http://tdongsi.github.io/SqlTests/blog/2016/11/01/tutorial-estimation-theory/</loc>
 <lastmod>2016-11-01T23:40:12-07:00</lastmod>
 </url>
@@ -124,5 +156,8 @@
 </url>
 <url>
 <loc>http://tdongsi.github.io/SqlTests/blog/categories/math/</loc>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/categories/sqlrunner/</loc>
 </url>
 </urlset>
