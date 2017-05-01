@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Questions: Operating System drills"
-date: 2016-09-07 00:42:41 -0700
+date: 2016-06-03 00:42:41 -0700
 comments: true
 categories: 
 - Questions

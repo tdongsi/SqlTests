@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tutorial: Process synchronization"
-date: 2016-09-06 00:35:03 -0700
+date: 2016-06-02 00:35:03 -0700
 comments: true
 categories: 
 - Tutorial
