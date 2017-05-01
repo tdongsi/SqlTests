@@ -16,7 +16,7 @@ In Python and Java, splitting delimited strings is straight forward.
 
 ``` plain
 // Python
-"example string here".split()
+"EMS_Tax,PSCare,Tools_Team,,workflow".split()
 
 // Java: using Guava's Splitter
 
@@ -45,9 +45,9 @@ WHERE SPLIT_PART(labels, ',', row_num) <> '';
 ### Original
 
 ``` sql Example data
-INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (415862,'EMS_Tax,YE2016,getwell,locals_manual,noncritical1,ye_taxopsmh');
-INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (436631,'CCB_Reviewed,PSP_Bugs,PSP_Priority_Backlog,need_followup');
-INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (443409,'EMS_Tax,PXCare,Tools_Team,,workflow');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (415862,'EMS_Tax,YE2016,getwell,locals_manual,noncritical,ye_taxopsmh');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (436631,'BBC_Reviewed,SPS_Bugs,Priority_Backlog,need_followup');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (443409,'EMS_Tax,PSCare,Tools_Team,,workflow');
 INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (490209,null);
 INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (490210,'');
 ```
