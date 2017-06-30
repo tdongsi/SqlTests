@@ -77,7 +77,8 @@ December is reserved to random topics, for posts that have been removed from the
 11. Specialized areas: I used to work with these areas extensively.
     1. [Estimation + Computer vision](/blog/2016/09/04/tutorial-estimation-theory/)
     1. Machine Learning
-12. Random hidden notes
+12. Bash: Cookbooks for various bash commands
+12. Random hidden notes: going in year 2015
     1. Sql Test Runner: test automation approaches for SQL-based ETL processes. Category:SqlRunner.
 
 #### More on Technical Preparation
