@@ -98,7 +98,7 @@
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>// Python
-</span><span class='line'>"example string here".split()
+</span><span class='line'>"EMS_Tax,PSCare,Tools_Team,,workflow".split()
 </span><span class='line'>
 </span><span class='line'>// Java: using Guava's Splitter
 </span></code></pre></td></tr></table></div></figure>
@@ -137,9 +137,9 @@ Different database systems have different ways of doing so in SQL, as shown in t
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">415862</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,YE2016,getwell,locals_manual,noncritical1,ye_taxopsmh&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">436631</span><span class="p">,</span><span class="s1">&#39;CCB_Reviewed,PSP_Bugs,PSP_Priority_Backlog,need_followup&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">443409</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,PXCare,Tools_Team,,workflow&#39;</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">415862</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,YE2016,getwell,locals_manual,noncritical,ye_taxopsmh&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">436631</span><span class="p">,</span><span class="s1">&#39;BBC_Reviewed,SPS_Bugs,Priority_Backlog,need_followup&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">443409</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,PSCare,Tools_Team,,workflow&#39;</span><span class="p">);</span>
 </span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">490209</span><span class="p">,</span><span class="k">null</span><span class="p">);</span>
 </span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">490210</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -226,6 +226,10 @@ Different database systems have different ways of doing so in SQL, as shown in t
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/SqlTests/blog/2016/12/01/groupadd-cookbook/">Groupadd Cookbook</a>
+      </li>
+    
+      <li class="post">
         <a href="/SqlTests/blog/2016/11/01/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
       </li>
     
@@ -261,16 +265,12 @@ Different database systems have different ways of doing so in SQL, as shown in t
         <a href="/SqlTests/blog/2016/07/01/system-design-questions/">System Design Questions</a>
       </li>
     
-      <li class="post">
-        <a href="/SqlTests/blog/2016/06/03/questions-operating-system-drills/">Questions: Operating System Drills</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 

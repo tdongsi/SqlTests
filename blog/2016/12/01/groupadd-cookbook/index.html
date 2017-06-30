@@ -5,11 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Systemdesign - Personal Interview Notes</title>
+  <title>Groupadd Cookbook - Personal Interview Notes</title>
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="Category: systemdesign">
+  <meta name="description" content="groupadd examples The following example creates a new group called apache 1
+$ groupadd apache Make sure it is created successfully. 1
+2
+# grep apache &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/categories/systemdesign/">
+  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook/">
   <link href="/SqlTests/favicon.png" rel="icon">
   <link href="/SqlTests/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
@@ -66,35 +69,127 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Systemdesign</h1>
+    
+      <h1 class="entry-title">Groupadd Cookbook</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-12-01T18:21:32-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2016</span></span> <span class='time'>6:21 pm</span></time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><h3><code>groupadd</code> examples</h3>
 
-  
-  <h2>2016</h2>
+<p>The following example creates a new group called apache</p>
 
-<article>
-  
-<h1><a href="/SqlTests/blog/2016/07/01/system-design-questions/">System Design Questions</a></h1>
-<time datetime="2016-07-01T02:13:01-07:00" pubdate><span class='month'>Jul</span> <span class='day'>01</span> <span class='year'>2016</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/SqlTests/blog/categories/questions/'>questions</a>, <a class='category' href='/SqlTests/blog/categories/systemdesign/'>systemdesign</a>, <a class='category' href='/SqlTests/blog/categories/tutorial/'>tutorial</a></span>
-</footer>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupadd apache</span></code></pre></td></tr></table></div></figure>
 
 
-</article>
+<p>Make sure it is created successfully.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># grep apache /etc/group
+</span><span class='line'>apache:x:1004:</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you don’t specify a groupid, Linux will assign one automatically.
+If you want to create a group with a specific group id, do the following.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupadd apache -g 9090
+</span><span class='line'>
+</span><span class='line'>$ grep 9090 /etc/group
+</span><span class='line'>apache:x:9090:</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Group account information is stored in <code>/etc/group</code>.
+Or you can run the following command to find out what groups you belong to.</p>
+
+<figure class='code'><figcaption><span>Check user group</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>+ groups $USER
+</span><span class='line'>
+</span><span class='line'>+ cat /etc/group
+</span><span class='line'>...
+</span><span class='line'>docker:x:999:jenkins
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>References</h3>
+
+<ul>
+<li><a href="https://linux.die.net/man/8/groupadd">groupadd man pages</a></li>
+<li><a href="http://linux.101hacks.com/unix/groupadd/">groupadd examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2012/06/chown-examples/">chown examples</a></li>
+<li><a href="https://www.unixtutorial.org/2008/06/find-files-which-belong-to-a-user-or-unix-group/">find files with group name or ID</a></li>
+<li><a href="https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group">https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group</a></li>
+</ul>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Cuong Dong-Si</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-12-01T18:21:32-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2016</span></span> <span class='time'>6:21 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/SqlTests/blog/categories/bash/'>bash</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/SqlTests/blog/2016/11/01/tutorial-estimation-theory/" title="Previous Post: Tutorial: Estimation theory">&laquo; Tutorial: Estimation theory</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

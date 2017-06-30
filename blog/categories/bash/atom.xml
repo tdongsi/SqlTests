@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Bash | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/bash/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2017-06-29T19:39:40-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Groupadd Cookbook]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook/"/>
+    <updated>2016-12-01T18:21:32-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook</id>
+    <content type="html"><![CDATA[<h3><code>groupadd</code> examples</h3>
+
+<p>The following example creates a new group called apache</p>
+
+<pre><code>$ groupadd apache
+</code></pre>
+
+<p>Make sure it is created successfully.</p>
+
+<pre><code># grep apache /etc/group
+apache:x:1004:
+</code></pre>
+
+<p>If you don’t specify a groupid, Linux will assign one automatically.
+If you want to create a group with a specific group id, do the following.</p>
+
+<pre><code>$ groupadd apache -g 9090
+
+$ grep 9090 /etc/group
+apache:x:9090:
+</code></pre>
+
+<p>Group account information is stored in <code>/etc/group</code>.
+Or you can run the following command to find out what groups you belong to.</p>
+
+<pre><code class="plain Check user group">+ groups $USER
+
++ cat /etc/group
+...
+docker:x:999:jenkins
+...
+</code></pre>
+
+<h3>References</h3>
+
+<ul>
+<li><a href="https://linux.die.net/man/8/groupadd">groupadd man pages</a></li>
+<li><a href="http://linux.101hacks.com/unix/groupadd/">groupadd examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2012/06/chown-examples/">chown examples</a></li>
+<li><a href="https://www.unixtutorial.org/2008/06/find-files-which-belong-to-a-user-or-unix-group/">find files with group name or ID</a></li>
+<li><a href="https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group">https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

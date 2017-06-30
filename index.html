@@ -9,7 +9,10 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="Math in Estimation theory. ">
+  <meta name="description" content="groupadd examples The following example creates a new group called apache 1
+$ groupadd apache Make sure it is created successfully. 1
+2
+# grep apache &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +70,90 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/12/01/groupadd-cookbook/">Groupadd Cookbook</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-12-01T18:21:32-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2016</span></span> <span class='time'>6:21 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3><code>groupadd</code> examples</h3>
+
+<p>The following example creates a new group called apache</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupadd apache</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Make sure it is created successfully.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># grep apache /etc/group
+</span><span class='line'>apache:x:1004:</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you don’t specify a groupid, Linux will assign one automatically.
+If you want to create a group with a specific group id, do the following.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupadd apache -g 9090
+</span><span class='line'>
+</span><span class='line'>$ grep 9090 /etc/group
+</span><span class='line'>apache:x:9090:</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Group account information is stored in <code>/etc/group</code>.
+Or you can run the following command to find out what groups you belong to.</p>
+
+<figure class='code'><figcaption><span>Check user group</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>+ groups $USER
+</span><span class='line'>
+</span><span class='line'>+ cat /etc/group
+</span><span class='line'>...
+</span><span class='line'>docker:x:999:jenkins
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>References</h3>
+
+<ul>
+<li><a href="https://linux.die.net/man/8/groupadd">groupadd man pages</a></li>
+<li><a href="http://linux.101hacks.com/unix/groupadd/">groupadd examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2012/06/chown-examples/">chown examples</a></li>
+<li><a href="https://www.unixtutorial.org/2008/06/find-files-which-belong-to-a-user-or-unix-group/">find files with group name or ID</a></li>
+<li><a href="https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group">https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -376,40 +463,6 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/SqlTests/blog/2016/06/03/questions-operating-system-drills/">Questions: Operating System Drills</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-06-03T00:42:41-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>12:42 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>From &ldquo;Operating System concepts&rdquo; book.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/SqlTests/blog/2016/06/03/questions-operating-system-drills/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/SqlTests/posts/2">&larr; Older</a>
@@ -426,6 +479,10 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/12/01/groupadd-cookbook/">Groupadd Cookbook</a>
+      </li>
     
       <li class="post">
         <a href="/SqlTests/blog/2016/11/01/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
@@ -463,16 +520,12 @@ If you are used to work with Vertica SQL, writing SQL statements in MySQL can be
         <a href="/SqlTests/blog/2016/07/01/system-design-questions/">System Design Questions</a>
       </li>
     
-      <li class="post">
-        <a href="/SqlTests/blog/2016/06/03/questions-operating-system-drills/">Questions: Operating System Drills</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 

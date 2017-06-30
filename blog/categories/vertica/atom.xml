@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Vertica | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/vertica/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-04-30T01:02:02-07:00</updated>
+  <updated>2017-06-29T19:39:40-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -26,7 +26,7 @@
 <p>In Python and Java, splitting delimited strings is straight forward.</p>
 
 <pre><code class="plain">// Python
-"example string here".split()
+"EMS_Tax,PSCare,Tools_Team,,workflow".split()
 
 // Java: using Guava's Splitter
 </code></pre>
@@ -51,9 +51,9 @@ WHERE SPLIT_PART(labels, ',', row_num) &lt;&gt; '';
 
 <h3>Original</h3>
 
-<pre><code class="sql Example data">INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (415862,'EMS_Tax,YE2016,getwell,locals_manual,noncritical1,ye_taxopsmh');
-INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (436631,'CCB_Reviewed,PSP_Bugs,PSP_Priority_Backlog,need_followup');
-INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (443409,'EMS_Tax,PXCare,Tools_Team,,workflow');
+<pre><code class="sql Example data">INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (415862,'EMS_Tax,YE2016,getwell,locals_manual,noncritical,ye_taxopsmh');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (436631,'BBC_Reviewed,SPS_Bugs,Priority_Backlog,need_followup');
+INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (443409,'EMS_Tax,PSCare,Tools_Team,,workflow');
 INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (490209,null);
 INSERT INTO helper_jira_key (dm_jira_key,labels) VALUES (490210,'');
 </code></pre>

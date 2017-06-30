@@ -9,8 +9,7 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
-Topics in this chapter are the most intensive and frequently asked &hellip;">
+  <meta name="description" content="From &ldquo;Operating System concepts&rdquo; book. ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +67,40 @@ Topics in this chapter are the most intensive and frequently asked &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/06/03/questions-operating-system-drills/">Questions: Operating System Drills</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-06-03T00:42:41-07:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>12:42 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>From &ldquo;Operating System concepts&rdquo; book.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/06/03/questions-operating-system-drills/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1145,91 +1178,6 @@ Instead, we should create a new test runner class with new class extend TestStra
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/SqlTests/blog/2015/12/02/misc-big-data-functional-tests-vs-unit-tests/">(Pt. 5) Big Data: Functional Tests vs. Unit Tests</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-12-02T22:47:20-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>10:47 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In the context of Big Data projects, the differences between functional tests and unit tests can be summarized as follows:</p>
-
-<table>
-<thead>
-<tr>
-<th>       </th>
-<th> Functional tests      </th>
-<th> Unit tests </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td> Data         </td>
-<td> Production-like data </td>
-<td> Mock (synthetic) data </td>
-</tr>
-<tr>
-<td> Environment  </td>
-<td> Pre-production. All tables deployed at once. </td>
-<td> Local VM. Regular setup/teardown. </td>
-</tr>
-<tr>
-<td> Coverage     </td>
-<td> Passive: Coverage depends on diverse real data. </td>
-<td> Active: Mock data created to force corner cases. </td>
-</tr>
-<tr>
-<td> Example usage </td>
-<td> Snapshot testing </td>
-<td> Incrementa data update testing </td>
-</tr>
-</tbody>
-</table>
-
-
-<p><br></p>
-
-<p>It should be noted that functional and unit tests are complementary to each other.
-Certain aspects of ETLs can be better verified as functional tests while others of the same ETLs should be verified as unit tests.
-For example, as discussed in <a href="/SqlTests/blog/2016/04/10/sql-unit-incremental-data-update/">this post</a>, unit tests are better suited for testing incremental data update in ETL scripts.</p>
-
-<p>On the other hand, for example, an ETL that performs some kind of classification, such as categorizing user types based on some clickstream patterns, should be tested in functional tests.
-If there are more than 20 categories, it could become a daunting task to generate and maintain synthetic data for each of those categories.
-Furthermore, synthetic data generation requires careful consideration and proper execution to have adequate coverage.
-Otherwise, the synthetic data might not be as diverse as production data and we end up with less corner cases than production data.
-Instead, in this particular case, we could use production-like data directly and write test queries in functional tests to check for corner cases for each category.</p>
-
-<!-- Analogy:
-Functional tests:
-- In Web App, running the web application on webserver, running automated Selenium WebDriver tests to verify the web application from browser.
-- In Big Data, running the DDL/DML/ETL scripts to populate the dimension and fact tables in schema, running automated SQL test queries to verify logics between tables.
-
-Unit tests:
-- In Web App, using mocking framework to mock out database, test behavior of a class/method using synthetic inputs, especially for corner cases.
-- In Big Data, using a local VM, test behavior of a column modified by an ETL script using synthetic data, especially for corner cases.
--->
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/SqlTests/posts/3">&larr; Older</a>
@@ -1248,6 +1196,10 @@ Unit tests:
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2016/12/01/groupadd-cookbook/">Groupadd Cookbook</a>
+      </li>
     
       <li class="post">
         <a href="/SqlTests/blog/2016/11/01/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
@@ -1285,16 +1237,12 @@ Unit tests:
         <a href="/SqlTests/blog/2016/07/01/system-design-questions/">System Design Questions</a>
       </li>
     
-      <li class="post">
-        <a href="/SqlTests/blog/2016/06/03/questions-operating-system-drills/">Questions: Operating System Drills</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (2)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (1)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (7)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 
