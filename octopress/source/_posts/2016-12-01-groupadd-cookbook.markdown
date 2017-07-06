@@ -7,6 +7,10 @@ categories:
 - Bash
 ---
 
+User groups and commands to manipulate them.
+
+<!--more-->
+
 ### `groupadd` examples
 
 The following example creates a new group called apache
