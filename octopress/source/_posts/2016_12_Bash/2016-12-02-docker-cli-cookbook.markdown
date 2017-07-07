@@ -7,7 +7,7 @@ categories:
 - Bash
 ---
 
-Standard Docker commands.
+Standard Docker CLI commands for everyday workflow.
 
 <!--more-->
 
