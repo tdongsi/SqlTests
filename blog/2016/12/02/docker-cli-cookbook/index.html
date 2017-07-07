@@ -5,11 +5,17 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Tutorial: Dashboard for Business Analytics - Personal Interview Notes</title>
+  <title>Docker CLI Cookbook - Personal Interview Notes</title>
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight. General guidelines for dashboard Ppl looks for different things in data. You &hellip;">
+  <meta name="description" content="Standard Docker commands. Standard workflow The usual workflow for modifying a Docker image is as follows: Docker commands in workspace1
+2
+3
+4
+5
+6
+7 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2016/08/05/tutorial-dashboard-for-business-analytics/">
+  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook/">
   <link href="/SqlTests/favicon.png" rel="icon">
   <link href="/SqlTests/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
@@ -70,7 +76,7 @@
   
   <header>
     
-      <h1 class="entry-title">Tutorial: Dashboard for Business Analytics</h1>
+      <h1 class="entry-title">Docker CLI Cookbook</h1>
     
     
       <p class="meta">
@@ -79,151 +85,80 @@
 
 
 
-<time class='entry-date' datetime='2016-08-05T15:40:35-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>3:40 pm</span></time>
+<time class='entry-date' datetime='2016-12-02T09:20:53-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>9:20 am</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
+<div class="entry-content"><p>Standard Docker commands.</p>
 
 <!--more-->
 
 
-<h3>General guidelines for dashboard</h3>
+<h3>Standard workflow</h3>
 
-<p>Ppl looks for different things in data. You have to find out what answers users look for in dashboard.</p>
+<p>The usual workflow for modifying a Docker image is as follows:</p>
 
-<ul>
-<li>Trend: bar, graph</li>
-<li>Aggregation: Average, Sum, Max, Min.</li>
-</ul>
-
-
-<p>Above all else, show data.
-Trying to improve data-pixel ratio: data pixels/non-data pixels.
-How to enhance data-pixel ratio:</p>
-
-<ul>
-<li>Granularity: depends on the question you want to answer
-
-<ul>
-<li>monthly if you want to know monthly sales, daily if you want to know what happens last Tuesday.</li>
-<li>category or sub-category: you can have category with drill down function.</li>
-</ul>
-</li>
-<li>Annotation: similar to Granularity. Minimize it to enough to answer the question.</li>
-</ul>
-
-
-<p>Tricks &amp; Tips:</p>
-
-<ul>
-<li>Plots (over Bars): plot show the trends for different components over time.</li>
-<li>Sizing Bars: Preserve True Portions: starting Y from 0.
-
-<ul>
-<li>Sizing Bars: shows proportions, relative progression.</li>
-</ul>
-</li>
-<li>Scatter Plots: show clusters, outliers.</li>
-<li>Radio displays: usually a bad idea. Waste of space, hard to discern between slices.</li>
-</ul>
-
-
-<h3>Module 2: Common Charts</h3>
-
-<p>Basic data Presentation Methods - Chart Types</p>
-
-<ul>
-<li>Geo-Spatial - Maps: anything related to geographic distribution, i.e., when geography matters. e.g. real estates, oil industry.</li>
-<li>Correlation - Scatter Plots: two measurements (e.g., sales to profit).</li>
-<li>Hierarchical - Drill down Tree: data is hierarchical: Category -> Subcateogries.</li>
-<li>Categorical - Bar Charts: comparing categories (sales by region)</li>
-<li>Time Series - Line Charts: progression over time. (sales by month)
-
-<ul>
-<li>Avoid: Stacked Area Charts. If you have more than two lines, Area Charts do not give any information except for the bottom and the total.</li>
-</ul>
-</li>
-<li>Distribution - Histograms: Trying to answer what is “normal”. e.g., home prices, salaries.</li>
-</ul>
+<figure class='code'><figcaption><span>Docker commands in workspace</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>mymac:W_3703511 tdongsi$ pwd
+</span><span class='line'>/Users/tdongsi/docker/W_3703511
+</span><span class='line'>
+</span><span class='line'># Build from a Docker file
+</span><span class='line'>docker build -t docker.registry.net/tdongsi/jenkins-nodev4-agent:2.85 .
+</span><span class='line'>
+</span><span class='line'># Test run
+</span><span class='line'>docker run -d --restart=always --entrypoint="java" docker.registry.net/tdongsi/jenkins-nodev4-agent:5 -jar /usr/share/jenkins/slave.jar -jnlpUrl http://10.252.78.115/computer/slave/slave-agent.jnlp
+</span><span class='line'>
+</span><span class='line'>docker ps -a
+</span><span class='line'>docker exec -it &lt;ID&gt; bash
+</span><span class='line'>
+</span><span class='line'># Copy an installer to Docker image
+</span><span class='line'>$ docker cp jdk-8u131-linux-x64.tar.gz bad2dab451bf:/home/jenkins
+</span><span class='line'>$ docker exec -it bad2dab451bf bash
+</span><span class='line'>jenkins@aqueduct-agent-1c87a4933da26c:~$ ls
+</span><span class='line'>jdk-8u131-linux-x64.tar.gz  maven  support  workspace
+</span><span class='line'>
+</span><span class='line'># Stop and restart
+</span><span class='line'>$ docker stop &lt;ID&gt;
+</span><span class='line'>$ docker rm &lt;ID&gt;
+</span><span class='line'>
+</span><span class='line'>docker commit --author tdongsi --message "Commit message" bad2dab451bf docker.registry.net/tdongsi/jenkins-nodev4-agent:7
+</span><span class='line'>docker push docker.registry.net/tdongsi/jenkins-nodev4-agent:7</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Others</p>
+<h3>Reference</h3>
 
 <ul>
-<li>Box plot: distribution, percentiles, median in 1 chart.</li>
-<li>Bullet graph: actuals to target. Invented by Stephen Few.
-
-<ul>
-<li>Dark bar is actual, reference line is target. Color code bands are average, good, bad target range.</li>
-<li><a href="https://en.wikipedia.org/wiki/Bullet_graph">https://en.wikipedia.org/wiki/Bullet_graph</a></li>
-</ul>
-</li>
-<li>Sparkline: Multiple line charts. Best used for monitoring dashboard.</li>
-<li>Heat map: Large combinations of dimensions. Color is everything here.</li>
+<li><a href="http://tdongsi.github.io/blog/2017/01/25/docker-root-user-in-a-pod/">Example of modifying Docker image</a></li>
 </ul>
 
-
-<p>Charts to avoid</p>
-
-<ul>
-<li>Pie charts: angles make it hard to compare. Usually decorative, not informative. Space is wasted.</li>
-<li>Polar charts</li>
-<li>Stacked area charts:
-
-<ul>
-<li>Only tell the story of the bottom line and the total. Anything in between, you can’t really tell if they are growing or not.</li>
-<li>Misleading/Confusing: is the top the total or another category?</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>Module 3: Dashboard planning</h3>
-
-<p>Steps:</p>
-
-<ul>
-<li>User Request</li>
-<li>Prioritization</li>
-<li>Planning</li>
-<li>Design</li>
-<li>Development</li>
-<li>Delivery to User</li>
-</ul>
-
-
-<h3>Module 4: Dashboard design</h3>
-
-<p>Audience is King. Know your audience.</p>
-
-<ul>
-<li>Who is using it?</li>
-<li>Are they technical or prefer dumbed down answers? Are they intimate with data?</li>
-<li>What is primary objective? What questions that they try to answer? What questions this dashboard MUST answer?</li>
-<li>What impact of the answer? How will they use metrics? (Role, what decisions they make)</li>
-<li>When will the dashboard is used? (Weekly? Daily?) Dashboard is exploratory or explanatory?</li>
-<li>What level of confidence in data sources?</li>
-</ul>
-
-
-<p>Dashboard layout: F layout is the most natural for web/desktop viewing.</p>
-
-<h3>Module 5 &amp; 6: Tableau</h3>
-
-<p>Connecting to Data:
-You can connect to Excel, text file (csv or tab), or HP Vertica.
-You can specify data import like Excel or using Custom SQL.
-After importing, Tableau may import all data into its own internal data engine (with compression, data reorganization easier for analytics).
-It also divides data into dimensions and measures.
-Dimensions are further categorized into: geographic (e.g., region, postal code), number, text, date (e.g., calendar, order_date).
-Facts are usually numbers but it can be other categories: e.g., geographic for latitude/longitude measures.</p>
-
-<p>Visualizing data:
-Tableau has “Show Me” button that gives suggestions for different combinations of dimensions and fact data.</p>
 </div>
 
 
@@ -239,12 +174,12 @@ Tableau has “Show Me” button that gives suggestions for different combinatio
 
 
 
-<time class='entry-date' datetime='2016-08-05T15:40:35-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>3:40 pm</span></time>
+<time class='entry-date' datetime='2016-12-02T09:20:53-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>9:20 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/SqlTests/blog/categories/database/'>database</a>, <a class='category' href='/SqlTests/blog/categories/facebook/'>facebook</a>, <a class='category' href='/SqlTests/blog/categories/tutorial/'>tutorial</a>
+    <a class='category' href='/SqlTests/blog/categories/bash/'>bash</a>
   
 </span>
 
@@ -253,7 +188,7 @@ Tableau has “Show Me” button that gives suggestions for different combinatio
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2016/08/05/tutorial-dashboard-for-business-analytics/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2016/08/05/tutorial-dashboard-for-business-analytics/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook/" >Tweet</a>
   
   
   
@@ -264,10 +199,8 @@ Tableau has “Show Me” button that gives suggestions for different combinatio
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/SqlTests/blog/2016/08/04/tutorial-dimensional-modelling/" title="Previous Post: Tutorial: Dimensional Modelling">&laquo; Tutorial: Dimensional Modelling</a>
+        <a class="basic-alignment left" href="/SqlTests/blog/2016/12/01/groupadd-cookbook/" title="Previous Post: User group and related commands">&laquo; User group and related commands</a>
       
-      
-        <a class="basic-alignment right" href="/SqlTests/blog/2016/08/06/vertica-sql-splitting-string/" title="Next Post: Vertica SQL: Splitting string">Vertica SQL: Splitting string &raquo;</a>
       
     </p>
   </footer>

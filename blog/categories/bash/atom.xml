@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bash | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/bash/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-06-29T19:41:08-07:00</updated>
+  <updated>2017-07-07T10:02:27-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -14,11 +14,66 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Docker CLI Cookbook]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook/"/>
+    <updated>2016-12-02T09:20:53-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook</id>
+    <content type="html"><![CDATA[<p>Standard Docker commands.</p>
+
+<!--more-->
+
+
+<h3>Standard workflow</h3>
+
+<p>The usual workflow for modifying a Docker image is as follows:</p>
+
+<pre><code class="plain Docker commands in workspace">
+mymac:W_3703511 tdongsi$ pwd
+/Users/tdongsi/docker/W_3703511
+
+# Build from a Docker file
+docker build -t docker.registry.net/tdongsi/jenkins-nodev4-agent:2.85 .
+
+# Test run
+docker run -d --restart=always --entrypoint="java" docker.registry.net/tdongsi/jenkins-nodev4-agent:5 -jar /usr/share/jenkins/slave.jar -jnlpUrl http://10.252.78.115/computer/slave/slave-agent.jnlp
+
+docker ps -a
+docker exec -it &lt;ID&gt; bash
+
+# Copy an installer to Docker image
+$ docker cp jdk-8u131-linux-x64.tar.gz bad2dab451bf:/home/jenkins
+$ docker exec -it bad2dab451bf bash
+jenkins@aqueduct-agent-1c87a4933da26c:~$ ls
+jdk-8u131-linux-x64.tar.gz  maven  support  workspace
+
+# Stop and restart
+$ docker stop &lt;ID&gt;
+$ docker rm &lt;ID&gt;
+
+docker commit --author tdongsi --message "Commit message" bad2dab451bf docker.registry.net/tdongsi/jenkins-nodev4-agent:7
+docker push docker.registry.net/tdongsi/jenkins-nodev4-agent:7
+</code></pre>
+
+<h3>Reference</h3>
+
+<ul>
+<li><a href="http://tdongsi.github.io/blog/2017/01/25/docker-root-user-in-a-pod/">Example of modifying Docker image</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[User Group and Related Commands]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook/"/>
     <updated>2016-12-01T18:21:32-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook</id>
-    <content type="html"><![CDATA[<h3><code>groupadd</code> examples</h3>
+    <content type="html"><![CDATA[<p>User groups and commands to manipulate them.</p>
+
+<!--more-->
+
+
+<h3><code>groupadd</code> examples</h3>
 
 <p>The following example creates a new group called apache</p>
 
