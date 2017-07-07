@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bash | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/bash/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-07-07T10:05:45-07:00</updated>
+  <updated>2017-07-07T10:12:35-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -18,7 +18,7 @@
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook/"/>
     <updated>2016-12-02T09:20:53-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook</id>
-    <content type="html"><![CDATA[<p>Standard Docker commands.</p>
+    <content type="html"><![CDATA[<p>Standard Docker CLI commands for everyday workflow.</p>
 
 <!--more-->
 

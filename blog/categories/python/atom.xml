@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-07-07T10:05:45-07:00</updated>
+  <updated>2017-07-07T10:12:35-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Language Index]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/07/language-index/"/>
+    <updated>2017-07-07T10:07:55-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/07/language-index</id>
+    <content type="html"><![CDATA[<p>Overview of most common languages.</p>
+
+<!--more-->
+
+
+<h3><a href="https://tdongsi.github.io/java/">Java</a></h3>
+
+<h4>Pure Java</h4>
+
+<h4>Groovy</h4>
+
+<h4>Tools and Ecosystem</h4>
+
+<h3><a href="https://tdongsi.github.io/python/">Python</a></h3>
+
+<h3><a href="https://tdongsi.github.io/javascript/">JavaScript</a></h3>
+
+<h3>Next language?</h3>
+
+<ul>
+<li>Golang</li>
+<li>Ruby</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
