@@ -67,6 +67,7 @@ December is reserved to random topics, for posts that have been removed from the
 6. [Operating Systems](/blog/2016/09/07/questions-operating-system-drills/)
     1. [Dinasaur book](/blog/2016/09/06/tutorial-process-synchronization/)
 7. [System Design](/blog/2016/09/14/system-design-questions/)
+    1. Distributed System.
 8. Database
     1. [Normalization, normal forms](/blog/2016/09/12/database-question-bank/).
     2. [Data Warehouse, dimensional modeling](/blog/2016/09/15/tutorial-dimensional-modelling/).
