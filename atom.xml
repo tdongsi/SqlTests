@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-07-07T10:04:16-07:00</updated>
+  <updated>2017-07-07T10:05:45-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -51,21 +51,15 @@
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mymac:W_3703511 tdongsi$ pwd
-</span><span class='line'>/Users/tdongsi/docker/W_3703511
-</span><span class='line'>
-</span><span class='line'># Build from a Docker file
-</span><span class='line'>docker build -t docker.registry.net/tdongsi/jenkins-nodev4-agent:2.85 .
+</pre></td><td class='code'><pre><code class=''><span class='line'># Build from a Docker file
+</span><span class='line'>$ docker build -t docker.registry.net/tdongsi/jenkins-nodev4-agent:2.85 .
 </span><span class='line'>
 </span><span class='line'># Test run a Jenkins slave docker
-</span><span class='line'>docker run -d --restart=always --entrypoint="java" docker.registry.net/tdongsi/jenkins-nodev4-agent:5 \
+</span><span class='line'>$ docker run -d --restart=always --entrypoint="java" docker.registry.net/tdongsi/jenkins-nodev4-agent:5 \
 </span><span class='line'>-jar /usr/share/jenkins/slave.jar -jnlpUrl http://10.252.78.115/computer/slave/slave-agent.jnlp
 </span><span class='line'>
-</span><span class='line'>docker ps -a
-</span><span class='line'>docker exec -it &lt;ID&gt; bash
+</span><span class='line'>$ docker ps -a
+</span><span class='line'>$ docker exec -it &lt;ID&gt; bash
 </span><span class='line'>
 </span><span class='line'># Copy an installer to Docker image
 </span><span class='line'>$ docker cp jdk-8u131-linux-x64.tar.gz bad2dab451bf:/home/jenkins
@@ -77,10 +71,10 @@
 </span><span class='line'>$ docker stop &lt;ID&gt;
 </span><span class='line'>$ docker rm &lt;ID&gt;
 </span><span class='line'>
-</span><span class='line'>docker commit --author tdongsi --message "Commit message" bad2dab451bf \ 
+</span><span class='line'>$ docker commit --author tdongsi --message "Commit message" bad2dab451bf \ 
 </span><span class='line'>docker.registry.net/tdongsi/jenkins-nodev4-agent:7
 </span><span class='line'>
-</span><span class='line'>docker push docker.registry.net/tdongsi/jenkins-nodev4-agent:7</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>$ docker push docker.registry.net/tdongsi/jenkins-nodev4-agent:7</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>Reference</h3>
