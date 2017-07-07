@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bash | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/bash/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-07-07T10:02:27-07:00</updated>
+  <updated>2017-07-07T10:04:16-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -27,15 +27,15 @@
 
 <p>The usual workflow for modifying a Docker image is as follows:</p>
 
-<pre><code class="plain Docker commands in workspace">
-mymac:W_3703511 tdongsi$ pwd
+<pre><code class="plain Docker commands in workspace">mymac:W_3703511 tdongsi$ pwd
 /Users/tdongsi/docker/W_3703511
 
 # Build from a Docker file
 docker build -t docker.registry.net/tdongsi/jenkins-nodev4-agent:2.85 .
 
-# Test run
-docker run -d --restart=always --entrypoint="java" docker.registry.net/tdongsi/jenkins-nodev4-agent:5 -jar /usr/share/jenkins/slave.jar -jnlpUrl http://10.252.78.115/computer/slave/slave-agent.jnlp
+# Test run a Jenkins slave docker
+docker run -d --restart=always --entrypoint="java" docker.registry.net/tdongsi/jenkins-nodev4-agent:5 \
+-jar /usr/share/jenkins/slave.jar -jnlpUrl http://10.252.78.115/computer/slave/slave-agent.jnlp
 
 docker ps -a
 docker exec -it &lt;ID&gt; bash
@@ -50,7 +50,9 @@ jdk-8u131-linux-x64.tar.gz  maven  support  workspace
 $ docker stop &lt;ID&gt;
 $ docker rm &lt;ID&gt;
 
-docker commit --author tdongsi --message "Commit message" bad2dab451bf docker.registry.net/tdongsi/jenkins-nodev4-agent:7
+docker commit --author tdongsi --message "Commit message" bad2dab451bf \ 
+docker.registry.net/tdongsi/jenkins-nodev4-agent:7
+
 docker push docker.registry.net/tdongsi/jenkins-nodev4-agent:7
 </code></pre>
 
