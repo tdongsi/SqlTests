@@ -22,6 +22,11 @@ docker build -t docker.registry.net/tdongsi/jenkins-nodev4-agent:2.85 .
 docker run -d --restart=always --entrypoint="java" docker.registry.net/tdongsi/jenkins-nodev4-agent:2.85 -jar /usr/share/jenkins/slave.jar -jnlpUrl http://10.252.78.115/computer/slave/slave-agent.jnlp
 docker ps
 docker exec -it <ID> bash
+
+# Stop and restart
+docker stop <ID>
+docker rm <ID>
+
 docker commit
 docker push
 
