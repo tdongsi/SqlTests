@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-07-09T23:23:10-07:00</updated>
+  <updated>2017-07-09T23:26:52-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -291,15 +291,7 @@ The degenerate cases are known and rare cases.</p>
 
 <h3>Review Syllabus</h3>
 
-<ul>
-<li>HTTP
-
-<ul>
-<li><a href="https://www.jmarshall.com/easy/http/">HTTP Made Really Easy</a></li>
-</ul>
-</li>
-</ul>
-
+<p>See <a href="http://tdongsi.github.io/SqlTests/syllabus/">main syllabus</a>.</p>
 
 <h3>Questions</h3>
 
