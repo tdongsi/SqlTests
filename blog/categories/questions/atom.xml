@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Questions | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/questions/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-07-07T10:12:35-07:00</updated>
+  <updated>2017-07-09T23:23:10-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -21,6 +21,18 @@
     <content type="html"><![CDATA[<p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
 
 <!--more-->
+
+
+<h3>Review Syllabus</h3>
+
+<ul>
+<li>HTTP
+
+<ul>
+<li><a href="https://www.jmarshall.com/easy/http/">HTTP Made Really Easy</a></li>
+</ul>
+</li>
+</ul>
 
 
 <h3>Questions</h3>

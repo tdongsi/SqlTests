@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-07-07T10:12:35-07:00</updated>
+  <updated>2017-07-09T23:23:10-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,38 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Language Index]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/07/language-index/"/>
-    <updated>2017-07-07T10:07:55-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/07/language-index</id>
-    <content type="html"><![CDATA[<p>Overview of most common languages.</p>
-
-<!--more-->
-
-
-<h3><a href="https://tdongsi.github.io/java/">Java</a></h3>
-
-<h4>Pure Java</h4>
-
-<h4>Groovy</h4>
-
-<h4>Tools and Ecosystem</h4>
-
-<h3><a href="https://tdongsi.github.io/python/">Python</a></h3>
-
-<h3><a href="https://tdongsi.github.io/javascript/">JavaScript</a></h3>
-
-<h3>Next language?</h3>
-
-<ul>
-<li>Golang</li>
-<li>Ruby</li>
-</ul>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
@@ -415,6 +383,38 @@ Java uses monitor for thread synchronization.
 Every object in Java has a single lock associated with it. When a method is declared synchronized, calling the method requires owning the lock of the object.
 If the lock is not available, the synchronized method is placed in the entry set for the object’s lock.
 The Java Object class’s method wait() and notify() are similar to wait() and signal() statements for a monitor.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Language Index]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/02/language-index/"/>
+    <updated>2016-01-02T09:07:55-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/02/language-index</id>
+    <content type="html"><![CDATA[<p>Overview of most common languages.</p>
+
+<!--more-->
+
+
+<h3><a href="https://tdongsi.github.io/java/">Java</a></h3>
+
+<h4>Pure Java</h4>
+
+<h4>Groovy</h4>
+
+<h4>Tools and Ecosystem</h4>
+
+<h3><a href="https://tdongsi.github.io/python/">Python</a></h3>
+
+<h3><a href="https://tdongsi.github.io/javascript/">JavaScript</a></h3>
+
+<h3>Next language?</h3>
+
+<ul>
+<li>Golang</li>
+<li>Ruby</li>
+</ul>
+
 ]]></content>
   </entry>
   

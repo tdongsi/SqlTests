@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://tdongsi.github.io/SqlTests/blog/2017/07/07/language-index/</loc>
-<lastmod>2017-07-07T10:07:55-07:00</lastmod>
-</url>
-<url>
 <loc>http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook/</loc>
 <lastmod>2016-12-02T09:20:53-08:00</lastmod>
 </url>
@@ -63,6 +59,10 @@
 <url>
 <loc>http://tdongsi.github.io/SqlTests/blog/2016/02/01/tutorial-bit-manipulation/</loc>
 <lastmod>2016-02-01T00:23:25-08:00</lastmod>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2016/01/02/language-index/</loc>
+<lastmod>2016-01-02T09:07:55-08:00</lastmod>
 </url>
 <url>
 <loc>http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development/</loc>
@@ -189,5 +189,11 @@
 </url>
 <url>
 <loc>http://tdongsi.github.io/SqlTests/blog/categories/bash/</loc>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/posts/2/</loc>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/posts/3/</loc>
 </url>
 </urlset>
