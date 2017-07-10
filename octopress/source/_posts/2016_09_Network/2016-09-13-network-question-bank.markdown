@@ -14,8 +14,7 @@ Brush up on networking theory, including familiarity with major components of th
 
 ### Review Syllabus
 
-* HTTP
-  * [HTTP Made Really Easy](https://www.jmarshall.com/easy/http/)
+See [main syllabus](/syllabus/).
 
 ### Questions
 

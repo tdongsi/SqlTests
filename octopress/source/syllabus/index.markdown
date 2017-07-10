@@ -74,6 +74,8 @@ December is reserved to random topics, for posts that have been removed from the
         1. [Business Analytics](/blog/2016/09/16/tutorial-dashboard-for-business-analytics/).
     3. [Database interview questions](/blog/2016/09/12/database-question-bank/).
 9. [Network](/blog/2016/09/13/network-question-bank/)
+    1. HTTP
+        1. [HTTP Made Really Easy](https://www.jmarshall.com/easy/http/)
 10. Soft questions
 11. Specialized areas: I used to work with these areas extensively.
     1. [Estimation + Computer vision](/blog/2016/09/04/tutorial-estimation-theory/)
