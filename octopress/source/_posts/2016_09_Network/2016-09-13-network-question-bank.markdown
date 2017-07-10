@@ -9,7 +9,13 @@ categories:
 ---
 
 Brush up on networking theory, including familiarity with major components of the IP suite.
+
 <!--more-->
+
+### Review Syllabus
+
+* HTTP
+  * [HTTP Made Really Easy](https://www.jmarshall.com/easy/http/)
 
 ### Questions
 
