@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Questions: Bit Manipulation"
-date: 2016-02-01 01:23:25 -0700
+date: 2016-02-02 01:23:25 -0700
 comments: true
 categories: 
 - Questions

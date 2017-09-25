@@ -1,0 +1,24 @@
+---
+layout: post
+title: "Blog Map"
+date: 2011-01-01 23:12:59 -0700
+comments: true
+categories: 
+---
+
+A blog post in 2011 will serve as a general guideline on how posts are organized in this blog.
+
+* 2015: Archive of old public posts (not relevant to my desired career path).
+* 2016: Technical interviews, based on [this](/SqlTests/syllabus/).
+  * 01: General info
+  * 02: Algorithms
+  * 03: Data structure
+  * 04: Math
+  * 05: Graph
+  * 06: OS. Concurrency.
+  * 07: System Design.
+  * 08: Database
+  * 09: Network
+  * 10: Soft questions
+  * 11: Specialized areas: robotics, computer vision, machine learning.
+  * 12: Bash 
