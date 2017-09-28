@@ -9,7 +9,8 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="How to practice for System Design questions and some design questions. ">
+  <meta name="description" content="MySQL has traditionally lagged behind in support for the SQL standard.
+Unfortunately, from my experience, MySQL is often used as the sandbox for SQL &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +68,42 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2016/08/01/mysql-workaround/">Tutorial: MySQL Workarounds</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-08-01T01:42:23-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2016</span></span> <span class='time'>1:42 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>MySQL has traditionally lagged behind in support for the SQL standard.
+Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
+If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/08/01/mysql-workaround/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -465,156 +502,6 @@ Primary key is composed of the partition key and the optional sort key that uniq
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/SqlTests/blog/2015/12/02/misc-vertica-installation-troubleshooting/">Vertica Installation: Troubleshooting Tips</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-12-02T23:43:30-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>11:43 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In this post, I will list some problems that I encountered when installing and using the <a href="/SqlTests/blog/2015/12/02/misc-setup-three-node-vertica-vm-sandbox/">three-node VM cluster of Vertica</a> and how to work around those.
-Each installation problem has a documentation page that is displayed in the error message, such as <a href="https://my.vertica.com/docs/7.1.x/HTML/index.htm#cshid=S0150">this page</a> for S0150 error.
-I listed the quick, single-command solutions here for reference purpose.
-However, there is no guarantee that such solutions will work in all contexts and it is recommended to read the documentation page to understand what went wrong.</p>
-
-<!-- 
-#### S0180 "insufficient swap size"
-
-1. https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-centos-7
-
-<figure class='code'><figcaption><span>Adding swap fails</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[root@vertica72 osboxes]# swapoff /dev/sda2
-</span><span class='line'>[root@vertica72 osboxes]# swapon -s
-</span><span class='line'>[root@vertica72 osboxes]# swapon /swapfile
-</span><span class='line'>swapon: /swapfile: swapon failed: Invalid argument</span></code></pre></td></tr></table></div></figure>
-
-This is due to a bug
-
-1. http://superuser.com/questions/539287/swapon-failed-invalid-argument-on-a-linux-system-with-btrfs-filesystem
-
-
-1. https://www.centos.org/docs/5/html/Deployment_Guide-en-US/s1-swap-adding.html
--->
-
-
-<h3>S0081: SELinux appears to be enabled and not in permissive mode</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>FAIL (S0081): https://my.vertica.com/docs/7.1.x/HTML/index.htm#cshid=S0081
-</span><span class='line'>SELinux appears to be enabled and not in permissive mode.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As mentioned in the HP Vertica documentation page, for CentOS 6, add the following line into file <code>/etc/sysconfig/selinux</code> as root/sudo:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>setenforce 0</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>S0150: These disks do not have ‘deadline’ or ‘noop’ IO scheduling</h3>
-
-<figure class='code'><figcaption><span>Error message</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>FAIL (S0150): https://my.vertica.com/docs/7.1.x/HTML/index.htm#cshid=S0150
-</span><span class='line'>These disks do not have ‘deadline’ or ‘noop’ IO scheduling: ‘/dev/sda1′</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To fix this problem in CentOS 6, run this command as root/sudo:</p>
-
-<figure class='code'><figcaption><span>Fix until next reboot</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo deadline &gt; /sys/block/sda/queue/scheduler</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Changes to scheduler only last until the system is rebooted, so you need to add the above command to a startup script (such as <code>/etc/rc.local</code>) like in this command.</p>
-
-<figure class='code'><figcaption><span>Permanent fix</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo 'echo deadline &gt; /sys/block/sda/queue/scheduler' &gt;&gt; /etc/rc.local</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>S0310: Transparent hugepages is set to ‘always’. Must be ‘never’ or ‘madvise’.</h3>
-
-<figure class='code'><figcaption><span>Error message</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>FAIL (S0310): https://my.vertica.com/docs/7.1.x/HTML/index.htm#cshid=S0310
-</span><span class='line'>Transparent hugepages is set to ‘always’. Must be ‘never’ or ‘madvise’.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To fix this problem in CentOS 6, run this command as root/sudo:</p>
-
-<figure class='code'><figcaption><span>Fix until next reboot</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo never &gt; /sys/kernel/mm/redhat_transparent_hugepage/enabled</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The permanent fix is also available in the <a href="https://my.vertica.com/docs/7.1.x/HTML/index.htm#cshid=S0310">documentation page</a> in the error message above.</p>
-
-<h3>S0020: Readahead size of sda (/dev/sda1,/dev/sda2) is too low for typical systems</h3>
-
-<figure class='code'><figcaption><span>Error message</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>FAIL (S0020): https://my.vertica.com/docs/7.1.x/HTML/index.htm#cshid=S0020
-</span><span class='line'>Readahead size of sda (/dev/sda1,/dev/sda2) is too low for typical systems: 256 &lt; 2048</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To fix this problem in CentOS 6, run this command as root/sudo:</p>
-
-<figure class='code'><figcaption><span>Run this command</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/sbin/blockdev –setra 2048 /dev/sda</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ETL fails with &ldquo;ERROR 3587:  Insufficient resources to execute plan&rdquo;</h3>
-
-<p>After the three-node VM cluster is up and running, you might get the following error when trying to run some complex ETL script:</p>
-
-<figure class='code'><figcaption><span>Error message</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vsql:repo_home/sql/my_etl.sql:1091: ERROR 3587:  Insufficient resources to execute plan on pool general 
-</span><span class='line'>[Request Too Large:Memory(KB) Exceeded: Requested = 3541705, Free = 2962279 (Limit = 2970471, Used = 8192)]</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="https://community.dev.hpe.com/t5/Vertica-Forum/ERROR-ERROR-3587-Insufficient-resources-to-execute-plan-on-pool/td-p/233226">Vertica recommends</a> a minimum of 4GB of memory per processor core.
-The comprehensive list of hardware requirements for Vertica can be found <a href="https://my.vertica.com/docs/Hardware/HP_Vertica%20Planning%20Hardware%20Guide.pdf">here</a>.
-Note that, it is also recommended all nodes in the cluster have similar processor and memory provisions.
-In other words, a node with 2 GB memory mixed with another with 4 GB is NOT recommended.</p>
-
-<p>In my case, each of my VMs had two processor cores with only 4 GB in memory.
-To fix the error above, I had to reconfigure the VMs to one processor core with 6 GB in memory each to get that particular ETL script working.</p>
-
-<h3>Links</h3>
-
-<ol>
-<li>Documentation pages for errors: e.g., <a href="https://my.vertica.com/docs/7.1.x/HTML/index.htm#cshid=S0150">S0150</a>.
-
-<ul>
-<li>Read pages like this to figure out fixes for problems encountered during Vertica installation.</li>
-</ul>
-</li>
-<li><a href="https://my.vertica.com/docs/Hardware/HP_Vertica%20Planning%20Hardware%20Guide.pdf">Hardware Requirements for Vertica</a></li>
-</ol>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/SqlTests/posts/3">&larr; Older</a>
@@ -633,6 +520,10 @@ To fix the error above, I had to reconfigure the VMs to one processor core with 
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2017/09/27/anomaly-detection/">Anomaly Detection</a>
+      </li>
     
       <li class="post">
         <a href="/SqlTests/blog/2016/12/02/docker-cli-cookbook/">Docker CLI Cookbook</a>
@@ -670,16 +561,12 @@ To fix the error above, I had to reconfigure the VMs to one processor core with 
         <a href="/SqlTests/blog/2016/08/02/select-basics/">Questions: SQL Basics</a>
       </li>
     
-      <li class="post">
-        <a href="/SqlTests/blog/2016/08/01/mysql-workaround/">Tutorial: MySQL Workarounds</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (2)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (3)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (1)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (2)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (8)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (2)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (2)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (3)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (1)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (2)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (8)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 

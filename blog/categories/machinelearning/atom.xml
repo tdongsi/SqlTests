@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Machinelearning | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/machinelearning/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2017-09-27T22:59:26-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Anomaly Detection]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/09/27/anomaly-detection/"/>
+    <updated>2017-09-27T22:42:54-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/09/27/anomaly-detection</id>
+    <content type="html"><![CDATA[<p>Anomaly detection is pretty important in DevOps world.
+It is great if it can generate some alarm when something odd is happening in monitoring metrics.
+This post will discuss some basic ideas of how to approach Anomaly Detection.</p>
+
+<!--more-->
+
+
+<h3>Anomaly Detection</h3>
+
+<p>According to <a href="/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">PDF mirror</a>, the standard approaches are PCA-based anomaly detection and one-class SVM (>100 features, aggressive boundary).
+These are rules of thumb: for specific sets of data with specific advanced information can lead to another more efficient approach.</p>
+
+<p>An analogy: without specific information, merge sort is the safest choice for sorting.
+However, with extra information about incoming data such as its randomness (quicksort for really random data) or range of possible values (radix sort for range much smaller than numbers), you can find a better choice for sorting.</p>
+
+<h3>Principle Component Analysis (PCA)</h3>
+
+<h4>Theory</h4>
+
+<h4>Application to Anomaly Detection</h4>
+
+<h3>Support Vector Machine (SVM)</h3>
+
+<h3>Reference</h3>
+
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet">Machine Learning cheat sheet</a></li>
+<li><a href="/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">PDF mirror</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
