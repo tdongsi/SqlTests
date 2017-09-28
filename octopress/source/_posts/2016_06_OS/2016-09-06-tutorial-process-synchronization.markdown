@@ -388,3 +388,7 @@ Java uses monitor for thread synchronization.
 Every object in Java has a single lock associated with it. When a method is declared synchronized, calling the method requires owning the lock of the object.
 If the lock is not available, the synchronized method is placed in the entry set for the object’s lock.
 The Java Object class’s method wait() and notify() are similar to wait() and signal() statements for a monitor.
+
+### Reference
+
+* [Java Concurrency](/download/Java_Concurrency.pdf)
