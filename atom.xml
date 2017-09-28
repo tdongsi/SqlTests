@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-09-27T23:13:50-07:00</updated>
+  <updated>2017-09-28T02:14:40-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -169,7 +169,7 @@ This post will discuss some basic ideas of how to approach Anomaly Detection.</p
 
 <h3>Anomaly Detection</h3>
 
-<p>According to <a href="http://tdongsi.github.io/SqlTests/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">PDF mirror</a>, the standard approaches are PCA-based anomaly detection and one-class SVM (>100 features, aggressive boundary).
+<p>According to <a href="http://tdongsi.github.io/SqlTests/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">this cheat sheet</a>, the standard approaches are PCA-based anomaly detection and one-class SVM (>100 features, aggressive boundary).
 These are rules of thumb: for specific sets of data with specific advanced information can lead to another more efficient approach.</p>
 
 <p>An analogy: without specific information, merge sort is the safest choice for sorting.
@@ -182,6 +182,34 @@ However, with extra information about incoming data such as its randomness (quic
 <h4>Application to Anomaly Detection</h4>
 
 <h3>Support Vector Machine (SVM)</h3>
+
+<p>General theory: The most common theory is two-class SVM where we find the hyperplane that best divides the samples of two classes.
+The problem can be formulated as a constrained optimization problem, which can be solved by quadratic programming methods.
+At the end, there are some samples that are closest to the optimal hyperplane is called support vectors.
+The awesome thing about SVM is that you can apply non-linear transformations, including adding more dimensions, to samples in both classes and SVM still works.
+Such transformations (kernels) must have some properties and there are list of common kernel types.</p>
+
+<p>The error is bounded by the number of support vectors -> it is better to have low average support vector.</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=eHsErlPJWUU">Tutorial with familar notation (Caltech)</a></li>
+<li><a href="https://www.youtube.com/watch?v=_PwhiWxHK8o">MIT tutorial</a></li>
+</ul>
+
+
+<p>One class SVM: samples are from positive class only.</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=rNGtj2iEw6g">One class SVM tutorial</a></li>
+</ul>
+
+
+<h4>Application to DevOps</h4>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=5vrY4RbeWkM">Mostly Gausian + Correlation for Context data</a></li>
+</ul>
+
 
 <h3>Reference</h3>
 
