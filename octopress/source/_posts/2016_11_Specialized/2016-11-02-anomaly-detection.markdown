@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Anomaly Detection"
-date: 2017-09-27 22:42:54 -0700
+date: 2016-11-02 22:42:54 -0700
 comments: true
 categories: 
 - Math
@@ -16,7 +16,7 @@ This post will discuss some basic ideas of how to approach Anomaly Detection.
 
 ### Anomaly Detection
 
-According to [PDF mirror](/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf), the standard approaches are PCA-based anomaly detection and one-class SVM (>100 features, aggressive boundary).
+According to [this cheat sheet](/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf), the standard approaches are PCA-based anomaly detection and one-class SVM (>100 features, aggressive boundary).
 These are rules of thumb: for specific sets of data with specific advanced information can lead to another more efficient approach.
 
 An analogy: without specific information, merge sort is the safest choice for sorting.
