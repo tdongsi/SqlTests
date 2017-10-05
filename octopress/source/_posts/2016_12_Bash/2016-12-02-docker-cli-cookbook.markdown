@@ -42,6 +42,15 @@ docker.registry.net/tdongsi/jenkins-nodev4-agent:7
 $ docker push docker.registry.net/tdongsi/jenkins-nodev4-agent:7
 ```
 
+``` plain Clean up
+# One liner to stop / remove all of Docker containers:
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+# Remove dangling (untagged) images
+docker rmi $(docker images -f "dangling=true" -q)
+```
+
 ### Reference
 
 * [Example of modifying Docker image](http://tdongsi.github.io/blog/2017/01/25/docker-root-user-in-a-pod/)
