@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Computervision | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/computervision/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2017-11-14T17:09:44+07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[OpenCV]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/11/04/opencv/"/>
+    <updated>2016-11-04T17:03:26+07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/11/04/opencv</id>
+    <content type="html"><![CDATA[<h3>Python</h3>
+
+<p>Sample code from <a href="http://www.jwandrews.co.uk/2013/01/breaking-the-minteye-image-captcha-in-23-lines-of-python/">here</a>:</p>
+
+<pre><code class="python Breaking MintEye">import cv2
+import sys
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+ 
+if __name__ == '__main__':
+ 
+    for dir in range(1,14):
+        dir = str(dir)
+ 
+        total_images = len(os.listdir(dir))+1
+        points_sob = []
+ 
+        for i in range(1,total_images):
+            img = cv2.imread(dir+'/'+str(i)+'.jpg')
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+ 
+            sob = cv2.Sobel(gray, -1, 1, 1)
+            points_sob.append(np.sum(sob))
+ 
+        x = range(1,total_images)
+        res = np.argmin(points_sob)+1
+        print res
+        plt.plot(res,points_sob[res-1], marker='o', color='r', ls='')
+        plt.plot(x, points_sob)
+ 
+        plt.savefig(dir+'.png')
+        plt.show()
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
