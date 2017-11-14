@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bash | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/bash/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-10-04T18:28:36-07:00</updated>
+  <updated>2017-11-14T17:05:36+07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Docker CLI Cookbook]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook/"/>
-    <updated>2016-12-02T09:20:53-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/03/docker-cli-cookbook/"/>
+    <updated>2016-12-03T00:20:53+07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/03/docker-cli-cookbook</id>
     <content type="html"><![CDATA[<p>Standard Docker CLI commands for everyday workflow.</p>
 
 <!--more-->
@@ -72,9 +72,9 @@ docker rmi $(docker images -f "dangling=true" -q)
   
   <entry>
     <title type="html"><![CDATA[User Group and Related Commands]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook/"/>
-    <updated>2016-12-01T18:21:32-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/02/groupadd-cookbook/"/>
+    <updated>2016-12-02T09:21:32+07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/02/groupadd-cookbook</id>
     <content type="html"><![CDATA[<p>User groups and commands to manipulate them.</p>
 
 <!--more-->
