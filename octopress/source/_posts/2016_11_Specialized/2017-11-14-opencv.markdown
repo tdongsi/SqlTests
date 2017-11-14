@@ -4,6 +4,7 @@ title: "OpenCV"
 date: 2016-11-04 17:03:26 +0700
 comments: true
 categories: 
+- ComputerVision
 ---
 
 ### Python
