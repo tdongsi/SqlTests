@@ -37,8 +37,9 @@ December is reserved to random topics, for posts that have been removed from the
     2. Binary search
     3. Tree
         1. Construction
-        2. Traversal: BFS, DFS, Tree Insert, Tree Height.
-        3. Tries
+        2. Traversal: In-Order, Pre-order, Post-order, Level-order (breadth-first) (stack, recursion).
+        3. BFS, DFS, Tree Insert, Tree Height.
+        3. [Tries](https://www.reddit.com/r/cscareerquestions/comments/6jaj91/hey_folks_after_hearing_a_bunch_of_folks_were/)
     4. Dynamic Programming
     5. Bit Manipulation
     5. Problems
@@ -62,7 +63,7 @@ December is reserved to random topics, for posts that have been removed from the
         1. 3 ways
         2. Pros & Cons
     2. BFS, DFS
-    4. Dijkstra, A*
+    7. [Path finding](https://www.reddit.com/r/dataisbeautiful/comments/74i11w/path_finding_animation_in_2d_maze_using_4_common/): Dijkstra, A*, Breadth First and Depth First.
     6. Cycle detection
 6. [Operating Systems](/blog/2016/09/07/questions-operating-system-drills/)
     1. [Dinasaur book](/blog/2016/09/06/tutorial-process-synchronization/)
