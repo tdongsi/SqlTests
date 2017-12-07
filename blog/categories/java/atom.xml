@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-11-16T23:15:59+07:00</updated>
+  <updated>2017-12-07T13:02:42-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization/"/>
-    <updated>2016-06-02T14:35:03+07:00</updated>
+    <updated>2016-06-02T00:35:03-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization</id>
     <content type="html"><![CDATA[<p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
 Topics in this chapter are the most intensive and frequently asked during interviews.</p>
@@ -395,9 +395,9 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
   
   <entry>
     <title type="html"><![CDATA[Language Index]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/03/language-index/"/>
-    <updated>2016-01-03T00:07:55+07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/03/language-index</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/02/language-index/"/>
+    <updated>2016-01-02T09:07:55-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/02/language-index</id>
     <content type="html"><![CDATA[<p>Overview of most common languages.</p>
 
 <!--more-->
@@ -427,9 +427,9 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/02/tutorial-test-driven-development/"/>
-    <updated>2016-01-02T12:57:00+07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/02/tutorial-test-driven-development</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development/"/>
+    <updated>2016-01-01T21:57:00-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development</id>
     <content type="html"><![CDATA[<!-- Reference:
 Evernote: "QE cheat sheet"
 -->

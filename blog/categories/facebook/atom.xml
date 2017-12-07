@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Facebook | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/facebook/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-11-16T23:15:59+07:00</updated>
+  <updated>2017-12-07T13:02:42-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/06/tutorial-dashboard-for-business-analytics/"/>
-    <updated>2016-08-06T05:40:35+07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/06/tutorial-dashboard-for-business-analytics</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/05/tutorial-dashboard-for-business-analytics/"/>
+    <updated>2016-08-05T15:40:35-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/05/tutorial-dashboard-for-business-analytics</id>
     <content type="html"><![CDATA[<p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
 
 <!--more-->
@@ -161,9 +161,9 @@ Tableau has “Show Me” button that gives suggestions for different combinatio
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/05/tutorial-dimensional-modelling/"/>
-    <updated>2016-08-05T05:38:20+07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/05/tutorial-dimensional-modelling</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/04/tutorial-dimensional-modelling/"/>
+    <updated>2016-08-04T15:38:20-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/04/tutorial-dimensional-modelling</id>
     <content type="html"><![CDATA[<p>From Kimball group reader.</p>
 
 <!--more-->
@@ -330,7 +330,7 @@ In Vertica, CREATE SEQUENCE.</p>
   <entry>
     <title type="html"><![CDATA[Questions: SQL Basics]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/02/select-basics/"/>
-    <updated>2016-08-02T15:39:37+07:00</updated>
+    <updated>2016-08-02T01:39:37-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/08/02/select-basics</id>
     <content type="html"><![CDATA[<p>This post is about basic DDL, <code>SELECT</code> questions (phone-screen level).</p>
 
@@ -651,7 +651,7 @@ join snapshot s on t.user_id = s.user_id and t.song_id = s.song_id and s.date = 
   <entry>
     <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/01/mysql-workaround/"/>
-    <updated>2016-08-01T15:42:23+07:00</updated>
+    <updated>2016-08-01T01:42:23-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/08/01/mysql-workaround</id>
     <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
 Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
@@ -789,9 +789,9 @@ where Id not in
   
   <entry>
     <title type="html"><![CDATA[Glassdoor: Algorithm Question Bank]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/02/question-bank/"/>
-    <updated>2016-02-02T13:31:29+07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/02/question-bank</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/01/question-bank/"/>
+    <updated>2016-02-01T22:31:29-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/01/question-bank</id>
     <content type="html"><![CDATA[<p>These questions are gathered from Glassdoor.</p>
 
 <!--more-->

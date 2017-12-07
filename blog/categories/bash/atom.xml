@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bash | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/bash/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-11-16T23:15:59+07:00</updated>
+  <updated>2017-12-07T13:02:42-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Docker CLI Cookbook]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/03/docker-cli-cookbook/"/>
-    <updated>2016-12-03T00:20:53+07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/03/docker-cli-cookbook</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook/"/>
+    <updated>2016-12-02T09:20:53-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/02/docker-cli-cookbook</id>
     <content type="html"><![CDATA[<p>Standard Docker CLI commands for everyday workflow.</p>
 
 <!--more-->
@@ -57,14 +57,38 @@ $ docker push docker.registry.net/tdongsi/jenkins-nodev4-agent:7
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
+# Remove Docker containers that exited
+docker rm -v $(docker ps -aq -f status=exited)
+
 # Remove dangling (untagged) images
 docker rmi $(docker images -f "dangling=true" -q)
+</code></pre>
+
+<h3><code>kubectl</code> command</h3>
+
+<p><code>kubectl</code> is the CLI client for Kubernetes.
+It is very similar to <code>docker</code> CLI in many situations (see <a href="https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/">this comparison</a>).</p>
+
+<pre><code class="plain kubectl commands"># List all pods
+kubectl get pods -a
+# Long format: including node
+kubectl get pods -o wide
+
+# List pod name only
+kubectl get pods -o name -a | awk -F "/" '{print $2}'
+
+# Delete pod based on some filter (e.g., "java-agent" in name)
+kubectl get pods -o name -a | awk -F "/" '{print $2}' | grep java-agent &gt;pods.txt
+kubectl delete pod `&lt; pods.txt`
+# The back tick is based on
+# https://stackoverflow.com/questions/4227994/command-line-arguments-from-a-file-content
 </code></pre>
 
 <h3>Reference</h3>
 
 <ul>
 <li><a href="http://tdongsi.github.io/blog/2017/01/25/docker-root-user-in-a-pod/">Example of modifying Docker image</a></li>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/">docker vs kubectl</a></li>
 </ul>
 
 ]]></content>
@@ -72,9 +96,9 @@ docker rmi $(docker images -f "dangling=true" -q)
   
   <entry>
     <title type="html"><![CDATA[User Group and Related Commands]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/02/groupadd-cookbook/"/>
-    <updated>2016-12-02T09:21:32+07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/02/groupadd-cookbook</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook/"/>
+    <updated>2016-12-01T18:21:32-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/01/groupadd-cookbook</id>
     <content type="html"><![CDATA[<p>User groups and commands to manipulate them.</p>
 
 <!--more-->
