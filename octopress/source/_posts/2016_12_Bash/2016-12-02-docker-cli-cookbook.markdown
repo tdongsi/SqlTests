@@ -47,10 +47,35 @@ $ docker push docker.registry.net/tdongsi/jenkins-nodev4-agent:7
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
+# Remove Docker containers that exited
+docker rm -v $(docker ps -aq -f status=exited)
+
 # Remove dangling (untagged) images
 docker rmi $(docker images -f "dangling=true" -q)
+```
+
+### `kubectl` command
+
+`kubectl` is the CLI client for Kubernetes. 
+It is very similar to `docker` CLI in many situations (see [this comparison](https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/)).
+
+``` plain kubectl commands
+# List all pods
+kubectl get pods -a
+# Long format: including node
+kubectl get pods -o wide
+
+# List pod name only
+kubectl get pods -o name -a | awk -F "/" '{print $2}'
+
+# Delete pod based on some filter (e.g., "java-agent" in name)
+kubectl get pods -o name -a | awk -F "/" '{print $2}' | grep java-agent >pods.txt
+kubectl delete pod `< pods.txt`
+# The back tick is based on
+# https://stackoverflow.com/questions/4227994/command-line-arguments-from-a-file-content
 ```
 
 ### Reference
 
 * [Example of modifying Docker image](http://tdongsi.github.io/blog/2017/01/25/docker-root-user-in-a-pod/)
+* [docker vs kubectl](https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/)
