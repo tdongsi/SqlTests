@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Network | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-12-07T13:04:17-08:00</updated>
+  <updated>2017-12-21T19:43:20-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Reserved IP Addresses]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/12/21/reserved-ip-addresses/"/>
+    <updated>2017-12-21T19:22:02-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/12/21/reserved-ip-addresses</id>
+    <content type="html"><![CDATA[<p>Various IP addresses are reserved for special purposes.</p>
+
+<h3>IP v4</h3>
+
+<p>Broadcast address: an address where all host bits in the IP address are set to one (1).
+All hosts are to accept and respond to the broadcast address.</p>
+
+<p>The 127.0.0.0/8 class &lsquo;A&rsquo; subnet is used for special local addresses, most commonly the loopback address 127.0.0.1.</p>
+
+<p><strong>Private IP addresses</strong>: a number of IP blocks which were set aside by ARIN for use as private addresses on private networks that are not directly connected to the Internet.</p>
+
+<pre><code class="plain Private IP addresses">Class   CIDR            Start       End
+A       10.0.0.0/8      10.0.0.0    10.255.255.255
+B       172.16.0.0/12   172.16.0.0  172.31.255.255
+C       192.168.0.0/16  192.168.0.0 192.168.255.255
+</code></pre>
+
+<p><strong>Special purposes</strong>: There are a number of addresses that are set aside for special purposes, such as the IP&rsquo;s used in OSPF, Multicast, and experimental purposes that cannot be used on the Internet.</p>
+
+<pre><code class="plain Reserved for multicast">Class   CIDR            Start       End
+D       224.0.0.0/4     224.0.0.0   239.255.255.255
+</code></pre>
+
+<p><strong>Others</strong>:</p>
+
+<pre><code>Address Block   CIDR Mask   Used for                                Reference
+0.0.0.0         /8          Used to communicate with "This" network RFC1700, p. 4
+10.0.0.0        /8          Private-Use Networks                    RFC 1918
+14.0.0.0        /8          Public-Data Network                     RFC1700, p.181
+24.0.0.0        /8          Cable TV Networks                       --
+127.0.0.0       /8          Loopback address
+</code></pre>
+
+<h3>IP v6</h3>
+
+<pre><code class="plain Important adress blocks">Address block (CIDR)    Range                   Number of addresses Scope       Purpose
+::/128                  ::                      1                   Software    Unspecified address
+::1/128                 ::1                     1                   Host        Loopback address to the local host.
+::ffff:0:0/96           ::ffff:0.0.0.0 –
+                        ::ffff:255.255.255.255  2^32                    Software    IPv4 mapped addresses
+</code></pre>
+
+<h3>References</h3>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Reserved_IP_addresses">Wiki page</a></li>
+<li><a href="http://www.inetdaemon.com/tutorials/internet/ip/addresses/special.shtml">Easier to read</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Network Question Bank]]></title>

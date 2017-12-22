@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-12-07T13:04:17-08:00</updated>
+  <updated>2017-12-21T19:43:20-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,6 +12,80 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Reserved IP Addresses]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/12/21/reserved-ip-addresses/"/>
+    <updated>2017-12-21T19:22:02-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/12/21/reserved-ip-addresses</id>
+    <content type="html"><![CDATA[<p>Various IP addresses are reserved for special purposes.</p>
+
+<h3>IP v4</h3>
+
+<p>Broadcast address: an address where all host bits in the IP address are set to one (1).
+All hosts are to accept and respond to the broadcast address.</p>
+
+<p>The 127.0.0.0/8 class &lsquo;A&rsquo; subnet is used for special local addresses, most commonly the loopback address 127.0.0.1.</p>
+
+<p><strong>Private IP addresses</strong>: a number of IP blocks which were set aside by ARIN for use as private addresses on private networks that are not directly connected to the Internet.</p>
+
+<figure class='code'><figcaption><span>Private IP addresses</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Class   CIDR            Start       End
+</span><span class='line'>A       10.0.0.0/8        10.0.0.0    10.255.255.255
+</span><span class='line'>B       172.16.0.0/12 172.16.0.0  172.31.255.255
+</span><span class='line'>C     192.168.0.0/16  192.168.0.0 192.168.255.255</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Special purposes</strong>: There are a number of addresses that are set aside for special purposes, such as the IP&rsquo;s used in OSPF, Multicast, and experimental purposes that cannot be used on the Internet.</p>
+
+<figure class='code'><figcaption><span>Reserved for multicast</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Class   CIDR            Start       End
+</span><span class='line'>D       224.0.0.0/4       224.0.0.0   239.255.255.255</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Others</strong>:</p>
+
+<figure class='code'><figcaption><span>Reserved for multicast</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Address Block    CIDR Mask   Used for                                Reference
+</span><span class='line'>0.0.0.0           /8          Used to communicate with "This" network RFC1700, p. 4
+</span><span class='line'>10.0.0.0      /8          Private-Use Networks                    RFC 1918
+</span><span class='line'>14.0.0.0      /8          Public-Data Network                     RFC1700, p.181
+</span><span class='line'>24.0.0.0      /8          Cable TV Networks                       --
+</span><span class='line'>127.0.0.0     /8          Loopback address</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>IP v6</h3>
+
+<figure class='code'><figcaption><span>Important adress blocks</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Address block (CIDR) Range                   Number of addresses Scope       Purpose
+</span><span class='line'>::/128                    ::                      1                   Software    Unspecified address
+</span><span class='line'>::1/128                   ::1                     1                   Host        Loopback address to the local host.
+</span><span class='line'>::ffff:0:0/96         ::ffff:0.0.0.0 –
+</span><span class='line'>                        ::ffff:255.255.255.255    2^32                    Software    IPv4 mapped addresses</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>References</h3>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Reserved_IP_addresses">Wiki page</a></li>
+<li><a href="http://www.inetdaemon.com/tutorials/internet/ip/addresses/special.shtml">Easier to read</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Docker CLI Cookbook]]></title>
@@ -2849,130 +2923,6 @@ However, there is no practical solution to this scenario (or technical interview
 <li>Ruby</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development/"/>
-    <updated>2016-01-01T21:57:00-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development</id>
-    <content type="html"><![CDATA[<!-- Reference:
-Evernote: "QE cheat sheet"
--->
-
-
-<p>Test-driven development has become more and more important.
-As pointed out in <a href="http://tdongsi.github.io/SqlTests/syllabus/">this</a>, candidates with 3+ years of industry experience should be able to demonstrate testing experience.
-You should expect testing questions come up, even when you interview for developer positions.</p>
-
-<!--more-->
-
-
-<h3>Type of tests</h3>
-
-<p>This is useful for the open questions of &ldquo;How do you test X?&rdquo; type.
-X can be anything that are not related to software.
-It would be awesome if you can come up with a creative test case that interviewers won&rsquo;t think of.
-However, you are usually expected to hit broadly and methodically different categories of tests, instead of keeping listing different test cases of a test category.
-Knowing these kind of tests can also help you keep talking without running out of ideas.</p>
-
-<ul>
-<li>Unit testing</li>
-<li>Integration testing</li>
-<li>Functional testing</li>
-<li>Load testing</li>
-<li>Stress testing</li>
-<li>Performance testing</li>
-<li>Install/Uninstall testing</li>
-<li>UI testing</li>
-<li>Localization testing (language, market-ready)</li>
-<li>Security testing</li>
-<li>Acceptance testing</li>
-<li>Regression testing</li>
-</ul>
-
-
-<p>Other general types:</p>
-
-<ul>
-<li>White-box testing</li>
-<li>Black-box testing</li>
-<li>Beta testing</li>
-</ul>
-
-
-<p>Questions that I will ask myself if I am the interviewer.</p>
-
-<ul>
-<li>Does the candidate ask good questions to understand the feature or he/she just simply making assumptions?</li>
-<li>Is the candidate covering negative and boundary conditions?</li>
-<li>Is the candidate trying to break the feature? Any interesting test cases you haven’t thought of?</li>
-<li>Is the candidate covering non-functional tests such as performance, scalability, security, etc.?</li>
-</ul>
-
-
-<p>Make sure that you pass all those minimum expections: ask clarifying questions and highlight assumptions.</p>
-
-<h3>Example of a testing question</h3>
-
-<p>For example, the interviewer will give you a question: &ldquo;Given a string, reverse it word by word&rdquo;.
-You proceed to solve it and write it on the whiteboard.
-The follow-up question would be &ldquo;How would you test it?&rdquo;.</p>
-
-<p>(1) General</p>
-
-<ul>
-<li>&ldquo;Hello World&rdquo; => &ldquo;World Hello&rdquo;</li>
-<li>&ldquo;Foo Bar Baz&rdquo; => &ldquo;Baz Bar Foo&rdquo;</li>
-<li>What happens with unicode?</li>
-<li>What about tabs and newlines? Do newlines end up in the beginning or end?</li>
-<li>What about unicode whitespace?</li>
-<li>What about numbers? What about special characters like ! and #.</li>
-</ul>
-
-
-<p>(2) Boundary</p>
-
-<ul>
-<li>Null string: null => what happens?</li>
-<li>Empty string: &ldquo;&rdquo; => &ldquo;&rdquo;</li>
-<li>Really long string => What happens?</li>
-<li>What about a one really really long word?</li>
-<li>What if you just give a string of spaces <code>"     "</code> => <code>"     "</code>?</li>
-<li>What if you give a really string of letters separated by spaces? <code>"a a a a a a a a a a a a a a a a a a aa a"</code></li>
-<li>Does it handle Chinese well?</li>
-<li>What if there&rsquo;s multiple spaces? Are they respected? <code>"a a a b ob"</code></li>
-</ul>
-
-
-<p>(3) Exceptional</p>
-
-<ul>
-<li>What happens when you give a really long string (like from <code>/dev/random</code>)?</li>
-<li>How can the function run out of memory?</li>
-<li>What if the type is incorrect? Could happen in Python.</li>
-<li>null => depends on specification. Might not be possible in languages like Haskell.</li>
-</ul>
-
-
-<p>Four and five are bonus stuff that I like to cover or have been asked of me in the past.
-They generally aren&rsquo;t the first three that I think of when I&rsquo;m asked to test a function though.</p>
-
-<p>(4) Performance - Running time</p>
-
-<p>I would explain the space complexity I expect out of my solution.
-I would draw a simple graph of what it would probably look like.
-I would then provide a set of sample points that I would take to see the space complexity.
-Some sample points I would take are 0, 1, 5, 10, <code>100</code>, <code>1,000</code>, <code>10,000</code>, <code>100,000</code>, <code>1,000,000</code> until I hit some barrier and then draw more fine grain values in between.
-Basically, I&rsquo;d increase the input exponentially and then increase granularity from there.</p>
-
-<p>(5) Performancce - Space complexity</p>
-
-<p>Very similar to (4), I would explain the space complexity I expect out of my solution.
-I would draw a simple graph of what it would probably look like.
-I would then provide a set of sample points that I would take to see the space complexity.
-Personally, I would mention that many languages like Java allow you to run at a reduced heap size like 4 MB so that you can hit <code>OutOfMemory</code> exceptions very quickly with reasonably sized inputs, if the complexity isn&rsquo;t managed properly.</p>
 ]]></content>
   </entry>
   
