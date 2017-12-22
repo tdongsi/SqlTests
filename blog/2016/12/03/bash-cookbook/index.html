@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Anomaly Detection - Personal Interview Notes</title>
+  <title>Bash Cookbook - Personal Interview Notes</title>
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="Anomaly detection is pretty important in DevOps world.
-It is great if it can generate some alarm when something odd is happening in monitoring &hellip;">
+  <meta name="description" content="All various tricky bash/Linux questions. Remove files with special characters such as ‘-‘ Sometimes, when you run a script accidentally, you might &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ It is great if it can generate some alarm when something odd is happening in mon
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2016/11/02/anomaly-detection/">
+  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2016/12/03/bash-cookbook/">
   <link href="/SqlTests/favicon.png" rel="icon">
   <link href="/SqlTests/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
@@ -71,7 +70,7 @@ It is great if it can generate some alarm when something odd is happening in mon
   
   <header>
     
-      <h1 class="entry-title">Anomaly Detection</h1>
+      <h1 class="entry-title">Bash Cookbook</h1>
     
     
       <p class="meta">
@@ -80,70 +79,46 @@ It is great if it can generate some alarm when something odd is happening in mon
 
 
 
-<time class='entry-date' datetime='2016-11-02T22:42:54-07:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>10:42 pm</span></time>
+<time class='entry-date' datetime='2016-12-03T00:31:51-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>12:31 am</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Anomaly detection is pretty important in DevOps world.
-It is great if it can generate some alarm when something odd is happening in monitoring metrics.
-This post will discuss some basic ideas of how to approach Anomaly Detection.</p>
+<div class="entry-content"><p>All various tricky bash/Linux questions.</p>
 
 <!--more-->
 
 
-<h3>Anomaly Detection</h3>
+<h3>Remove files with special characters such as ‘-‘</h3>
 
-<p>According to <a href="/SqlTests/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">this cheat sheet</a>, the standard approaches are PCA-based anomaly detection and one-class SVM (>100 features, aggressive boundary).
-These are rules of thumb: for specific sets of data with specific advanced information can lead to another more efficient approach.</p>
+<p>Sometimes, when you run a script accidentally, you might end up creating a file with special characters in its name, making deletion hard in conventional way. Some examples include <code>&gt; option[value='2016']</code> and <code>-myfile</code>.</p>
 
-<p>An analogy: without specific information, merge sort is the safest choice for sorting.
-However, with extra information about incoming data such as its randomness (quicksort for really random data) or range of possible values (radix sort for range much smaller than numbers), you can find a better choice for sorting.</p>
+<p>Based on <a href="https://unix.stackexchange.com/questions/229348/how-to-remove-a-file-that-start-with-or-other-unusual-characters">this</a>, it is possible to remove those files by inode number.</p>
 
-<h3>Principle Component Analysis (PCA)</h3>
-
-<h4>Theory</h4>
-
-<h4>Application to Anomaly Detection</h4>
-
-<h3>Support Vector Machine (SVM)</h3>
-
-<p>General theory: The most common theory is two-class SVM where we find the hyperplane that best divides the samples of two classes.
-The problem can be formulated as a constrained optimization problem, which can be solved by quadratic programming methods.
-At the end, there are some samples that are closest to the optimal hyperplane is called support vectors.
-The awesome thing about SVM is that you can apply non-linear transformations, including adding more dimensions, to samples in both classes and SVM still works.
-Such transformations (kernels) must have some properties and there are list of common kernel types.</p>
-
-<p>The error is bounded by the number of support vectors -> it is better to have low average support vector.</p>
-
-<ul>
-<li><a href="https://www.youtube.com/watch?v=eHsErlPJWUU">Tutorial with familar notation (Caltech)</a></li>
-<li><a href="https://www.youtube.com/watch?v=_PwhiWxHK8o">MIT tutorial</a></li>
-</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -i 
+</span><span class='line'>-&gt; 5233 &gt; option[value='2016']   5689 foo
+</span><span class='line'>find . -inum 5233 -print
+</span><span class='line'>find . -inum 5233 -delete</span></code></pre></td></tr></table></div></figure>
 
 
-<p>One class SVM: samples are from positive class only.</p>
+<p>You can also use the &ldquo;&ndash;&rdquo; option which according to man:</p>
 
-<ul>
-<li><a href="https://www.youtube.com/watch?v=rNGtj2iEw6g">One class SVM tutorial</a></li>
-</ul>
-
-
-<h4>Application to DevOps</h4>
-
-<ul>
-<li><a href="https://www.youtube.com/watch?v=5vrY4RbeWkM">Mostly Gausian + Correlation for Context data</a></li>
-</ul>
-
-
-<h3>Reference</h3>
-
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet">Machine Learning cheat sheet</a></li>
-<li><a href="/SqlTests/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">PDF mirror</a></li>
-</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> The rm command uses getopt(3) to parse its arguments, which allows it to
+</span><span class='line'> accept the `--' option which will cause it to stop processing flag options at
+</span><span class='line'> that point.  This will allow the removal of file names that begin with a dash
+</span><span class='line'> (`-').  For example:
+</span><span class='line'>       rm -- -filename</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
@@ -160,12 +135,12 @@ Such transformations (kernels) must have some properties and there are list of c
 
 
 
-<time class='entry-date' datetime='2016-11-02T22:42:54-07:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>10:42 pm</span></time>
+<time class='entry-date' datetime='2016-12-03T00:31:51-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>12:31 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/SqlTests/blog/categories/machinelearning/'>machinelearning</a>, <a class='category' href='/SqlTests/blog/categories/math/'>math</a>
+    <a class='category' href='/SqlTests/blog/categories/bash/'>bash</a>
   
 </span>
 
@@ -174,7 +149,7 @@ Such transformations (kernels) must have some properties and there are list of c
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2016/11/02/anomaly-detection/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2016/11/02/anomaly-detection/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2016/12/03/bash-cookbook/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2016/12/03/bash-cookbook/" >Tweet</a>
   
   
   
@@ -185,10 +160,8 @@ Such transformations (kernels) must have some properties and there are list of c
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/SqlTests/blog/2016/11/01/tutorial-estimation-theory/" title="Previous Post: Tutorial: Estimation theory">&laquo; Tutorial: Estimation theory</a>
+        <a class="basic-alignment left" href="/SqlTests/blog/2016/12/02/docker-cli-cookbook/" title="Previous Post: Docker CLI cookbook">&laquo; Docker CLI cookbook</a>
       
-      
-        <a class="basic-alignment right" href="/SqlTests/blog/2016/11/04/opencv/" title="Next Post: OpenCV">OpenCV &raquo;</a>
       
     </p>
   </footer>

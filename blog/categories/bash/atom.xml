@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bash | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/bash/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-12-21T20:14:04-08:00</updated>
+  <updated>2017-12-22T00:39:07-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Bash Cookbook]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/03/bash-cookbook/"/>
+    <updated>2016-12-03T00:31:51-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/03/bash-cookbook</id>
+    <content type="html"><![CDATA[<p>All various tricky bash/Linux questions.</p>
+
+<!--more-->
+
+
+<h3>Remove files with special characters such as ‘-‘</h3>
+
+<p>Sometimes, when you run a script accidentally, you might end up creating a file with special characters in its name, making deletion hard in conventional way. Some examples include <code>&gt; option[value='2016']</code> and <code>-myfile</code>.</p>
+
+<p>Based on <a href="https://unix.stackexchange.com/questions/229348/how-to-remove-a-file-that-start-with-or-other-unusual-characters">this</a>, it is possible to remove those files by inode number.</p>
+
+<pre><code class="plain">ls -i 
+-&gt; 5233 &gt; option[value='2016']   5689 foo
+find . -inum 5233 -print
+find . -inum 5233 -delete
+</code></pre>
+
+<p>You can also use the &ldquo;&ndash;&rdquo; option which according to man:</p>
+
+<pre><code> The rm command uses getopt(3) to parse its arguments, which allows it to
+ accept the `--' option which will cause it to stop processing flag options at
+ that point.  This will allow the removal of file names that begin with a dash
+ (`-').  For example:
+       rm -- -filename
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Docker CLI Cookbook]]></title>

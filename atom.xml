@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-12-21T20:14:04-08:00</updated>
+  <updated>2017-12-22T00:39:07-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Bash Cookbook]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/12/03/bash-cookbook/"/>
+    <updated>2016-12-03T00:31:51-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/12/03/bash-cookbook</id>
+    <content type="html"><![CDATA[<p>All various tricky bash/Linux questions.</p>
+
+<!--more-->
+
+
+<h3>Remove files with special characters such as ‘-‘</h3>
+
+<p>Sometimes, when you run a script accidentally, you might end up creating a file with special characters in its name, making deletion hard in conventional way. Some examples include <code>&gt; option[value='2016']</code> and <code>-myfile</code>.</p>
+
+<p>Based on <a href="https://unix.stackexchange.com/questions/229348/how-to-remove-a-file-that-start-with-or-other-unusual-characters">this</a>, it is possible to remove those files by inode number.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -i 
+</span><span class='line'>-&gt; 5233 &gt; option[value='2016']   5689 foo
+</span><span class='line'>find . -inum 5233 -print
+</span><span class='line'>find . -inum 5233 -delete</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can also use the &ldquo;&ndash;&rdquo; option which according to man:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> The rm command uses getopt(3) to parse its arguments, which allows it to
+</span><span class='line'> accept the `--' option which will cause it to stop processing flag options at
+</span><span class='line'> that point.  This will allow the removal of file names that begin with a dash
+</span><span class='line'> (`-').  For example:
+</span><span class='line'>       rm -- -filename</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Docker CLI Cookbook]]></title>
@@ -2893,38 +2935,6 @@ However, there is no practical solution to this scenario (or technical interview
 
 <ul>
 <li><a href="https://www.reddit.com/r/cscareerquestions/comments/7159wu/how_important_is_it_to_actually_follow_the_ctci/">Reddit discussion</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Language Index]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/02/language-index/"/>
-    <updated>2016-01-02T09:07:55-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/02/language-index</id>
-    <content type="html"><![CDATA[<p>Overview of most common languages.</p>
-
-<!--more-->
-
-
-<h3><a href="https://tdongsi.github.io/java/">Java</a></h3>
-
-<h4>Pure Java</h4>
-
-<h4>Groovy</h4>
-
-<h4>Tools and Ecosystem</h4>
-
-<h3><a href="https://tdongsi.github.io/python/">Python</a></h3>
-
-<h3><a href="https://tdongsi.github.io/javascript/">JavaScript</a></h3>
-
-<h3>Next language?</h3>
-
-<ul>
-<li>Golang</li>
-<li>Ruby</li>
 </ul>
 
 ]]></content>
