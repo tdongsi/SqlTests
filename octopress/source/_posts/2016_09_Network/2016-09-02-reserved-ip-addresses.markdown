@@ -8,6 +8,9 @@ categories:
 ---
 
 Various IP addresses are reserved for special purposes.
+It is good to recognize if two containers are communicating using their private channels based on their IPs.
+
+<!--more-->
 
 ### IP v4
 
