@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Network | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-12-21T19:43:20-08:00</updated>
+  <updated>2017-12-21T19:48:08-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Reserved IP Addresses]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2017/12/21/reserved-ip-addresses/"/>
-    <updated>2017-12-21T19:22:02-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2017/12/21/reserved-ip-addresses</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/02/reserved-ip-addresses/"/>
+    <updated>2016-09-02T20:22:02-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/02/reserved-ip-addresses</id>
     <content type="html"><![CDATA[<p>Various IP addresses are reserved for special purposes.</p>
 
 <h3>IP v4</h3>
@@ -57,7 +57,7 @@ D       224.0.0.0/4     224.0.0.0   239.255.255.255
 ::/128                  ::                      1                   Software    Unspecified address
 ::1/128                 ::1                     1                   Host        Loopback address to the local host.
 ::ffff:0:0/96           ::ffff:0.0.0.0 –
-                        ::ffff:255.255.255.255  2^32                    Software    IPv4 mapped addresses
+                        ::ffff:255.255.255.255  2^32                Software    IPv4 mapped addresses
 </code></pre>
 
 <h3>References</h3>
