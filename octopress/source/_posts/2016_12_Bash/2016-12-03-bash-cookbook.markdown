@@ -11,7 +11,7 @@ All various tricky bash/Linux questions.
 
 <!--more-->
 
-### Remove files with special characters such as ‘-‘
+### Remove files with special characters such as `-`
 
 Sometimes, when you run a script accidentally, you might end up creating a file with special characters in its name, making deletion hard in conventional way. Some examples include `> option[value='2016']` and `-myfile`.
 
@@ -24,7 +24,7 @@ find . -inum 5233 -print
 find . -inum 5233 -delete
 ```
 
-You can also use the "--" option which according to man:
+You can also use the `--` option according to `man`:
 
 ```
  The rm command uses getopt(3) to parse its arguments, which allows it to
