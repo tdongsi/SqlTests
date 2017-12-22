@@ -319,74 +319,15 @@ This post will discuss some basic ideas of how to approach Anomaly Detection.</p
   </header>
 
 
-  <div class="entry-content"><p>Various IP addresses are reserved for special purposes.</p>
-
-<h3>IP v4</h3>
-
-<p>Broadcast address: an address where all host bits in the IP address are set to one (1).
-All hosts are to accept and respond to the broadcast address.</p>
-
-<p>The 127.0.0.0/8 class &lsquo;A&rsquo; subnet is used for special local addresses, most commonly the loopback address 127.0.0.1.</p>
-
-<p><strong>Private IP addresses</strong>: a number of IP blocks which were set aside by ARIN for use as private addresses on private networks that are not directly connected to the Internet.</p>
-
-<figure class='code'><figcaption><span>Private IP addresses</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Class   CIDR            Start       End
-</span><span class='line'>A       10.0.0.0/8        10.0.0.0    10.255.255.255
-</span><span class='line'>B       172.16.0.0/12 172.16.0.0  172.31.255.255
-</span><span class='line'>C       192.168.0.0/16  192.168.0.0   192.168.255.255</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>Special purposes</strong>: There are a number of addresses that are set aside for special purposes, such as the IP&rsquo;s used in OSPF, Multicast, and experimental purposes that cannot be used on the Internet.</p>
-
-<figure class='code'><figcaption><span>Reserved for multicast</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Class   CIDR            Start       End
-</span><span class='line'>D       224.0.0.0/4       224.0.0.0   239.255.255.255</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>Others</strong>:</p>
-
-<figure class='code'><figcaption><span>Reserved for multicast</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Address Block    CIDR Mask   Used for                                Reference
-</span><span class='line'>0.0.0.0         /8            Used to communicate with "This" network RFC1700, p. 4
-</span><span class='line'>10.0.0.0      /8          Private-Use Networks                    RFC 1918
-</span><span class='line'>14.0.0.0      /8          Public-Data Network                     RFC1700, p.181
-</span><span class='line'>24.0.0.0      /8          Cable TV Networks                       --
-</span><span class='line'>127.0.0.0     /8          Loopback address</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>IP v6</h3>
-
-<figure class='code'><figcaption><span>Important adress blocks</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Address block (CIDR)    Range                    Number of addresses Scope       Purpose
-</span><span class='line'>::/128                    ::                      1                   Software    Unspecified address
-</span><span class='line'>::1/128                   ::1                     1                   Host        Loopback address to the local host.
-</span><span class='line'>::ffff:0:0/96         ::ffff:0.0.0.0 –
-</span><span class='line'>                        ::ffff:255.255.255.255    2^32                Software    IPv4 mapped addresses</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>References</h3>
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Reserved_IP_addresses">Wiki page</a></li>
-<li><a href="http://www.inetdaemon.com/tutorials/internet/ip/addresses/special.shtml">Easier to read</a></li>
-</ul>
+  <div class="entry-content"><p>Various IP addresses are reserved for special purposes.
+It is good to recognize if two containers are communicating using their private channels based on their IPs.</p>
 
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2016/09/02/reserved-ip-addresses/">Read on &rarr;</a>
+    </footer>
   
 
 

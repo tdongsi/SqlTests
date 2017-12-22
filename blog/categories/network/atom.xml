@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Network | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-12-21T19:48:08-08:00</updated>
+  <updated>2017-12-21T20:14:04-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -18,7 +18,11 @@
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/02/reserved-ip-addresses/"/>
     <updated>2016-09-02T20:22:02-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/09/02/reserved-ip-addresses</id>
-    <content type="html"><![CDATA[<p>Various IP addresses are reserved for special purposes.</p>
+    <content type="html"><![CDATA[<p>Various IP addresses are reserved for special purposes.
+It is good to recognize if two containers are communicating using their private channels based on their IPs.</p>
+
+<!--more-->
+
 
 <h3>IP v4</h3>
 
