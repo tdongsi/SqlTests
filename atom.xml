@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2017-12-22T00:41:46-08:00</updated>
+  <updated>2018-01-10T15:12:23-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -23,7 +23,7 @@
 <!--more-->
 
 
-<h3>Remove files with special characters such as ‘-‘</h3>
+<h3>Remove files with special characters such as <code>-</code></h3>
 
 <p>Sometimes, when you run a script accidentally, you might end up creating a file with special characters in its name, making deletion hard in conventional way. Some examples include <code>&gt; option[value='2016']</code> and <code>-myfile</code>.</p>
 
@@ -51,6 +51,97 @@
 </span><span class='line'> that point.  This will allow the removal of file names that begin with a dash
 </span><span class='line'> (`-').  For example:
 </span><span class='line'>       rm -- -filename</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Parameter expansion</h3>
+
+<p>Explanation on <code>VARIABLE1="${VARIABLE1:-some_val}"</code> idiom.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "$VAR1"
+</span><span class='line'>
+</span><span class='line'>$ VAR1="${VAR1:-default value}"
+</span><span class='line'>$ echo "$VAR1"
+</span><span class='line'>default value</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ VAR1="has value"
+</span><span class='line'>$ echo "$VAR1"
+</span><span class='line'>has value
+</span><span class='line'>
+</span><span class='line'>$ VAR1="${VAR1:-default value}"
+</span><span class='line'>$ echo "$VAR1"
+</span><span class='line'>has value</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Other common usage:</p>
+
+<ul>
+<li>Simple usage
+
+<ul>
+<li>$PARAMETER</li>
+<li>${PARAMETER}</li>
+</ul>
+</li>
+<li>Indirection
+
+<ul>
+<li>${!PARAMETER}</li>
+</ul>
+</li>
+<li>Case modification
+
+<ul>
+<li>${PARAMETER^}: first character to upper case</li>
+<li>${PARAMETER^^}: all characters to upper cases</li>
+<li>${PARAMETER,}: first character to lower case</li>
+<li>${PARAMETER,,}: all characters to lower cases</li>
+<li>${PARAMETER~}: first character to reverse case</li>
+<li>${PARAMETER~~}: all characters to reverse cases.</li>
+</ul>
+</li>
+<li>Substring removal: useful for filename manipulation
+
+<ul>
+<li>${PARAMETER#PATTERN}: shortest text matching the pattern. E.g.: <code>${MYSTRING#* }</code></li>
+<li>${PARAMETER##PATTERN}: longest text matching the pattern. E.g.: <code>${MYSTRING##* }</code></li>
+<li>${PARAMETER%PATTERN}: shortest text fron the end</li>
+<li>${PARAMETER%%PATTERN}: longest text from the end</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Examples of substring removal:</p>
+
+<ul>
+<li>Get name without extension: <code>${FILENAME%.*}</code> where FILENAME=bash_hackers.txt</li>
+<li>Get extension: <code>${FILENAME##*.}</code></li>
+<li>Get directory name: <code>${PATHNAME%/*}</code> where PATHNAME=/home/bash/bash_hackers.txt</li>
+<li>Get filename in path: <code>${PATHNAME##*/}</code></li>
+</ul>
+
+
+<p>Reference:</p>
+
+<ul>
+<li><a href="https://unix.stackexchange.com/questions/122845/using-a-b-for-variable-assignment-in-scripts/122878">Stack overflow</a></li>
+<li><a href="http://wiki.bash-hackers.org/syntax/pe">Parameter expansion</a></li>
+</ul>
 
 ]]></content>
   </entry>
