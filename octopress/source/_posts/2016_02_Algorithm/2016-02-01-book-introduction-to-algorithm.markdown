@@ -7,13 +7,14 @@ categories:
 - Algorithm
 ---
 
-Summary of CRLS, a classic. This book is more like a reference book than a textbok.
+Summary of CLRS, a classic. This book is more like a reference book than a textbok.
 
 <!--more-->
 
 Download:
 
 * [PDF](https://github.com/haseebr/competitive-programming/tree/master/Materials)
+* [Solutions](http://sites.math.rutgers.edu/~ajl213/CLRS/CLRS.html)
 
 ### Order of Learning
 
