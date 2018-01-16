@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-01-10T17:00:49-08:00</updated>
+  <updated>2018-01-16T00:38:37-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Book: Introduction to Algorithm]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/02/01/book-introduction-to-algorithm/"/>
+    <updated>2018-02-01T18:52:05-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/02/01/book-introduction-to-algorithm</id>
+    <content type="html"><![CDATA[<p>Summary of CLRS, a classic. This book is more like a reference book than a textbok.</p>
+
+<!--more-->
+
+
+<p>Download:</p>
+
+<ul>
+<li><a href="https://github.com/haseebr/competitive-programming/tree/master/Materials">PDF</a></li>
+<li><a href="http://sites.math.rutgers.edu/~ajl213/CLRS/CLRS.html">Solutions</a></li>
+</ul>
+
+
+<h3>Order of Learning</h3>
+
+<ul>
+<li>Part 1: Foundations
+
+<ul>
+<li>Appendices A - C</li>
+<li>Chapter 1: Algorithm Role</li>
+<li>Chapter 2: Runtime notation</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Appendix A</h3>
+
+<p>Appendix A.1.</p>
+
+<ul>
+<li>Arithmetic series. Formulas for k = 1-3.</li>
+<li>Geometric series. Formula for k = infi.</li>
+<li>Harmonic series. Bound.</li>
+<li>Example of Integrating and Differentiation.</li>
+<li>Telescoping series. Formula.</li>
+</ul>
+
+
+<p>Appendix A.2: Different techniques for bounding summations.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Bash Cookbook]]></title>
@@ -2710,76 +2759,10 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/02/tutorial-bit-manipulation/"/>
-    <updated>2016-02-02T00:23:25-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/02/tutorial-bit-manipulation</id>
-    <content type="html"><![CDATA[<h3>Questions</h3>
-
-<ol>
-<li>Addition using only bit manipulation.</li>
-<li>Subtraction using only bit manipulation.</li>
-<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
-<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
-</ol>
-
-
-<!--more-->
-
-
-<h3>Answers</h3>
-
-<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
-In code, it is implemented as follows:</p>
-
-<figure class='code'><figcaption><span>Addition</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">add</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
-In code, it is implemented as follows:</p>
-
-<figure class='code'><figcaption><span>Subtraction</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">subtract</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">subtract</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(~</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(3) Find odd one.</p>
-
-<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
-
-<p>(4) Quickly determine if a number is a power of 2.</p>
-
-<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Glassdoor: Algorithm Question Bank]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/01/question-bank/"/>
-    <updated>2016-02-01T22:31:29-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/01/question-bank</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/29/question-bank/"/>
+    <updated>2016-02-29T22:31:29-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/29/question-bank</id>
     <content type="html"><![CDATA[<p>These questions are gathered from Glassdoor.</p>
 
 <!--more-->
@@ -2999,35 +2982,68 @@ b) If the array is not sorted, create a hash table with keys as (k-a[i]). Then l
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[On-site Interview]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/03/on-site-interview/"/>
-    <updated>2016-01-03T22:19:56-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/03/on-site-interview</id>
-    <content type="html"><![CDATA[<p>Some experience and lessons for your on-site interviews.</p>
+    <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/28/tutorial-bit-manipulation/"/>
+    <updated>2016-02-28T00:23:25-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/28/tutorial-bit-manipulation</id>
+    <content type="html"><![CDATA[<h3>Questions</h3>
+
+<ol>
+<li>Addition using only bit manipulation.</li>
+<li>Subtraction using only bit manipulation.</li>
+<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
+<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
+</ol>
+
 
 <!--more-->
 
 
-<h3>Walk through the problem</h3>
+<h3>Answers</h3>
 
-<p>If you know to solve the problem, talk to the interviewers to explain how you get to the solution.
-If you don&rsquo;t know, it is NEVER a good idea to just stare at the problem before you can get it and start working on it.
-Use the <a href="http://tdongsi.github.io/SqlTests/download/cracking_the_coding_skills_v6.pdf">this flowchart</a> to verbalize your thought process when you are stuck.</p>
+<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
+In code, it is implemented as follows:</p>
 
-<p>The flowchart&rsquo;s primary purpose is not to help you solve the problem faster.
-Instead, it gives you something to talk about with your interviewer and maybe start the discussion.
-At least, it gives your interviewer some positive data points, instead of binary data (problem solved or not) in the case of silent staring.</p>
+<figure class='code'><figcaption><span>Addition</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">add</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Talking while thinking about a problem is never easy or practical, especially for hard problems.
-You can ask for a brief moment of silence (&ldquo;hey can I have a minute just to think about this, then I&rsquo;ll start talking about how I&rsquo;m gonna approach this?&rdquo;).
-However, there is no practical solution to this scenario (or technical interview in general) except for practices.</p>
 
-<p>Reference:</p>
+<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
+In code, it is implemented as follows:</p>
 
-<ul>
-<li><a href="https://www.reddit.com/r/cscareerquestions/comments/7159wu/how_important_is_it_to_actually_follow_the_ctci/">Reddit discussion</a></li>
-</ul>
+<figure class='code'><figcaption><span>Subtraction</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">int</span> <span class="nf">subtract</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">subtract</span><span class="o">(</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="o">,</span> <span class="o">(~</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
+
+<p>(3) Find odd one.</p>
+
+<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
+
+<p>(4) Quickly determine if a number is a power of 2.</p>
+
+<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
 ]]></content>
   </entry>
   
