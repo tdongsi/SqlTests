@@ -16,6 +16,8 @@ categories:
 1. Subtraction using only bit manipulation.
 1. Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.
 1. Quickly determine if a number is a power of 2 (i.e., n = 2^x).
+1. What is big-endian? What is little-endian?
+1. How would you determine if the system is big-endian or little-endian.
 
 <!--more-->
 
@@ -52,3 +54,23 @@ XOR all the values of the array together. `a XOR a = 0`.
 (4) Quickly determine if a number is a power of 2.
 
 If x == 0, return False. Then, check `x & (x-1) == 0`.
+
+(5) Big-endian stores the most significant byte first, while little-endian stores the least significant byte first.
+Fields in the protocols of the Internet protocol suite, such as IPv4, IPv6, TCP, and UDP, are transmitted in big-endian order. 
+For this reason, big-endian byte order is also referred to as network byte order.
+
+(6) Use union type in C. Then check it based on definition.
+
+``` c Check endianess
+union Data
+{
+int i;
+char str[2];
+} data;
+
+data.i = 0x00ff;
+printf( "data.str[0]: %d\n", data.str[0]);
+```
+
+Or use [`htonl`](https://linux.die.net/man/3/htonl) function (Host TO Network Long) in Linux.
+If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.
