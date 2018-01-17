@@ -95,6 +95,8 @@ Odd Man Out: Given an unsorted array of integers where every &hellip;">
 <li>Subtraction using only bit manipulation.</li>
 <li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
 <li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
+<li>What is big-endian? What is little-endian?</li>
+<li>How would you determine if the system is big-endian or little-endian.</li>
 </ol>
 
 
@@ -146,6 +148,34 @@ In code, it is implemented as follows:</p>
 <p>(4) Quickly determine if a number is a power of 2.</p>
 
 <p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
+
+<p>(5) Big-endian stores the most significant byte first, while little-endian stores the least significant byte first.
+Fields in the protocols of the Internet protocol suite, such as IPv4, IPv6, TCP, and UDP, are transmitted in big-endian order.
+For this reason, big-endian byte order is also referred to as network byte order.</p>
+
+<p>(6) Use union type in C. Then check it based on definition.</p>
+
+<figure class='code'><figcaption><span>Check endianess</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">union</span> <span class="n">Data</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'><span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span> <span class="n">data</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">data</span><span class="p">.</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0x00ff</span><span class="p">;</span>
+</span><span class='line'><span class="n">printf</span><span class="p">(</span> <span class="s">&quot;data.str[0]: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">.</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Or use <a href="https://linux.die.net/man/3/htonl"><code>htonl</code></a> function (Host TO Network Long) in Linux.
+If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.</p>
 </div>
 
 
@@ -211,6 +241,10 @@ In code, it is implemented as follows:</p>
       </li>
     
       <li class="post">
+        <a href="/SqlTests/blog/2018/01/16/practice-for-interview/">Practice for Interview</a>
+      </li>
+    
+      <li class="post">
         <a href="/SqlTests/blog/2016/12/03/bash-cookbook/">Bash Cookbook</a>
       </li>
     
@@ -240,10 +274,6 @@ In code, it is implemented as follows:</p>
     
       <li class="post">
         <a href="/SqlTests/blog/2016/09/01/network-question-bank/">Network Question Bank</a>
-      </li>
-    
-      <li class="post">
-        <a href="/SqlTests/blog/2016/08/06/vertica-sql-splitting-string/">Vertica SQL: Splitting String</a>
       </li>
     
   </ul>
