@@ -24,17 +24,19 @@ December is reserved to random topics, for posts that have been removed from the
 ### Topics
 
 1. Coding: Java, Python, JavaScript, SQL.
+    1. Code basics: see list of basic operations below.
+    3. [Overall testing](/blog/2016/01/01/tutorial-test-driven-development/)
     1. OOP
-    2. Functional Prog
-    3. Unit testing and [Overall testing](/blog/2016/09/02/tutorial-test-driven-development/)
+    2. Functional Programming
     4. Logging
     4. Package management
-    5. Language-specific
+    5. Language-specific: see below.
 2. Algorithms
     1. Sorting
         1. Quick sort, Merge sort, Heap sort, Insertion sort, Radix sort
         6. Runtime
-    2. Binary search
+    2. Binary search:
+        1. See [here](https://web.archive.org/web/20170308042038/https://googleyasheck.com/binary-search/)
     3. Tree
         1. Construction
         2. Traversal: In-Order, Pre-order, Post-order, Level-order (breadth-first) (stack, recursion).
@@ -68,7 +70,9 @@ December is reserved to random topics, for posts that have been removed from the
 6. [Operating Systems](/blog/2016/09/07/questions-operating-system-drills/)
     1. [Dinasaur book](/blog/2016/09/06/tutorial-process-synchronization/)
 7. [System Design](/blog/2016/09/14/system-design-questions/)
-    1. Distributed System.
+    1. Distributed System. Inspiration: Kubernetes.
+    1. Log management: log forwarding. Inspiration: Fluentd.
+    1. Service mesh: service-service communication. Inspiration: Linkerd.
 8. Database
     1. [Normalization, normal forms](/blog/2016/09/12/database-question-bank/).
     2. [Data Warehouse, dimensional modeling](/blog/2016/09/15/tutorial-dimensional-modelling/).
@@ -84,6 +88,28 @@ December is reserved to random topics, for posts that have been removed from the
 12. Bash: Cookbooks for various bash commands
 12. Random hidden notes: going in year 2015
     1. Sql Test Runner: test automation approaches for SQL-based ETL processes. Category:SqlRunner.
+
+#### Language-specific
+
+When picking a language, make sure you have at least the following operations down pat:
+
+* Initializing and using hash-backed maps (dictionaries) and sets
+* Performing queue and stack operations (whether using an array, like with Ruby’s pop/shift, or an explicit standard library implementation like Java’s Stack and Linked List-backed Queue classes)
+* Defining classes with constructors and attributes, static and instance methods, and defining a subclass and interface
+* Throwing exceptions for (1) invalid input and (2) custom messages
+* Iterating through arrays and dictionaries (both key and values)—including iterating while maintaining an index (Ruby’s eachwithindex, Python’s enumerate)
+* Casting between strings and integers
+* Strings: get character at index, get range, concatenate
+* Initializing 2d arrays
+* Arithmetic: modulus (remainder), division (if the first operand is an integer, will it round the result to an integer?), rounding (ceiling and floor)
+* (Bonus) Switch statements
+* (Bonus) Built-in language sorting. Quickly defining a comparator to sort an array.
+* (More advanced candidates) The 5 standard bit manipulation operations (L/R shifts, not, or, and, xor)
+
+Have some opinions about it
+* What do you like about language X?
+* What don’t you like about it?
+* How does it compare to (another language you profess to know)? Similarities/differences?
 
 #### More on Technical Preparation
 
