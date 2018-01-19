@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Book: Introduction to Algorithm"
-date: 2018-02-01 18:52:05 -0800
+date: 2012-02-01 18:52:05 -0800
 comments: true
 categories: 
 - Algorithm

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Glassdoor: Algorithm Question bank"
-date: 2016-02-29 23:31:29 -0700
+date: 2012-02-29 23:31:29 -0700
 comments: true
 categories: 
 - Questions

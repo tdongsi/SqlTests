@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Practice for interview"
-date: 2016-01-04 22:46:44 -0800
+date: 2011-01-04 22:46:44 -0800
 comments: true
 categories: 
 ---
