@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Vertica installation: Troubleshooting tips"
-date: 2015-12-03 00:43:30 -0700
+date: 2005-12-03 00:43:30 -0700
 comments: true
 categories: 
 - Vertica

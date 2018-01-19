@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AWS: Amazon DynamoDB"
-date: 2015-12-05 00:58:19 -0700
+date: 2005-12-05 00:58:19 -0700
 comments: true
 categories: 
 - AWS

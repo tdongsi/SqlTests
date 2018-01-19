@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Set up three-node Vertica VM sandbox"
-date: 2015-12-03 00:41:22 -0700
+date: 2005-12-03 00:41:22 -0700
 comments: true
 categories: 
 - Vertica

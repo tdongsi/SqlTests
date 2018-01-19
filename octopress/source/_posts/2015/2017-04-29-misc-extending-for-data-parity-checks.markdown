@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "(Pt. 7) Extending for data parity checks"
-date: 2015-12-02 23:48:01 -0700
+date: 2005-12-02 23:48:01 -0700
 comments: true
 categories: 
 - Testing
