@@ -11,11 +11,20 @@ categories:
 
 Overview of most common languages.
 
-<!--more-->
-
 ### [Java](https://tdongsi.github.io/java/)
 
 #### Pure Java
+
+Questions:
+
+1. What is OOP? What is polymorphism? etc.
+2. Some standard design patterns in Java: Singleton (enum and two locks), Builder, Decorator, Factory.
+3. Examples of design patterns in Java.
+4. Relations between `hashCode()` and `equals()`.
+5. Implements a simple algorithm for `hashCode()`.
+6. When to use `finalize()` and when not to use `finalize()`. See "Effective Java".
+7. Java concurrency: what is `volatile`? when to use it? `synchronized`?
+8. Some legacy items: Diff between StringBuilder vs StringBuffer. 
 
 #### Groovy
 
@@ -29,3 +38,11 @@ Overview of most common languages.
 
 * Golang
 * Ruby
+
+<!--more-->
+
+### Java Answers
+
+1. Know your audience. 
+   A new grad will mention something about abstraction, encapsulation, inheritance, polymorphism, and pass. 
+   Alan Kay (father of OOP) will say something about message passing and late binding and might fail. 
