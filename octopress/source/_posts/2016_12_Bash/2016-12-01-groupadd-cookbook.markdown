@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "User group and related commands"
-date: 2016-12-01 19:21:32 -0700
+date: 2022-12-01 19:21:32 -0700
 comments: true
 categories: 
 - Bash

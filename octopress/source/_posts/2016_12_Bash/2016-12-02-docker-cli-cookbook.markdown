@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Docker CLI cookbook"
-date: 2016-12-02 10:20:53 -0700
+date: 2022-12-02 10:20:53 -0700
 comments: true
 categories: 
 - Bash

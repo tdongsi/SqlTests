@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Reserved IP addresses"
-date: 2016-09-02 19:22:02 -0800
+date: 2019-09-02 19:22:02 -0800
 comments: true
 categories: 
 - Network

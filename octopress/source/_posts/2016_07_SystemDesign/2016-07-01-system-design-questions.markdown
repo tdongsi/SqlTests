@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "System Design questions"
-date: 2016-07-01 02:13:01 -0700
+date: 2017-07-01 02:13:01 -0700
 comments: true
 categories: 
 - Tutorial

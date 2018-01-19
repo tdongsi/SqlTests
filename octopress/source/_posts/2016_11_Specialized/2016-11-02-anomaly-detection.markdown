@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Anomaly Detection"
-date: 2016-11-02 22:42:54 -0700
+date: 2021-11-02 22:42:54 -0700
 comments: true
 categories: 
 - Math

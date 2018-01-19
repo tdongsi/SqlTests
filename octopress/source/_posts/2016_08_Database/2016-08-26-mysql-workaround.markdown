@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tutorial: MySQL workarounds"
-date: 2016-08-01 01:42:23 -0700
+date: 2018-08-01 01:42:23 -0700
 comments: true
 categories: 
 - MySQL

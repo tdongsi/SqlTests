@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Bash cookbook"
-date: 2016-12-03 00:31:51 -0800
+date: 2022-12-03 00:31:51 -0800
 comments: true
 categories: 
 - Bash

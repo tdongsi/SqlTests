@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Vertica SQL: Splitting string"
-date: 2016-08-06 11:27:12 -0800
+date: 2018-08-06 11:27:12 -0800
 comments: true
 categories: 
 - SQL

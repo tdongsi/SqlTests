@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tutorial: Estimation theory"
-date: 2016-11-01 23:40:12 -0700
+date: 2021-11-01 23:40:12 -0700
 comments: true
 categories: 
 - Tutorial

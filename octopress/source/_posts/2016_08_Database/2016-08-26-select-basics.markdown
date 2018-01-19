@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Questions: SQL basics"
-date: 2016-08-02 01:39:37 -0700
+date: 2018-08-02 01:39:37 -0700
 comments: true
 categories: 
 - Facebook
