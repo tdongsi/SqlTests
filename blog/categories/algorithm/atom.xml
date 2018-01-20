@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-01-16T22:53:16-08:00</updated>
+  <updated>2018-01-19T18:52:26-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -14,59 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Book: Introduction to Algorithm]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2018/02/01/book-introduction-to-algorithm/"/>
-    <updated>2018-02-01T18:52:05-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2018/02/01/book-introduction-to-algorithm</id>
-    <content type="html"><![CDATA[<p>Summary of CLRS, a classic. This book is more like a reference book than a textbok.</p>
-
-<!--more-->
-
-
-<p>Download:</p>
-
-<ul>
-<li><a href="https://github.com/haseebr/competitive-programming/tree/master/Materials">PDF</a></li>
-<li><a href="http://sites.math.rutgers.edu/~ajl213/CLRS/CLRS.html">Solutions</a></li>
-</ul>
-
-
-<h3>Order of Learning</h3>
-
-<ul>
-<li>Part 1: Foundations
-
-<ul>
-<li>Appendices A - C</li>
-<li>Chapter 1: Algorithm Role</li>
-<li>Chapter 2: Runtime notation</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>Appendix A</h3>
-
-<p>Appendix A.1.</p>
-
-<ul>
-<li>Arithmetic series. Formulas for k = 1-3.</li>
-<li>Geometric series. Formula for k = infi.</li>
-<li>Harmonic series. Bound.</li>
-<li>Example of Integrating and Differentiation.</li>
-<li>Telescoping series. Formula.</li>
-</ul>
-
-
-<p>Appendix A.2: Different techniques for bounding summations.</p>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Glassdoor: Algorithm Question Bank]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/29/question-bank/"/>
-    <updated>2016-02-29T22:31:29-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/29/question-bank</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/29/question-bank/"/>
+    <updated>2012-02-29T22:31:29-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/29/question-bank</id>
     <content type="html"><![CDATA[<p>These questions are gathered from Glassdoor.</p>
 
 <!--more-->
@@ -287,9 +238,9 @@ b) If the array is not sorted, create a hash table with keys as (k-a[i]). Then l
   
   <entry>
     <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/28/tutorial-bit-manipulation/"/>
-    <updated>2016-02-28T00:23:25-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/28/tutorial-bit-manipulation</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/28/tutorial-bit-manipulation/"/>
+    <updated>2012-02-28T00:23:25-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/28/tutorial-bit-manipulation</id>
     <content type="html"><![CDATA[<h3>Questions</h3>
 
 <ol>
@@ -355,6 +306,55 @@ printf( "data.str[0]: %d\n", data.str[0]);
 
 <p>Or use <a href="https://linux.die.net/man/3/htonl"><code>htonl</code></a> function (Host TO Network Long) in Linux.
 If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Book: Introduction to Algorithm]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/01/book-introduction-to-algorithm/"/>
+    <updated>2012-02-01T18:52:05-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/01/book-introduction-to-algorithm</id>
+    <content type="html"><![CDATA[<p>Summary of CLRS, a classic. This book is more like a reference book than a textbok.</p>
+
+<!--more-->
+
+
+<p>Download:</p>
+
+<ul>
+<li><a href="https://github.com/haseebr/competitive-programming/tree/master/Materials">PDF</a></li>
+<li><a href="http://sites.math.rutgers.edu/~ajl213/CLRS/CLRS.html">Solutions</a></li>
+</ul>
+
+
+<h3>Order of Learning</h3>
+
+<ul>
+<li>Part 1: Foundations
+
+<ul>
+<li>Appendices A - C</li>
+<li>Chapter 1: Algorithm Role</li>
+<li>Chapter 2: Runtime notation</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Appendix A</h3>
+
+<p>Appendix A.1.</p>
+
+<ul>
+<li>Arithmetic series. Formulas for k = 1-3.</li>
+<li>Geometric series. Formula for k = infi.</li>
+<li>Harmonic series. Bound.</li>
+<li>Example of Integrating and Differentiation.</li>
+<li>Telescoping series. Formula.</li>
+</ul>
+
+
+<p>Appendix A.2: Different techniques for bounding summations.</p>
 ]]></content>
   </entry>
   

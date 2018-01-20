@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Systemdesign | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/systemdesign/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2018-01-20T01:32:13-08:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[System Design Questions]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions/"/>
+    <updated>2017-07-01T02:13:01-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions</id>
+    <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
+
+<!--more-->
+
+
+<h3>Readings</h3>
+
+<p>For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize scalability problems that AWS services trying to address and replace, for example, &ldquo;AWS Load Balancer&rdquo; with generic load balancer.</p>
+
+<p>Read these to know the broad topics that are expected.</p>
+
+<ol>
+<li><a href="https://www.quora.com/What-system-design-distributed-systems-+-scalability-topics-should-I-study-in-order-to-adequately-prepared-for-a-Google-Software-Engineer-interview">Quora question</a></li>
+<li><a href="https://www.linkedin.com/pulse/technical-design-interview-guide-success-joey-addona">The Technical Design Interview - A Guide to Success</a></li>
+<li><a href="https://www.linkedin.com/pulse/test-design-architecture-interview-tips-success-kane-ho">Test Design &amp; Architecture Interview - Tips to success</a></li>
+</ol>
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>Design a simple file system using OO programming. Just folder and files.</li>
+<li>How to design a load balancer?</li>
+<li>How to design Facebook News Feed?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<p>(1) Design a simple file system using OO programming. Just folder and files.</p>
+
+<p>Use Composite pattern.</p>
+
+<pre><code class="java">class FileNode {
+  String name;
+}
+
+class File extends FileNode {
+  long size;
+}
+
+class Folder extends FileNode {
+  Collection&lt;FileNode&gt; children;
+}
+</code></pre>
+
+<p>(2) How to design a load balancer?</p>
+
+<p>Simple: hash and assign random. What are pros and cons?</p>
+
+<p>(3) Design Facebook News Feed.
+From <a href="https://www.reddit.com/r/cscareerquestions/comments/4ytbz3/design_facebook_news_feed_my_solution_to_the/">here</a>:</p>
+
+<p>First some numbers to get the scale of the problem:</p>
+
+<ul>
+<li>number of users: 10<sup>9</sup></li>
+<li>number of users during a peak hour (upper bound): 10<sup>8</sup></li>
+<li>number of posts during a peak hour: 10<sup>6</sup></li>
+<li>number of other activities during a peak hour (likes, comments, saves): 10<sup>10</sup></li>
+<li>almost all users have less than 10<sup>3</sup> friends</li>
+</ul>
+
+
+<p>The News Feed is constructed mainly based on the activity of user&rsquo;s important Facebook friends.
+An important friend is a user who is my friend and I have interacted with him/her at least somewhat during recent months.
+Interaction might include liking his/her comment, commenting on their post, chatting together, being marked on the same photo, etc.
+We assume the backend maintains the list of important friends.
+It might be updated perhaps every 60 minutes.
+This ordering might be quite fuzzy.
+Random perturbations of this ordering might lead to users being able to rediscover friends who they have mostly stopped interacting with.
+The primary purpose of distinguishing important friends is to make the feed more interesting.
+Another advantage is reduction of hotspots: there might be people with >10<sup>4</sup> friends, but we assume that every Facebook user has at most 10<sup>2</sup> important friends.</p>
+
+<p><strong>Minimum Viable Product</strong>: The Facebook News Feed of each user is a merge of the recent posts made by all his/her important friends sorted by the score of the post.
+The score of the post is ideally proportional to how interesting the post is to our user.
+The score depends on: how old the post is (older posts are less interesting), how many likes the post received, how many likes the post received from user&rsquo;s important friends or friends, &hellip;</p>
+
+<p>We primarily care about delivering an interesting News Feed. On the other hand, we don&rsquo;t really care about being able to produce an infinitely long News Feed. If our infrastructure implies that the feed is limited to 10<sup>00</sup> items and the user cannot scroll further. There are very few legitimate uses for having infinitely scrollable feed.</p>
+
+<p>Overview of the infrastructure:</p>
+
+<ul>
+<li>Firewall</li>
+<li>Load balancer</li>
+<li>Front-end web servers</li>
+<li>Memcache servers or Redis servers or something similar</li>
+<li>Distributed database servers</li>
+</ul>
+
+
+<p>Let&rsquo;s see what happens when the user requests his News Feed:</p>
+
+<ul>
+<li>The request is specified by: the id of user whose feed we&rsquo;re displaying and the number N of requested posts.</li>
+<li>The load balancer redirects the request to one of the web servers. It also decrypts the request. Within the datacenter, we only use unencrypted connections. To do the above, the load balancer keeps statistics of the numbers of requests each server is handling. Possibly, the load balancer might decide to start up a new server or schedule a shutdown of a server to save power. The web server checks if the user is authenticated. This is done by retrieving user&rsquo;s session data from a Google BigTable. If not logged in, s/he is redirected to the login page. If N is too large and not coming from a verified computer (like Facebook&rsquo;s API server), we reject the request and log information about a suspicious request.</li>
+<li>The web server queries memcache for the list of important friends of the user in question.</li>
+<li>Almost always, memcache will have this list ready in memory for all users who are currently logged in (after login, we immediately prefetch this data into memcache). The peak number of users is 10<sup>8</sup>, the number of important users at most 10<sup>2</sup>, each user is represented by an 8 byte identifier. This is an upper bound of 10<sup>11</sup> bytes, which is 100 GB of memory. Even with significant overhead, room for growth and a safety factor for situations when an unexpectedly large number of users logs in at the same time (e.g., when presidential election results are announced), this can still be stored in operating memory of a single server. A distributed memcache implementation is not going to have a problem here. For each important friend, the web server sends a request for this friend&rsquo;s Activity List. Activity List is a list of his posts, likes, comments, uploaded photos, instances of being marked on a photo, etc. Each item contains a timestamp (32 bits), item type (post, comment, share, &hellip;), id of the item (e.g., the id of the post or comment), the destination id (for example, the id of the post on which the comment was made) and privacy setting (1 byte). This is 22 bytes in total. Only identifiers are stored. The data are populated at the end of the computation.</li>
+<li>These lists are stored in a distributed database hidden behind caching servers. There is 10<sup>9</sup> users, each has at most 10<sup>3</sup> items in their Activity List. This is 22 * 10<sup>12</sup> = 22 TB of memory. <strong> It is certainly possible to store this in a distributed file system. </strong>A distributed memcache on 128 servers each with 250 GB RAM would also handle this. Therefore, we can assume all these lists are almost always in memory.</li>
+<li>Each item in each of these lists is assigned Relevancy Value. This depends on: The importance of the friend from whose Activity List the item is. How recent the item is. The number of likes and shares the item has (this only makes sense in the case of posts or photos). The number of likes from the user&rsquo;s other important friends. Surely, a like from 3 of my friends is more important than 10 likes from random strangers. We can access this information since we have retrieved the Activity Lists of every single important friend of the user. Since these lists include their likes and the ids of liked posts, we can specifically compute the numbers from the retrieved data. The user&rsquo;s prefered content type. Some users might like photos more than text. We remember this for each user and adjust the weight accordingly. Private posts that should not be visible to the user are removed at this point.</li>
+<li>We sort each of these lists using the Relevancy Value and merge them.</li>
+<li>We send this list to a content service. This service replaces all identifiers with the corresponding content (text, image links, names of users instead of user ids, &hellip;)</li>
+<li>The web server uses a template to convert this into HTML.</li>
+</ul>
+
+
+<p>There are two questions to ponder:</p>
+
+<ul>
+<li>When the News Feed is requested again in the future, do we recalculate it from scratch? We could store the sequence calculated in one of the last steps in cache and only compute the beginning of the feed (that is: we would only compute what is new). This might make almost-infinite scrolling possible in certain cases. However, we would need to handle some corner cases. For example, the list is only approximately ordered according to the timestamp.</li>
+<li>The above described the read path. It remains to analyze the write path: what happens when a user submits a content, likes something, etc. Well, we simply add this to his Activity List. In the case of posts, images, &hellip; we also store it on a content service server.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

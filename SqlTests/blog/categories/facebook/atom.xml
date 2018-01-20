@@ -1,0 +1,1013 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Facebook | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/facebook/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2018-01-20T01:32:13-08:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/"/>
+    <updated>2018-08-05T15:40:35-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics</id>
+    <content type="html"><![CDATA[<p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
+
+<!--more-->
+
+
+<h3>General guidelines for dashboard</h3>
+
+<p>Ppl looks for different things in data. You have to find out what answers users look for in dashboard.</p>
+
+<ul>
+<li>Trend: bar, graph</li>
+<li>Aggregation: Average, Sum, Max, Min.</li>
+</ul>
+
+
+<p>Above all else, show data.
+Trying to improve data-pixel ratio: data pixels/non-data pixels.
+How to enhance data-pixel ratio:</p>
+
+<ul>
+<li>Granularity: depends on the question you want to answer
+
+<ul>
+<li>monthly if you want to know monthly sales, daily if you want to know what happens last Tuesday.</li>
+<li>category or sub-category: you can have category with drill down function.</li>
+</ul>
+</li>
+<li>Annotation: similar to Granularity. Minimize it to enough to answer the question.</li>
+</ul>
+
+
+<p>Tricks &amp; Tips:</p>
+
+<ul>
+<li>Plots (over Bars): plot show the trends for different components over time.</li>
+<li>Sizing Bars: Preserve True Portions: starting Y from 0.
+
+<ul>
+<li>Sizing Bars: shows proportions, relative progression.</li>
+</ul>
+</li>
+<li>Scatter Plots: show clusters, outliers.</li>
+<li>Radio displays: usually a bad idea. Waste of space, hard to discern between slices.</li>
+</ul>
+
+
+<h3>Module 2: Common Charts</h3>
+
+<p>Basic data Presentation Methods - Chart Types</p>
+
+<ul>
+<li>Geo-Spatial - Maps: anything related to geographic distribution, i.e., when geography matters. e.g. real estates, oil industry.</li>
+<li>Correlation - Scatter Plots: two measurements (e.g., sales to profit).</li>
+<li>Hierarchical - Drill down Tree: data is hierarchical: Category -> Subcateogries.</li>
+<li>Categorical - Bar Charts: comparing categories (sales by region)</li>
+<li>Time Series - Line Charts: progression over time. (sales by month)
+
+<ul>
+<li>Avoid: Stacked Area Charts. If you have more than two lines, Area Charts do not give any information except for the bottom and the total.</li>
+</ul>
+</li>
+<li>Distribution - Histograms: Trying to answer what is “normal”. e.g., home prices, salaries.</li>
+</ul>
+
+
+<p>Others</p>
+
+<ul>
+<li>Box plot: distribution, percentiles, median in 1 chart.</li>
+<li>Bullet graph: actuals to target. Invented by Stephen Few.
+
+<ul>
+<li>Dark bar is actual, reference line is target. Color code bands are average, good, bad target range.</li>
+<li><a href="https://en.wikipedia.org/wiki/Bullet_graph">https://en.wikipedia.org/wiki/Bullet_graph</a></li>
+</ul>
+</li>
+<li>Sparkline: Multiple line charts. Best used for monitoring dashboard.</li>
+<li>Heat map: Large combinations of dimensions. Color is everything here.</li>
+</ul>
+
+
+<p>Charts to avoid</p>
+
+<ul>
+<li>Pie charts: angles make it hard to compare. Usually decorative, not informative. Space is wasted.</li>
+<li>Polar charts</li>
+<li>Stacked area charts:
+
+<ul>
+<li>Only tell the story of the bottom line and the total. Anything in between, you can’t really tell if they are growing or not.</li>
+<li>Misleading/Confusing: is the top the total or another category?</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Module 3: Dashboard planning</h3>
+
+<p>Steps:</p>
+
+<ul>
+<li>User Request</li>
+<li>Prioritization</li>
+<li>Planning</li>
+<li>Design</li>
+<li>Development</li>
+<li>Delivery to User</li>
+</ul>
+
+
+<h3>Module 4: Dashboard design</h3>
+
+<p>Audience is King. Know your audience.</p>
+
+<ul>
+<li>Who is using it?</li>
+<li>Are they technical or prefer dumbed down answers? Are they intimate with data?</li>
+<li>What is primary objective? What questions that they try to answer? What questions this dashboard MUST answer?</li>
+<li>What impact of the answer? How will they use metrics? (Role, what decisions they make)</li>
+<li>When will the dashboard is used? (Weekly? Daily?) Dashboard is exploratory or explanatory?</li>
+<li>What level of confidence in data sources?</li>
+</ul>
+
+
+<p>Dashboard layout: F layout is the most natural for web/desktop viewing.</p>
+
+<h3>Module 5 &amp; 6: Tableau</h3>
+
+<p>Connecting to Data:
+You can connect to Excel, text file (csv or tab), or HP Vertica.
+You can specify data import like Excel or using Custom SQL.
+After importing, Tableau may import all data into its own internal data engine (with compression, data reorganization easier for analytics).
+It also divides data into dimensions and measures.
+Dimensions are further categorized into: geographic (e.g., region, postal code), number, text, date (e.g., calendar, order_date).
+Facts are usually numbers but it can be other categories: e.g., geographic for latitude/longitude measures.</p>
+
+<p>Visualizing data:
+Tableau has “Show Me” button that gives suggestions for different combinations of dimensions and fact data.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling/"/>
+    <updated>2018-08-04T15:38:20-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling</id>
+    <content type="html"><![CDATA[<p>From Kimball group reader.</p>
+
+<!--more-->
+
+
+<h3>Dimensional Modeling for Data Warehouse</h3>
+
+<h4>Item 1.5: Design</h4>
+
+<p>Design items:
+You need to do data profiling to keep data processed to min. One way to profile data changes is to use CDC column.
+Check CDC columns: e.g. <code>last_update_ts</code>. If CDC columns are not available, work with production system DBA to add one.
+Otherwise, check application log file/Message traffic.</p>
+
+<p>Divide data into dimension and fact tables: 90% of the time the division is obvious.</p>
+
+<ul>
+<li>Dimensions: static entities in the environment
+
+<ul>
+<li>Text descriptions are obvious data going into dimension</li>
+</ul>
+</li>
+<li>Facts: numeric observations/measurements.
+
+<ul>
+<li>Unpredictable, numeric numbers are the usual suspects.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Grain of fact table = a measurement in physical, real-world.</p>
+
+<p>Design steps:</p>
+
+<ul>
+<li>Determine the single physical event you want to record -> fact table. Other details will follow in dimension tables.
+
+<ul>
+<li>What event is a single row in fact table representing? E.g. for fact_sale_event, the grain is literally the beep of the scanner.</li>
+</ul>
+</li>
+<li>Strive to make facts additive.
+
+<ul>
+<li>E.g.: Sale event can go into fact table as (price, unit), but the information (sale amount, unit) contains the same information but better since sale amount (aka extended price) = price * unit.</li>
+</ul>
+</li>
+<li>Some data can be in both. The goal is ease of use, not methodology correctness.
+
+<ul>
+<li>E.g.: Coverage amount of insurance policies can be in both dim_coverage and fact_sale_event.</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Item 1.6</h4>
+
+<p>Bus matrix to communicate/manage dimension tables.</p>
+
+<p>TODO: Table of bus matrix</p>
+
+<h4>Item 1.8 Slow Changing Dimensions</h4>
+
+<ul>
+<li>Type 0: Constant. Ignore changes.</li>
+<li>Type 1: Simple overwrite (best used for error correction).</li>
+<li>Type 2: Create another row and save history.
+
+<ul>
+<li>The standard implementation is: surrogate key (PK), durable ID, … attributes …, effective_start_date, effective_end_date, change_reason, current_flag.</li>
+</ul>
+</li>
+<li>Type 3: Create another column for alternate info.</li>
+</ul>
+
+
+<h4>Item 1.10 Fact tables</h4>
+
+<p>Data warehouse is built on fact tables expressed at the lowest possible grain.
+Higher grain aggregated tables such as category sales by district.</p>
+
+<p>Three kinds of fact tables:</p>
+
+<ol>
+<li>Transaction Grain: corresponds to a measurement taken at a single instant.
+
+<ol>
+<li>Unpredictably sparse or dense.</li>
+<li>Can be enormous. Cannot guarantee all possible foreign keys represented.</li>
+<li>E.g.: fact_qbo_subscription_event</li>
+</ol>
+</li>
+<li>Periodic Snapshot Grain: corresponds to a predefined span of time.
+
+<ol>
+<li>Predictably dense.</li>
+<li>Can be large even there is no activity.</li>
+<li>E.g.: Account balance for an account at some time.</li>
+</ol>
+</li>
+<li>Accumulating Snapshot Grain.
+
+<ol>
+<li>Fact entries are overwritten and udpated.</li>
+<li>E.g.: Order processing</li>
+</ol>
+</li>
+</ol>
+
+
+<p>Surrogate Keys (integer key, assigned in sequence) are recommended for Fact tables.
+In Vertica, CREATE SEQUENCE.</p>
+
+<h4>Item 4.1: Interview for requirements</h4>
+
+<p>Too smart interviewers make it harder to extract requirements from business:</p>
+
+<ul>
+<li>Long-winded questions</li>
+<li>Even worse, some questions box the interviewee into a corner because of some bias. And the interviewees do not know how to get out.
+
+<ul>
+<li>Just ask and listen. Let them guide you step by step.</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Item 5.1-5.3: Compare normalized modeling (3NF) vs dimensional modeling (DM)</h4>
+
+<p>Why dimensional modeling over normalized modeling?</p>
+
+<ol>
+<li>Normalized modeling is intended for transactional databases, making update and delete efficient. It’s not needed in BI/DW.</li>
+<li>Normalized modeling for a complex business process will result in a very large ER diagram (similar to US cities-freeway maps). Business users cannot simply use that diagram to query what they need to know.
+
+<ol>
+<li>The result ER diagram is usually overwhelming and cannot be viewed in its entirety.</li>
+<li>E.g.: How to drive from SJ to NY? Maybe going to Sacramento through 580, then to Salt Lake City, and then what? Joining tables in 3NF modeling is similar: you need to know which 10+ intermediate tables to join.</li>
+<li>In the same analogy, it’s actually worse to join the tables since the tables are not static, they are moving cities.</li>
+</ol>
+</li>
+</ol>
+
+
+<p>Dimensional Modeling: top-down design process.</p>
+
+<ul>
+<li>Each fact table represents a business process.</li>
+<li>Support two operations: browse and multi-table joins.</li>
+<li>It is important to keep the dimension tables flat, without being normalized into snowflake structure.</li>
+</ul>
+
+
+<h3>Interview Questions</h3>
+
+<p><a href="http://learndatamodeling.com/blog/data-modeling-interview-questions/">http://learndatamodeling.com/blog/data-modeling-interview-questions/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: SQL Basics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/02/select-basics/"/>
+    <updated>2018-08-02T01:39:37-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/02/select-basics</id>
+    <content type="html"><![CDATA[<p>This post is about basic DDL, <code>SELECT</code> questions (phone-screen level).</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<pre><code class="plain Given Department schema for Questions 1-3">employees                             projects
++---------------+---------+           +---------------+---------+
+| id            | int     |&lt;----+  +-&gt;| id            | int     |
+| first_name    | varchar |     |  |  | title         | varchar |
+| last_name     | varchar |     |  |  | start_date    | date    |
+| salary        | int     |     |  |  | end_date      | date    |
+| department_id | int     |--+  |  |  | budget        | int     |
++---------------+---------+  |  |  |  +---------------+---------+
+                             |  |  |
+departments                  |  |  |  employees_projects
++---------------+---------+  |  |  |  +---------------+---------+
+| id            | int     |&lt;-+  |  +--| project_id    | int     |
+| name          | varchar |     +-----| employee_id   | int     |
++---------------+---------+           +---------------+---------+
+</code></pre>
+
+<h4>Question 1</h4>
+
+<pre><code class="plain Question 1">Write a query to list the departments that have a total combined salary greater than $40,000.
+
+Expected Output:
++-------------+----------------+
+| name        | combined_salary|
++-------------+----------------+
+| Engineering |        130000  |
+| Marketing   |         50000  |
++-------------+----------------+
+</code></pre>
+
+<h4>Question 2</h4>
+
+<pre><code class="plain Question 2">List the current projects and employees assigned to them.
+
+Output:
++------------+-----------+--------------------------+
+| first_name | last_name | title                    |
++------------+-----------+--------------------------+
+| John       | Smith     | Update TPS Reports       |
+| Ava        | Muffinson | Design 3 New Silly Walks |
+| Cailin     | Ninson    | Build a cool site        |
+| Mike       | Peterson  | Build a cool site        |
+| Ian        | Peterson  | Build a cool site        |
++------------+-----------+--------------------------+
+</code></pre>
+
+<h4>Question 3</h4>
+
+<pre><code class="plain Question 3">Who's the highest paid person per department?
+
+Output:
++------------+-----------+-------------+--------+
+| first_name | last_name | name        | salary |
++------------+-----------+-------------+--------+
+| John       | Smith     | Reporting   |  20000 |
+| Ian        | Peterson  | Engineering |  80000 |
+| John       | Mills     | Marketing   |  50000 |
+| Ava        | Muffinson | Silly Walks |  10000 |
++------------+-----------+-------------+--------+
+</code></pre>
+
+<h4>Question 4</h4>
+
+<pre><code class="plain Given fact_sales table">create table fact_sales (
+  dateid date not null,
+  fruit varchar(10),
+  sold int
+);
+
+insert into fact_sales
+values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Apple', 31); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Orange', 19); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Apple', 37); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Orange', 26); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Apple', 21); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Orange', 23); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Apple', 35); 
+insert into fact_sales
+values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Orange', 27);
+
+fact_sales
++------------+--------+------+
+| dateid     | fruit  | sold |
++------------+--------+------+
+| 2015-01-01 | Apple  |   31 |
+| 2015-01-01 | Orange |   19 |
+| 2015-01-02 | Apple  |   37 |
+| 2015-01-02 | Orange |   26 |
+| 2015-01-03 | Apple  |   21 |
+| 2015-01-03 | Orange |   23 |
+| 2015-01-04 | Apple  |   35 |
+| 2015-01-04 | Orange |   27 |
++------------+--------+------+
+</code></pre>
+
+<pre><code class="plain Question 4">What is the difference between Apples and Oranges sold each day?
+
+Output:
++------------+------+
+| dateid     | sold |
++------------+------+
+| 2015-01-01 |   12 |
+| 2015-01-02 |   11 |
+| 2015-01-03 |   -2 |
+| 2015-01-04 |    8 |
++------------+------+
+</code></pre>
+
+<h4>Question 5</h4>
+
+<pre><code class="plain Given schema">fct_request
++------------+------------+---------------+
+| dateid     | sender_uid | recipient_uid |
++------------+------------+---------------+
+| 2015-01-01 |          1 |             2 |
+| 2015-01-01 |          1 |             4 |
+| 2015-01-02 |          3 |             1 |
+| 2015-01-03 |          4 |             5 |
++------------+------------+---------------+
+
+fct_accept
++------------+--------------+------------+
+| dateid     | accepter_uid | sender_uid |
++------------+--------------+------------+
+| 2015-01-01 |            2 |          1 |
+| 2015-01-02 |            4 |          1 |
+| 2015-01-02 |            1 |          3 |
++------------+--------------+------------+
+
+Rules:
+1. You can only send a friend request to a person one time.
+2. You cannot send a friend request to someone who has already sent you a friend request.
+</code></pre>
+
+<pre><code class="plain Question 5">What percent of friend requests are accepted?
+Data might be not perfect.
+</code></pre>
+
+<h4>Question 6</h4>
+
+<p>Create DDL (table and foreign keys) for several tables in a provided ERD.
+ERD contains at least one many to many relationship.
+For example: Player(personID, school) and Team(teamID, name).
+Player and Team will have a many to many relationship.</p>
+
+<h4>Question 7</h4>
+
+<p>This question is a bit advanced.</p>
+
+<p>You have a table where you have <code>date</code>, <code>user_id</code>, <code>song_id</code> and <code>count</code>.
+It shows at the end of each day how many times in her history a user has listened to a given song.
+So count is cumulative sum.
+You have to update this on a daily basis based on a second table that records in real time when a user listens to a given song.
+Basically, at the end of each day, you go to this second table and pull a count of each user/song combination and then add this count to the first table that has the lifetime count.
+If it is the first time a user has listened to a given song, you won&rsquo;t have this pair in the lifetime table, so you have to create the pair there and then add the count of the last day.</p>
+
+<p>For simplicity, assume the tables are fact_event: (date, user_id, song_id) and snapshot: (date, user_id, song_id, count).</p>
+
+<h3>Answers</h3>
+
+<h4>Question 1</h4>
+
+<p>The sandbox uses MySQL which does not support WITH clause.
+See more MySQL workaround in <a href="/blog/2016/08/28/mysql-workaround/">here</a>.</p>
+
+<pre><code class="sql Answer 1">WITH dept_total AS (
+select department_id, sum(salary) as total
+from employees
+group by department_id
+having total &gt; 40000
+)
+select d.name, t.total
+from dept_total t
+join deparments d on t.department_id = d.id
+</code></pre>
+
+<pre><code class="sql MySQL Answer 1">select d.name, t.total
+from (
+  select department_id, sum(salary) as total
+from employees
+group by department_id
+having total &gt; 40000
+  ) t
+  join departments d ON t.department_id = d.id
+</code></pre>
+
+<h4>Question 2</h4>
+
+<pre><code class="sql Answer 2">select e.first_name, e.last_name, p.title
+from employees_projects ep
+join employees e on ep.employee_id = e.id
+join projects p on ep.project_id = p.id;
+</code></pre>
+
+<h4>Question 3</h4>
+
+<p>Again, the sandbox is MySQL and <code>dense_rank</code> is not available.</p>
+
+<pre><code class="sql Answer 3">select e.first_name, e.last_name, d.name, e.salary
+FROM employees e
+JOIN departments d on e.department_id = d.id
+WHERE (e.department_id, e.salary) in
+(
+select department_id, max(salary) AS salary
+from employees
+group by department_id
+)
+</code></pre>
+
+<h4>Question 4</h4>
+
+<p>You can self-join the table to get the following answer.</p>
+
+<pre><code class="sql Naive answer">select orange.dateid, apple.sold - orange.sold
+from fact_sales orange
+join fact_sales apple on orange.dateid = apple.dateid
+and orange.fruit = 'Orange' and apple.fruit = 'Apple';
+</code></pre>
+
+<p>However, recall that in dimensional modeling, fact tables usually have huge number of rows.
+Therefore, the expected answer should avoid joining such a huge table.</p>
+
+<pre><code class="sql Expected answer">select dateid, sum(mod_sold)
+from (
+select dateid, case when fruit = 'Apple'  then sold else -sold end as mod_sold
+from fact_sales
+) t
+group by dateid;
+</code></pre>
+
+<h4>Question 5</h4>
+
+<pre><code class="sql Answer 5">select count(requested), sum(accepted)
+FROM (
+select r.sender_uid as requested, CASE when a.sender_uid is null then 0 else 1 end as accepted
+from fct_request r
+left join fct_accept a on r.sender_uid = a.sender_uid and r.recipient_uid = a.accepter_uid
+) t
+</code></pre>
+
+<h4>Question 6</h4>
+
+<p>You should create a <code>teamPlayer</code> table with foreign keys to <code>Team</code> and <code>Player</code> tables as primary key.
+You are expected to write the following DDL statements.</p>
+
+<pre><code class="sql DDL for teamPlayer">CREATE TABLE teamPlayer
+(
+playerID INT NOT NULL, 
+teamID INT NOT NULL,
+PRIMARY KEY(playerID, teamID)
+);
+
+alter table teamPlayer
+add constraint 
+  fk_teamPlayer__Player foreign key(playerID) references Player(personID);
+
+alter table teamPlayer
+add constraint 
+  fk_teamPlayer__Team foreign key(teamID) references Team(teamID);
+</code></pre>
+
+<h4>Question 7</h4>
+
+<p><strong>Scenario 1</strong>: Overwrite the snapshot. Date column in snapshot is the last modified date.</p>
+
+<pre><code>create temporary table temp
+AS
+(select user_id, song_id, count(*)
+from fact_event
+where date &gt; (select max(date) from snapshot)
+group by user_id, song_id
+);
+
+UPDATE snapshot as s
+SET date = current_date, s.count = s.count + t.count
+FROM temp t
+WHERE s.user_id = t.user_id AND s.song_id = t.song_id;
+
+--- (MySQL: UPDATE might be different)
+
+INSERT snapshot (date, user_id, song_id, count)
+SELECT current_date, user_id, song_id, count
+from temp
+where (user_id, song_id) not in (select user_id, song_id from snapshot) x;
+</code></pre>
+
+<p><strong>Scenario 2</strong>: Append new snapshot for each date.</p>
+
+<pre><code class="sql">create temporary table temp
+AS
+(select user_id, song_id, count(*)
+from fact_event
+where date &gt; (select max(date) from snapshot)
+group by user_id, song_id
+);
+
+insert into snapshot (date, user_id, song_id, count)
+select current_date, t.user_id, t.song_id, t.count + coalesce(s.count, 0)
+from temp t
+join snapshot s on t.user_id = s.user_id and t.song_id = s.song_id and s.date = current_date-1;
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround/"/>
+    <updated>2018-08-01T01:42:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround</id>
+    <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
+Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
+If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+
+<!--more-->
+
+
+<h3>Summary</h3>
+
+<p>In this post, the following interview questions will be presented and, then, potential pitfalls and answers in MySQL will be explained:</p>
+
+<ol>
+<li><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>: Write a SQL query to find employees who earn the top three salaries in each of the department.</li>
+<li><a href="https://leetcode.com/problems/nth-highest-salary/">Question</a>: Write a function that return the given <code>n</code>-th highest salary.</li>
+<li><a href="https://leetcode.com/problems/rank-scores/">Question</a>: Write a SQL query to rank scores (dense_rank).</li>
+<li><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>: Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</li>
+</ol>
+
+
+<h3>WITH clause</h3>
+
+<p>Use <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">nested subqueries</a>.</p>
+
+<p><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>:
+Write a SQL query to find employees who earn the top three salaries in each of the department.</p>
+
+<pre><code class="sql What you might come up">WITH temp AS (
+select Name, Salary, DepartmentId
+rank() OVER (partition by DepartmentId ORDER BY salary DESC) as rank
+)
+select d.Name as Department, e.Name as Name, e.Salary as Salary
+from temp e
+join Department d on e.DepartmentId = d.Id
+where t.rank &lt;= 3
+</code></pre>
+
+<p>Answer: based on <a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department%0AFor%20ideas%20to%20arrive%20at%20the%20solution">this</a>.</p>
+
+<pre><code class="sql What actually works">select d.Name as Department, e.Name as Employee, e.Salary as Salary
+from Employee e
+join Department d on e.DepartmentId = d.Id
+where (
+select count(distinct(e2.salary))
+from Employee e2
+where e.DepartmentId = e2.DepartmentId and e2.salary &gt; e.salary
+) in (0,1,2)
+order by Department, Salary desc
+</code></pre>
+
+<p>Using the similar idea, one can answer this <a href="https://leetcode.com/problems/nth-highest-salary/">question</a>:
+write a function that return the given <code>n</code>-th highest salary. The solution (without using <code>DENSE_RANK</code>) is:</p>
+
+<pre><code class="sql What actually works">CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      -- Write your MySQL query statement below.
+      SELECT MAX(Salary)
+            FROM Employee Emp1
+            WHERE (N-1) = (
+                 SELECT COUNT(DISTINCT(Emp2.Salary))
+                        FROM Employee Emp2
+                        WHERE Emp2.Salary &gt; Emp1.Salary)
+  );
+END
+</code></pre>
+
+<h3>Analytic functions <code>ROW_NUMBER</code>, <code>RANK</code>, and <code>DENSE_RANK</code></h3>
+
+<p>Summary from <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
+
+<pre><code class="sql ROW_NUMBER, RANK, and DENSE_RANK functions in MySQL">-- In Vertica
+SELECT
+ROW_NUMBER () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS row_number,
+RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS rank,
+DENSE_RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS dense_rank,
+t.*
+FROM table_1 t
+
+-- In MySQL
+SELECT
+@row_num:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, @row_num+1, 1) AS row_number,
+@rank:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2 AND @prev_col_3=col_3, @rank, @row_num) AS rank,
+@dense:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, IF(@prev_col_3=col_3, @dense, @dense+1), 1) AS dense_rank,
+@prev_col_1 = t.col_1,
+@prev_col_2 = t.col_2,
+@prev_col_3 = t.col_3,
+t.*
+FROM (SELECT * FROM table_1 ORDER BY col_1, col_2, col_3 DESC) t,
+     (SELECT @row_num:=1, @dense:=1, @rank:=1, @prev_col_1:=NULL, @prev_col_2:=NULL, @prev_col_3:=NULL) var
+</code></pre>
+
+<p>In the following <a href="https://leetcode.com/problems/rank-scores/">question</a>, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
+
+<pre><code class="sql Solution in Vertica SQL">select Score,
+DENSE_RANK() OVER (ORDER BY Score DESC) AS Rank
+FROM Scores;
+</code></pre>
+
+<pre><code class="sql Solution in MySQL">SELECT Score, Rank FROM
+( SELECT t.Score,
+@dense:=IF(@prev_col2=t.Score, @dense, @dense+1) AS Rank,
+@prev_col2:=t.Score
+FROM (SELECT Score FROM Scores ORDER BY Score DESC) t,
+(SELECT @dense:=0, @prev_col2:=NULL) var ) x
+</code></pre>
+
+<h3>Other tricky questions</h3>
+
+<p><code>DELETE</code> might not work as you think in MySQL.</p>
+
+<p><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>:
+Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</p>
+
+<pre><code class="sql What you might come up">delete from Person
+where Id not in (select min(Id) from Person group by Email);
+</code></pre>
+
+<p>The above does not work because you need to assign name to the subquery (temporary table).</p>
+
+<pre><code class="sql What actually works">delete from Person
+where Id not in
+(select * from
+(select min(Id) from Person group by Email) x);
+</code></pre>
+
+<h3>External links</h3>
+
+<ul>
+<li><a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">Leetcode Database Solutions</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Glassdoor: Algorithm Question Bank]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/29/question-bank/"/>
+    <updated>2012-02-29T22:31:29-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/29/question-bank</id>
+    <content type="html"><![CDATA[<p>These questions are gathered from Glassdoor.</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<h4>LinkedIn</h4>
+
+<ol>
+<li>Serialize binary tree.</li>
+<li>Count the number of occurrences of a given element in a sorted array.</li>
+<li>Modify binary search to find the index of first/last occurrence of x in the array. Two binary searches.</li>
+<li>Design a program to take a string and store, each character, into an array. The array should return a count of each character when called. [The interviewer was clearly trying to blur the lines between a simple program and a MapReduce]</li>
+<li>Senior Test Engineer: A user logs in to a website with proper credentials and the user is taken to a blank page. How would you troubleshoot that?</li>
+<li>Senior Test Engineer: Create a stack with the usual push() &amp; pop(), but with an additional function getMiddle() that returns the middle element of the stack in constant time.</li>
+<li>Senior Test Engineer: Search a sorted array for the first element larger than k.</li>
+<li>You have a potentially very-large set of documents, which are potentially very-large, and contain text. For searching these documents, they&rsquo;ve been pre-processed into a (very-large) table mapping words to the set of documents that contain each word. E.g. (word) : (documents (referenced by ID) containing that word) Apple: 1, 4, 5, 6, 32 Banana: 5, 6, 7, 9, 32 Cantaloupe: 1, 2, 6 &hellip; Clients will pass in a set &hellip;</li>
+<li>Given a nested list of integers, return the sum of all integers in the list weighted by their depth For example, given the list <code>[[1,1],2,[1,1]]</code> the function should return 10 (four 1 at depth 2, one 2 at depth 1). Answer: Recursion or Use a stack while iterating through the input string.</li>
+<li>Create an isNumber(string) function. Handle signed / unsigned, floating point, any number of digits, etc. Probably commas, and currency signs, or whatever. It was open ended and governed by whatever unit tests he wanted you to make it work against.</li>
+<li>Find out at least one 3 elements array in a given integer array. The 3 elements have to be able to form a triangle.</li>
+<li>Write a program to replace 0s with 5 in a given number. Eg: 1208 -> 1258, 120096045 -> 125596545</li>
+<li>Write a function to find the power of a<sup>b</sup></li>
+<li>Find the minimum distance between 2 words in a dictionary</li>
+<li>Evaluate a post-fix expression</li>
+<li>Given an array of numbers , replace each number with the product of all the numbers divided by the number at that index without using the division operator.</li>
+<li>Write a function that, given a list of integers (both positive and negative) returns the sum of the contiguous subsequence with maximum sum. Thus, given the sequence (1, 2, -4, 1, 3, -2, 3, -1) it should return 5.</li>
+<li>Write a function that would find the largest palindrome (phone interview).</li>
+<li>Write a Binary Search Tree class with isBST() method that will validate if the tree is a BST (onsite).</li>
+</ol>
+
+
+<h4>Google</h4>
+
+<ol>
+<li>Given a list of integers and another integer. Write a program that returns the posible combinations of the list which added, match the integer, numbers can repeat itself.</li>
+<li>Write a function to check if a string is palindrome? Write a function to return the largest Palindrome as possible in a given string. Hint: O(N)</li>
+<li>Check if Sudoku is valid</li>
+<li>You have unsorted array. You must design algorithm to create array where every even value is greater than it&rsquo;s odd neighbors. So if a(i) is value at index i (=0,1,2&hellip;n), the result must hold that: a1 &lt; a2 > a3 &lt; a4 > a5&hellip;</li>
+<li>Merge K sorted lists.</li>
+<li>System design: design a system that given a point on earth will return the highest building in 100m radios. The question was developing. Start by assuming everything in memory. Then assume not everything fits, then use several machines, then consider what happens when one is down. The purpose is to answer as quickly as possible but you have preprocessing time.</li>
+<li>0-1 Knapsack problem. NP-complete/NP-hard.</li>
+<li>Design a load balancer for web servers.</li>
+</ol>
+
+
+<h4>Salesforce</h4>
+
+<ol>
+<li>Q: Explain Encupsulation</li>
+<li>Q: Inheritance vs composition</li>
+<li>Q: What&rsquo;s the difference between tree and HashTable.</li>
+<li>Also asks me to create classes for file system API.</li>
+<li>How to ensure locking in Singleton class</li>
+<li>Do a producer consumer problem</li>
+<li>Reach 2D Pt x to Pt y in spiral form -> right -> down -> left -> up moving 1 point at a time.</li>
+<li>Find all words which start from particular letter (case insensitive)</li>
+<li>The number of paths in a m x n grid to a given cell?</li>
+<li>Given an ordered large array of integers, find all pairs of numbers that add up to a particular given sum.</li>
+<li>Given a regular English dictionary, and a word to start with (e.g. &ldquo;head&rdquo;), you can only change one letter a time, but every change has to be a word in the dictionary (e.g. head -> heal) What is the quickest way to an end word (e.g. &ldquo;tail&rdquo;)?</li>
+<li>How to efficiently merge two sorted binary trees?</li>
+<li>Why its said a good practice to override() hashcode() of an object when you override equals()?</li>
+<li>Given an array of integers, return top K elements from it.</li>
+<li>Given 2 unsorted integer arrays, get the intersection of the 2.</li>
+<li>question about finding out the character that occurs most in a given string.</li>
+<li>What is the JRE and what does it have to do with .jar files?</li>
+<li>Explain / implement a hash table.</li>
+<li>Given 3 tasks from 3 bosses, how would u handle the priority if you could only finish one of them.</li>
+<li>Three major difference between C++ and Java.</li>
+<li>Given a constant input stream of integers design a way to, at any point, return the current median of that stream.</li>
+<li>Get unique items from an array.</li>
+<li>given an binary search tree (that is, an ordered tree), how would you find the element of the tree at a particular &ldquo;index&rdquo;, where index is defined as the position in the tree&rsquo;s ordering.</li>
+<li>Fastest way to find the middle node in a linked list</li>
+<li>Eliminate the duplicate elements from a given linked list.</li>
+<li>Union find algorithm.</li>
+<li>clockwise print out a M*N matrix. Solution: recursive</li>
+<li>Explain way to optimize SQL.
+
+<ol>
+<li><a href="http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries">http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries</a></li>
+</ol>
+</li>
+<li>Counting the frequency of words in a list.. hashtable with word keys and word count values..</li>
+<li>Find Pairs with least absolute difference in an given unsorted array.
+
+<ol>
+<li>NOTE: if the numbers are in a given range</li>
+</ol>
+</li>
+<li>Explain difference in Heap and Stack memory for JVM.
+
+<ol>
+<li><a href="http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html">http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=450maTzSIvA">https://www.youtube.com/watch?v=450maTzSIvA</a></li>
+</ol>
+</li>
+<li>Image url parser from an html page and its child pages.</li>
+<li>Implement Que using 2 stacks. write test cases for it.</li>
+<li>Write thread safe singleton class</li>
+<li>what are joins in database, some scenario where u used it</li>
+<li>Given two sorted arrays, find the intersection of the two arrays.</li>
+<li>Find duplicate from a very large list (trillion) of immutable integers in known range. O(N) and O(1) additional space solution.</li>
+</ol>
+
+
+<p>Set B</p>
+
+<ol>
+<li>JS - what is eval()</li>
+<li>JS - what is the diffenrence between == and ===</li>
+<li>How hashmaps work - hashCode and equals operators</li>
+<li>Principles of OO - encapsulation, inheritance</li>
+<li>What is synchronized?</li>
+<li>Big O of data searching on different data structures - array , linked list, hashtable</li>
+<li>Java difference of a hashtable and hashmap</li>
+<li>Something that you are proud of - code and other - industry related</li>
+<li>Describe a development process - engaging client - requirements - etc</li>
+<li>Favorite java classes</li>
+<li>What does AJAX stands for?</li>
+<li>what type of response can you get from and AJAX call - string or XML</li>
+</ol>
+
+
+<p>Set C:</p>
+
+<ol>
+<li>Describe Singleton in a Real Life Example , like if you want to explain concept of singleton pattern to your grandmother, who don&rsquo;t know the computer at all. what would be your approach.</li>
+<li>How would you design a Chat Session (gtalk) ?</li>
+<li>write program to calculate power(x,n) in log(n) time</li>
+<li>Find intersection node of two linked lists.</li>
+<li>Merge two sorted linked lists into one without extra space.</li>
+<li>Given an array, which contains integers in the range of 1 to n. one number is missing from it and one number is repeated in array. for ex &ndash; array is {1,2,3,4,4,6,7,8,9} , range given is 1- n(n=9).
+determine which number is missing and which is repeated in array.</li>
+<li>given char array = {a,a,a,a,b,b,b,c,c,d,d,,e,,f,f}
+output should be &ndash; {a,4,b,3,c,2,d,2,e,f,2}, i.e. occurrences of every element followed by character, without using other array.</li>
+</ol>
+
+
+<h4>Others</h4>
+
+<ol>
+<li>Implement a FIFO queue from 2 FILO stacks</li>
+<li>Calculate Fibonacci-like sequence: f(n) = f(n-1) + … + f(n-k) where f(i) = 0 if i &lt; 0 and f(0) = 1. Your algorithm should avoid shifting lots of number.</li>
+<li>Given 2 sorted arrays, how do I get the median of the combined 2 arrays.</li>
+<li>Given a sorted array and a number k, find 2 number a, b such that a + b = k. Your algorithm should be O(n). If the array is unsorted, can you still do in O(n)?</li>
+<li>In-order traversal? In-order traversal without recursion?</li>
+</ol>
+
+
+<h4>Dynamic programming problems</h4>
+
+<p>At least one dynamic programming problem will be asked during on-site interview.</p>
+
+<ol>
+<li>Given a number n, find a set such that
+
+<ul>
+<li>Sum of all the elements should result into n.</li>
+<li>Multiplication of all the elements should be greater than any other similar set (whose elements result n when summed up).</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Concurrency</h4>
+
+<ol>
+<li>How to write a thread-safe or reentrant function. What is the difference between a reentrant function and thread-safe function?
+
+<ul>
+<li>Reentrant and thread-safe is actually two separate concepts.</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Object oriented programming</h4>
+
+<ol>
+<li>What is OOP? What is abstraction, encapsulation, inheritance, polymorphism?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<h4>Others</h4>
+
+<p>(3) Given 2 sorted arrays, how do I get the median of the combined 2 arrays?</p>
+
+<p>The basic idea is that if you are given two arrays A and B and know the length of each, you can check whether an element A[i] is the median in constant time. Suppose that the median is A[i].
+Since the array is sorted, it is greater than exactly i − 1 values in array A.
+Then if it is the median, it is also greater than exactly j = ceil(n/2) − (i − 1) elements in B.
+It requires constant time to check if B[j] &lt;= A[i] &lt;= B[j + 1].
+If A[i] is not the median, then depending on whether A[i] is greater or less than B[j] and B[j + 1], you know that A[i] is either greater than or less than the median.
+Thus you can binary search for A[i] in O(lg n) worst-case time.</p>
+
+<p>(4) Given a sorted array and a number k, find 2 number a, b such that a + b = k.</p>
+
+<p>Time O(n) and O(n) for sorted and unsorted array.
+a) If the array is sorted, use two pointers at the two ends of the aray.
+b) If the array is not sorted, create a hash table with keys as (k-a[i]). Then look up for each a[i] in the table. Table insertion and table look-up is O(1).</p>
+
+<h4>OOP</h4>
+
+<p>(1) What is OOP?</p>
+
+<ul>
+<li>OOP: a programming paradigm that uses objects to design computer applications. Here, objects are special data structures that consist of data fields and methods interacting with those data fields. OOP techniques includes the followings: data abstraction, encapsulation, inheritance, polymorphism, messaging.</li>
+<li>Data abstraction: means that we interact with data in objects using its abstract interface. For example, we access private data of an object using its public methods. It is a mechanism to restrict the access to some of data structure&rsquo;s component, usually to separate the implementation details of the data structure.</li>
+<li>Encapsulation: in simple definition, the implementation details of a program is separated from its representation. It means that we separate &ldquo;what an object can do&rdquo; and &ldquo;how the object do it&rdquo;.</li>
+<li>Inheritance: is the ability of a class to expand as a subclass, so that the code can be reused.</li>
+<li>Polymorphism: is the ability of a class can be considered as different forms.</li>
+<li>Message passing: in OOP, a message is the single means to pass control to an object. Alan Kay has argued that message passing is more important than objects in OOP, and that objects themselves are often over-emphasized.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

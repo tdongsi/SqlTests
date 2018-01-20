@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Tutorial | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/tutorial/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2018-01-20T01:32:13-08:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Estimation Theory]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory/"/>
+    <updated>2021-11-01T23:40:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory</id>
+    <content type="html"><![CDATA[<p>Math in Estimation theory.</p>
+
+<!--more-->
+
+
+<h3>Basic statistics</h3>
+
+<p>Two vectors <strong>x</strong> and <strong>z</strong> is joinly Guassian when the combined vector <strong>y</strong> = [x z] is also Gaussian.
+Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The reverse is not true.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>: e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%.
+The first team in FG% is Spurs, who took lots of 2s.</p>
+
+<h3>Basic Kalman Filter</h3>
+
+<p>TODO</p>
+
+<h4>Kalman Filter</h4>
+
+<h4>Extended Kalman Filter</h4>
+
+<h3>EKF-SLAM formulation</h3>
+
+<p>TODO</p>
+
+<h3>Mingyang&rsquo;s thesis</h3>
+
+<p>Contributions:</p>
+
+<ol>
+<li>Analysis of EKF-SLAM and MSCKF. New estimator (MSCKF 2.0) with correct observability.</li>
+<li>Hybrid estimator that picks either EKF-SLAM formulation or MSCKF 2.0, depending on length of feature tracks.</li>
+<li>Online calibration of the spatial and temporal relationship between visual and inertial sensors.</li>
+<li>Sensor models for rolling shutter cameras and low-cost inertial sensors.
+
+<ol>
+<li>IMU axis misalignment, scale factors, and g-sensitivity affects inertial sensors.</li>
+<li>Image distortions from rolling shutter cameras.</li>
+</ol>
+</li>
+</ol>
+
+
+<p> Why? IMU and cameras are already found in several commercial resource-constrained devices (e.g., mobile phones and AR devices).</p>
+
+<h4>Contribution 1: EKF-SLAM and MSCKF -> MSCKF 2.0</h4>
+
+<p>EKF-SLAM formulation: current pose + feature positions.
+Since we are not doing mapping, only currently visible features are kept -> computational cost is bounded.</p>
+
+<p>MSCKF: a sliding window of poses.
+Measurements are used to impose the constraints on these poses.
+If a new feature is found, add a new pose to the state vector and augment covariance matrix accordingly.
+Each feature is tracked until it goes out of field of view, then all of its observations are processed at once.
+A pose is only removed when all features associated with that pose have been processed.</p>
+
+<p>Consistency and accuracy of estimators are correlated.
+A recursive estimator is consistent if the estimation errors are zero-mean and have covariance matrix as reported by the estimator.</p>
+
+<p>Why difference? Assumptions:</p>
+
+<ul>
+<li>In EKF: IMU state and feature positions are jointly Gaussian. With non-linear measurement models, this is a strong assumption.
+
+<ul>
+<li>To improve it, need to pick another feature parameterization to make the measurement model closer to linear.</li>
+</ul>
+</li>
+<li>In MSCKF, there is no feature positions. No assumptions on feature positions are required.</li>
+<li>MSCKF delay linearization: only process each feature when all of its measurement are available -> better estimates -> better Jacobians -> better updates.</li>
+<li>In EKF-SLAM, using fewer observations: e.g., in standard XYZ parameterizaton, it can lead to wildly inaccurate estimates.</li>
+</ul>
+
+
+<h4>Contribution 2: Hybrid estimator, pick one</h4>
+
+<ul>
+<li>N: number of features.</li>
+<li>m: feature length: max number of observations per feature.</li>
+</ul>
+
+
+<p>Then, the compuational costs of the two estimators are</p>
+
+<ul>
+<li>MSCKF: O(N) and O(m<sup>3</sup>).</li>
+<li>EKF-SLAM: O(N<sup>3</sup>) and O(m).</li>
+</ul>
+
+
+<p>MSCKF is faster because of general distribution of features: because of feature detection algorithms, majority of features are detected close to the camera, where it will goes out of the FOV quickly (large N, small m).
+For example, in Cheddar Gorge data, many features are close to the car/camera, while a few are really far away.</p>
+
+<p>Depending on the length of feature tracks in current environment, use one.
+Given “many” measurements, nothing is gained by initializing features  observed fewer than m times.
+So, if the features is observed less than m times, use MSCKF. Otherwise, put it in the state vector and use EKF-SLAM.
+m (sliding window size) is to determined empirically: plotting and see the low points.</p>
+
+<h4>Contribution 3: Online camera-to-IMU calibration</h4>
+
+<p>Detailed identifiability analysis of these parameters.
+Time offset between the two measurements.
+The degenerate cases are known and rare cases.</p>
+
+<p>Some degenerate cases are: (Recovery?)</p>
+
+<ul>
+<li>Going in a straight line</li>
+<li>Constant acceleration with no rotation</li>
+<li>Constant velocity (no acceleration) with rotation about gravity vector only.</li>
+</ul>
+
+
+<h4>Contribution 4: Models for low-cost sensors</h4>
+
+<p>Measurement models for rolling shutter camera.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/"/>
+    <updated>2018-08-05T15:40:35-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics</id>
+    <content type="html"><![CDATA[<p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
+
+<!--more-->
+
+
+<h3>General guidelines for dashboard</h3>
+
+<p>Ppl looks for different things in data. You have to find out what answers users look for in dashboard.</p>
+
+<ul>
+<li>Trend: bar, graph</li>
+<li>Aggregation: Average, Sum, Max, Min.</li>
+</ul>
+
+
+<p>Above all else, show data.
+Trying to improve data-pixel ratio: data pixels/non-data pixels.
+How to enhance data-pixel ratio:</p>
+
+<ul>
+<li>Granularity: depends on the question you want to answer
+
+<ul>
+<li>monthly if you want to know monthly sales, daily if you want to know what happens last Tuesday.</li>
+<li>category or sub-category: you can have category with drill down function.</li>
+</ul>
+</li>
+<li>Annotation: similar to Granularity. Minimize it to enough to answer the question.</li>
+</ul>
+
+
+<p>Tricks &amp; Tips:</p>
+
+<ul>
+<li>Plots (over Bars): plot show the trends for different components over time.</li>
+<li>Sizing Bars: Preserve True Portions: starting Y from 0.
+
+<ul>
+<li>Sizing Bars: shows proportions, relative progression.</li>
+</ul>
+</li>
+<li>Scatter Plots: show clusters, outliers.</li>
+<li>Radio displays: usually a bad idea. Waste of space, hard to discern between slices.</li>
+</ul>
+
+
+<h3>Module 2: Common Charts</h3>
+
+<p>Basic data Presentation Methods - Chart Types</p>
+
+<ul>
+<li>Geo-Spatial - Maps: anything related to geographic distribution, i.e., when geography matters. e.g. real estates, oil industry.</li>
+<li>Correlation - Scatter Plots: two measurements (e.g., sales to profit).</li>
+<li>Hierarchical - Drill down Tree: data is hierarchical: Category -> Subcateogries.</li>
+<li>Categorical - Bar Charts: comparing categories (sales by region)</li>
+<li>Time Series - Line Charts: progression over time. (sales by month)
+
+<ul>
+<li>Avoid: Stacked Area Charts. If you have more than two lines, Area Charts do not give any information except for the bottom and the total.</li>
+</ul>
+</li>
+<li>Distribution - Histograms: Trying to answer what is “normal”. e.g., home prices, salaries.</li>
+</ul>
+
+
+<p>Others</p>
+
+<ul>
+<li>Box plot: distribution, percentiles, median in 1 chart.</li>
+<li>Bullet graph: actuals to target. Invented by Stephen Few.
+
+<ul>
+<li>Dark bar is actual, reference line is target. Color code bands are average, good, bad target range.</li>
+<li><a href="https://en.wikipedia.org/wiki/Bullet_graph">https://en.wikipedia.org/wiki/Bullet_graph</a></li>
+</ul>
+</li>
+<li>Sparkline: Multiple line charts. Best used for monitoring dashboard.</li>
+<li>Heat map: Large combinations of dimensions. Color is everything here.</li>
+</ul>
+
+
+<p>Charts to avoid</p>
+
+<ul>
+<li>Pie charts: angles make it hard to compare. Usually decorative, not informative. Space is wasted.</li>
+<li>Polar charts</li>
+<li>Stacked area charts:
+
+<ul>
+<li>Only tell the story of the bottom line and the total. Anything in between, you can’t really tell if they are growing or not.</li>
+<li>Misleading/Confusing: is the top the total or another category?</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Module 3: Dashboard planning</h3>
+
+<p>Steps:</p>
+
+<ul>
+<li>User Request</li>
+<li>Prioritization</li>
+<li>Planning</li>
+<li>Design</li>
+<li>Development</li>
+<li>Delivery to User</li>
+</ul>
+
+
+<h3>Module 4: Dashboard design</h3>
+
+<p>Audience is King. Know your audience.</p>
+
+<ul>
+<li>Who is using it?</li>
+<li>Are they technical or prefer dumbed down answers? Are they intimate with data?</li>
+<li>What is primary objective? What questions that they try to answer? What questions this dashboard MUST answer?</li>
+<li>What impact of the answer? How will they use metrics? (Role, what decisions they make)</li>
+<li>When will the dashboard is used? (Weekly? Daily?) Dashboard is exploratory or explanatory?</li>
+<li>What level of confidence in data sources?</li>
+</ul>
+
+
+<p>Dashboard layout: F layout is the most natural for web/desktop viewing.</p>
+
+<h3>Module 5 &amp; 6: Tableau</h3>
+
+<p>Connecting to Data:
+You can connect to Excel, text file (csv or tab), or HP Vertica.
+You can specify data import like Excel or using Custom SQL.
+After importing, Tableau may import all data into its own internal data engine (with compression, data reorganization easier for analytics).
+It also divides data into dimensions and measures.
+Dimensions are further categorized into: geographic (e.g., region, postal code), number, text, date (e.g., calendar, order_date).
+Facts are usually numbers but it can be other categories: e.g., geographic for latitude/longitude measures.</p>
+
+<p>Visualizing data:
+Tableau has “Show Me” button that gives suggestions for different combinations of dimensions and fact data.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling/"/>
+    <updated>2018-08-04T15:38:20-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling</id>
+    <content type="html"><![CDATA[<p>From Kimball group reader.</p>
+
+<!--more-->
+
+
+<h3>Dimensional Modeling for Data Warehouse</h3>
+
+<h4>Item 1.5: Design</h4>
+
+<p>Design items:
+You need to do data profiling to keep data processed to min. One way to profile data changes is to use CDC column.
+Check CDC columns: e.g. <code>last_update_ts</code>. If CDC columns are not available, work with production system DBA to add one.
+Otherwise, check application log file/Message traffic.</p>
+
+<p>Divide data into dimension and fact tables: 90% of the time the division is obvious.</p>
+
+<ul>
+<li>Dimensions: static entities in the environment
+
+<ul>
+<li>Text descriptions are obvious data going into dimension</li>
+</ul>
+</li>
+<li>Facts: numeric observations/measurements.
+
+<ul>
+<li>Unpredictable, numeric numbers are the usual suspects.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Grain of fact table = a measurement in physical, real-world.</p>
+
+<p>Design steps:</p>
+
+<ul>
+<li>Determine the single physical event you want to record -> fact table. Other details will follow in dimension tables.
+
+<ul>
+<li>What event is a single row in fact table representing? E.g. for fact_sale_event, the grain is literally the beep of the scanner.</li>
+</ul>
+</li>
+<li>Strive to make facts additive.
+
+<ul>
+<li>E.g.: Sale event can go into fact table as (price, unit), but the information (sale amount, unit) contains the same information but better since sale amount (aka extended price) = price * unit.</li>
+</ul>
+</li>
+<li>Some data can be in both. The goal is ease of use, not methodology correctness.
+
+<ul>
+<li>E.g.: Coverage amount of insurance policies can be in both dim_coverage and fact_sale_event.</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Item 1.6</h4>
+
+<p>Bus matrix to communicate/manage dimension tables.</p>
+
+<p>TODO: Table of bus matrix</p>
+
+<h4>Item 1.8 Slow Changing Dimensions</h4>
+
+<ul>
+<li>Type 0: Constant. Ignore changes.</li>
+<li>Type 1: Simple overwrite (best used for error correction).</li>
+<li>Type 2: Create another row and save history.
+
+<ul>
+<li>The standard implementation is: surrogate key (PK), durable ID, … attributes …, effective_start_date, effective_end_date, change_reason, current_flag.</li>
+</ul>
+</li>
+<li>Type 3: Create another column for alternate info.</li>
+</ul>
+
+
+<h4>Item 1.10 Fact tables</h4>
+
+<p>Data warehouse is built on fact tables expressed at the lowest possible grain.
+Higher grain aggregated tables such as category sales by district.</p>
+
+<p>Three kinds of fact tables:</p>
+
+<ol>
+<li>Transaction Grain: corresponds to a measurement taken at a single instant.
+
+<ol>
+<li>Unpredictably sparse or dense.</li>
+<li>Can be enormous. Cannot guarantee all possible foreign keys represented.</li>
+<li>E.g.: fact_qbo_subscription_event</li>
+</ol>
+</li>
+<li>Periodic Snapshot Grain: corresponds to a predefined span of time.
+
+<ol>
+<li>Predictably dense.</li>
+<li>Can be large even there is no activity.</li>
+<li>E.g.: Account balance for an account at some time.</li>
+</ol>
+</li>
+<li>Accumulating Snapshot Grain.
+
+<ol>
+<li>Fact entries are overwritten and udpated.</li>
+<li>E.g.: Order processing</li>
+</ol>
+</li>
+</ol>
+
+
+<p>Surrogate Keys (integer key, assigned in sequence) are recommended for Fact tables.
+In Vertica, CREATE SEQUENCE.</p>
+
+<h4>Item 4.1: Interview for requirements</h4>
+
+<p>Too smart interviewers make it harder to extract requirements from business:</p>
+
+<ul>
+<li>Long-winded questions</li>
+<li>Even worse, some questions box the interviewee into a corner because of some bias. And the interviewees do not know how to get out.
+
+<ul>
+<li>Just ask and listen. Let them guide you step by step.</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Item 5.1-5.3: Compare normalized modeling (3NF) vs dimensional modeling (DM)</h4>
+
+<p>Why dimensional modeling over normalized modeling?</p>
+
+<ol>
+<li>Normalized modeling is intended for transactional databases, making update and delete efficient. It’s not needed in BI/DW.</li>
+<li>Normalized modeling for a complex business process will result in a very large ER diagram (similar to US cities-freeway maps). Business users cannot simply use that diagram to query what they need to know.
+
+<ol>
+<li>The result ER diagram is usually overwhelming and cannot be viewed in its entirety.</li>
+<li>E.g.: How to drive from SJ to NY? Maybe going to Sacramento through 580, then to Salt Lake City, and then what? Joining tables in 3NF modeling is similar: you need to know which 10+ intermediate tables to join.</li>
+<li>In the same analogy, it’s actually worse to join the tables since the tables are not static, they are moving cities.</li>
+</ol>
+</li>
+</ol>
+
+
+<p>Dimensional Modeling: top-down design process.</p>
+
+<ul>
+<li>Each fact table represents a business process.</li>
+<li>Support two operations: browse and multi-table joins.</li>
+<li>It is important to keep the dimension tables flat, without being normalized into snowflake structure.</li>
+</ul>
+
+
+<h3>Interview Questions</h3>
+
+<p><a href="http://learndatamodeling.com/blog/data-modeling-interview-questions/">http://learndatamodeling.com/blog/data-modeling-interview-questions/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround/"/>
+    <updated>2018-08-01T01:42:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround</id>
+    <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
+Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
+If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+
+<!--more-->
+
+
+<h3>Summary</h3>
+
+<p>In this post, the following interview questions will be presented and, then, potential pitfalls and answers in MySQL will be explained:</p>
+
+<ol>
+<li><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>: Write a SQL query to find employees who earn the top three salaries in each of the department.</li>
+<li><a href="https://leetcode.com/problems/nth-highest-salary/">Question</a>: Write a function that return the given <code>n</code>-th highest salary.</li>
+<li><a href="https://leetcode.com/problems/rank-scores/">Question</a>: Write a SQL query to rank scores (dense_rank).</li>
+<li><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>: Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</li>
+</ol>
+
+
+<h3>WITH clause</h3>
+
+<p>Use <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">nested subqueries</a>.</p>
+
+<p><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>:
+Write a SQL query to find employees who earn the top three salaries in each of the department.</p>
+
+<pre><code class="sql What you might come up">WITH temp AS (
+select Name, Salary, DepartmentId
+rank() OVER (partition by DepartmentId ORDER BY salary DESC) as rank
+)
+select d.Name as Department, e.Name as Name, e.Salary as Salary
+from temp e
+join Department d on e.DepartmentId = d.Id
+where t.rank &lt;= 3
+</code></pre>
+
+<p>Answer: based on <a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department%0AFor%20ideas%20to%20arrive%20at%20the%20solution">this</a>.</p>
+
+<pre><code class="sql What actually works">select d.Name as Department, e.Name as Employee, e.Salary as Salary
+from Employee e
+join Department d on e.DepartmentId = d.Id
+where (
+select count(distinct(e2.salary))
+from Employee e2
+where e.DepartmentId = e2.DepartmentId and e2.salary &gt; e.salary
+) in (0,1,2)
+order by Department, Salary desc
+</code></pre>
+
+<p>Using the similar idea, one can answer this <a href="https://leetcode.com/problems/nth-highest-salary/">question</a>:
+write a function that return the given <code>n</code>-th highest salary. The solution (without using <code>DENSE_RANK</code>) is:</p>
+
+<pre><code class="sql What actually works">CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      -- Write your MySQL query statement below.
+      SELECT MAX(Salary)
+            FROM Employee Emp1
+            WHERE (N-1) = (
+                 SELECT COUNT(DISTINCT(Emp2.Salary))
+                        FROM Employee Emp2
+                        WHERE Emp2.Salary &gt; Emp1.Salary)
+  );
+END
+</code></pre>
+
+<h3>Analytic functions <code>ROW_NUMBER</code>, <code>RANK</code>, and <code>DENSE_RANK</code></h3>
+
+<p>Summary from <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
+
+<pre><code class="sql ROW_NUMBER, RANK, and DENSE_RANK functions in MySQL">-- In Vertica
+SELECT
+ROW_NUMBER () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS row_number,
+RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS rank,
+DENSE_RANK () OVER (PARTITION BY col_1, col_2 ORDER BY col_3 DESC) AS dense_rank,
+t.*
+FROM table_1 t
+
+-- In MySQL
+SELECT
+@row_num:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, @row_num+1, 1) AS row_number,
+@rank:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2 AND @prev_col_3=col_3, @rank, @row_num) AS rank,
+@dense:=IF(@prev_col_1=t.col_1 AND @prev_col_2=t.col_2, IF(@prev_col_3=col_3, @dense, @dense+1), 1) AS dense_rank,
+@prev_col_1 = t.col_1,
+@prev_col_2 = t.col_2,
+@prev_col_3 = t.col_3,
+t.*
+FROM (SELECT * FROM table_1 ORDER BY col_1, col_2, col_3 DESC) t,
+     (SELECT @row_num:=1, @dense:=1, @rank:=1, @prev_col_1:=NULL, @prev_col_2:=NULL, @prev_col_3:=NULL) var
+</code></pre>
+
+<p>In the following <a href="https://leetcode.com/problems/rank-scores/">question</a>, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
+
+<pre><code class="sql Solution in Vertica SQL">select Score,
+DENSE_RANK() OVER (ORDER BY Score DESC) AS Rank
+FROM Scores;
+</code></pre>
+
+<pre><code class="sql Solution in MySQL">SELECT Score, Rank FROM
+( SELECT t.Score,
+@dense:=IF(@prev_col2=t.Score, @dense, @dense+1) AS Rank,
+@prev_col2:=t.Score
+FROM (SELECT Score FROM Scores ORDER BY Score DESC) t,
+(SELECT @dense:=0, @prev_col2:=NULL) var ) x
+</code></pre>
+
+<h3>Other tricky questions</h3>
+
+<p><code>DELETE</code> might not work as you think in MySQL.</p>
+
+<p><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>:
+Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</p>
+
+<pre><code class="sql What you might come up">delete from Person
+where Id not in (select min(Id) from Person group by Email);
+</code></pre>
+
+<p>The above does not work because you need to assign name to the subquery (temporary table).</p>
+
+<pre><code class="sql What actually works">delete from Person
+where Id not in
+(select * from
+(select min(Id) from Person group by Email) x);
+</code></pre>
+
+<h3>External links</h3>
+
+<ul>
+<li><a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">Leetcode Database Solutions</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[System Design Questions]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions/"/>
+    <updated>2017-07-01T02:13:01-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions</id>
+    <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
+
+<!--more-->
+
+
+<h3>Readings</h3>
+
+<p>For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize scalability problems that AWS services trying to address and replace, for example, &ldquo;AWS Load Balancer&rdquo; with generic load balancer.</p>
+
+<p>Read these to know the broad topics that are expected.</p>
+
+<ol>
+<li><a href="https://www.quora.com/What-system-design-distributed-systems-+-scalability-topics-should-I-study-in-order-to-adequately-prepared-for-a-Google-Software-Engineer-interview">Quora question</a></li>
+<li><a href="https://www.linkedin.com/pulse/technical-design-interview-guide-success-joey-addona">The Technical Design Interview - A Guide to Success</a></li>
+<li><a href="https://www.linkedin.com/pulse/test-design-architecture-interview-tips-success-kane-ho">Test Design &amp; Architecture Interview - Tips to success</a></li>
+</ol>
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>Design a simple file system using OO programming. Just folder and files.</li>
+<li>How to design a load balancer?</li>
+<li>How to design Facebook News Feed?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<p>(1) Design a simple file system using OO programming. Just folder and files.</p>
+
+<p>Use Composite pattern.</p>
+
+<pre><code class="java">class FileNode {
+  String name;
+}
+
+class File extends FileNode {
+  long size;
+}
+
+class Folder extends FileNode {
+  Collection&lt;FileNode&gt; children;
+}
+</code></pre>
+
+<p>(2) How to design a load balancer?</p>
+
+<p>Simple: hash and assign random. What are pros and cons?</p>
+
+<p>(3) Design Facebook News Feed.
+From <a href="https://www.reddit.com/r/cscareerquestions/comments/4ytbz3/design_facebook_news_feed_my_solution_to_the/">here</a>:</p>
+
+<p>First some numbers to get the scale of the problem:</p>
+
+<ul>
+<li>number of users: 10<sup>9</sup></li>
+<li>number of users during a peak hour (upper bound): 10<sup>8</sup></li>
+<li>number of posts during a peak hour: 10<sup>6</sup></li>
+<li>number of other activities during a peak hour (likes, comments, saves): 10<sup>10</sup></li>
+<li>almost all users have less than 10<sup>3</sup> friends</li>
+</ul>
+
+
+<p>The News Feed is constructed mainly based on the activity of user&rsquo;s important Facebook friends.
+An important friend is a user who is my friend and I have interacted with him/her at least somewhat during recent months.
+Interaction might include liking his/her comment, commenting on their post, chatting together, being marked on the same photo, etc.
+We assume the backend maintains the list of important friends.
+It might be updated perhaps every 60 minutes.
+This ordering might be quite fuzzy.
+Random perturbations of this ordering might lead to users being able to rediscover friends who they have mostly stopped interacting with.
+The primary purpose of distinguishing important friends is to make the feed more interesting.
+Another advantage is reduction of hotspots: there might be people with >10<sup>4</sup> friends, but we assume that every Facebook user has at most 10<sup>2</sup> important friends.</p>
+
+<p><strong>Minimum Viable Product</strong>: The Facebook News Feed of each user is a merge of the recent posts made by all his/her important friends sorted by the score of the post.
+The score of the post is ideally proportional to how interesting the post is to our user.
+The score depends on: how old the post is (older posts are less interesting), how many likes the post received, how many likes the post received from user&rsquo;s important friends or friends, &hellip;</p>
+
+<p>We primarily care about delivering an interesting News Feed. On the other hand, we don&rsquo;t really care about being able to produce an infinitely long News Feed. If our infrastructure implies that the feed is limited to 10<sup>00</sup> items and the user cannot scroll further. There are very few legitimate uses for having infinitely scrollable feed.</p>
+
+<p>Overview of the infrastructure:</p>
+
+<ul>
+<li>Firewall</li>
+<li>Load balancer</li>
+<li>Front-end web servers</li>
+<li>Memcache servers or Redis servers or something similar</li>
+<li>Distributed database servers</li>
+</ul>
+
+
+<p>Let&rsquo;s see what happens when the user requests his News Feed:</p>
+
+<ul>
+<li>The request is specified by: the id of user whose feed we&rsquo;re displaying and the number N of requested posts.</li>
+<li>The load balancer redirects the request to one of the web servers. It also decrypts the request. Within the datacenter, we only use unencrypted connections. To do the above, the load balancer keeps statistics of the numbers of requests each server is handling. Possibly, the load balancer might decide to start up a new server or schedule a shutdown of a server to save power. The web server checks if the user is authenticated. This is done by retrieving user&rsquo;s session data from a Google BigTable. If not logged in, s/he is redirected to the login page. If N is too large and not coming from a verified computer (like Facebook&rsquo;s API server), we reject the request and log information about a suspicious request.</li>
+<li>The web server queries memcache for the list of important friends of the user in question.</li>
+<li>Almost always, memcache will have this list ready in memory for all users who are currently logged in (after login, we immediately prefetch this data into memcache). The peak number of users is 10<sup>8</sup>, the number of important users at most 10<sup>2</sup>, each user is represented by an 8 byte identifier. This is an upper bound of 10<sup>11</sup> bytes, which is 100 GB of memory. Even with significant overhead, room for growth and a safety factor for situations when an unexpectedly large number of users logs in at the same time (e.g., when presidential election results are announced), this can still be stored in operating memory of a single server. A distributed memcache implementation is not going to have a problem here. For each important friend, the web server sends a request for this friend&rsquo;s Activity List. Activity List is a list of his posts, likes, comments, uploaded photos, instances of being marked on a photo, etc. Each item contains a timestamp (32 bits), item type (post, comment, share, &hellip;), id of the item (e.g., the id of the post or comment), the destination id (for example, the id of the post on which the comment was made) and privacy setting (1 byte). This is 22 bytes in total. Only identifiers are stored. The data are populated at the end of the computation.</li>
+<li>These lists are stored in a distributed database hidden behind caching servers. There is 10<sup>9</sup> users, each has at most 10<sup>3</sup> items in their Activity List. This is 22 * 10<sup>12</sup> = 22 TB of memory. <strong> It is certainly possible to store this in a distributed file system. </strong>A distributed memcache on 128 servers each with 250 GB RAM would also handle this. Therefore, we can assume all these lists are almost always in memory.</li>
+<li>Each item in each of these lists is assigned Relevancy Value. This depends on: The importance of the friend from whose Activity List the item is. How recent the item is. The number of likes and shares the item has (this only makes sense in the case of posts or photos). The number of likes from the user&rsquo;s other important friends. Surely, a like from 3 of my friends is more important than 10 likes from random strangers. We can access this information since we have retrieved the Activity Lists of every single important friend of the user. Since these lists include their likes and the ids of liked posts, we can specifically compute the numbers from the retrieved data. The user&rsquo;s prefered content type. Some users might like photos more than text. We remember this for each user and adjust the weight accordingly. Private posts that should not be visible to the user are removed at this point.</li>
+<li>We sort each of these lists using the Relevancy Value and merge them.</li>
+<li>We send this list to a content service. This service replaces all identifiers with the corresponding content (text, image links, names of users instead of user ids, &hellip;)</li>
+<li>The web server uses a template to convert this into HTML.</li>
+</ul>
+
+
+<p>There are two questions to ponder:</p>
+
+<ul>
+<li>When the News Feed is requested again in the future, do we recalculate it from scratch? We could store the sequence calculated in one of the last steps in cache and only compute the beginning of the feed (that is: we would only compute what is new). This might make almost-infinite scrolling possible in certain cases. However, we would need to handle some corner cases. For example, the list is only approximately ordered according to the timestamp.</li>
+<li>The above described the read path. It remains to analyze the write path: what happens when a user submits a content, likes something, etc. Well, we simply add this to his Activity List. In the case of posts, images, &hellip; we also store it on a content service server.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

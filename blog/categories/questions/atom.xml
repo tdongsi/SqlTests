@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Questions | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/questions/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-01-16T22:53:16-08:00</updated>
+  <updated>2018-01-19T18:52:26-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Network Question Bank]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/09/01/network-question-bank/"/>
-    <updated>2016-09-01T01:45:07-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/09/01/network-question-bank</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2019/09/01/network-question-bank/"/>
+    <updated>2019-09-01T01:45:07-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2019/09/01/network-question-bank</id>
     <content type="html"><![CDATA[<p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
 
 <!--more-->
@@ -97,9 +97,9 @@ To give examples of REST-style resources:
   
   <entry>
     <title type="html"><![CDATA[Database Question Bank]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/03/database-question-bank/"/>
-    <updated>2016-08-03T01:41:54-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/03/database-question-bank</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/03/database-question-bank/"/>
+    <updated>2018-08-03T01:41:54-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/03/database-question-bank</id>
     <content type="html"><![CDATA[<p>Questions about database in general. For data warehouse and dimensional modelling, check <a href="/blog/2016/09/15/tutorial-dimensional-modelling/">this</a>.</p>
 
 <!--more-->
@@ -262,9 +262,9 @@ It&rsquo;ll run faster that way.</p>
   
   <entry>
     <title type="html"><![CDATA[Questions: SQL Basics]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/02/select-basics/"/>
-    <updated>2016-08-02T01:39:37-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/02/select-basics</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/02/select-basics/"/>
+    <updated>2018-08-02T01:39:37-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/02/select-basics</id>
     <content type="html"><![CDATA[<p>This post is about basic DDL, <code>SELECT</code> questions (phone-screen level).</p>
 
 <!--more-->
@@ -583,9 +583,9 @@ join snapshot s on t.user_id = s.user_id and t.song_id = s.song_id and s.date = 
   
   <entry>
     <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/08/01/mysql-workaround/"/>
-    <updated>2016-08-01T01:42:23-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/08/01/mysql-workaround</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround/"/>
+    <updated>2018-08-01T01:42:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround</id>
     <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
 Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
 If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
@@ -722,9 +722,9 @@ where Id not in
   
   <entry>
     <title type="html"><![CDATA[System Design Questions]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/07/01/system-design-questions/"/>
-    <updated>2016-07-01T02:13:01-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/07/01/system-design-questions</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions/"/>
+    <updated>2017-07-01T02:13:01-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions</id>
     <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
 
 <!--more-->

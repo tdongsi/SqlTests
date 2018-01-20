@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Math | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/math/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2018-01-20T01:32:13-08:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Anomaly Detection]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/02/anomaly-detection/"/>
+    <updated>2021-11-02T22:42:54-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/02/anomaly-detection</id>
+    <content type="html"><![CDATA[<p>Anomaly detection is pretty important in DevOps world.
+It is great if it can generate some alarm when something odd is happening in monitoring metrics.
+This post will discuss some basic ideas of how to approach Anomaly Detection.</p>
+
+<!--more-->
+
+
+<h3>Anomaly Detection</h3>
+
+<p>According to <a href="/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">this cheat sheet</a>, the standard approaches are PCA-based anomaly detection and one-class SVM (>100 features, aggressive boundary).
+These are rules of thumb: for specific sets of data with specific advanced information can lead to another more efficient approach.</p>
+
+<p>An analogy: without specific information, merge sort is the safest choice for sorting.
+However, with extra information about incoming data such as its randomness (quicksort for really random data) or range of possible values (radix sort for range much smaller than numbers), you can find a better choice for sorting.</p>
+
+<h3>Principle Component Analysis (PCA)</h3>
+
+<h4>Theory</h4>
+
+<h4>Application to Anomaly Detection</h4>
+
+<h3>Support Vector Machine (SVM)</h3>
+
+<p>General theory: The most common theory is two-class SVM where we find the hyperplane that best divides the samples of two classes.
+The problem can be formulated as a constrained optimization problem, which can be solved by quadratic programming methods.
+At the end, there are some samples that are closest to the optimal hyperplane is called support vectors.
+The awesome thing about SVM is that you can apply non-linear transformations, including adding more dimensions, to samples in both classes and SVM still works.
+Such transformations (kernels) must have some properties and there are list of common kernel types.</p>
+
+<p>The error is bounded by the number of support vectors -> it is better to have low average support vector.</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=eHsErlPJWUU">Tutorial with familar notation (Caltech)</a></li>
+<li><a href="https://www.youtube.com/watch?v=_PwhiWxHK8o">MIT tutorial</a></li>
+</ul>
+
+
+<p>One class SVM: samples are from positive class only.</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=rNGtj2iEw6g">One class SVM tutorial</a></li>
+</ul>
+
+
+<h4>Application to DevOps</h4>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=5vrY4RbeWkM">Mostly Gausian + Correlation for Context data</a></li>
+</ul>
+
+
+<h3>Reference</h3>
+
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet">Machine Learning cheat sheet</a></li>
+<li><a href="/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">PDF mirror</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Estimation Theory]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory/"/>
+    <updated>2021-11-01T23:40:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory</id>
+    <content type="html"><![CDATA[<p>Math in Estimation theory.</p>
+
+<!--more-->
+
+
+<h3>Basic statistics</h3>
+
+<p>Two vectors <strong>x</strong> and <strong>z</strong> is joinly Guassian when the combined vector <strong>y</strong> = [x z] is also Gaussian.
+Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The reverse is not true.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>: e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%.
+The first team in FG% is Spurs, who took lots of 2s.</p>
+
+<h3>Basic Kalman Filter</h3>
+
+<p>TODO</p>
+
+<h4>Kalman Filter</h4>
+
+<h4>Extended Kalman Filter</h4>
+
+<h3>EKF-SLAM formulation</h3>
+
+<p>TODO</p>
+
+<h3>Mingyang&rsquo;s thesis</h3>
+
+<p>Contributions:</p>
+
+<ol>
+<li>Analysis of EKF-SLAM and MSCKF. New estimator (MSCKF 2.0) with correct observability.</li>
+<li>Hybrid estimator that picks either EKF-SLAM formulation or MSCKF 2.0, depending on length of feature tracks.</li>
+<li>Online calibration of the spatial and temporal relationship between visual and inertial sensors.</li>
+<li>Sensor models for rolling shutter cameras and low-cost inertial sensors.
+
+<ol>
+<li>IMU axis misalignment, scale factors, and g-sensitivity affects inertial sensors.</li>
+<li>Image distortions from rolling shutter cameras.</li>
+</ol>
+</li>
+</ol>
+
+
+<p> Why? IMU and cameras are already found in several commercial resource-constrained devices (e.g., mobile phones and AR devices).</p>
+
+<h4>Contribution 1: EKF-SLAM and MSCKF -> MSCKF 2.0</h4>
+
+<p>EKF-SLAM formulation: current pose + feature positions.
+Since we are not doing mapping, only currently visible features are kept -> computational cost is bounded.</p>
+
+<p>MSCKF: a sliding window of poses.
+Measurements are used to impose the constraints on these poses.
+If a new feature is found, add a new pose to the state vector and augment covariance matrix accordingly.
+Each feature is tracked until it goes out of field of view, then all of its observations are processed at once.
+A pose is only removed when all features associated with that pose have been processed.</p>
+
+<p>Consistency and accuracy of estimators are correlated.
+A recursive estimator is consistent if the estimation errors are zero-mean and have covariance matrix as reported by the estimator.</p>
+
+<p>Why difference? Assumptions:</p>
+
+<ul>
+<li>In EKF: IMU state and feature positions are jointly Gaussian. With non-linear measurement models, this is a strong assumption.
+
+<ul>
+<li>To improve it, need to pick another feature parameterization to make the measurement model closer to linear.</li>
+</ul>
+</li>
+<li>In MSCKF, there is no feature positions. No assumptions on feature positions are required.</li>
+<li>MSCKF delay linearization: only process each feature when all of its measurement are available -> better estimates -> better Jacobians -> better updates.</li>
+<li>In EKF-SLAM, using fewer observations: e.g., in standard XYZ parameterizaton, it can lead to wildly inaccurate estimates.</li>
+</ul>
+
+
+<h4>Contribution 2: Hybrid estimator, pick one</h4>
+
+<ul>
+<li>N: number of features.</li>
+<li>m: feature length: max number of observations per feature.</li>
+</ul>
+
+
+<p>Then, the compuational costs of the two estimators are</p>
+
+<ul>
+<li>MSCKF: O(N) and O(m<sup>3</sup>).</li>
+<li>EKF-SLAM: O(N<sup>3</sup>) and O(m).</li>
+</ul>
+
+
+<p>MSCKF is faster because of general distribution of features: because of feature detection algorithms, majority of features are detected close to the camera, where it will goes out of the FOV quickly (large N, small m).
+For example, in Cheddar Gorge data, many features are close to the car/camera, while a few are really far away.</p>
+
+<p>Depending on the length of feature tracks in current environment, use one.
+Given “many” measurements, nothing is gained by initializing features  observed fewer than m times.
+So, if the features is observed less than m times, use MSCKF. Otherwise, put it in the state vector and use EKF-SLAM.
+m (sliding window size) is to determined empirically: plotting and see the low points.</p>
+
+<h4>Contribution 3: Online camera-to-IMU calibration</h4>
+
+<p>Detailed identifiability analysis of these parameters.
+Time offset between the two measurements.
+The degenerate cases are known and rare cases.</p>
+
+<p>Some degenerate cases are: (Recovery?)</p>
+
+<ul>
+<li>Going in a straight line</li>
+<li>Constant acceleration with no rotation</li>
+<li>Constant velocity (no acceleration) with rotation about gravity vector only.</li>
+</ul>
+
+
+<h4>Contribution 4: Models for low-cost sensors</h4>
+
+<p>Measurement models for rolling shutter camera.</p>
+]]></content>
+  </entry>
+  
+</feed>

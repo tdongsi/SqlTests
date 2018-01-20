@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-01-16T22:53:16-08:00</updated>
+  <updated>2018-01-19T18:52:26-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -15,17 +15,28 @@
   
   <entry>
     <title type="html"><![CDATA[Language Index]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/02/language-index/"/>
-    <updated>2016-01-02T09:07:55-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/02/language-index</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/02/language-index/"/>
+    <updated>2011-01-02T09:07:55-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2011/01/02/language-index</id>
     <content type="html"><![CDATA[<p>Overview of most common languages.</p>
-
-<!--more-->
-
 
 <h3><a href="https://tdongsi.github.io/java/">Java</a></h3>
 
 <h4>Pure Java</h4>
+
+<p>Questions:</p>
+
+<ol>
+<li>What is OOP? What is polymorphism? etc.</li>
+<li>Some standard design patterns in Java: Singleton (enum and two locks), Builder, Decorator, Factory.</li>
+<li>Examples of design patterns in Java.</li>
+<li>Relations between <code>hashCode()</code> and <code>equals()</code>.</li>
+<li>Implements a simple algorithm for <code>hashCode()</code>.</li>
+<li>When to use <code>finalize()</code> and when not to use <code>finalize()</code>. See &ldquo;Effective Java&rdquo;.</li>
+<li>Java concurrency: what is <code>volatile</code>? when to use it? <code>synchronized</code>?</li>
+<li>Some legacy items: Diff between StringBuilder vs StringBuffer.</li>
+</ol>
+
 
 <h4>Groovy</h4>
 
@@ -42,14 +53,26 @@
 <li>Ruby</li>
 </ul>
 
+
+<!--more-->
+
+
+<h3>Java Answers</h3>
+
+<ol>
+<li>Know your audience.
+A new grad will mention something about abstraction, encapsulation, inheritance, polymorphism, and pass.
+Alan Kay (father of OOP) will say something about message passing and late binding and might fail.</li>
+</ol>
+
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development/"/>
-    <updated>2016-01-01T21:57:00-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/01/tutorial-test-driven-development</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/01/tutorial-test-driven-development/"/>
+    <updated>2011-01-01T21:57:00-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2011/01/01/tutorial-test-driven-development</id>
     <content type="html"><![CDATA[<!-- Reference:
 Evernote: "QE cheat sheet"
 -->

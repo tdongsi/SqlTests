@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2018-01-20T01:32:13-08:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Glassdoor: Algorithm Question Bank]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/29/question-bank/"/>
+    <updated>2012-02-29T22:31:29-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/29/question-bank</id>
+    <content type="html"><![CDATA[<p>These questions are gathered from Glassdoor.</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<h4>LinkedIn</h4>
+
+<ol>
+<li>Serialize binary tree.</li>
+<li>Count the number of occurrences of a given element in a sorted array.</li>
+<li>Modify binary search to find the index of first/last occurrence of x in the array. Two binary searches.</li>
+<li>Design a program to take a string and store, each character, into an array. The array should return a count of each character when called. [The interviewer was clearly trying to blur the lines between a simple program and a MapReduce]</li>
+<li>Senior Test Engineer: A user logs in to a website with proper credentials and the user is taken to a blank page. How would you troubleshoot that?</li>
+<li>Senior Test Engineer: Create a stack with the usual push() &amp; pop(), but with an additional function getMiddle() that returns the middle element of the stack in constant time.</li>
+<li>Senior Test Engineer: Search a sorted array for the first element larger than k.</li>
+<li>You have a potentially very-large set of documents, which are potentially very-large, and contain text. For searching these documents, they&rsquo;ve been pre-processed into a (very-large) table mapping words to the set of documents that contain each word. E.g. (word) : (documents (referenced by ID) containing that word) Apple: 1, 4, 5, 6, 32 Banana: 5, 6, 7, 9, 32 Cantaloupe: 1, 2, 6 &hellip; Clients will pass in a set &hellip;</li>
+<li>Given a nested list of integers, return the sum of all integers in the list weighted by their depth For example, given the list <code>[[1,1],2,[1,1]]</code> the function should return 10 (four 1 at depth 2, one 2 at depth 1). Answer: Recursion or Use a stack while iterating through the input string.</li>
+<li>Create an isNumber(string) function. Handle signed / unsigned, floating point, any number of digits, etc. Probably commas, and currency signs, or whatever. It was open ended and governed by whatever unit tests he wanted you to make it work against.</li>
+<li>Find out at least one 3 elements array in a given integer array. The 3 elements have to be able to form a triangle.</li>
+<li>Write a program to replace 0s with 5 in a given number. Eg: 1208 -> 1258, 120096045 -> 125596545</li>
+<li>Write a function to find the power of a<sup>b</sup></li>
+<li>Find the minimum distance between 2 words in a dictionary</li>
+<li>Evaluate a post-fix expression</li>
+<li>Given an array of numbers , replace each number with the product of all the numbers divided by the number at that index without using the division operator.</li>
+<li>Write a function that, given a list of integers (both positive and negative) returns the sum of the contiguous subsequence with maximum sum. Thus, given the sequence (1, 2, -4, 1, 3, -2, 3, -1) it should return 5.</li>
+<li>Write a function that would find the largest palindrome (phone interview).</li>
+<li>Write a Binary Search Tree class with isBST() method that will validate if the tree is a BST (onsite).</li>
+</ol>
+
+
+<h4>Google</h4>
+
+<ol>
+<li>Given a list of integers and another integer. Write a program that returns the posible combinations of the list which added, match the integer, numbers can repeat itself.</li>
+<li>Write a function to check if a string is palindrome? Write a function to return the largest Palindrome as possible in a given string. Hint: O(N)</li>
+<li>Check if Sudoku is valid</li>
+<li>You have unsorted array. You must design algorithm to create array where every even value is greater than it&rsquo;s odd neighbors. So if a(i) is value at index i (=0,1,2&hellip;n), the result must hold that: a1 &lt; a2 > a3 &lt; a4 > a5&hellip;</li>
+<li>Merge K sorted lists.</li>
+<li>System design: design a system that given a point on earth will return the highest building in 100m radios. The question was developing. Start by assuming everything in memory. Then assume not everything fits, then use several machines, then consider what happens when one is down. The purpose is to answer as quickly as possible but you have preprocessing time.</li>
+<li>0-1 Knapsack problem. NP-complete/NP-hard.</li>
+<li>Design a load balancer for web servers.</li>
+</ol>
+
+
+<h4>Salesforce</h4>
+
+<ol>
+<li>Q: Explain Encupsulation</li>
+<li>Q: Inheritance vs composition</li>
+<li>Q: What&rsquo;s the difference between tree and HashTable.</li>
+<li>Also asks me to create classes for file system API.</li>
+<li>How to ensure locking in Singleton class</li>
+<li>Do a producer consumer problem</li>
+<li>Reach 2D Pt x to Pt y in spiral form -> right -> down -> left -> up moving 1 point at a time.</li>
+<li>Find all words which start from particular letter (case insensitive)</li>
+<li>The number of paths in a m x n grid to a given cell?</li>
+<li>Given an ordered large array of integers, find all pairs of numbers that add up to a particular given sum.</li>
+<li>Given a regular English dictionary, and a word to start with (e.g. &ldquo;head&rdquo;), you can only change one letter a time, but every change has to be a word in the dictionary (e.g. head -> heal) What is the quickest way to an end word (e.g. &ldquo;tail&rdquo;)?</li>
+<li>How to efficiently merge two sorted binary trees?</li>
+<li>Why its said a good practice to override() hashcode() of an object when you override equals()?</li>
+<li>Given an array of integers, return top K elements from it.</li>
+<li>Given 2 unsorted integer arrays, get the intersection of the 2.</li>
+<li>question about finding out the character that occurs most in a given string.</li>
+<li>What is the JRE and what does it have to do with .jar files?</li>
+<li>Explain / implement a hash table.</li>
+<li>Given 3 tasks from 3 bosses, how would u handle the priority if you could only finish one of them.</li>
+<li>Three major difference between C++ and Java.</li>
+<li>Given a constant input stream of integers design a way to, at any point, return the current median of that stream.</li>
+<li>Get unique items from an array.</li>
+<li>given an binary search tree (that is, an ordered tree), how would you find the element of the tree at a particular &ldquo;index&rdquo;, where index is defined as the position in the tree&rsquo;s ordering.</li>
+<li>Fastest way to find the middle node in a linked list</li>
+<li>Eliminate the duplicate elements from a given linked list.</li>
+<li>Union find algorithm.</li>
+<li>clockwise print out a M*N matrix. Solution: recursive</li>
+<li>Explain way to optimize SQL.
+
+<ol>
+<li><a href="http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries">http://www.vertabelo.com/blog/technical-articles/5-tips-to-optimize-your-sql-queries</a></li>
+</ol>
+</li>
+<li>Counting the frequency of words in a list.. hashtable with word keys and word count values..</li>
+<li>Find Pairs with least absolute difference in an given unsorted array.
+
+<ol>
+<li>NOTE: if the numbers are in a given range</li>
+</ol>
+</li>
+<li>Explain difference in Heap and Stack memory for JVM.
+
+<ol>
+<li><a href="http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html">http://javarevisited.blogspot.com/2013/01/difference-between-stack-and-heap-java.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=450maTzSIvA">https://www.youtube.com/watch?v=450maTzSIvA</a></li>
+</ol>
+</li>
+<li>Image url parser from an html page and its child pages.</li>
+<li>Implement Que using 2 stacks. write test cases for it.</li>
+<li>Write thread safe singleton class</li>
+<li>what are joins in database, some scenario where u used it</li>
+<li>Given two sorted arrays, find the intersection of the two arrays.</li>
+<li>Find duplicate from a very large list (trillion) of immutable integers in known range. O(N) and O(1) additional space solution.</li>
+</ol>
+
+
+<p>Set B</p>
+
+<ol>
+<li>JS - what is eval()</li>
+<li>JS - what is the diffenrence between == and ===</li>
+<li>How hashmaps work - hashCode and equals operators</li>
+<li>Principles of OO - encapsulation, inheritance</li>
+<li>What is synchronized?</li>
+<li>Big O of data searching on different data structures - array , linked list, hashtable</li>
+<li>Java difference of a hashtable and hashmap</li>
+<li>Something that you are proud of - code and other - industry related</li>
+<li>Describe a development process - engaging client - requirements - etc</li>
+<li>Favorite java classes</li>
+<li>What does AJAX stands for?</li>
+<li>what type of response can you get from and AJAX call - string or XML</li>
+</ol>
+
+
+<p>Set C:</p>
+
+<ol>
+<li>Describe Singleton in a Real Life Example , like if you want to explain concept of singleton pattern to your grandmother, who don&rsquo;t know the computer at all. what would be your approach.</li>
+<li>How would you design a Chat Session (gtalk) ?</li>
+<li>write program to calculate power(x,n) in log(n) time</li>
+<li>Find intersection node of two linked lists.</li>
+<li>Merge two sorted linked lists into one without extra space.</li>
+<li>Given an array, which contains integers in the range of 1 to n. one number is missing from it and one number is repeated in array. for ex &ndash; array is {1,2,3,4,4,6,7,8,9} , range given is 1- n(n=9).
+determine which number is missing and which is repeated in array.</li>
+<li>given char array = {a,a,a,a,b,b,b,c,c,d,d,,e,,f,f}
+output should be &ndash; {a,4,b,3,c,2,d,2,e,f,2}, i.e. occurrences of every element followed by character, without using other array.</li>
+</ol>
+
+
+<h4>Others</h4>
+
+<ol>
+<li>Implement a FIFO queue from 2 FILO stacks</li>
+<li>Calculate Fibonacci-like sequence: f(n) = f(n-1) + … + f(n-k) where f(i) = 0 if i &lt; 0 and f(0) = 1. Your algorithm should avoid shifting lots of number.</li>
+<li>Given 2 sorted arrays, how do I get the median of the combined 2 arrays.</li>
+<li>Given a sorted array and a number k, find 2 number a, b such that a + b = k. Your algorithm should be O(n). If the array is unsorted, can you still do in O(n)?</li>
+<li>In-order traversal? In-order traversal without recursion?</li>
+</ol>
+
+
+<h4>Dynamic programming problems</h4>
+
+<p>At least one dynamic programming problem will be asked during on-site interview.</p>
+
+<ol>
+<li>Given a number n, find a set such that
+
+<ul>
+<li>Sum of all the elements should result into n.</li>
+<li>Multiplication of all the elements should be greater than any other similar set (whose elements result n when summed up).</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Concurrency</h4>
+
+<ol>
+<li>How to write a thread-safe or reentrant function. What is the difference between a reentrant function and thread-safe function?
+
+<ul>
+<li>Reentrant and thread-safe is actually two separate concepts.</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Object oriented programming</h4>
+
+<ol>
+<li>What is OOP? What is abstraction, encapsulation, inheritance, polymorphism?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<h4>Others</h4>
+
+<p>(3) Given 2 sorted arrays, how do I get the median of the combined 2 arrays?</p>
+
+<p>The basic idea is that if you are given two arrays A and B and know the length of each, you can check whether an element A[i] is the median in constant time. Suppose that the median is A[i].
+Since the array is sorted, it is greater than exactly i − 1 values in array A.
+Then if it is the median, it is also greater than exactly j = ceil(n/2) − (i − 1) elements in B.
+It requires constant time to check if B[j] &lt;= A[i] &lt;= B[j + 1].
+If A[i] is not the median, then depending on whether A[i] is greater or less than B[j] and B[j + 1], you know that A[i] is either greater than or less than the median.
+Thus you can binary search for A[i] in O(lg n) worst-case time.</p>
+
+<p>(4) Given a sorted array and a number k, find 2 number a, b such that a + b = k.</p>
+
+<p>Time O(n) and O(n) for sorted and unsorted array.
+a) If the array is sorted, use two pointers at the two ends of the aray.
+b) If the array is not sorted, create a hash table with keys as (k-a[i]). Then look up for each a[i] in the table. Table insertion and table look-up is O(1).</p>
+
+<h4>OOP</h4>
+
+<p>(1) What is OOP?</p>
+
+<ul>
+<li>OOP: a programming paradigm that uses objects to design computer applications. Here, objects are special data structures that consist of data fields and methods interacting with those data fields. OOP techniques includes the followings: data abstraction, encapsulation, inheritance, polymorphism, messaging.</li>
+<li>Data abstraction: means that we interact with data in objects using its abstract interface. For example, we access private data of an object using its public methods. It is a mechanism to restrict the access to some of data structure&rsquo;s component, usually to separate the implementation details of the data structure.</li>
+<li>Encapsulation: in simple definition, the implementation details of a program is separated from its representation. It means that we separate &ldquo;what an object can do&rdquo; and &ldquo;how the object do it&rdquo;.</li>
+<li>Inheritance: is the ability of a class to expand as a subclass, so that the code can be reused.</li>
+<li>Polymorphism: is the ability of a class can be considered as different forms.</li>
+<li>Message passing: in OOP, a message is the single means to pass control to an object. Alan Kay has argued that message passing is more important than objects in OOP, and that objects themselves are often over-emphasized.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/28/tutorial-bit-manipulation/"/>
+    <updated>2012-02-28T00:23:25-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/28/tutorial-bit-manipulation</id>
+    <content type="html"><![CDATA[<h3>Questions</h3>
+
+<ol>
+<li>Addition using only bit manipulation.</li>
+<li>Subtraction using only bit manipulation.</li>
+<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
+<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
+<li>What is big-endian? What is little-endian?</li>
+<li>How would you determine if the system is big-endian or little-endian.</li>
+</ol>
+
+
+<!--more-->
+
+
+<h3>Answers</h3>
+
+<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
+In code, it is implemented as follows:</p>
+
+<pre><code class="java Addition">    private int add(int a, int b) {
+        if(b == 0)
+            return a;
+
+        return add( a ^ b, (a &amp; b) &lt;&lt; 1);
+    }
+</code></pre>
+
+<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
+In code, it is implemented as follows:</p>
+
+<pre><code class="java Subtraction">    private int subtract(int a, int b) {
+        if(b == 0)
+            return a;
+
+        return subtract( a ^ b, (~a &amp; b) &lt;&lt; 1);
+    }
+</code></pre>
+
+<p>(3) Find odd one.</p>
+
+<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
+
+<p>(4) Quickly determine if a number is a power of 2.</p>
+
+<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
+
+<p>(5) Big-endian stores the most significant byte first, while little-endian stores the least significant byte first.
+Fields in the protocols of the Internet protocol suite, such as IPv4, IPv6, TCP, and UDP, are transmitted in big-endian order.
+For this reason, big-endian byte order is also referred to as network byte order.</p>
+
+<p>(6) Use union type in C. Then check it based on definition.</p>
+
+<pre><code class="c Check endianess">union Data
+{
+int i;
+char str[2];
+} data;
+
+data.i = 0x00ff;
+printf( "data.str[0]: %d\n", data.str[0]);
+</code></pre>
+
+<p>Or use <a href="https://linux.die.net/man/3/htonl"><code>htonl</code></a> function (Host TO Network Long) in Linux.
+If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Book: Introduction to Algorithm]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/01/book-introduction-to-algorithm/"/>
+    <updated>2012-02-01T18:52:05-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/01/book-introduction-to-algorithm</id>
+    <content type="html"><![CDATA[<p>Summary of CLRS, a classic. This book is more like a reference book than a textbok.</p>
+
+<!--more-->
+
+
+<p>Download:</p>
+
+<ul>
+<li><a href="https://github.com/haseebr/competitive-programming/tree/master/Materials">PDF</a></li>
+<li><a href="http://sites.math.rutgers.edu/~ajl213/CLRS/CLRS.html">Solutions</a></li>
+</ul>
+
+
+<h3>Order of Learning</h3>
+
+<ul>
+<li>Part 1: Foundations
+
+<ul>
+<li>Appendices A - C</li>
+<li>Chapter 1: Algorithm Role</li>
+<li>Chapter 2: Runtime notation</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Appendix A</h3>
+
+<p>Appendix A.1.</p>
+
+<ul>
+<li>Arithmetic series. Formulas for k = 1-3.</li>
+<li>Geometric series. Formula for k = infi.</li>
+<li>Harmonic series. Bound.</li>
+<li>Example of Integrating and Differentiation.</li>
+<li>Telescoping series. Formula.</li>
+</ul>
+
+
+<p>Appendix A.2: Different techniques for bounding summations.</p>
+]]></content>
+  </entry>
+  
+</feed>

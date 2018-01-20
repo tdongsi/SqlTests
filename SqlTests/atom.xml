@@ -1,0 +1,2795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2018-01-20T01:32:13-08:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Bash Cookbook]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2022/12/03/bash-cookbook/"/>
+    <updated>2022-12-03T00:31:51-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2022/12/03/bash-cookbook</id>
+    <content type="html"><![CDATA[<p>All various tricky bash/Linux questions.</p>
+
+<!--more-->
+
+
+<h3>Remove files with special characters such as <code>-</code></h3>
+
+<p>Sometimes, when you run a script accidentally, you might end up creating a file with special characters in its name, making deletion hard in conventional way. Some examples include <code>&gt; option[value='2016']</code> and <code>-myfile</code>.</p>
+
+<p>Based on <a href="https://unix.stackexchange.com/questions/229348/how-to-remove-a-file-that-start-with-or-other-unusual-characters">this</a>, it is possible to remove those files by inode number.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -i 
+</span><span class='line'>-&gt; 5233 &gt; option[value='2016']   5689 foo
+</span><span class='line'>find . -inum 5233 -print
+</span><span class='line'>find . -inum 5233 -delete</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can also use the <code>--</code> option according to <code>man</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> The rm command uses getopt(3) to parse its arguments, which allows it to
+</span><span class='line'> accept the `--' option which will cause it to stop processing flag options at
+</span><span class='line'> that point.  This will allow the removal of file names that begin with a dash
+</span><span class='line'> (`-').  For example:
+</span><span class='line'>       rm -- -filename</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Parameter expansion</h3>
+
+<p>Explanation on <code>VARIABLE1="${VARIABLE1:-some_val}"</code> idiom.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "$VAR1"
+</span><span class='line'>
+</span><span class='line'>$ VAR1="${VAR1:-default value}"
+</span><span class='line'>$ echo "$VAR1"
+</span><span class='line'>default value</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ VAR1="has value"
+</span><span class='line'>$ echo "$VAR1"
+</span><span class='line'>has value
+</span><span class='line'>
+</span><span class='line'>$ VAR1="${VAR1:-default value}"
+</span><span class='line'>$ echo "$VAR1"
+</span><span class='line'>has value</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Other common usage:</p>
+
+<ul>
+<li>Simple usage
+
+<ul>
+<li>$PARAMETER</li>
+<li>${PARAMETER}</li>
+</ul>
+</li>
+<li>Indirection
+
+<ul>
+<li>${!PARAMETER}</li>
+</ul>
+</li>
+<li>Case modification
+
+<ul>
+<li>${PARAMETER^}: first character to upper case</li>
+<li>${PARAMETER^^}: all characters to upper cases</li>
+<li>${PARAMETER,}: first character to lower case</li>
+<li>${PARAMETER,,}: all characters to lower cases</li>
+<li>${PARAMETER~}: first character to reverse case</li>
+<li>${PARAMETER~~}: all characters to reverse cases.</li>
+</ul>
+</li>
+<li>Substring removal: useful for filename manipulation
+
+<ul>
+<li>${PARAMETER#PATTERN}: shortest text matching the pattern. E.g.: <code>${MYSTRING#* }</code></li>
+<li>${PARAMETER##PATTERN}: longest text matching the pattern. E.g.: <code>${MYSTRING##* }</code></li>
+<li>${PARAMETER%PATTERN}: shortest text fron the end</li>
+<li>${PARAMETER%%PATTERN}: longest text from the end</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Examples of substring removal:</p>
+
+<ul>
+<li>Get name without extension: <code>${FILENAME%.*}</code> where FILENAME=bash_hackers.txt</li>
+<li>Get extension: <code>${FILENAME##*.}</code></li>
+<li>Get directory name: <code>${PATHNAME%/*}</code> where PATHNAME=/home/bash/bash_hackers.txt</li>
+<li>Get filename in path: <code>${PATHNAME##*/}</code></li>
+</ul>
+
+
+<p>Reference:</p>
+
+<ul>
+<li><a href="https://unix.stackexchange.com/questions/122845/using-a-b-for-variable-assignment-in-scripts/122878">Stack overflow</a></li>
+<li><a href="http://wiki.bash-hackers.org/syntax/pe">Parameter expansion</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Docker CLI Cookbook]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2022/12/02/docker-cli-cookbook/"/>
+    <updated>2022-12-02T09:20:53-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2022/12/02/docker-cli-cookbook</id>
+    <content type="html"><![CDATA[<p>Standard Docker CLI commands for everyday workflow.</p>
+
+<!--more-->
+
+
+<h3>Standard workflow</h3>
+
+<p>The usual workflow for modifying a Docker image is as follows:</p>
+
+<figure class='code'><figcaption><span>Docker commands in workspace</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Build from a Docker file
+</span><span class='line'>$ docker build -t docker.registry.net/tdongsi/jenkins-nodev4-agent:2.85 .
+</span><span class='line'>
+</span><span class='line'># Test run a Jenkins slave docker
+</span><span class='line'>$ docker run -d --restart=always --entrypoint="java" docker.registry.net/tdongsi/jenkins-nodev4-agent:5 \
+</span><span class='line'>-jar /usr/share/jenkins/slave.jar -jnlpUrl http://10.252.78.115/computer/slave/slave-agent.jnlp
+</span><span class='line'>
+</span><span class='line'>$ docker ps -a
+</span><span class='line'>$ docker exec -it &lt;ID&gt; bash
+</span><span class='line'>
+</span><span class='line'># Copy an installer to Docker image
+</span><span class='line'>$ docker cp jdk-8u131-linux-x64.tar.gz bad2dab451bf:/home/jenkins
+</span><span class='line'>$ docker exec -it bad2dab451bf bash
+</span><span class='line'>jenkins@aqueduct-agent-1c87a4933da26c:~$ ls
+</span><span class='line'>jdk-8u131-linux-x64.tar.gz  maven  support  workspace
+</span><span class='line'>
+</span><span class='line'># Stop and restart
+</span><span class='line'>$ docker stop &lt;ID&gt;
+</span><span class='line'>$ docker rm &lt;ID&gt;
+</span><span class='line'>
+</span><span class='line'>$ docker commit --author tdongsi --message "Commit message" bad2dab451bf \ 
+</span><span class='line'>docker.registry.net/tdongsi/jenkins-nodev4-agent:7
+</span><span class='line'>
+</span><span class='line'>$ docker push docker.registry.net/tdongsi/jenkins-nodev4-agent:7</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Clean up</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># One liner to stop / remove all of Docker containers:
+</span><span class='line'>docker stop $(docker ps -a -q)
+</span><span class='line'>docker rm $(docker ps -a -q)
+</span><span class='line'>
+</span><span class='line'># Remove Docker containers that exited
+</span><span class='line'>docker rm -v $(docker ps -aq -f status=exited)
+</span><span class='line'>
+</span><span class='line'># Remove dangling (untagged) images
+</span><span class='line'>docker rmi $(docker images -f "dangling=true" -q)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><code>kubectl</code> command</h3>
+
+<p><code>kubectl</code> is the CLI client for Kubernetes.
+It is very similar to <code>docker</code> CLI in many situations (see <a href="https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/">this comparison</a>).</p>
+
+<figure class='code'><figcaption><span>kubectl commands</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># List all pods
+</span><span class='line'>kubectl get pods -a
+</span><span class='line'># Long format: including node
+</span><span class='line'>kubectl get pods -o wide
+</span><span class='line'>
+</span><span class='line'># List pod name only
+</span><span class='line'>kubectl get pods -o name -a | awk -F "/" '{print $2}'
+</span><span class='line'>
+</span><span class='line'># Delete pod based on some filter (e.g., "java-agent" in name)
+</span><span class='line'>kubectl get pods -o name -a | awk -F "/" '{print $2}' | grep java-agent &gt;pods.txt
+</span><span class='line'>kubectl delete pod `&lt; pods.txt`
+</span><span class='line'># The back tick is based on
+</span><span class='line'># https://stackoverflow.com/questions/4227994/command-line-arguments-from-a-file-content</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Reference</h3>
+
+<ul>
+<li><a href="http://tdongsi.github.io/blog/2017/01/25/docker-root-user-in-a-pod/">Example of modifying Docker image</a></li>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/">docker vs kubectl</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[User Group and Related Commands]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2022/12/01/groupadd-cookbook/"/>
+    <updated>2022-12-01T18:21:32-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2022/12/01/groupadd-cookbook</id>
+    <content type="html"><![CDATA[<p>User groups and commands to manipulate them.</p>
+
+<!--more-->
+
+
+<h3><code>groupadd</code> examples</h3>
+
+<p>The following example creates a new group called apache</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupadd apache</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Make sure it is created successfully.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># grep apache /etc/group
+</span><span class='line'>apache:x:1004:</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you don’t specify a groupid, Linux will assign one automatically.
+If you want to create a group with a specific group id, do the following.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupadd apache -g 9090
+</span><span class='line'>
+</span><span class='line'>$ grep 9090 /etc/group
+</span><span class='line'>apache:x:9090:</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Group account information is stored in <code>/etc/group</code>.
+Or you can run the following command to find out what groups you belong to.</p>
+
+<figure class='code'><figcaption><span>Check user group</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>+ groups $USER
+</span><span class='line'>
+</span><span class='line'>+ cat /etc/group
+</span><span class='line'>...
+</span><span class='line'>docker:x:999:jenkins
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>References</h3>
+
+<ul>
+<li><a href="https://linux.die.net/man/8/groupadd">groupadd man pages</a></li>
+<li><a href="http://linux.101hacks.com/unix/groupadd/">groupadd examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2012/06/chown-examples/">chown examples</a></li>
+<li><a href="https://www.unixtutorial.org/2008/06/find-files-which-belong-to-a-user-or-unix-group/">find files with group name or ID</a></li>
+<li><a href="https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group">https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OpenCV]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/04/opencv/"/>
+    <updated>2021-11-04T03:03:26-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/04/opencv</id>
+    <content type="html"><![CDATA[<h3>Python</h3>
+
+<p>Sample code from <a href="http://www.jwandrews.co.uk/2013/01/breaking-the-minteye-image-captcha-in-23-lines-of-python/">here</a>:</p>
+
+<figure class='code'><figcaption><span>Breaking MintEye</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">import</span><span class="err"> </span><span class="n">cv2</span>
+</span><span class='line'><span class="n">import</span><span class="err"> </span><span class="n">sys</span>
+</span><span class='line'><span class="n">import</span><span class="err"> </span><span class="n">numpy</span><span class="err"> </span><span class="k">as</span><span class="err"> </span><span class="n">np</span>
+</span><span class='line'><span class="n">import</span><span class="err"> </span><span class="n">os</span>
+</span><span class='line'><span class="n">import</span><span class="err"> </span><span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="err"> </span><span class="k">as</span><span class="err"> </span><span class="n">plt</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="k">if</span><span class="err"> </span><span class="n">__name__</span><span class="err"> </span><span class="o">==</span><span class="err"> </span><span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="err">    </span><span class="k">for</span><span class="err"> </span><span class="nb">dir</span><span class="err"> </span><span class="ow">in</span><span class="err"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">14</span><span class="p">):</span>
+</span><span class='line'><span class="err">        </span><span class="nb">dir</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nb">str</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="err">        </span><span class="n">total_images</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span>
+</span><span class='line'><span class="err">        </span><span class="n">points_sob</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="p">[]</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="err">        </span><span class="k">for</span><span class="err"> </span><span class="n">i</span><span class="err"> </span><span class="ow">in</span><span class="err"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">total_images</span><span class="p">):</span>
+</span><span class='line'><span class="err">            </span><span class="n">img</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="s">&#39;/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s">&#39;.jpg&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="err">            </span><span class="n">gray</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="err"> </span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="err">            </span><span class="n">sob</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span><span class="err"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="err"> </span><span class="mi">1</span><span class="p">,</span><span class="err"> </span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="err">            </span><span class="n">points_sob</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sob</span><span class="p">))</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="err">        </span><span class="n">x</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">total_images</span><span class="p">)</span>
+</span><span class='line'><span class="err">        </span><span class="n">res</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">points_sob</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+</span><span class='line'><span class="err">        </span><span class="k">print</span><span class="err"> </span><span class="n">res</span>
+</span><span class='line'><span class="err">        </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="n">points_sob</span><span class="p">[</span><span class="n">res</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="err"> </span><span class="n">marker</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span><span class="err"> </span><span class="n">color</span><span class="o">=</span><span class="s">&#39;r&#39;</span><span class="p">,</span><span class="err"> </span><span class="n">ls</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="err">        </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="err"> </span><span class="n">points_sob</span><span class="p">)</span>
+</span><span class='line'><span class="err"> </span>
+</span><span class='line'><span class="err">        </span><span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="s">&#39;.png&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="err">        </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Anomaly Detection]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/02/anomaly-detection/"/>
+    <updated>2021-11-02T22:42:54-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/02/anomaly-detection</id>
+    <content type="html"><![CDATA[<p>Anomaly detection is pretty important in DevOps world.
+It is great if it can generate some alarm when something odd is happening in monitoring metrics.
+This post will discuss some basic ideas of how to approach Anomaly Detection.</p>
+
+<!--more-->
+
+
+<h3>Anomaly Detection</h3>
+
+<p>According to <a href="http://tdongsi.github.io/SqlTests/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">this cheat sheet</a>, the standard approaches are PCA-based anomaly detection and one-class SVM (>100 features, aggressive boundary).
+These are rules of thumb: for specific sets of data with specific advanced information can lead to another more efficient approach.</p>
+
+<p>An analogy: without specific information, merge sort is the safest choice for sorting.
+However, with extra information about incoming data such as its randomness (quicksort for really random data) or range of possible values (radix sort for range much smaller than numbers), you can find a better choice for sorting.</p>
+
+<h3>Principle Component Analysis (PCA)</h3>
+
+<h4>Theory</h4>
+
+<h4>Application to Anomaly Detection</h4>
+
+<h3>Support Vector Machine (SVM)</h3>
+
+<p>General theory: The most common theory is two-class SVM where we find the hyperplane that best divides the samples of two classes.
+The problem can be formulated as a constrained optimization problem, which can be solved by quadratic programming methods.
+At the end, there are some samples that are closest to the optimal hyperplane is called support vectors.
+The awesome thing about SVM is that you can apply non-linear transformations, including adding more dimensions, to samples in both classes and SVM still works.
+Such transformations (kernels) must have some properties and there are list of common kernel types.</p>
+
+<p>The error is bounded by the number of support vectors -> it is better to have low average support vector.</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=eHsErlPJWUU">Tutorial with familar notation (Caltech)</a></li>
+<li><a href="https://www.youtube.com/watch?v=_PwhiWxHK8o">MIT tutorial</a></li>
+</ul>
+
+
+<p>One class SVM: samples are from positive class only.</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=rNGtj2iEw6g">One class SVM tutorial</a></li>
+</ul>
+
+
+<h4>Application to DevOps</h4>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=5vrY4RbeWkM">Mostly Gausian + Correlation for Context data</a></li>
+</ul>
+
+
+<h3>Reference</h3>
+
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet">Machine Learning cheat sheet</a></li>
+<li><a href="http://tdongsi.github.io/SqlTests/download/microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf">PDF mirror</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Estimation Theory]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory/"/>
+    <updated>2021-11-01T23:40:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory</id>
+    <content type="html"><![CDATA[<p>Math in Estimation theory.</p>
+
+<!--more-->
+
+
+<h3>Basic statistics</h3>
+
+<p>Two vectors <strong>x</strong> and <strong>z</strong> is joinly Guassian when the combined vector <strong>y</strong> = [x z] is also Gaussian.
+Jointly Gaussian implies marginally Guassian, conditionally Gaussian. The reverse is not true.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>: e.g. Warriors is first in 2P% and 3P% in NBA season 2016, but not first in FG%.
+The first team in FG% is Spurs, who took lots of 2s.</p>
+
+<h3>Basic Kalman Filter</h3>
+
+<p>TODO</p>
+
+<h4>Kalman Filter</h4>
+
+<h4>Extended Kalman Filter</h4>
+
+<h3>EKF-SLAM formulation</h3>
+
+<p>TODO</p>
+
+<h3>Mingyang&rsquo;s thesis</h3>
+
+<p>Contributions:</p>
+
+<ol>
+<li>Analysis of EKF-SLAM and MSCKF. New estimator (MSCKF 2.0) with correct observability.</li>
+<li>Hybrid estimator that picks either EKF-SLAM formulation or MSCKF 2.0, depending on length of feature tracks.</li>
+<li>Online calibration of the spatial and temporal relationship between visual and inertial sensors.</li>
+<li>Sensor models for rolling shutter cameras and low-cost inertial sensors.
+
+<ol>
+<li>IMU axis misalignment, scale factors, and g-sensitivity affects inertial sensors.</li>
+<li>Image distortions from rolling shutter cameras.</li>
+</ol>
+</li>
+</ol>
+
+
+<p> Why? IMU and cameras are already found in several commercial resource-constrained devices (e.g., mobile phones and AR devices).</p>
+
+<h4>Contribution 1: EKF-SLAM and MSCKF -> MSCKF 2.0</h4>
+
+<p>EKF-SLAM formulation: current pose + feature positions.
+Since we are not doing mapping, only currently visible features are kept -> computational cost is bounded.</p>
+
+<p>MSCKF: a sliding window of poses.
+Measurements are used to impose the constraints on these poses.
+If a new feature is found, add a new pose to the state vector and augment covariance matrix accordingly.
+Each feature is tracked until it goes out of field of view, then all of its observations are processed at once.
+A pose is only removed when all features associated with that pose have been processed.</p>
+
+<p>Consistency and accuracy of estimators are correlated.
+A recursive estimator is consistent if the estimation errors are zero-mean and have covariance matrix as reported by the estimator.</p>
+
+<p>Why difference? Assumptions:</p>
+
+<ul>
+<li>In EKF: IMU state and feature positions are jointly Gaussian. With non-linear measurement models, this is a strong assumption.
+
+<ul>
+<li>To improve it, need to pick another feature parameterization to make the measurement model closer to linear.</li>
+</ul>
+</li>
+<li>In MSCKF, there is no feature positions. No assumptions on feature positions are required.</li>
+<li>MSCKF delay linearization: only process each feature when all of its measurement are available -> better estimates -> better Jacobians -> better updates.</li>
+<li>In EKF-SLAM, using fewer observations: e.g., in standard XYZ parameterizaton, it can lead to wildly inaccurate estimates.</li>
+</ul>
+
+
+<h4>Contribution 2: Hybrid estimator, pick one</h4>
+
+<ul>
+<li>N: number of features.</li>
+<li>m: feature length: max number of observations per feature.</li>
+</ul>
+
+
+<p>Then, the compuational costs of the two estimators are</p>
+
+<ul>
+<li>MSCKF: O(N) and O(m<sup>3</sup>).</li>
+<li>EKF-SLAM: O(N<sup>3</sup>) and O(m).</li>
+</ul>
+
+
+<p>MSCKF is faster because of general distribution of features: because of feature detection algorithms, majority of features are detected close to the camera, where it will goes out of the FOV quickly (large N, small m).
+For example, in Cheddar Gorge data, many features are close to the car/camera, while a few are really far away.</p>
+
+<p>Depending on the length of feature tracks in current environment, use one.
+Given “many” measurements, nothing is gained by initializing features  observed fewer than m times.
+So, if the features is observed less than m times, use MSCKF. Otherwise, put it in the state vector and use EKF-SLAM.
+m (sliding window size) is to determined empirically: plotting and see the low points.</p>
+
+<h4>Contribution 3: Online camera-to-IMU calibration</h4>
+
+<p>Detailed identifiability analysis of these parameters.
+Time offset between the two measurements.
+The degenerate cases are known and rare cases.</p>
+
+<p>Some degenerate cases are: (Recovery?)</p>
+
+<ul>
+<li>Going in a straight line</li>
+<li>Constant acceleration with no rotation</li>
+<li>Constant velocity (no acceleration) with rotation about gravity vector only.</li>
+</ul>
+
+
+<h4>Contribution 4: Models for low-cost sensors</h4>
+
+<p>Measurement models for rolling shutter camera.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Reserved IP Addresses]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2019/09/02/reserved-ip-addresses/"/>
+    <updated>2019-09-02T20:22:02-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2019/09/02/reserved-ip-addresses</id>
+    <content type="html"><![CDATA[<p>Various IP addresses are reserved for special purposes.
+It is good to recognize if two containers are communicating using their private channels based on their IPs.</p>
+
+<!--more-->
+
+
+<h3>IP v4</h3>
+
+<p>Broadcast address: an address where all host bits in the IP address are set to one (1).
+All hosts are to accept and respond to the broadcast address.</p>
+
+<p>The 127.0.0.0/8 class &lsquo;A&rsquo; subnet is used for special local addresses, most commonly the loopback address 127.0.0.1.</p>
+
+<p><strong>Private IP addresses</strong>: a number of IP blocks which were set aside by ARIN for use as private addresses on private networks that are not directly connected to the Internet.</p>
+
+<figure class='code'><figcaption><span>Private IP addresses</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Class   CIDR            Start       End
+</span><span class='line'>A       10.0.0.0/8        10.0.0.0    10.255.255.255
+</span><span class='line'>B       172.16.0.0/12 172.16.0.0  172.31.255.255
+</span><span class='line'>C       192.168.0.0/16  192.168.0.0   192.168.255.255</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Special purposes</strong>: There are a number of addresses that are set aside for special purposes, such as the IP&rsquo;s used in OSPF, Multicast, and experimental purposes that cannot be used on the Internet.</p>
+
+<figure class='code'><figcaption><span>Reserved for multicast</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Class   CIDR            Start       End
+</span><span class='line'>D       224.0.0.0/4       224.0.0.0   239.255.255.255</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Others</strong>:</p>
+
+<figure class='code'><figcaption><span>Reserved for multicast</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Address Block    CIDR Mask   Used for                                Reference
+</span><span class='line'>0.0.0.0         /8            Used to communicate with "This" network RFC1700, p. 4
+</span><span class='line'>10.0.0.0      /8          Private-Use Networks                    RFC 1918
+</span><span class='line'>14.0.0.0      /8          Public-Data Network                     RFC1700, p.181
+</span><span class='line'>24.0.0.0      /8          Cable TV Networks                       --
+</span><span class='line'>127.0.0.0     /8          Loopback address</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>IP v6</h3>
+
+<figure class='code'><figcaption><span>Important adress blocks</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Address block (CIDR)    Range                    Number of addresses Scope       Purpose
+</span><span class='line'>::/128                    ::                      1                   Software    Unspecified address
+</span><span class='line'>::1/128                   ::1                     1                   Host        Loopback address to the local host.
+</span><span class='line'>::ffff:0:0/96         ::ffff:0.0.0.0 –
+</span><span class='line'>                        ::ffff:255.255.255.255    2^32                Software    IPv4 mapped addresses</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>References</h3>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Reserved_IP_addresses">Wiki page</a></li>
+<li><a href="http://www.inetdaemon.com/tutorials/internet/ip/addresses/special.shtml">Easier to read</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Network Question Bank]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2019/09/01/network-question-bank/"/>
+    <updated>2019-09-01T01:45:07-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2019/09/01/network-question-bank</id>
+    <content type="html"><![CDATA[<p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
+
+<!--more-->
+
+
+<h3>Review Syllabus</h3>
+
+<p>See <a href="http://tdongsi.github.io/SqlTests/syllabus/">main syllabus</a>.</p>
+
+<h3>Questions</h3>
+
+<ol>
+<li>TCP/UDP and how they&rsquo;re used.</li>
+<li>Difference between IPv4 &amp; IPv6.</li>
+<li>How DNS works.</li>
+<li>HTTP and it&rsquo;s various versions.</li>
+<li>Basic understanding of SSL/TLS.</li>
+<li>Other application protocols (FTP, IMAP, SSH etc.)</li>
+<li>What is REST and how it&rsquo;s used.</li>
+</ol>
+
+
+<p>On the practical side, make sure you&rsquo;re very comfortable with the networking stack of your language or framework of choice.</p>
+
+<ol>
+<li>Make calls to an external web service.</li>
+<li>Handle errors and different response codes.</li>
+<li>Be able to serialize/deserialize data.</li>
+<li>Know async concepts.</li>
+<li>Accept user inputs and handle XSS attacks.</li>
+<li>Web - how do you keep information in a web application - cookie vs session</li>
+<li>What is GET and POST - differences</li>
+<li>Difference between PUT and POST.</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<h4>Section A</h4>
+
+<p>(1) See more <a href="http://www.howtogeek.com/190014/htg-explains-what-is-the-difference-between-tcp-and-udp/">here</a>.
+Both TCP and UDP are protocols used for sending packets over Internet.
+Built on top of Internet Protocol (IP). The packets are sent to an IP address.</p>
+
+<p>TCP: Transmission Control Protocol</p>
+
+<ol>
+<li>Two ways: the remote system sends packets back to acknowledge it’s received your packets.</li>
+<li>TCP guarantees the recipient will receive the packets in order by numbering them.</li>
+<li>TCP is about reliability: if ACK is not received, the sender will send packets again.</li>
+<li>Example usage: file download, web.</li>
+</ol>
+
+
+<p>UDP: User Datagram Protocol</p>
+
+<ol>
+<li>Just send the packets to receiver. No waiting for ACK.</li>
+<li>No guarantee: if receivers don’t receive it, too bad.</li>
+<li>No error checking for better performance.</li>
+<li>Example usage: game, live video stream.</li>
+</ol>
+
+
+<h4>Section B</h4>
+
+<p>(3) See more <a href="http://stackoverflow.com/questions/107390/whats-the-difference-between-a-post-and-a-put-http-request">here</a>.</p>
+
+<p>PUT is idempotent: multiple PUT requests will have the same effect. POST is not.
+To give examples of REST-style resources:
+&ldquo;POST /books&rdquo; with a bunch of book information might create a new book, and respond with the new URL identifying that book: &ldquo;/books/5&rdquo;.
+&ldquo;PUT /books/5&rdquo; would have to either create a new book with the id of 5, or replace the existing book with ID 5.</p>
+
+<p>In non-resource style, POST can be used for just about anything that has a side effect. One other difference is that PUT should be idempotent - multiple PUTs of the same data to the same URL should be fine, wheras multiple POSTs might create multiple objects or whatever it is your POST action does.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Vertica SQL: Splitting String]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/06/vertica-sql-splitting-string/"/>
+    <updated>2018-08-06T12:27:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/06/vertica-sql-splitting-string</id>
+    <content type="html"><![CDATA[<p>It is not so straight-forward for splitting strings in SQL, including but not limited to comma-separated strings.</p>
+
+<!--more-->
+
+
+<p>In Python and Java, splitting delimited strings is straight forward.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Python
+</span><span class='line'>"EMS_Tax,PSCare,Tools_Team,,workflow".split()
+</span><span class='line'>
+</span><span class='line'>// Java: using Guava's Splitter
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As shown in <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">another blog post</a>, not all SQL dialects are equal.
+Different database systems have different ways of doing so in SQL, as shown in the following links (1, 2)</p>
+
+<p><a href="http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x">http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x</a></p>
+
+<p><a href="http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns">http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns</a></p>
+
+<p>This post will throws another into that mess.</p>
+
+<figure class='code'><figcaption><span>Spitting comma-separated strings</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="n">label_key</span><span class="p">,</span>
+</span><span class='line'><span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Label</span>
+</span><span class='line'><span class="k">FROM</span>
+</span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">()</span> <span class="k">AS</span> <span class="n">row_num</span> <span class="k">FROM</span> <span class="n">tables</span><span class="p">)</span> <span class="n">row_nums</span>
+</span><span class='line'><span class="k">JOIN</span> <span class="n">label_map</span> <span class="n">i</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Original</h3>
+
+<figure class='code'><figcaption><span>Example data</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">415862</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,YE2016,getwell,locals_manual,noncritical,ye_taxopsmh&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">436631</span><span class="p">,</span><span class="s1">&#39;BBC_Reviewed,SPS_Bugs,Priority_Backlog,need_followup&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">443409</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,PSCare,Tools_Team,,workflow&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">490209</span><span class="p">,</span><span class="k">null</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">490210</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>String splitting code</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="n">jmap</span><span class="p">.</span><span class="n">dm_jira_key</span><span class="p">,</span>
+</span><span class='line'><span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Label</span>
+</span><span class='line'><span class="k">FROM</span>
+</span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">()</span> <span class="k">AS</span> <span class="n">row_num</span> <span class="k">FROM</span> <span class="n">tables</span><span class="p">)</span> <span class="n">row_nums</span>
+</span><span class='line'><span class="k">CROSS</span> <span class="k">JOIN</span> <span class="n">stg_all_jira_issues_vw</span> <span class="n">i</span>
+</span><span class='line'><span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">helper_jira_key</span> <span class="n">jmap</span> <span class="k">ON</span> <span class="n">i</span><span class="p">.</span><span class="n">jira_id</span> <span class="o">=</span> <span class="n">jmap</span><span class="p">.</span><span class="n">jira_id</span> <span class="k">AND</span> <span class="n">i</span><span class="p">.</span><span class="n">source_system_key</span> <span class="o">=</span> <span class="n">jmap</span><span class="p">.</span><span class="n">source_system_key</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/"/>
+    <updated>2018-08-05T15:40:35-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics</id>
+    <content type="html"><![CDATA[<p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
+
+<!--more-->
+
+
+<h3>General guidelines for dashboard</h3>
+
+<p>Ppl looks for different things in data. You have to find out what answers users look for in dashboard.</p>
+
+<ul>
+<li>Trend: bar, graph</li>
+<li>Aggregation: Average, Sum, Max, Min.</li>
+</ul>
+
+
+<p>Above all else, show data.
+Trying to improve data-pixel ratio: data pixels/non-data pixels.
+How to enhance data-pixel ratio:</p>
+
+<ul>
+<li>Granularity: depends on the question you want to answer
+
+<ul>
+<li>monthly if you want to know monthly sales, daily if you want to know what happens last Tuesday.</li>
+<li>category or sub-category: you can have category with drill down function.</li>
+</ul>
+</li>
+<li>Annotation: similar to Granularity. Minimize it to enough to answer the question.</li>
+</ul>
+
+
+<p>Tricks &amp; Tips:</p>
+
+<ul>
+<li>Plots (over Bars): plot show the trends for different components over time.</li>
+<li>Sizing Bars: Preserve True Portions: starting Y from 0.
+
+<ul>
+<li>Sizing Bars: shows proportions, relative progression.</li>
+</ul>
+</li>
+<li>Scatter Plots: show clusters, outliers.</li>
+<li>Radio displays: usually a bad idea. Waste of space, hard to discern between slices.</li>
+</ul>
+
+
+<h3>Module 2: Common Charts</h3>
+
+<p>Basic data Presentation Methods - Chart Types</p>
+
+<ul>
+<li>Geo-Spatial - Maps: anything related to geographic distribution, i.e., when geography matters. e.g. real estates, oil industry.</li>
+<li>Correlation - Scatter Plots: two measurements (e.g., sales to profit).</li>
+<li>Hierarchical - Drill down Tree: data is hierarchical: Category -> Subcateogries.</li>
+<li>Categorical - Bar Charts: comparing categories (sales by region)</li>
+<li>Time Series - Line Charts: progression over time. (sales by month)
+
+<ul>
+<li>Avoid: Stacked Area Charts. If you have more than two lines, Area Charts do not give any information except for the bottom and the total.</li>
+</ul>
+</li>
+<li>Distribution - Histograms: Trying to answer what is “normal”. e.g., home prices, salaries.</li>
+</ul>
+
+
+<p>Others</p>
+
+<ul>
+<li>Box plot: distribution, percentiles, median in 1 chart.</li>
+<li>Bullet graph: actuals to target. Invented by Stephen Few.
+
+<ul>
+<li>Dark bar is actual, reference line is target. Color code bands are average, good, bad target range.</li>
+<li><a href="https://en.wikipedia.org/wiki/Bullet_graph">https://en.wikipedia.org/wiki/Bullet_graph</a></li>
+</ul>
+</li>
+<li>Sparkline: Multiple line charts. Best used for monitoring dashboard.</li>
+<li>Heat map: Large combinations of dimensions. Color is everything here.</li>
+</ul>
+
+
+<p>Charts to avoid</p>
+
+<ul>
+<li>Pie charts: angles make it hard to compare. Usually decorative, not informative. Space is wasted.</li>
+<li>Polar charts</li>
+<li>Stacked area charts:
+
+<ul>
+<li>Only tell the story of the bottom line and the total. Anything in between, you can’t really tell if they are growing or not.</li>
+<li>Misleading/Confusing: is the top the total or another category?</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Module 3: Dashboard planning</h3>
+
+<p>Steps:</p>
+
+<ul>
+<li>User Request</li>
+<li>Prioritization</li>
+<li>Planning</li>
+<li>Design</li>
+<li>Development</li>
+<li>Delivery to User</li>
+</ul>
+
+
+<h3>Module 4: Dashboard design</h3>
+
+<p>Audience is King. Know your audience.</p>
+
+<ul>
+<li>Who is using it?</li>
+<li>Are they technical or prefer dumbed down answers? Are they intimate with data?</li>
+<li>What is primary objective? What questions that they try to answer? What questions this dashboard MUST answer?</li>
+<li>What impact of the answer? How will they use metrics? (Role, what decisions they make)</li>
+<li>When will the dashboard is used? (Weekly? Daily?) Dashboard is exploratory or explanatory?</li>
+<li>What level of confidence in data sources?</li>
+</ul>
+
+
+<p>Dashboard layout: F layout is the most natural for web/desktop viewing.</p>
+
+<h3>Module 5 &amp; 6: Tableau</h3>
+
+<p>Connecting to Data:
+You can connect to Excel, text file (csv or tab), or HP Vertica.
+You can specify data import like Excel or using Custom SQL.
+After importing, Tableau may import all data into its own internal data engine (with compression, data reorganization easier for analytics).
+It also divides data into dimensions and measures.
+Dimensions are further categorized into: geographic (e.g., region, postal code), number, text, date (e.g., calendar, order_date).
+Facts are usually numbers but it can be other categories: e.g., geographic for latitude/longitude measures.</p>
+
+<p>Visualizing data:
+Tableau has “Show Me” button that gives suggestions for different combinations of dimensions and fact data.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling/"/>
+    <updated>2018-08-04T15:38:20-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling</id>
+    <content type="html"><![CDATA[<p>From Kimball group reader.</p>
+
+<!--more-->
+
+
+<h3>Dimensional Modeling for Data Warehouse</h3>
+
+<h4>Item 1.5: Design</h4>
+
+<p>Design items:
+You need to do data profiling to keep data processed to min. One way to profile data changes is to use CDC column.
+Check CDC columns: e.g. <code>last_update_ts</code>. If CDC columns are not available, work with production system DBA to add one.
+Otherwise, check application log file/Message traffic.</p>
+
+<p>Divide data into dimension and fact tables: 90% of the time the division is obvious.</p>
+
+<ul>
+<li>Dimensions: static entities in the environment
+
+<ul>
+<li>Text descriptions are obvious data going into dimension</li>
+</ul>
+</li>
+<li>Facts: numeric observations/measurements.
+
+<ul>
+<li>Unpredictable, numeric numbers are the usual suspects.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Grain of fact table = a measurement in physical, real-world.</p>
+
+<p>Design steps:</p>
+
+<ul>
+<li>Determine the single physical event you want to record -> fact table. Other details will follow in dimension tables.
+
+<ul>
+<li>What event is a single row in fact table representing? E.g. for fact_sale_event, the grain is literally the beep of the scanner.</li>
+</ul>
+</li>
+<li>Strive to make facts additive.
+
+<ul>
+<li>E.g.: Sale event can go into fact table as (price, unit), but the information (sale amount, unit) contains the same information but better since sale amount (aka extended price) = price * unit.</li>
+</ul>
+</li>
+<li>Some data can be in both. The goal is ease of use, not methodology correctness.
+
+<ul>
+<li>E.g.: Coverage amount of insurance policies can be in both dim_coverage and fact_sale_event.</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Item 1.6</h4>
+
+<p>Bus matrix to communicate/manage dimension tables.</p>
+
+<p>TODO: Table of bus matrix</p>
+
+<h4>Item 1.8 Slow Changing Dimensions</h4>
+
+<ul>
+<li>Type 0: Constant. Ignore changes.</li>
+<li>Type 1: Simple overwrite (best used for error correction).</li>
+<li>Type 2: Create another row and save history.
+
+<ul>
+<li>The standard implementation is: surrogate key (PK), durable ID, … attributes …, effective_start_date, effective_end_date, change_reason, current_flag.</li>
+</ul>
+</li>
+<li>Type 3: Create another column for alternate info.</li>
+</ul>
+
+
+<h4>Item 1.10 Fact tables</h4>
+
+<p>Data warehouse is built on fact tables expressed at the lowest possible grain.
+Higher grain aggregated tables such as category sales by district.</p>
+
+<p>Three kinds of fact tables:</p>
+
+<ol>
+<li>Transaction Grain: corresponds to a measurement taken at a single instant.
+
+<ol>
+<li>Unpredictably sparse or dense.</li>
+<li>Can be enormous. Cannot guarantee all possible foreign keys represented.</li>
+<li>E.g.: fact_qbo_subscription_event</li>
+</ol>
+</li>
+<li>Periodic Snapshot Grain: corresponds to a predefined span of time.
+
+<ol>
+<li>Predictably dense.</li>
+<li>Can be large even there is no activity.</li>
+<li>E.g.: Account balance for an account at some time.</li>
+</ol>
+</li>
+<li>Accumulating Snapshot Grain.
+
+<ol>
+<li>Fact entries are overwritten and udpated.</li>
+<li>E.g.: Order processing</li>
+</ol>
+</li>
+</ol>
+
+
+<p>Surrogate Keys (integer key, assigned in sequence) are recommended for Fact tables.
+In Vertica, CREATE SEQUENCE.</p>
+
+<h4>Item 4.1: Interview for requirements</h4>
+
+<p>Too smart interviewers make it harder to extract requirements from business:</p>
+
+<ul>
+<li>Long-winded questions</li>
+<li>Even worse, some questions box the interviewee into a corner because of some bias. And the interviewees do not know how to get out.
+
+<ul>
+<li>Just ask and listen. Let them guide you step by step.</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Item 5.1-5.3: Compare normalized modeling (3NF) vs dimensional modeling (DM)</h4>
+
+<p>Why dimensional modeling over normalized modeling?</p>
+
+<ol>
+<li>Normalized modeling is intended for transactional databases, making update and delete efficient. It’s not needed in BI/DW.</li>
+<li>Normalized modeling for a complex business process will result in a very large ER diagram (similar to US cities-freeway maps). Business users cannot simply use that diagram to query what they need to know.
+
+<ol>
+<li>The result ER diagram is usually overwhelming and cannot be viewed in its entirety.</li>
+<li>E.g.: How to drive from SJ to NY? Maybe going to Sacramento through 580, then to Salt Lake City, and then what? Joining tables in 3NF modeling is similar: you need to know which 10+ intermediate tables to join.</li>
+<li>In the same analogy, it’s actually worse to join the tables since the tables are not static, they are moving cities.</li>
+</ol>
+</li>
+</ol>
+
+
+<p>Dimensional Modeling: top-down design process.</p>
+
+<ul>
+<li>Each fact table represents a business process.</li>
+<li>Support two operations: browse and multi-table joins.</li>
+<li>It is important to keep the dimension tables flat, without being normalized into snowflake structure.</li>
+</ul>
+
+
+<h3>Interview Questions</h3>
+
+<p><a href="http://learndatamodeling.com/blog/data-modeling-interview-questions/">http://learndatamodeling.com/blog/data-modeling-interview-questions/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Database Question Bank]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/03/database-question-bank/"/>
+    <updated>2018-08-03T01:41:54-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/03/database-question-bank</id>
+    <content type="html"><![CDATA[<p>Questions about database in general. For data warehouse and dimensional modelling, check <a href="http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">this</a>.</p>
+
+<!--more-->
+
+
+<h3>Relational Database topics</h3>
+
+<p>Basics</p>
+
+<ul>
+<li>SELECTing columns from a table</li>
+<li>Aggregates Part 1: COUNT, SUM, MAX/MIN</li>
+<li>Aggregates Part 2: DISTINCT, GROUP BY, HAVING</li>
+</ul>
+
+
+<p>Intermediate</p>
+
+<ul>
+<li>JOINs, ANSI-89 and ANSI-92 syntax</li>
+<li>UNION vs UNION ALL</li>
+<li>NULL handling: COALESCE &amp; Native NULL handling</li>
+<li>Subqueries: IN, EXISTS, and inline views</li>
+<li>Subqueries: Correlated</li>
+<li>WITH syntax: Subquery Factoring/CTE</li>
+<li>Views</li>
+</ul>
+
+
+<p>Advanced Topics</p>
+
+<ul>
+<li>Functions, Stored Procedures, Packages</li>
+<li>Pivoting data: CASE &amp; PIVOT syntax</li>
+<li>Hierarchical Queries</li>
+<li>Cursors: Implicit and Explicit</li>
+<li>Triggers</li>
+<li>Dynamic SQL</li>
+<li>Materialized Views</li>
+<li>Query Optimization: Indexes</li>
+<li>Query Optimization: Explain Plans</li>
+<li>Query Optimization: Profiling</li>
+<li>Data Modelling: Normal Forms, 1 through 3</li>
+<li>Data Modelling: Primary &amp; Foreign Keys</li>
+<li>Data Modelling: Table Constraints</li>
+<li>Data Modelling: Link/Corrollary Tables</li>
+<li>Full Text Searching</li>
+<li>XML</li>
+<li>Isolation Levels</li>
+<li>Entity Relationship Diagrams (ERDs), Logical and Physical</li>
+<li>Transactions: COMMIT, ROLLBACK, Error Handling</li>
+</ul>
+
+
+<h4>References</h4>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/2119859/questions-every-good-database-sql-developer-should-be-able-to-answer">http://stackoverflow.com/questions/2119859/questions-every-good-database-sql-developer-should-be-able-to-answer</a></li>
+<li><a href="http://www.careercup.com/page?pid=database-interview-questions">http://www.careercup.com/page?pid=database-interview-questions</a></li>
+</ul>
+
+
+<h3>Questions</h3>
+
+<p>(1) Given these two databases:</p>
+
+<figure class='code'><figcaption><span>Given databases</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>id name id name 
+</span><span class='line'>-- ---- -- ---- 
+</span><span class='line'>1 Pirate 1 Rutabaga 
+</span><span class='line'>2 Monkey 2 Pirate 
+</span><span class='line'>3 Ninja 3 Darth Vader 
+</span><span class='line'>4 Spaghetti 4 Ninja</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Explain the following JOINs:</p>
+
+<ol>
+<li>INNER JOIN</li>
+<li>LEFT and RIGHT OUTER JOIN</li>
+<li>FULL JOIN</li>
+<li>CROSS JOIN</li>
+</ol>
+
+
+<p>B set:</p>
+
+<ol>
+<li>What is normalization and why is it important?</li>
+<li>What are some situations where you would de-normalize data?</li>
+<li>What is a transaction and why is it important?</li>
+<li>What is referential integrity and why is it important?</li>
+<li>What steps would to take to investigate reports of slow database performance?</li>
+<li>What is an index and how does it help your database?</li>
+<li>If someone were to make the claim that: &ldquo;every SELECT always include DISTINCT&rdquo;; how would you comment on the claim?
+OLTP and OLAP points of view?</li>
+</ol>
+
+
+<h3>Answer keys</h3>
+
+<h4>Section A</h4>
+
+<p>(1) <a href="http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html">http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html</a></p>
+
+<h4>Section B</h4>
+
+<p>(1) Normalizing: remove redundancy -> remove update and delete anomaly -> more efficient data storage and consistent data.</p>
+
+<p>Summary from Introduction to Databases
+To reduce redundancy. From redundancy, it will lead to update and delete anomaly.
+E.g.: dim_company: region/country info will be repeated -> redundancy.
+E.g.: North Korea and South Korea merged into Korea -> delete those regions will delete companies -> delete anomaly.</p>
+
+<p>Popular normal forms:</p>
+
+<p>BCNF: For each functional dependency A-> B, A is key.
+Functional dependency: A -> B: same A leads to same B. E.g.: ID -> name.</p>
+
+<p>4NF: Functional dependency + Multivalued dependency.
+Multivalued dependency: A ->> B, C: each A lead to all combo (B x C). E.g.: ID -> region x language
+4NF: For each multivalued dependency A ->> B, C, A is key. I.e.: (A, B, C) is decomposed to (A, B) and (A, C).</p>
+
+<p>(2) When there is no data update or deletion. For example: data warehouse situations.
+Analytical processing: joining multiple tables is not efficient. The SQL queries are hard to write.</p>
+
+<p>(3)Why is transaction is important:</p>
+
+<ul>
+<li>Concurrency: Ensure consistent data read/write while providing concurrent data access.</li>
+<li>Failure-tolerance: Resilience to system failures.</li>
+</ul>
+
+
+<p>A transaction is a sequence of SQL statements treated as a unit. The effect of a transaction is either full or none at all.
+Transactions appear to run in isolation.</p>
+
+<p>ACID: atomic, consistency, isolation, durability</p>
+
+<p>(4) You have a foreign key, reference to another table.
+When that key is deleted from the other table, referential integrity is compromised.</p>
+
+<p>(5) Check current state: hang processes, long running queries.
+Optimize SQL queries.
+Indexes.</p>
+
+<p>(6) What is it: persistent data structure, stored in database.
+Purpose: improve data lookup performance.
+Instead of scanning a whole relational table for a record, using the index, the location of a record can be returned almost immediately.
+Implementation: Balanced trees (B tree, B+ tree), Hash Map (for equality condition only)</p>
+
+<p>A database index is a data structure that improves the speed of data retrieval operations on a database table at the cost of additional writes and storage space to maintain the index data structure.
+An index is a copy of select columns of data from a table that can be searched very efficiently that also includes a low-level disk block address or direct link to the complete row of data it was copied from.</p>
+
+<p>(7) OLTP: Suppose your query is correct, and does not return any duplicates, then including DISTINCT simply forces the RDBMS to check your result (zero benefit, and a lot of additional processing).
+Suppose your query is incorrect, and does return duplicates, then including DISTINCT simply hides the problem (again with additional processing).
+It would be better to spot the problem and fix your query.
+It&rsquo;ll run faster that way.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: SQL Basics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/02/select-basics/"/>
+    <updated>2018-08-02T01:39:37-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/02/select-basics</id>
+    <content type="html"><![CDATA[<p>This post is about basic DDL, <code>SELECT</code> questions (phone-screen level).</p>
+
+<!--more-->
+
+
+<h3>Questions</h3>
+
+<figure class='code'><figcaption><span>Given Department schema for Questions 1-3</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>employees                             projects
+</span><span class='line'>+---------------+---------+           +---------------+---------+
+</span><span class='line'>| id            | int     |&lt;----+  +-&gt;| id            | int     |
+</span><span class='line'>| first_name    | varchar |     |  |  | title         | varchar |
+</span><span class='line'>| last_name     | varchar |     |  |  | start_date    | date    |
+</span><span class='line'>| salary        | int     |     |  |  | end_date      | date    |
+</span><span class='line'>| department_id | int     |--+  |  |  | budget        | int     |
+</span><span class='line'>+---------------+---------+  |  |  |  +---------------+---------+
+</span><span class='line'>                             |  |  |
+</span><span class='line'>departments                  |  |  |  employees_projects
+</span><span class='line'>+---------------+---------+  |  |  |  +---------------+---------+
+</span><span class='line'>| id            | int     |&lt;-+  |  +--| project_id    | int     |
+</span><span class='line'>| name          | varchar |     +-----| employee_id   | int     |
+</span><span class='line'>+---------------+---------+           +---------------+---------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 1</h4>
+
+<figure class='code'><figcaption><span>Question 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Write a query to list the departments that have a total combined salary greater than $40,000.
+</span><span class='line'>
+</span><span class='line'>Expected Output:
+</span><span class='line'>+-------------+----------------+
+</span><span class='line'>| name        | combined_salary|
+</span><span class='line'>+-------------+----------------+
+</span><span class='line'>| Engineering |        130000  |
+</span><span class='line'>| Marketing   |         50000  |
+</span><span class='line'>+-------------+----------------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 2</h4>
+
+<figure class='code'><figcaption><span>Question 2</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>List the current projects and employees assigned to them.
+</span><span class='line'>
+</span><span class='line'>Output:
+</span><span class='line'>+------------+-----------+--------------------------+
+</span><span class='line'>| first_name | last_name | title                    |
+</span><span class='line'>+------------+-----------+--------------------------+
+</span><span class='line'>| John       | Smith     | Update TPS Reports       |
+</span><span class='line'>| Ava        | Muffinson | Design 3 New Silly Walks |
+</span><span class='line'>| Cailin     | Ninson    | Build a cool site        |
+</span><span class='line'>| Mike       | Peterson  | Build a cool site        |
+</span><span class='line'>| Ian        | Peterson  | Build a cool site        |
+</span><span class='line'>+------------+-----------+--------------------------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 3</h4>
+
+<figure class='code'><figcaption><span>Question 3</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Who's the highest paid person per department?
+</span><span class='line'>
+</span><span class='line'>Output:
+</span><span class='line'>+------------+-----------+-------------+--------+
+</span><span class='line'>| first_name | last_name | name        | salary |
+</span><span class='line'>+------------+-----------+-------------+--------+
+</span><span class='line'>| John       | Smith     | Reporting   |  20000 |
+</span><span class='line'>| Ian        | Peterson  | Engineering |  80000 |
+</span><span class='line'>| John       | Mills     | Marketing   |  50000 |
+</span><span class='line'>| Ava        | Muffinson | Silly Walks |  10000 |
+</span><span class='line'>+------------+-----------+-------------+--------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 4</h4>
+
+<figure class='code'><figcaption><span>Given fact_sales table</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>create table fact_sales (
+</span><span class='line'>  dateid date not null,
+</span><span class='line'>  fruit varchar(10),
+</span><span class='line'>  sold int
+</span><span class='line'>);
+</span><span class='line'>
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Apple', 31); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-01', '%Y-%m-%d'), 'Orange', 19); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Apple', 37); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-02', '%Y-%m-%d'), 'Orange', 26); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Apple', 21); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-03', '%Y-%m-%d'), 'Orange', 23); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Apple', 35); 
+</span><span class='line'>insert into fact_sales
+</span><span class='line'>values(STR_TO_DATE('2015-01-04', '%Y-%m-%d'), 'Orange', 27);
+</span><span class='line'>
+</span><span class='line'>fact_sales
+</span><span class='line'>+------------+--------+------+
+</span><span class='line'>| dateid     | fruit  | sold |
+</span><span class='line'>+------------+--------+------+
+</span><span class='line'>| 2015-01-01 | Apple  |   31 |
+</span><span class='line'>| 2015-01-01 | Orange |   19 |
+</span><span class='line'>| 2015-01-02 | Apple  |   37 |
+</span><span class='line'>| 2015-01-02 | Orange |   26 |
+</span><span class='line'>| 2015-01-03 | Apple  |   21 |
+</span><span class='line'>| 2015-01-03 | Orange |   23 |
+</span><span class='line'>| 2015-01-04 | Apple  |   35 |
+</span><span class='line'>| 2015-01-04 | Orange |   27 |
+</span><span class='line'>+------------+--------+------+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Question 4</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>What is the difference between Apples and Oranges sold each day?
+</span><span class='line'>
+</span><span class='line'>Output:
+</span><span class='line'>+------------+------+
+</span><span class='line'>| dateid     | sold |
+</span><span class='line'>+------------+------+
+</span><span class='line'>| 2015-01-01 |   12 |
+</span><span class='line'>| 2015-01-02 |   11 |
+</span><span class='line'>| 2015-01-03 |   -2 |
+</span><span class='line'>| 2015-01-04 |    8 |
+</span><span class='line'>+------------+------+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 5</h4>
+
+<figure class='code'><figcaption><span>Given schema</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fct_request
+</span><span class='line'>+------------+------------+---------------+
+</span><span class='line'>| dateid     | sender_uid | recipient_uid |
+</span><span class='line'>+------------+------------+---------------+
+</span><span class='line'>| 2015-01-01 |          1 |             2 |
+</span><span class='line'>| 2015-01-01 |          1 |             4 |
+</span><span class='line'>| 2015-01-02 |          3 |             1 |
+</span><span class='line'>| 2015-01-03 |          4 |             5 |
+</span><span class='line'>+------------+------------+---------------+
+</span><span class='line'>
+</span><span class='line'>fct_accept
+</span><span class='line'>+------------+--------------+------------+
+</span><span class='line'>| dateid     | accepter_uid | sender_uid |
+</span><span class='line'>+------------+--------------+------------+
+</span><span class='line'>| 2015-01-01 |            2 |          1 |
+</span><span class='line'>| 2015-01-02 |            4 |          1 |
+</span><span class='line'>| 2015-01-02 |            1 |          3 |
+</span><span class='line'>+------------+--------------+------------+
+</span><span class='line'>
+</span><span class='line'>Rules:
+</span><span class='line'>1. You can only send a friend request to a person one time.
+</span><span class='line'>2. You cannot send a friend request to someone who has already sent you a friend request.</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Question 5</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>What percent of friend requests are accepted?
+</span><span class='line'>Data might be not perfect.</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 6</h4>
+
+<p>Create DDL (table and foreign keys) for several tables in a provided ERD.
+ERD contains at least one many to many relationship.
+For example: Player(personID, school) and Team(teamID, name).
+Player and Team will have a many to many relationship.</p>
+
+<h4>Question 7</h4>
+
+<p>This question is a bit advanced.</p>
+
+<p>You have a table where you have <code>date</code>, <code>user_id</code>, <code>song_id</code> and <code>count</code>.
+It shows at the end of each day how many times in her history a user has listened to a given song.
+So count is cumulative sum.
+You have to update this on a daily basis based on a second table that records in real time when a user listens to a given song.
+Basically, at the end of each day, you go to this second table and pull a count of each user/song combination and then add this count to the first table that has the lifetime count.
+If it is the first time a user has listened to a given song, you won&rsquo;t have this pair in the lifetime table, so you have to create the pair there and then add the count of the last day.</p>
+
+<p>For simplicity, assume the tables are fact_event: (date, user_id, song_id) and snapshot: (date, user_id, song_id, count).</p>
+
+<h3>Answers</h3>
+
+<h4>Question 1</h4>
+
+<p>The sandbox uses MySQL which does not support WITH clause.
+See more MySQL workaround in <a href="http://tdongsi.github.io/SqlTests/blog/2016/08/28/mysql-workaround/">here</a>.</p>
+
+<figure class='code'><figcaption><span>Answer 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">WITH</span> <span class="n">dept_total</span> <span class="k">AS</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">as</span> <span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
+</span><span class='line'><span class="k">having</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">40000</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="n">dept_total</span> <span class="n">t</span>
+</span><span class='line'><span class="k">join</span> <span class="n">deparments</span> <span class="n">d</span> <span class="k">on</span> <span class="n">t</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>MySQL Answer 1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="p">(</span>
+</span><span class='line'>  <span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">as</span> <span class="n">total</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
+</span><span class='line'><span class="k">having</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">40000</span>
+</span><span class='line'>  <span class="p">)</span> <span class="n">t</span>
+</span><span class='line'>  <span class="k">join</span> <span class="n">departments</span> <span class="n">d</span> <span class="k">ON</span> <span class="n">t</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 2</h4>
+
+<figure class='code'><figcaption><span>Answer 2</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">title</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees_projects</span> <span class="n">ep</span>
+</span><span class='line'><span class="k">join</span> <span class="n">employees</span> <span class="n">e</span> <span class="k">on</span> <span class="n">ep</span><span class="p">.</span><span class="n">employee_id</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">id</span>
+</span><span class='line'><span class="k">join</span> <span class="n">projects</span> <span class="n">p</span> <span class="k">on</span> <span class="n">ep</span><span class="p">.</span><span class="n">project_id</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 3</h4>
+
+<p>Again, the sandbox is MySQL and <code>dense_rank</code> is not available.</p>
+
+<figure class='code'><figcaption><span>Answer 3</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span> <span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">salary</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">employees</span> <span class="n">e</span>
+</span><span class='line'><span class="k">JOIN</span> <span class="n">departments</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">department_id</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">salary</span><span class="p">)</span> <span class="k">in</span>
+</span><span class='line'><span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">department_id</span><span class="p">,</span> <span class="k">max</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">AS</span> <span class="n">salary</span>
+</span><span class='line'><span class="k">from</span> <span class="n">employees</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">department_id</span>
+</span><span class='line'><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 4</h4>
+
+<p>You can self-join the table to get the following answer.</p>
+
+<figure class='code'><figcaption><span>Naive answer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">orange</span><span class="p">.</span><span class="n">dateid</span><span class="p">,</span> <span class="n">apple</span><span class="p">.</span><span class="n">sold</span> <span class="o">-</span> <span class="n">orange</span><span class="p">.</span><span class="n">sold</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fact_sales</span> <span class="n">orange</span>
+</span><span class='line'><span class="k">join</span> <span class="n">fact_sales</span> <span class="n">apple</span> <span class="k">on</span> <span class="n">orange</span><span class="p">.</span><span class="n">dateid</span> <span class="o">=</span> <span class="n">apple</span><span class="p">.</span><span class="n">dateid</span>
+</span><span class='line'><span class="k">and</span> <span class="n">orange</span><span class="p">.</span><span class="n">fruit</span> <span class="o">=</span> <span class="s1">&#39;Orange&#39;</span> <span class="k">and</span> <span class="n">apple</span><span class="p">.</span><span class="n">fruit</span> <span class="o">=</span> <span class="s1">&#39;Apple&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, recall that in dimensional modeling, fact tables usually have huge number of rows.
+Therefore, the expected answer should avoid joining such a huge table.</p>
+
+<figure class='code'><figcaption><span>Expected answer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">dateid</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">mod_sold</span><span class="p">)</span>
+</span><span class='line'><span class="k">from</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">dateid</span><span class="p">,</span> <span class="k">case</span> <span class="k">when</span> <span class="n">fruit</span> <span class="o">=</span> <span class="s1">&#39;Apple&#39;</span>  <span class="k">then</span> <span class="n">sold</span> <span class="k">else</span> <span class="o">-</span><span class="n">sold</span> <span class="k">end</span> <span class="k">as</span> <span class="n">mod_sold</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fact_sales</span>
+</span><span class='line'><span class="p">)</span> <span class="n">t</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">dateid</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 5</h4>
+
+<figure class='code'><figcaption><span>Answer 5</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">requested</span><span class="p">),</span> <span class="k">sum</span><span class="p">(</span><span class="n">accepted</span><span class="p">)</span>
+</span><span class='line'><span class="k">FROM</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">r</span><span class="p">.</span><span class="n">sender_uid</span> <span class="k">as</span> <span class="n">requested</span><span class="p">,</span> <span class="k">CASE</span> <span class="k">when</span> <span class="n">a</span><span class="p">.</span><span class="n">sender_uid</span> <span class="k">is</span> <span class="k">null</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">end</span> <span class="k">as</span> <span class="n">accepted</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fct_request</span> <span class="n">r</span>
+</span><span class='line'><span class="k">left</span> <span class="k">join</span> <span class="n">fct_accept</span> <span class="n">a</span> <span class="k">on</span> <span class="n">r</span><span class="p">.</span><span class="n">sender_uid</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">sender_uid</span> <span class="k">and</span> <span class="n">r</span><span class="p">.</span><span class="n">recipient_uid</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">accepter_uid</span>
+</span><span class='line'><span class="p">)</span> <span class="n">t</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Question 6</h4>
+
+<p>You should create a <code>teamPlayer</code> table with foreign keys to <code>Team</code> and <code>Player</code> tables as primary key.
+You are expected to write the following DDL statements.</p>
+
+<figure class='code'><figcaption><span>DDL for teamPlayer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">teamPlayer</span>
+</span><span class='line'><span class="p">(</span>
+</span><span class='line'><span class="n">playerID</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'><span class="n">teamID</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'><span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">playerID</span><span class="p">,</span> <span class="n">teamID</span><span class="p">)</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">alter</span> <span class="k">table</span> <span class="n">teamPlayer</span>
+</span><span class='line'><span class="k">add</span> <span class="k">constraint</span>
+</span><span class='line'>  <span class="n">fk_teamPlayer__Player</span> <span class="k">foreign</span> <span class="k">key</span><span class="p">(</span><span class="n">playerID</span><span class="p">)</span> <span class="k">references</span> <span class="n">Player</span><span class="p">(</span><span class="n">personID</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">alter</span> <span class="k">table</span> <span class="n">teamPlayer</span>
+</span><span class='line'><span class="k">add</span> <span class="k">constraint</span>
+</span><span class='line'>  <span class="n">fk_teamPlayer__Team</span> <span class="k">foreign</span> <span class="k">key</span><span class="p">(</span><span class="n">teamID</span><span class="p">)</span> <span class="k">references</span> <span class="n">Team</span><span class="p">(</span><span class="n">teamID</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h4>Question 7</h4>
+
+<p><strong>Scenario 1</strong>: Overwrite the snapshot. Date column in snapshot is the last modified date.</p>
+
+<figure class='code'><figcaption><span>DDL for teamPlayer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">create</span> <span class="k">temporary</span> <span class="k">table</span> <span class="n">temp</span>
+</span><span class='line'><span class="k">AS</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fact_event</span>
+</span><span class='line'><span class="k">where</span> <span class="nb">date</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span> <span class="k">from</span> <span class="n">snapshot</span><span class="p">)</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">UPDATE</span> <span class="n">snapshot</span> <span class="k">as</span> <span class="n">s</span>
+</span><span class='line'><span class="k">SET</span> <span class="nb">date</span> <span class="o">=</span> <span class="k">current_date</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="k">count</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="k">count</span> <span class="o">+</span> <span class="n">t</span><span class="p">.</span><span class="k">count</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">temp</span> <span class="n">t</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">s</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">user_id</span> <span class="k">AND</span> <span class="n">s</span><span class="p">.</span><span class="n">song_id</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">song_id</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">--- (MySQL: UPDATE might be different)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">INSERT</span> <span class="n">snapshot</span> <span class="p">(</span><span class="nb">date</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span><span class="p">)</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="k">current_date</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span>
+</span><span class='line'><span class="k">from</span> <span class="n">temp</span>
+</span><span class='line'><span class="k">where</span> <span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">)</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span> <span class="k">from</span> <span class="n">snapshot</span><span class="p">)</span> <span class="n">x</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Scenario 2</strong>: Append new snapshot for each date.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">create</span> <span class="k">temporary</span> <span class="k">table</span> <span class="n">temp</span>
+</span><span class='line'><span class="k">AS</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+</span><span class='line'><span class="k">from</span> <span class="n">fact_event</span>
+</span><span class='line'><span class="k">where</span> <span class="nb">date</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="nb">date</span><span class="p">)</span> <span class="k">from</span> <span class="n">snapshot</span><span class="p">)</span>
+</span><span class='line'><span class="k">group</span> <span class="k">by</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">insert</span> <span class="k">into</span> <span class="n">snapshot</span> <span class="p">(</span><span class="nb">date</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="k">count</span><span class="p">)</span>
+</span><span class='line'><span class="k">select</span> <span class="k">current_date</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">song_id</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="k">count</span> <span class="o">+</span> <span class="n">coalesce</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="k">count</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="k">from</span> <span class="n">temp</span> <span class="n">t</span>
+</span><span class='line'><span class="k">join</span> <span class="n">snapshot</span> <span class="n">s</span> <span class="k">on</span> <span class="n">t</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">user_id</span> <span class="k">and</span> <span class="n">t</span><span class="p">.</span><span class="n">song_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">song_id</span> <span class="k">and</span> <span class="n">s</span><span class="p">.</span><span class="nb">date</span> <span class="o">=</span> <span class="k">current_date</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround/"/>
+    <updated>2018-08-01T01:42:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround</id>
+    <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
+Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
+If you are used to work with Vertica SQL, writing SQL statements in MySQL can be challenging exercises, NOT necessarily in a good way, because many useful features are not supported.</p>
+
+<!--more-->
+
+
+<h3>Summary</h3>
+
+<p>In this post, the following interview questions will be presented and, then, potential pitfalls and answers in MySQL will be explained:</p>
+
+<ol>
+<li><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>: Write a SQL query to find employees who earn the top three salaries in each of the department.</li>
+<li><a href="https://leetcode.com/problems/nth-highest-salary/">Question</a>: Write a function that return the given <code>n</code>-th highest salary.</li>
+<li><a href="https://leetcode.com/problems/rank-scores/">Question</a>: Write a SQL query to rank scores (dense_rank).</li>
+<li><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>: Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</li>
+</ol>
+
+
+<h3>WITH clause</h3>
+
+<p>Use <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">nested subqueries</a>.</p>
+
+<p><a href="https://leetcode.com/problems/department-top-three-salaries/">Question</a>:
+Write a SQL query to find employees who earn the top three salaries in each of the department.</p>
+
+<figure class='code'><figcaption><span>What you might come up</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">WITH</span> <span class="n">temp</span> <span class="k">AS</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Salary</span><span class="p">,</span> <span class="n">DepartmentId</span>
+</span><span class='line'><span class="n">rank</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">DepartmentId</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">salary</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">as</span> <span class="n">rank</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Department</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Name</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Salary</span> <span class="k">as</span> <span class="n">Salary</span>
+</span><span class='line'><span class="k">from</span> <span class="n">temp</span> <span class="n">e</span>
+</span><span class='line'><span class="k">join</span> <span class="n">Department</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">Id</span>
+</span><span class='line'><span class="k">where</span> <span class="n">t</span><span class="p">.</span><span class="n">rank</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Answer: based on <a href="http://stackoverflow.com/questions/17084123/mysql-query-to-get-the-top-two-salary-from-each-department%0AFor%20ideas%20to%20arrive%20at%20the%20solution">this</a>.</p>
+
+<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Department</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Name</span> <span class="k">as</span> <span class="n">Employee</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">Salary</span> <span class="k">as</span> <span class="n">Salary</span>
+</span><span class='line'><span class="k">from</span> <span class="n">Employee</span> <span class="n">e</span>
+</span><span class='line'><span class="k">join</span> <span class="n">Department</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">Id</span>
+</span><span class='line'><span class="k">where</span> <span class="p">(</span>
+</span><span class='line'><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="k">distinct</span><span class="p">(</span><span class="n">e2</span><span class="p">.</span><span class="n">salary</span><span class="p">))</span>
+</span><span class='line'><span class="k">from</span> <span class="n">Employee</span> <span class="n">e2</span>
+</span><span class='line'><span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="o">=</span> <span class="n">e2</span><span class="p">.</span><span class="n">DepartmentId</span> <span class="k">and</span> <span class="n">e2</span><span class="p">.</span><span class="n">salary</span> <span class="o">&gt;</span> <span class="n">e</span><span class="p">.</span><span class="n">salary</span>
+</span><span class='line'><span class="p">)</span> <span class="k">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="k">order</span> <span class="k">by</span> <span class="n">Department</span><span class="p">,</span> <span class="n">Salary</span> <span class="k">desc</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using the similar idea, one can answer this <a href="https://leetcode.com/problems/nth-highest-salary/">question</a>:
+write a function that return the given <code>n</code>-th highest salary. The solution (without using <code>DENSE_RANK</code>) is:</p>
+
+<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">getNthHighestSalary</span><span class="p">(</span><span class="n">N</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">RETURNS</span> <span class="nb">INT</span>
+</span><span class='line'><span class="k">BEGIN</span>
+</span><span class='line'>  <span class="k">RETURN</span> <span class="p">(</span>
+</span><span class='line'>      <span class="c1">-- Write your MySQL query statement below.</span>
+</span><span class='line'>      <span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">Salary</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">FROM</span> <span class="n">Employee</span> <span class="n">Emp1</span>
+</span><span class='line'>            <span class="k">WHERE</span> <span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span>
+</span><span class='line'>                 <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="p">(</span><span class="n">Emp2</span><span class="p">.</span><span class="n">Salary</span><span class="p">))</span>
+</span><span class='line'>                        <span class="k">FROM</span> <span class="n">Employee</span> <span class="n">Emp2</span>
+</span><span class='line'>                        <span class="k">WHERE</span> <span class="n">Emp2</span><span class="p">.</span><span class="n">Salary</span> <span class="o">&gt;</span> <span class="n">Emp1</span><span class="p">.</span><span class="n">Salary</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">);</span>
+</span><span class='line'><span class="k">END</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Analytic functions <code>ROW_NUMBER</code>, <code>RANK</code>, and <code>DENSE_RANK</code></h3>
+
+<p>Summary from <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">here</a>.</p>
+
+<figure class='code'><figcaption><span>ROW_NUMBER, RANK, and DENSE_RANK functions in MySQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">-- In Vertica</span>
+</span><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="n">ROW_NUMBER</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">row_number</span><span class="p">,</span>
+</span><span class='line'><span class="n">RANK</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span>
+</span><span class='line'><span class="n">DENSE_RANK</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">dense_rank</span><span class="p">,</span>
+</span><span class='line'><span class="n">t</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">table_1</span> <span class="n">t</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">-- In MySQL</span>
+</span><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="o">@</span><span class="n">row_num</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_1</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_1</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_2</span><span class="p">,</span> <span class="o">@</span><span class="n">row_num</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">row_number</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">rank</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_1</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_1</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_2</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_3</span><span class="o">=</span><span class="n">col_3</span><span class="p">,</span> <span class="o">@</span><span class="n">rank</span><span class="p">,</span> <span class="o">@</span><span class="n">row_num</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rank</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_1</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_1</span> <span class="k">AND</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">col_2</span><span class="p">,</span> <span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col_3</span><span class="o">=</span><span class="n">col_3</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">dense_rank</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">prev_col_1</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">col_1</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">prev_col_2</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">col_2</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">prev_col_3</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">col_3</span><span class="p">,</span>
+</span><span class='line'><span class="n">t</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'><span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">table_1</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">col_1</span><span class="p">,</span> <span class="n">col_2</span><span class="p">,</span> <span class="n">col_3</span> <span class="k">DESC</span><span class="p">)</span> <span class="n">t</span><span class="p">,</span>
+</span><span class='line'>     <span class="p">(</span><span class="k">SELECT</span> <span class="o">@</span><span class="n">row_num</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">@</span><span class="n">rank</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col_1</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col_2</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col_3</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">)</span> <span class="n">var</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the following <a href="https://leetcode.com/problems/rank-scores/">question</a>, note that the outer SELECT is used to only expose only columns of interest while the main SQL code is enclosed in a subquery:</p>
+
+<figure class='code'><figcaption><span>Solution in Vertica SQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">Score</span><span class="p">,</span>
+</span><span class='line'><span class="n">DENSE_RANK</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">Score</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Rank</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">Scores</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Solution in MySQL</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="n">Score</span><span class="p">,</span> <span class="n">Rank</span> <span class="k">FROM</span>
+</span><span class='line'><span class="p">(</span> <span class="k">SELECT</span> <span class="n">t</span><span class="p">.</span><span class="n">Score</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="n">IF</span><span class="p">(</span><span class="o">@</span><span class="n">prev_col2</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">Score</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="p">,</span> <span class="o">@</span><span class="n">dense</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Rank</span><span class="p">,</span>
+</span><span class='line'><span class="o">@</span><span class="n">prev_col2</span><span class="p">:</span><span class="o">=</span><span class="n">t</span><span class="p">.</span><span class="n">Score</span>
+</span><span class='line'><span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">Score</span> <span class="k">FROM</span> <span class="n">Scores</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">Score</span> <span class="k">DESC</span><span class="p">)</span> <span class="n">t</span><span class="p">,</span>
+</span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="o">@</span><span class="n">dense</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">@</span><span class="n">prev_col2</span><span class="p">:</span><span class="o">=</span><span class="k">NULL</span><span class="p">)</span> <span class="n">var</span> <span class="p">)</span> <span class="n">x</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Other tricky questions</h3>
+
+<p><code>DELETE</code> might not work as you think in MySQL.</p>
+
+<p><a href="https://leetcode.com/problems/delete-duplicate-emails/">Question</a>:
+Write a SQL query to delete all duplicate email entries in a table named <code>Person</code>, keeping only unique emails based on its smallest Id.</p>
+
+<figure class='code'><figcaption><span>What you might come up</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">delete</span> <span class="k">from</span> <span class="n">Person</span>
+</span><span class='line'><span class="k">where</span> <span class="n">Id</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="k">min</span><span class="p">(</span><span class="n">Id</span><span class="p">)</span> <span class="k">from</span> <span class="n">Person</span> <span class="k">group</span> <span class="k">by</span> <span class="n">Email</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above does not work because you need to assign name to the subquery (temporary table).</p>
+
+<figure class='code'><figcaption><span>What actually works</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">delete</span> <span class="k">from</span> <span class="n">Person</span>
+</span><span class='line'><span class="k">where</span> <span class="n">Id</span> <span class="k">not</span> <span class="k">in</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span>
+</span><span class='line'><span class="p">(</span><span class="k">select</span> <span class="k">min</span><span class="p">(</span><span class="n">Id</span><span class="p">)</span> <span class="k">from</span> <span class="n">Person</span> <span class="k">group</span> <span class="k">by</span> <span class="n">Email</span><span class="p">)</span> <span class="n">x</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>External links</h3>
+
+<ul>
+<li><a href="https://github.com/kamyu104/LeetCode/tree/master/MySQL">Leetcode Database Solutions</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[System Design: Service Mesh]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/03/system-design-service-mesh/"/>
+    <updated>2017-07-03T11:26:18-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/03/system-design-service-mesh</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[System Design: Log Management]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/02/system-design-log-management/"/>
+    <updated>2017-07-02T11:25:56-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/02/system-design-log-management</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[System Design Questions]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions/"/>
+    <updated>2017-07-01T02:13:01-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions</id>
+    <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
+
+<!--more-->
+
+
+<h3>Readings</h3>
+
+<p>For Web Services, read &ldquo;Architecting in AWS&rdquo;: recognize scalability problems that AWS services trying to address and replace, for example, &ldquo;AWS Load Balancer&rdquo; with generic load balancer.</p>
+
+<p>Read these to know the broad topics that are expected.</p>
+
+<ol>
+<li><a href="https://www.quora.com/What-system-design-distributed-systems-+-scalability-topics-should-I-study-in-order-to-adequately-prepared-for-a-Google-Software-Engineer-interview">Quora question</a></li>
+<li><a href="https://www.linkedin.com/pulse/technical-design-interview-guide-success-joey-addona">The Technical Design Interview - A Guide to Success</a></li>
+<li><a href="https://www.linkedin.com/pulse/test-design-architecture-interview-tips-success-kane-ho">Test Design &amp; Architecture Interview - Tips to success</a></li>
+</ol>
+
+
+<h3>Questions</h3>
+
+<ol>
+<li>Design a simple file system using OO programming. Just folder and files.</li>
+<li>How to design a load balancer?</li>
+<li>How to design Facebook News Feed?</li>
+</ol>
+
+
+<h3>Answers</h3>
+
+<p>(1) Design a simple file system using OO programming. Just folder and files.</p>
+
+<p>Use Composite pattern.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">FileNode</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">File</span> <span class="kd">extends</span> <span class="n">FileNode</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kt">long</span> <span class="n">size</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Folder</span> <span class="kd">extends</span> <span class="n">FileNode</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">Collection</span><span class="o">&lt;</span><span class="n">FileNode</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(2) How to design a load balancer?</p>
+
+<p>Simple: hash and assign random. What are pros and cons?</p>
+
+<p>(3) Design Facebook News Feed.
+From <a href="https://www.reddit.com/r/cscareerquestions/comments/4ytbz3/design_facebook_news_feed_my_solution_to_the/">here</a>:</p>
+
+<p>First some numbers to get the scale of the problem:</p>
+
+<ul>
+<li>number of users: 10<sup>9</sup></li>
+<li>number of users during a peak hour (upper bound): 10<sup>8</sup></li>
+<li>number of posts during a peak hour: 10<sup>6</sup></li>
+<li>number of other activities during a peak hour (likes, comments, saves): 10<sup>10</sup></li>
+<li>almost all users have less than 10<sup>3</sup> friends</li>
+</ul>
+
+
+<p>The News Feed is constructed mainly based on the activity of user&rsquo;s important Facebook friends.
+An important friend is a user who is my friend and I have interacted with him/her at least somewhat during recent months.
+Interaction might include liking his/her comment, commenting on their post, chatting together, being marked on the same photo, etc.
+We assume the backend maintains the list of important friends.
+It might be updated perhaps every 60 minutes.
+This ordering might be quite fuzzy.
+Random perturbations of this ordering might lead to users being able to rediscover friends who they have mostly stopped interacting with.
+The primary purpose of distinguishing important friends is to make the feed more interesting.
+Another advantage is reduction of hotspots: there might be people with >10<sup>4</sup> friends, but we assume that every Facebook user has at most 10<sup>2</sup> important friends.</p>
+
+<p><strong>Minimum Viable Product</strong>: The Facebook News Feed of each user is a merge of the recent posts made by all his/her important friends sorted by the score of the post.
+The score of the post is ideally proportional to how interesting the post is to our user.
+The score depends on: how old the post is (older posts are less interesting), how many likes the post received, how many likes the post received from user&rsquo;s important friends or friends, &hellip;</p>
+
+<p>We primarily care about delivering an interesting News Feed. On the other hand, we don&rsquo;t really care about being able to produce an infinitely long News Feed. If our infrastructure implies that the feed is limited to 10<sup>00</sup> items and the user cannot scroll further. There are very few legitimate uses for having infinitely scrollable feed.</p>
+
+<p>Overview of the infrastructure:</p>
+
+<ul>
+<li>Firewall</li>
+<li>Load balancer</li>
+<li>Front-end web servers</li>
+<li>Memcache servers or Redis servers or something similar</li>
+<li>Distributed database servers</li>
+</ul>
+
+
+<p>Let&rsquo;s see what happens when the user requests his News Feed:</p>
+
+<ul>
+<li>The request is specified by: the id of user whose feed we&rsquo;re displaying and the number N of requested posts.</li>
+<li>The load balancer redirects the request to one of the web servers. It also decrypts the request. Within the datacenter, we only use unencrypted connections. To do the above, the load balancer keeps statistics of the numbers of requests each server is handling. Possibly, the load balancer might decide to start up a new server or schedule a shutdown of a server to save power. The web server checks if the user is authenticated. This is done by retrieving user&rsquo;s session data from a Google BigTable. If not logged in, s/he is redirected to the login page. If N is too large and not coming from a verified computer (like Facebook&rsquo;s API server), we reject the request and log information about a suspicious request.</li>
+<li>The web server queries memcache for the list of important friends of the user in question.</li>
+<li>Almost always, memcache will have this list ready in memory for all users who are currently logged in (after login, we immediately prefetch this data into memcache). The peak number of users is 10<sup>8</sup>, the number of important users at most 10<sup>2</sup>, each user is represented by an 8 byte identifier. This is an upper bound of 10<sup>11</sup> bytes, which is 100 GB of memory. Even with significant overhead, room for growth and a safety factor for situations when an unexpectedly large number of users logs in at the same time (e.g., when presidential election results are announced), this can still be stored in operating memory of a single server. A distributed memcache implementation is not going to have a problem here. For each important friend, the web server sends a request for this friend&rsquo;s Activity List. Activity List is a list of his posts, likes, comments, uploaded photos, instances of being marked on a photo, etc. Each item contains a timestamp (32 bits), item type (post, comment, share, &hellip;), id of the item (e.g., the id of the post or comment), the destination id (for example, the id of the post on which the comment was made) and privacy setting (1 byte). This is 22 bytes in total. Only identifiers are stored. The data are populated at the end of the computation.</li>
+<li>These lists are stored in a distributed database hidden behind caching servers. There is 10<sup>9</sup> users, each has at most 10<sup>3</sup> items in their Activity List. This is 22 * 10<sup>12</sup> = 22 TB of memory. <strong> It is certainly possible to store this in a distributed file system. </strong>A distributed memcache on 128 servers each with 250 GB RAM would also handle this. Therefore, we can assume all these lists are almost always in memory.</li>
+<li>Each item in each of these lists is assigned Relevancy Value. This depends on: The importance of the friend from whose Activity List the item is. How recent the item is. The number of likes and shares the item has (this only makes sense in the case of posts or photos). The number of likes from the user&rsquo;s other important friends. Surely, a like from 3 of my friends is more important than 10 likes from random strangers. We can access this information since we have retrieved the Activity Lists of every single important friend of the user. Since these lists include their likes and the ids of liked posts, we can specifically compute the numbers from the retrieved data. The user&rsquo;s prefered content type. Some users might like photos more than text. We remember this for each user and adjust the weight accordingly. Private posts that should not be visible to the user are removed at this point.</li>
+<li>We sort each of these lists using the Relevancy Value and merge them.</li>
+<li>We send this list to a content service. This service replaces all identifiers with the corresponding content (text, image links, names of users instead of user ids, &hellip;)</li>
+<li>The web server uses a template to convert this into HTML.</li>
+</ul>
+
+
+<p>There are two questions to ponder:</p>
+
+<ul>
+<li>When the News Feed is requested again in the future, do we recalculate it from scratch? We could store the sequence calculated in one of the last steps in cache and only compute the beginning of the feed (that is: we would only compute what is new). This might make almost-infinite scrolling possible in certain cases. However, we would need to handle some corner cases. For example, the list is only approximately ordered according to the timestamp.</li>
+<li>The above described the read path. It remains to analyze the write path: what happens when a user submits a content, likes something, etc. Well, we simply add this to his Activity List. In the case of posts, images, &hellip; we also store it on a content service server.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Questions: Operating System Drills]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/03/questions-operating-system-drills/"/>
+    <updated>2016-06-03T00:42:41-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/06/03/questions-operating-system-drills</id>
+    <content type="html"><![CDATA[<p>From &ldquo;Operating System concepts&rdquo; book.</p>
+
+<!--more-->
+
+
+<p>Drill:</p>
+
+<ol>
+<li>Chapter 1: Storage device hierarchy</li>
+<li>Chapter 2: System calls and Linux examples. System boot.</li>
+<li>Chapter 3: Process diagram. Process state diagram. Zombie, orphan process. Practice Exercise 3.1, 3.2.</li>
+</ol>
+
+
+<p>Links:</p>
+
+<ul>
+<li><a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/">http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/</a></li>
+<li><a href="http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/">http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/</a></li>
+<li><a href="http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/">http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/</a></li>
+</ul>
+
+
+<p>Practice exercises:</p>
+
+<ul>
+<li><a href="http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html">http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization/"/>
+    <updated>2016-06-02T00:35:03-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
+Topics in this chapter are the most intensive and frequently asked during interviews.</p>
+
+<!--more-->
+
+
+<p>This chapter discuss how to prevent concurrent access to shared data that may result in data inconsistency.</p>
+
+<h3>5.1 &amp; 5.2: Critical section</h3>
+
+<p>Consider the producer–consumer problem, which is representative of
+operating systems. Specifically, in Section 3.4.1, we described how a bounded
+buffer could be used to enable processes to share memory.</p>
+
+<figure class='code'><figcaption><span>Producer process</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">/* produce an item in next produced */</span>
+</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">)</span>
+</span><span class='line'>    <span class="p">;</span> <span class="cm">/* do nothing */</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">buffer</span><span class="p">[</span><span class="n">in</span><span class="p">]</span> <span class="o">=</span> <span class="n">next</span> <span class="n">produced</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">in</span> <span class="o">=</span> <span class="p">(</span><span class="n">in</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">;</span>
+</span><span class='line'>  <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Consumer process</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">;</span> <span class="cm">/* do nothing */</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">next</span> <span class="n">consumed</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="n">out</span><span class="p">];</span>
+</span><span class='line'>  <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="n">out</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">;</span>
+</span><span class='line'>  <span class="n">counter</span><span class="o">--</span><span class="p">;</span>
+</span><span class='line'>  <span class="cm">/* consume the item in next consumed */</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above code works incorrectly in multi-thread or process situation, due to parallel modifications to &ldquo;counter&rdquo;.
+When several processes access and manipulate the same data concurrently and the
+outcome of the execution depends on the particular order in which the access
+takes place, is called a race condition.</p>
+
+<p>Critical section: No two processes are executing in their critical sections at the same time.
+Solution to a critical section problem requires:
+Mutual exclusion: only one process in CS at a time.
+Progress: Selection process should not be postponed indefinitely.
+Bounded waiting: once a process request to enter, waiting time is bounded.</p>
+
+<p>Nonpreemptive kernel does not allow a process running in kernel mode to be
+preempted; a kernel-mode process will run until it exits kernel mode, blocks,
+or voluntarily yields control of the CPU. A nonpreemptive kernel is essentially free from race conditions.
+A preemptive kernel may be more responsive, since there is less risk that a
+kernel-mode process will run for an arbitrarily long period.</p>
+
+<h3>5.3: Peterson&rsquo;s algorithm</h3>
+
+<figure class='code'><figcaption><span>Peterson's algorithm</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span>
+</span><span class='line'><span class="n">turn</span> <span class="o">=</span> <span class="n">j</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span> <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="n">j</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// start of CS</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// end of CS</span>
+</span><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span>    <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span>
+</span><span class='line'><span class="n">turn</span> <span class="o">=</span> <span class="n">i</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span><span class="p">(</span> <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="n">i</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// start of CS</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// end of CS</span>
+</span><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>NOTE: <a href="http://en.wikipedia.org/wiki/Peterson's_algorithm">Peterson’s algorithm</a> is restricted to two processes.
+Filter algorithm: Peterson&rsquo;s algorithm for N processes
+The filter algorithm generalizes Peterson&rsquo;s algorithm for N processes. It uses N different levels - each represents another &lsquo;waiting room&rsquo;, before the critical section. Each level will allow at least one process to advance, while keeping one process in waiting.</p>
+
+<p><a href="http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms">http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms</a>
+Both processes indicates if the other want to enter CS, it can proceed. If both processes enter at the same time, turn will be set to i and j at the same time, and only one will last.
+Proof of bounded waiting: Pi will enter the CS after at most one entry by Pj.</p>
+
+<figure class='code'><figcaption><span>Analogies of Peterson's algorithm</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Peterson's: "I want to enter."                 flag[0]=true;
+</span><span class='line'>            "You can enter next."              turn=1;
+</span><span class='line'>            "If you want to enter and          while(flag[1]==true&&turn==1){
+</span><span class='line'>            it's your turn I'll wait."         }
+</span><span class='line'>            Else: Enter CS!                    // CS
+</span><span class='line'>            "I don't want to enter any more."  flag[0]=false;
+</span><span class='line'>
+</span><span class='line'>Dekker's:   "I want to enter."                 flag[0]=true;
+</span><span class='line'>            "If you want to enter              while(flag[1]==true){
+</span><span class='line'>             and if it's your turn               if(turn!=0){
+</span><span class='line'>             I don't want to enter any more."      flag[0]=false;
+</span><span class='line'>            "If it's your turn                     while(turn!=0){
+</span><span class='line'>             I'll wait."                           }
+</span><span class='line'>            "I want to enter."                     flag[0]=true;
+</span><span class='line'>                                                 }
+</span><span class='line'>                                               }
+</span><span class='line'>            Enter CS!                          // CS
+</span><span class='line'>            "You can enter next."              turn=1;
+</span><span class='line'>            "I don't want to enter any more."  flag[0]=false;</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>5.4: Sync using hardware</h3>
+
+<p>Protect critical section by locking.</p>
+
+<p>Many modern computer systems therefore provide special hardware
+instructions that allow us either to test and modify the content of a word or
+to swap the contents of two words atomically—that is, as one uninterruptible unit.</p>
+
+<p>Atomic test_and_set() and compare_and_swap() for locking:</p>
+
+<p>boolean test_and_set(boolean <em>target) {
+boolean rv = </em>target;
+*target = true;
+return rv;
+}</p>
+
+<p>int compare_and_swap(int <em>value, int expected, int new value) {
+int temp = </em>value;
+if (<em>value == expected)
+    </em>value = new value;
+return temp;
+}</p>
+
+<p>Simple Mutex with atomic test_and_set()
+Figure 5.5</p>
+
+<p>Bounded-Waiting mutex with atomic test_and_set(): data structure and algorithm
+Figure 5.7</p>
+
+<h3>5.5: Mutex locks</h3>
+
+<p>We use the mutex to lock to protect critical regions and thus prevent race conditions.</p>
+
+<p>Calls to either acquire() or release() must be performed atomically.</p>
+
+<p>acquire() {
+while (!available)
+; /<em> busy wait </em>/
+available = false;
+}</p>
+
+<p>release() {
+available = true;
+}
+Usage:</p>
+
+<p>acquire()</p>
+
+<p>// start of CS</p>
+
+<p>// end of CS</p>
+
+<p>release()</p>
+
+<p>The main disadvantage of the implementation given here is that it requires busy waiting. This type of mutex lock is also called a spinlock.
+Spinlocks do have an advantage, however, in that no context switch is required.</p>
+
+<h3>5.6: Semaphores</h3>
+
+<p>A semaphore S is an integer variable that, apart from initialization, is
+accessed only through two standard atomic operations: wait() and signal().</p>
+
+<p>wait(S) {
+while (S &lt;= 0 )
+; // busy wait
+S&ndash;;
+}</p>
+
+<p>signal(S) {
+S++;
+}</p>
+
+<p>The value of a counting semaphore can range over an unrestricted domain. Versus binary semaphore, which is similar to mutex.
+Counting semaphores can be used to control access to a given resources of a finite number of instances.</p>
+
+<p>We can also use semaphores to solve various synchronization problems.
+For example,consider two concurrently running processes: P1 with a statement
+S1 and P2 with a statement S2 . Suppose we require that S2 be executed only
+after S1 has completed. We can implement this scheme readily by letting P1
+and P2 share a common semaphore synch, initialized to 0. In process P1 , we
+insert the statements
+S1;
+signal(synch);</p>
+
+<p>In process P2 , we insert the statements
+wait(synch);
+S 2 ;</p>
+
+<p>Because synch is initialized to 0, P2 will execute S2 only after P1 has invoked
+signal(synch) , which is after statement S1 has been executed.</p>
+
+<p>Deadlock:
+P 0 P 1
+wait(S); wait(Q);
+wait(Q); wait(S);
+. .
+. .
+. .
+signal(S); signal(Q);
+signal(Q); signal(S);</p>
+
+<p>Priority inversion:
+The problem of priority inversion is when three processes of different priorities L &lt; M &lt; H. H is waiting for L to finish with a certain resource. M process becomes runnable and preempts L. Indirectly, process M with lower priority affects how long process H must wait for resource.
+It occurs when the system has more than two priorities. However, it is almost always the case.
+Solution: priority-inheritance protocol: all processes that use a resource, waited by a higher priority process, will inherit the highest priority until they are done with the resource.</p>
+
+<h4>Semaphore implementation</h4>
+
+<p>The naive definition of wait() and signal() above presents the same problem of busy waiting.
+In actual implementation, when a process execute wait() operation and find that semaphore value is not positive, it must wait. However, instead of busy waiting, the process block itself.
+In this implementation, semaphore values may be negative, while they are never negative in classical definition with busy waiting. If a semaphore value is negative, its magnitude indicates the number of waiting processes (note different order of decrement in wait()).</p>
+
+<p>It is critical that semaphore operations be executed atomically: no two processes can execute wait() and signal() operations on the same semaphore at the same time.
+In a multiprocessor environment, usually compare_and_swap() or spin locks are used to ensure wait() and signal() are atomic.
+So, we admit that busy waiting is NOT eliminated in this implementation. However, busy waiting is limited to CS of the wait() and signal() operations. These CSs are short (about 10 instructions). Thus, CS is almost never occupied, and busy waiting is rare and short, if ever happens.</p>
+
+<h3>5.7: Classic Problems of Synchronization</h3>
+
+<p>Use semaphores for synchronization. Actual implementation can use mutex instead of binary semaphore.</p>
+
+<p>Bounded-Buffer (Consumer-Producer) problem
+Problem: See 5.1.
+Solution: The producer and consumer share the following data structure:
+The mutex is used to provide mutual exclusion for accesses to the buffer pool.
+int n;
+semaphore mutex = 1;
+semaphore empty = n;
+semaphore full = 0</p>
+
+<p>Producer    Consumer
+do {
+&hellip;
+/<em> produce an item in next produced </em>/
+&hellip;
+wait(empty);
+wait(mutex);
+&hellip;
+/<em> add next produced to the buffer </em>/
+&hellip;
+signal(mutex);
+signal(full);
+} while (true);
+do {
+wait(full);
+wait(mutex);
+&hellip;
+/<em> remove an item from buffer to next consumed </em>/
+&hellip;
+signal(mutex);
+signal(empty);
+&hellip;
+/<em> consume the item in next consumed </em>/
+&hellip;
+} while (true);</p>
+
+<p>Reader-Writer problem:
+Writers should have exclusive access while writing to the shared database.
+There are several variants of “reader-writer” problems:
+First problem: No reader to be kept waiting unless a writer has already obtained accesss.
+Second problem: Once writer is ready, that writer perform its write ASAP. No new readers may start reading.
+A solution to either problem may result in starvation.</p>
+
+<p>Solution to first reader-writer problem: shared data structure
+semaphore rw_utex = 1;
+semaphore mutex = 1;
+int read count = 0;
+The mutex semaphore is used to ensure mutual exclusion when the variable read count is updated.
+The read count variable keeps track of how many processes are currently reading the object.
+The semaphore rw_mutex functions as a mutual exclusion semaphore for the writers.</p>
+
+<p>Writer  Reader
+do {
+wait(rw mutex);
+&hellip;
+/<em> writing is performed </em>/
+&hellip;
+signal(rw mutex);
+} while (true);
+do {
+wait(mutex);
+read count++;
+if (read count == 1)
+wait(rw mutex);
+signal(mutex);
+&hellip;
+/<em> reading is performed </em>/
+&hellip;
+wait(mutex);
+read count&ndash;;
+if (read count == 0)
+signal(rw mutex);
+signal(mutex);
+} while (true);</p>
+
+<p>Dining Philosopher problem: This solution can create a deadlock
+semaphore chopstick[5];</p>
+
+<p>do {
+wait(chopstick[i]);
+wait(chopstick[(i+1) % 5]);
+&hellip;
+/<em> eat for awhile </em>/
+&hellip;
+signal(chopstick[i]);
+signal(chopstick[(i+1) % 5]);
+&hellip;
+/<em> think for awhile </em>/
+&hellip;
+} while (true);</p>
+
+<p>Several possible remedies to the deadlock problem are replaced by:
+• Allow at most four philosophers to be sitting simultaneously at the table.
+• Allow a philosopher to pick up her chopsticks only if both chopsticks are
+available (to do this, she must pick them up in a critical section).
+• Use an asymmetric solution—that is,an odd-numbered philosopher picks
+up first her left chopstick and then her right chopstick, whereas an even-
+numbered philosopher picks up her right chopstick and then her left
+chopstick.</p>
+
+<p>In 5.8, we use monitor (equivalent to a waiter to tell which philosopher should eat) to provides deadlock-free solution.
+A deadlock-free solution does not necessarily eliminate the possibility of starvation.</p>
+
+<h3>5.8: Monitors</h3>
+
+<p>Semaphore is not a complete solution. If a single process is not well-behaved (semaphore used incorrectly), the system break down.
+Incorrect order of signal() and wait(): mutual exclusion is no longer guaranteed.
+wait() is used in place of signal(): a deadlock may occur.
+wait() or signal() or both are omitted: mutual exclusion violated or deadlock.</p>
+
+<p>Syntax of a monitor:</p>
+
+<p>Local variables of a monitor can be accessed by only the local functions. Only one process at a time is active within the monitor.
+We also defines condition construct: condition x, y; // condition variables
+The only operations that can be invoked on a condition variable are wait() and signal().
+The operation x.wait(); means that the process invoking this operation is suspended until another process invokes x.signal();
+The x.signal() operation resumes exactly one suspended process. If no process is suspended, then the signal() operation has no effect.
+(Different from semaphore’s signal(): semaphore() signal always change the state of semaphore, condition’s signal() may not).</p>
+
+<p>Dining Philosophers solution using Monitors:
+Monitor is acting like a waiter/moderator. Before a philosopher starts eating, she informs the waiter (invoked operation pickup()) and the waiter will tell her what to do.
+After she is done eating, she again informs the waiter (putdown()). It is still possible that some philosopher will starve to death.</p>
+
+<p>condition self[5];
+allows philosopher i to delay herself when she is hungry but is unable to obtain the chopsticks she needs.</p>
+
+<p>Implement a Monitor with Semaphores
+Check Section 5.8.3 page 229.</p>
+
+<p>Resuming Processes within a Monitor
+One simple solution is to use FIFO ordering.
+Another solution is conditional-wait construct, with c is the priority number input.
+x.wait&copy;;
+When x.signal() is executed, the process with the smallest priority number is resumed next.</p>
+
+<p>Java monitors
+Java uses monitor for thread synchronization.
+Every object in Java has a single lock associated with it. When a method is declared synchronized, calling the method requires owning the lock of the object.
+If the lock is not available, the synchronized method is placed in the entry set for the object’s lock.
+The Java Object class’s method wait() and notify() are similar to wait() and signal() statements for a monitor.</p>
+
+<h3>Reference</h3>
+
+<ul>
+<li><a href="http://tdongsi.github.io/SqlTests/download/Java_Concurrency.pdf">Java Concurrency</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Compare Languages: Java vs. C++]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/11/compare-languages-java-vs-c-plus-plus/"/>
+    <updated>2016-01-11T10:11:40-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/11/compare-languages-java-vs-c-plus-plus</id>
+    <content type="html"><![CDATA[<p>How to answer the question &ldquo;What is the difference between Java and C++?&rdquo;.
+Knowing the subtle difference between similar languages shows mastery of both.</p>
+
+<!--more-->
+
+
+<h3>Strict differences</h3>
+
+<p>Java</p>
+
+<ol>
+<li>Multiple inheritance: by implementing multiple interfaces, only extending one superclass.</li>
+<li>Java is reflective, allowing dynamic code generation.</li>
+<li>Automatic garbage collection. The concept of destructor and using finalize() is not recommended.</li>
+<li>Operator overloading is not possible [2]. Only + overladed for String.</li>
+<li>Generic programming: syntactic sugar for backward compatibility (can be removed), just a wrapper for object casting.</li>
+</ol>
+
+
+<p>C++</p>
+
+<ol>
+<li>Extending multiple classes are allowed</li>
+<li>C++ provides only object types and class name.</li>
+<li>Explicit memory allocation and deallocation.</li>
+<li>Operator overloading is very common.</li>
+<li>Advanced version of preprocessor/macro programming.</li>
+</ol>
+
+
+<h3>Practical differences</h3>
+
+<p>In practice, the patterns of using two languages can be very different.</p>
+
+<p>Java</p>
+
+<ol>
+<li>Using Interfaces and Listeners to achieve similar effects.</li>
+<li>final has more limited usage.</li>
+<li>Label can be used in loops, such as break from nested <code>for</code> loops.</li>
+<li>Most libraries are based on class inheritance and object-oriented programming.</li>
+</ol>
+
+
+<p>C++</p>
+
+<ol>
+<li>Function pointers, function objects are common.</li>
+<li>const keyword has more functions and is more commonly used.</li>
+<li>goto statement is supported but not recommended.</li>
+<li>Most libraries are based on templates and generic programming.</li>
+</ol>
+
+
+<p>Java Generics are massively different to C++ templates.
+Basically in C++ templates are basically a glorified preprocessor/macro set.
+Java Generics are basically syntactic sugar (things can be removed from the language, added just to make expressions more clearly)</p>
+]]></content>
+  </entry>
+  
+</feed>

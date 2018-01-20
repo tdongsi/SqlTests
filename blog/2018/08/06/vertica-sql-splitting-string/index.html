@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Vertica SQL: Splitting String - Personal Interview Notes</title>
+  <meta name="author" content="Cuong Dong-Si">
+
+  
+  <meta name="description" content="It is not so straight-forward for splitting strings in SQL, including but not limited to comma-separated strings. In Python and Java, splitting &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2018/08/06/vertica-sql-splitting-string/">
+  <link href="/SqlTests/favicon.png" rel="icon">
+  <link href="/SqlTests/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
+  <script src="/SqlTests/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/SqlTests/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body    class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/SqlTests/">Personal Interview Notes</a></h1>
+  
+    <h2>Neither success nor failure is ever final.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="tdongsi.github.io/SqlTests">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/SqlTests/">Blog Home</a></li>
+  <li><a href="/SqlTests/blog/archives">Archives</a></li>
+  <li><a href="/SqlTests/syllabus">Syllabus</a></li>
+  <li><a href="http://tdongsi.github.io">Personal Home</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Vertica SQL: Splitting String</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-08-06T12:27:12-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>12:27 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>It is not so straight-forward for splitting strings in SQL, including but not limited to comma-separated strings.</p>
+
+<!--more-->
+
+
+<p>In Python and Java, splitting delimited strings is straight forward.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// Python
+</span><span class='line'>"EMS_Tax,PSCare,Tools_Team,,workflow".split()
+</span><span class='line'>
+</span><span class='line'>// Java: using Guava's Splitter
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As shown in <a href="http://tdongsi.github.io/blog/2016/08/17/analytic-functions-in-mysql/">another blog post</a>, not all SQL dialects are equal.
+Different database systems have different ways of doing so in SQL, as shown in the following links (1, 2)</p>
+
+<p><a href="http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x">http://stackoverflow.com/questions/2647/how-do-i-split-a-string-so-i-can-access-item-x</a></p>
+
+<p><a href="http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns">http://stackoverflow.com/questions/10581772/how-to-split-a-comma-separated-value-to-columns</a></p>
+
+<p>This post will throws another into that mess.</p>
+
+<figure class='code'><figcaption><span>Spitting comma-separated strings</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="n">label_key</span><span class="p">,</span>
+</span><span class='line'><span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Label</span>
+</span><span class='line'><span class="k">FROM</span>
+</span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">()</span> <span class="k">AS</span> <span class="n">row_num</span> <span class="k">FROM</span> <span class="n">tables</span><span class="p">)</span> <span class="n">row_nums</span>
+</span><span class='line'><span class="k">JOIN</span> <span class="n">label_map</span> <span class="n">i</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Original</h3>
+
+<figure class='code'><figcaption><span>Example data</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">415862</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,YE2016,getwell,locals_manual,noncritical,ye_taxopsmh&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">436631</span><span class="p">,</span><span class="s1">&#39;BBC_Reviewed,SPS_Bugs,Priority_Backlog,need_followup&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">443409</span><span class="p">,</span><span class="s1">&#39;EMS_Tax,PSCare,Tools_Team,,workflow&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">490209</span><span class="p">,</span><span class="k">null</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">helper_jira_key</span> <span class="p">(</span><span class="n">dm_jira_key</span><span class="p">,</span><span class="n">labels</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">490210</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>String splitting code</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span>
+</span><span class='line'><span class="n">jmap</span><span class="p">.</span><span class="n">dm_jira_key</span><span class="p">,</span>
+</span><span class='line'><span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Label</span>
+</span><span class='line'><span class="k">FROM</span>
+</span><span class='line'><span class="p">(</span><span class="k">SELECT</span> <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">()</span> <span class="k">AS</span> <span class="n">row_num</span> <span class="k">FROM</span> <span class="n">tables</span><span class="p">)</span> <span class="n">row_nums</span>
+</span><span class='line'><span class="k">CROSS</span> <span class="k">JOIN</span> <span class="n">stg_all_jira_issues_vw</span> <span class="n">i</span>
+</span><span class='line'><span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">helper_jira_key</span> <span class="n">jmap</span> <span class="k">ON</span> <span class="n">i</span><span class="p">.</span><span class="n">jira_id</span> <span class="o">=</span> <span class="n">jmap</span><span class="p">.</span><span class="n">jira_id</span> <span class="k">AND</span> <span class="n">i</span><span class="p">.</span><span class="n">source_system_key</span> <span class="o">=</span> <span class="n">jmap</span><span class="p">.</span><span class="n">source_system_key</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">SPLIT_PART</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cuong Dong-Si</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2018-08-06T12:27:12-07:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>12:27 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/SqlTests/blog/categories/sql/'>sql</a>, <a class='category' href='/SqlTests/blog/categories/vertica/'>vertica</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2018/08/06/vertica-sql-splitting-string/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2018/08/06/vertica-sql-splitting-string/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/" title="Previous Post: Tutorial: Dashboard for Business Analytics">&laquo; Tutorial: Dashboard for Business Analytics</a>
+      
+      
+        <a class="basic-alignment right" href="/SqlTests/blog/2019/09/01/network-question-bank/" title="Next Post: Network Question bank">Network Question bank &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+    <h1>About This Blog</h1>
+    <p>Random interview experience and lessons.</p>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2022/12/03/bash-cookbook/">Bash Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2022/12/02/docker-cli-cookbook/">Docker CLI Cookbook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2022/12/01/groupadd-cookbook/">User Group and Related Commands</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2021/11/04/opencv/">OpenCV</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2021/11/02/anomaly-detection/">Anomaly Detection</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2021/11/01/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2019/09/02/reserved-ip-addresses/">Reserved IP Addresses</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2019/09/01/network-question-bank/">Network Question Bank</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2018/08/06/vertica-sql-splitting-string/">Vertica SQL: Splitting String</a>
+      </li>
+    
+      <li class="post">
+        <a href="/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (3)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (4)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (2)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (8)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Cuong Dong-Si -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
