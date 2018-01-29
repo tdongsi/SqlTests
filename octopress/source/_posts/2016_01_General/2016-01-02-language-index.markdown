@@ -32,6 +32,10 @@ Questions:
 
 ### [Python](https://tdongsi.github.io/python/)
 
+* [What's new in Python 3](https://docs.python.org/3/whatsnew/3.0.html)
+  * Essential: Maybe only Python 2 is supported in interviews while you've been using Python 3 or vice versa. Learn this to unblock yourself.
+  * Bonus points to explain that to interviewers.
+
 ### [JavaScript](https://tdongsi.github.io/javascript/)
 
 ### Next language?
