@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-01-20T01:32:54-08:00</updated>
+  <updated>2018-01-30T13:17:34-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -488,6 +488,17 @@ Java Generics are basically syntactic sugar (things can be removed from the lang
 <h4>Tools and Ecosystem</h4>
 
 <h3><a href="https://tdongsi.github.io/python/">Python</a></h3>
+
+<ul>
+<li><a href="https://docs.python.org/3/whatsnew/3.0.html">What&rsquo;s new in Python 3</a>
+
+<ul>
+<li>Essential: Maybe only Python 2 is supported in interviews while you&rsquo;ve been using Python 3 or vice versa. Learn this to unblock yourself.</li>
+<li>Bonus points to explain that to interviewers.</li>
+</ul>
+</li>
+</ul>
+
 
 <h3><a href="https://tdongsi.github.io/javascript/">JavaScript</a></h3>
 

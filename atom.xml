@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-01-20T01:32:54-08:00</updated>
+  <updated>2018-01-30T13:17:34-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -2098,6 +2098,176 @@ Write a SQL query to delete all duplicate email entries in a table named <code>P
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[Checklist of Topics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2018/01/29/checklist-of-topics/"/>
+    <updated>2018-01-29T13:24:37-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2018/01/29/checklist-of-topics</id>
+    <content type="html"><![CDATA[<p>Don&rsquo;t study way more topics than you needed to. Based on <a href="https://web.archive.org/web/20170308043103/https://googleyasheck.com/what-you-need-to-know-for-your-google-interview-and-what-you-dont/">this article</a> from the same one who created <a href="http://tdongsi.github.io/SqlTests/blog/2011/01/05/exhaustive-syllabus/">this syllabus</a>.</p>
+
+<!--more-->
+
+
+<h3>Essential</h3>
+
+<ul>
+<li>complexity/space analysis</li>
+<li>bitwise operations</li>
+<li>linked lists</li>
+<li>stacks</li>
+<li>queues/deques</li>
+<li>arrays/vectors</li>
+<li>hash tables (maps)</li>
+<li>sets</li>
+<li>binary search</li>
+<li>sorting
+
+<ul>
+<li>selection</li>
+<li>insertion</li>
+<li>heapsort</li>
+<li>quicksort</li>
+<li>merge sort</li>
+</ul>
+</li>
+<li>priority queues</li>
+<li>binary heap</li>
+<li>trees
+
+<ul>
+<li>binary search trees</li>
+<li>balanced search trees (general concept)</li>
+<li>traversals: preorder, inorder, postorder, BFS, DFS</li>
+</ul>
+</li>
+<li>graphs
+
+<ul>
+<li>directed</li>
+<li>undirected</li>
+<li>adjacency matrix</li>
+<li>adjacency list</li>
+</ul>
+</li>
+<li>dynamic programming (note: does not appear in coaching notes, but is useful)</li>
+<li>probability</li>
+<li>permutations and combinations</li>
+<li>object-oriented programming</li>
+<li>processes/threading
+
+<ul>
+<li>memory</li>
+<li>caching</li>
+<li>deadlock avoidance</li>
+<li>scheduling</li>
+</ul>
+</li>
+<li>testing practices (1+ year experience)</li>
+</ul>
+
+
+<p>Experienced hire:</p>
+
+<ul>
+<li>network stack / OSI</li>
+<li>scaling large systems</li>
+<li>designing for scale</li>
+<li>Design patterns</li>
+</ul>
+
+
+<h3>Advanced:</h3>
+
+<p>These algorithm topics will help you better in competitive programming (e.g., Google CodeJam).</p>
+
+<ul>
+<li>Dijkstra - single-source shortest paths</li>
+<li>Bellman-Ford - single-source shortest paths, allowing negative weight edges</li>
+<li>Floyd-Warshall - all-pairs shortest paths</li>
+<li>Ford-Fulkerson - maximum flow</li>
+<li>Other types of graph representation:
+
+<ul>
+<li>adjacency map</li>
+<li>edge list</li>
+</ul>
+</li>
+<li>Linear-time sorts:
+
+<ul>
+<li>radix sort</li>
+<li>bucket sort</li>
+<li>counting sort</li>
+</ul>
+</li>
+<li>pattern/substring matching
+
+<ul>
+<li>Rabin-Karp</li>
+<li>Boyer-Moore (Horspool)</li>
+<li>Knuth-Morris-Pratt</li>
+<li>suffix trees</li>
+<li>suffix arrays</li>
+<li>tries</li>
+</ul>
+</li>
+<li>union-find / disjoint sets</li>
+</ul>
+
+
+<h3>Not needed:</h3>
+
+<p>You only need to know the basic concepts.</p>
+
+<ul>
+<li>Minimum spanning tree
+
+<ul>
+<li>Prim-Jarnik</li>
+<li>Kruskal</li>
+</ul>
+</li>
+<li>geometric algorithms
+
+<ul>
+<li>convex hull</li>
+<li>positional/overlap/horizons</li>
+</ul>
+</li>
+<li>backtracking</li>
+<li>Selection (k smallest items, etc)</li>
+<li>Other types of trees:
+
+<ul>
+<li>(a,b) trees, k-ary trees (example: (2,4)-trees)</li>
+<li>B-trees</li>
+<li>k-D trees</li>
+</ul>
+</li>
+<li>balanced search trees (details such as rotations)
+
+<ul>
+<li>red-black trees</li>
+<li>AVL</li>
+<li>splay trees</li>
+</ul>
+</li>
+<li>data compression, information theory</li>
+<li>linear programming</li>
+<li>garbage collection</li>
+<li>cryptography</li>
+<li>skip lists</li>
+<li>van Emde Boas trees</li>
+<li>treap</li>
+<li>multisets</li>
+<li>multimaps</li>
+<li>fast Fourier transform</li>
+<li>Bloom filter</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[System Design: Service Mesh]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/03/system-design-service-mesh/"/>
     <updated>2017-07-03T11:26:18-07:00</updated>
@@ -2724,71 +2894,6 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
 <li><a href="http://tdongsi.github.io/SqlTests/download/Java_Concurrency.pdf">Java Concurrency</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Compare Languages: Java vs. C++]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/11/compare-languages-java-vs-c-plus-plus/"/>
-    <updated>2016-01-11T10:11:40-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/11/compare-languages-java-vs-c-plus-plus</id>
-    <content type="html"><![CDATA[<p>How to answer the question &ldquo;What is the difference between Java and C++?&rdquo;.
-Knowing the subtle difference between similar languages shows mastery of both.</p>
-
-<!--more-->
-
-
-<h3>Strict differences</h3>
-
-<p>Java</p>
-
-<ol>
-<li>Multiple inheritance: by implementing multiple interfaces, only extending one superclass.</li>
-<li>Java is reflective, allowing dynamic code generation.</li>
-<li>Automatic garbage collection. The concept of destructor and using finalize() is not recommended.</li>
-<li>Operator overloading is not possible [2]. Only + overladed for String.</li>
-<li>Generic programming: syntactic sugar for backward compatibility (can be removed), just a wrapper for object casting.</li>
-</ol>
-
-
-<p>C++</p>
-
-<ol>
-<li>Extending multiple classes are allowed</li>
-<li>C++ provides only object types and class name.</li>
-<li>Explicit memory allocation and deallocation.</li>
-<li>Operator overloading is very common.</li>
-<li>Advanced version of preprocessor/macro programming.</li>
-</ol>
-
-
-<h3>Practical differences</h3>
-
-<p>In practice, the patterns of using two languages can be very different.</p>
-
-<p>Java</p>
-
-<ol>
-<li>Using Interfaces and Listeners to achieve similar effects.</li>
-<li>final has more limited usage.</li>
-<li>Label can be used in loops, such as break from nested <code>for</code> loops.</li>
-<li>Most libraries are based on class inheritance and object-oriented programming.</li>
-</ol>
-
-
-<p>C++</p>
-
-<ol>
-<li>Function pointers, function objects are common.</li>
-<li>const keyword has more functions and is more commonly used.</li>
-<li>goto statement is supported but not recommended.</li>
-<li>Most libraries are based on templates and generic programming.</li>
-</ol>
-
-
-<p>Java Generics are massively different to C++ templates.
-Basically in C++ templates are basically a glorified preprocessor/macro set.
-Java Generics are basically syntactic sugar (things can be removed from the language, added just to make expressions more clearly)</p>
 ]]></content>
   </entry>
   
