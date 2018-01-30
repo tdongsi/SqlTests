@@ -55,6 +55,7 @@ Experienced hire:
 * network stack / OSI
 * scaling large systems
 * designing for scale
+* Design patterns
 
 ### Advanced: 
 
