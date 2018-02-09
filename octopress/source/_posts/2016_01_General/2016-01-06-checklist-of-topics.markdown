@@ -11,6 +11,11 @@ Don't study way more topics than you needed to. Based on [this article](https://
 
 <!--more-->
 
+Legends:
+
+* GTG: Data Structures and Algorithms in Python
+* 
+
 ### Essential
 
 * complexity/space analysis
@@ -34,12 +39,14 @@ Don't study way more topics than you needed to. Based on [this article](https://
     * binary search trees
     * balanced search trees (general concept)
     * traversals: preorder, inorder, postorder, BFS, DFS
-* graphs
+* Graphs (GTG-14.1, 14.2)
     * directed
     * undirected
     * adjacency matrix
     * adjacency list
-* dynamic programming (note: does not appear in coaching notes, but is useful)
+    * adjacency map
+    * edge list
+* dynamic programming
 * probability
 * permutations and combinations
 * object-oriented programming
@@ -61,18 +68,15 @@ Experienced hire:
 
 These algorithm topics will help you better in competitive programming (e.g., Google CodeJam).
 
-* Dijkstra - single-source shortest paths
+* Dijkstra - single-source shortest paths (GTG 14.6)
 * Bellman-Ford - single-source shortest paths, allowing negative weight edges
 * Floyd-Warshall - all-pairs shortest paths
 * Ford-Fulkerson - maximum flow
-* Other types of graph representation:
-    * adjacency map
-    * edge list
 * Linear-time sorts:
     * radix sort
     * bucket sort
     * counting sort
-* pattern/substring matching
+* pattern/substring matching: (GTG 13.2)
     * Rabin-Karp
     * Boyer-Moore (Horspool)
     * Knuth-Morris-Pratt
@@ -85,7 +89,7 @@ These algorithm topics will help you better in competitive programming (e.g., Go
 
 You only need to know the basic concepts.
 
-* Minimum spanning tree
+* Minimum spanning tree (GTG-14.7)
     * Prim-Jarnik
     * Kruskal
 * geometric algorithms
