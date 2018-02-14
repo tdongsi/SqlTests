@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Checklist of topics"
-date: 2018-01-29 13:24:37 -0800
+date: 2011-01-06 13:24:37 -0800
 comments: true
 categories: 
 - Algorithm
