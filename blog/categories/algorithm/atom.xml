@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-02-14T00:51:17-08:00</updated>
+  <updated>2018-02-14T10:05:54-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,179 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Checklist of Topics]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/06/checklist-of-topics/"/>
-    <updated>2016-01-06T13:24:37-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/06/checklist-of-topics</id>
-    <content type="html"><![CDATA[<p>Don&rsquo;t study way more topics than you needed to. Based on <a href="https://web.archive.org/web/20170308043103/https://googleyasheck.com/what-you-need-to-know-for-your-google-interview-and-what-you-dont/">this article</a> from the same one who created <a href="/blog/2011/01/05/exhaustive-syllabus/">this syllabus</a>.</p>
-
-<!--more-->
-
-
-<p>Legends:</p>
-
-<ul>
-<li>GTG: Data Structures and Algorithms in Python</li>
-<li></li>
-</ul>
-
-
-<h3>Essential</h3>
-
-<ul>
-<li>complexity/space analysis</li>
-<li>bitwise operations</li>
-<li>linked lists</li>
-<li>stacks</li>
-<li>queues/deques</li>
-<li>arrays/vectors</li>
-<li>hash tables (maps)</li>
-<li>sets</li>
-<li>binary search</li>
-<li>sorting
-
-<ul>
-<li>selection</li>
-<li>insertion</li>
-<li>heapsort</li>
-<li>quicksort</li>
-<li>merge sort</li>
-</ul>
-</li>
-<li>priority queues</li>
-<li>binary heap</li>
-<li>trees
-
-<ul>
-<li>binary search trees</li>
-<li>balanced search trees (general concept)</li>
-<li>traversals: preorder, inorder, postorder, BFS, DFS</li>
-</ul>
-</li>
-<li>Graphs (GTG-14.1, 14.2)
-
-<ul>
-<li>directed</li>
-<li>undirected</li>
-<li>adjacency matrix</li>
-<li>adjacency list</li>
-<li>adjacency map</li>
-<li>edge list</li>
-</ul>
-</li>
-<li>dynamic programming</li>
-<li>probability</li>
-<li>permutations and combinations</li>
-<li>object-oriented programming</li>
-<li>processes/threading
-
-<ul>
-<li>memory</li>
-<li>caching</li>
-<li>deadlock avoidance</li>
-<li>scheduling</li>
-</ul>
-</li>
-<li>testing practices (1+ year experience)</li>
-</ul>
-
-
-<p>Experienced hire:</p>
-
-<ul>
-<li>network stack / OSI</li>
-<li>scaling large systems</li>
-<li>designing for scale</li>
-<li>Design patterns</li>
-</ul>
-
-
-<h3>Advanced:</h3>
-
-<p>These algorithm topics will help you better in competitive programming (e.g., Google CodeJam).</p>
-
-<ul>
-<li>Dijkstra - single-source shortest paths (GTG 14.6)</li>
-<li>Bellman-Ford - single-source shortest paths, allowing negative weight edges</li>
-<li>Floyd-Warshall - all-pairs shortest paths</li>
-<li>Ford-Fulkerson - maximum flow</li>
-<li>Linear-time sorts:
-
-<ul>
-<li>radix sort</li>
-<li>bucket sort</li>
-<li>counting sort</li>
-</ul>
-</li>
-<li>pattern/substring matching: (GTG 13.2)
-
-<ul>
-<li>Rabin-Karp</li>
-<li>Boyer-Moore (Horspool)</li>
-<li>Knuth-Morris-Pratt</li>
-<li>suffix trees</li>
-<li>suffix arrays</li>
-<li>tries</li>
-</ul>
-</li>
-<li>union-find / disjoint sets</li>
-</ul>
-
-
-<h3>Not needed:</h3>
-
-<p>You only need to know the basic concepts.</p>
-
-<ul>
-<li>Minimum spanning tree (GTG-14.7)
-
-<ul>
-<li>Prim-Jarnik</li>
-<li>Kruskal</li>
-</ul>
-</li>
-<li>geometric algorithms
-
-<ul>
-<li>convex hull</li>
-<li>positional/overlap/horizons</li>
-</ul>
-</li>
-<li>backtracking</li>
-<li>Selection (k smallest items, etc)</li>
-<li>Other types of trees:
-
-<ul>
-<li>(a,b) trees, k-ary trees (example: (2,4)-trees)</li>
-<li>B-trees</li>
-<li>k-D trees</li>
-</ul>
-</li>
-<li>balanced search trees (details such as rotations)
-
-<ul>
-<li>red-black trees</li>
-<li>AVL</li>
-<li>splay trees</li>
-</ul>
-</li>
-<li>data compression, information theory</li>
-<li>linear programming</li>
-<li>garbage collection</li>
-<li>cryptography</li>
-<li>skip lists</li>
-<li>van Emde Boas trees</li>
-<li>treap</li>
-<li>multisets</li>
-<li>multimaps</li>
-<li>fast Fourier transform</li>
-<li>Bloom filter</li>
-</ul>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Glassdoor: Algorithm Question Bank]]></title>
@@ -528,6 +355,179 @@ If outputs are the same as inputs, it is big-endian since data is transmitted in
 
 
 <p>Appendix A.2: Different techniques for bounding summations.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Checklist of Topics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/06/checklist-of-topics/"/>
+    <updated>2011-01-06T13:24:37-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2011/01/06/checklist-of-topics</id>
+    <content type="html"><![CDATA[<p>Don&rsquo;t study way more topics than you needed to. Based on <a href="https://web.archive.org/web/20170308043103/https://googleyasheck.com/what-you-need-to-know-for-your-google-interview-and-what-you-dont/">this article</a> from the same one who created <a href="/blog/2011/01/05/exhaustive-syllabus/">this syllabus</a>.</p>
+
+<!--more-->
+
+
+<p>Legends:</p>
+
+<ul>
+<li>GTG: Data Structures and Algorithms in Python</li>
+<li></li>
+</ul>
+
+
+<h3>Essential</h3>
+
+<ul>
+<li>complexity/space analysis</li>
+<li>bitwise operations</li>
+<li>linked lists</li>
+<li>stacks</li>
+<li>queues/deques</li>
+<li>arrays/vectors</li>
+<li>hash tables (maps)</li>
+<li>sets</li>
+<li>binary search</li>
+<li>sorting
+
+<ul>
+<li>selection</li>
+<li>insertion</li>
+<li>heapsort</li>
+<li>quicksort</li>
+<li>merge sort</li>
+</ul>
+</li>
+<li>priority queues</li>
+<li>binary heap</li>
+<li>trees
+
+<ul>
+<li>binary search trees</li>
+<li>balanced search trees (general concept)</li>
+<li>traversals: preorder, inorder, postorder, BFS, DFS</li>
+</ul>
+</li>
+<li>Graphs (GTG-14.1, 14.2)
+
+<ul>
+<li>directed</li>
+<li>undirected</li>
+<li>adjacency matrix</li>
+<li>adjacency list</li>
+<li>adjacency map</li>
+<li>edge list</li>
+</ul>
+</li>
+<li>dynamic programming</li>
+<li>probability</li>
+<li>permutations and combinations</li>
+<li>object-oriented programming</li>
+<li>processes/threading
+
+<ul>
+<li>memory</li>
+<li>caching</li>
+<li>deadlock avoidance</li>
+<li>scheduling</li>
+</ul>
+</li>
+<li>testing practices (1+ year experience)</li>
+</ul>
+
+
+<p>Experienced hire:</p>
+
+<ul>
+<li>network stack / OSI</li>
+<li>scaling large systems</li>
+<li>designing for scale</li>
+<li>Design patterns</li>
+</ul>
+
+
+<h3>Advanced:</h3>
+
+<p>These algorithm topics will help you better in competitive programming (e.g., Google CodeJam).</p>
+
+<ul>
+<li>Dijkstra - single-source shortest paths (GTG 14.6)</li>
+<li>Bellman-Ford - single-source shortest paths, allowing negative weight edges</li>
+<li>Floyd-Warshall - all-pairs shortest paths</li>
+<li>Ford-Fulkerson - maximum flow</li>
+<li>Linear-time sorts:
+
+<ul>
+<li>radix sort</li>
+<li>bucket sort</li>
+<li>counting sort</li>
+</ul>
+</li>
+<li>pattern/substring matching: (GTG 13.2)
+
+<ul>
+<li>Rabin-Karp</li>
+<li>Boyer-Moore (Horspool)</li>
+<li>Knuth-Morris-Pratt</li>
+<li>suffix trees</li>
+<li>suffix arrays</li>
+<li>tries</li>
+</ul>
+</li>
+<li>union-find / disjoint sets</li>
+</ul>
+
+
+<h3>Not needed:</h3>
+
+<p>You only need to know the basic concepts.</p>
+
+<ul>
+<li>Minimum spanning tree (GTG-14.7)
+
+<ul>
+<li>Prim-Jarnik</li>
+<li>Kruskal</li>
+</ul>
+</li>
+<li>geometric algorithms
+
+<ul>
+<li>convex hull</li>
+<li>positional/overlap/horizons</li>
+</ul>
+</li>
+<li>backtracking</li>
+<li>Selection (k smallest items, etc)</li>
+<li>Other types of trees:
+
+<ul>
+<li>(a,b) trees, k-ary trees (example: (2,4)-trees)</li>
+<li>B-trees</li>
+<li>k-D trees</li>
+</ul>
+</li>
+<li>balanced search trees (details such as rotations)
+
+<ul>
+<li>red-black trees</li>
+<li>AVL</li>
+<li>splay trees</li>
+</ul>
+</li>
+<li>data compression, information theory</li>
+<li>linear programming</li>
+<li>garbage collection</li>
+<li>cryptography</li>
+<li>skip lists</li>
+<li>van Emde Boas trees</li>
+<li>treap</li>
+<li>multisets</li>
+<li>multimaps</li>
+<li>fast Fourier transform</li>
+<li>Bloom filter</li>
+</ul>
+
 ]]></content>
   </entry>
   
