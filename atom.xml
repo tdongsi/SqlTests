@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-02-14T10:05:54-08:00</updated>
+  <updated>2018-02-23T00:23:41-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -2249,62 +2249,30 @@ The score depends on: how old the post is (older posts are less interesting), ho
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Questions: Operating System Drills]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/03/questions-operating-system-drills/"/>
-    <updated>2016-06-03T00:42:41-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/06/03/questions-operating-system-drills</id>
-    <content type="html"><![CDATA[<p>From &ldquo;Operating System concepts&rdquo; book.</p>
+    <title type="html"><![CDATA[Design Patterns: Structural]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/07/13/design-patterns-structural/"/>
+    <updated>2016-07-13T22:28:46-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/07/13/design-patterns-structural</id>
+    <content type="html"><![CDATA[<p>In <a href="https://en.wikipedia.org/wiki/Facade_pattern#Usage">summary</a>:</p>
+
+<ul>
+<li>Adapter: Converts one interface to another so that it matches what the client is expecting</li>
+<li>Decorator: Dynamically adds responsibility to the interface by wrapping the original code</li>
+<li>Facade: Provides a simplified interface to a number of subsystems</li>
+<li>Proxy: Real object and Proxy object both implementing the same interface.</li>
+<li>Composite: Composite object containing multiple Single objects implementing the same interface.</li>
+</ul>
+
 
 <!--more-->
 
 
-<p>Drill:</p>
+<h3>Composite pattern</h3>
 
-<ol>
-<li>Chapter 1: Storage device hierarchy</li>
-<li>Chapter 2: System calls and Linux examples. System boot.</li>
-<li>Chapter 3: Process diagram. Process state diagram. Zombie, orphan process. Practice Exercise 3.1, 3.2.</li>
-</ol>
+<p>A group of objects that is treated the same way as a single instance of the same type of object.
+The intent of a composite is to &ldquo;compose&rdquo; objects into tree structures to represent some hierarchies.</p>
 
-
-<p>Links:</p>
-
-<ul>
-<li><a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/">http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/</a></li>
-<li><a href="http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/">http://duartes.org/gustavo/blog/post/how-the-kernel-manages-your-memory/</a></li>
-<li><a href="http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/">http://duartes.org/gustavo/blog/post/page-cache-the-affair-between-memory-and-files/</a></li>
-</ul>
-
-
-<p>Practice exercises:</p>
-
-<ul>
-<li><a href="http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html">http://codex.cs.yale.edu/avi/os-book/OS9/practice-exer-dir/index.html</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization/"/>
-    <updated>2016-06-02T00:35:03-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization</id>
-    <content type="html"><![CDATA[<p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
-Topics in this chapter are the most intensive and frequently asked during interviews.</p>
-
-<!--more-->
-
-
-<p>This chapter discuss how to prevent concurrent access to shared data that may result in data inconsistency.</p>
-
-<h3>5.1 &amp; 5.2: Critical section</h3>
-
-<p>Consider the producer–consumer problem, which is representative of
-operating systems. Specifically, in Section 3.4.1, we described how a bounded
-buffer could be used to enable processes to share memory.</p>
-
-<figure class='code'><figcaption><span>Producer process</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>Java example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2314,62 +2282,36 @@ buffer could be used to enable processes to share memory.</p>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">interface</span> <span class="nc">Graphic</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="cm">/* produce an item in next produced */</span>
-</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">)</span>
-</span><span class='line'>    <span class="p">;</span> <span class="cm">/* do nothing */</span>
+</span><span class='line'><span class="kd">class</span> <span class="nc">CompositeGraphic</span> <span class="kd">implements</span> <span class="n">Graphic</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Graphic</span><span class="o">&gt;</span> <span class="n">childGraphics</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Graphic</span><span class="o">&gt;();</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="n">buffer</span><span class="p">[</span><span class="n">in</span><span class="p">]</span> <span class="o">=</span> <span class="n">next</span> <span class="n">produced</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">in</span> <span class="o">=</span> <span class="p">(</span><span class="n">in</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">;</span>
-</span><span class='line'>  <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="n">Graphic</span> <span class="n">graphic</span> <span class="o">:</span> <span class="n">childGraphics</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">graphic</span><span class="o">.</span><span class="na">print</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="o">...</span>
+</span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h3>Flyweight pattern</h3>
 
+<p>Uses sharing to support large numbers of fine-grained objects efficiently.</p>
 
-<figure class='code'><figcaption><span>Consumer process</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">while</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">;</span> <span class="cm">/* do nothing */</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">next</span> <span class="n">consumed</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="n">out</span><span class="p">];</span>
-</span><span class='line'>  <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="n">out</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">BUFFER</span> <span class="n">SIZE</span> <span class="p">;</span>
-</span><span class='line'>  <span class="n">counter</span><span class="o">--</span><span class="p">;</span>
-</span><span class='line'>  <span class="cm">/* consume the item in next consumed */</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>Java example: String interning (<code>intern()</code> method in class String) is the example of Flyweight pattern.</p>
 
+<p>Python example: from <a href="https://en.wikipedia.org/wiki/Flyweight_pattern">here</a></p>
 
-<p>The above code works incorrectly in multi-thread or process situation, due to parallel modifications to &ldquo;counter&rdquo;.
-When several processes access and manipulate the same data concurrently and the
-outcome of the execution depends on the particular order in which the access
-takes place, is called a race condition.</p>
-
-<p>Critical section: No two processes are executing in their critical sections at the same time.
-Solution to a critical section problem requires:
-Mutual exclusion: only one process in CS at a time.
-Progress: Selection process should not be postponed indefinitely.
-Bounded waiting: once a process request to enter, waiting time is bounded.</p>
-
-<p>Nonpreemptive kernel does not allow a process running in kernel mode to be
-preempted; a kernel-mode process will run until it exits kernel mode, blocks,
-or voluntarily yields control of the CPU. A nonpreemptive kernel is essentially free from race conditions.
-A preemptive kernel may be more responsive, since there is less risk that a
-kernel-mode process will run for an arbitrarily long period.</p>
-
-<h3>5.3: Peterson&rsquo;s algorithm</h3>
-
-<figure class='code'><figcaption><span>Peterson's algorithm</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2388,37 +2330,49 @@ kernel-mode process will run for an arbitrarily long period.</p>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span>
-</span><span class='line'><span class="n">turn</span> <span class="o">=</span> <span class="n">j</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">CheeseShop</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">menu</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c"># Shared container to access the Flyweights</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">while</span> <span class="p">(</span> <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="n">j</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'><span class="p">}</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">orders</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c"># per-instance container with private attributes</span>
 </span><span class='line'>
-</span><span class='line'><span class="c1">// start of CS</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">stock_cheese</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">brand</span><span class="p">,</span> <span class="n">cost</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">cheese</span> <span class="o">=</span> <span class="n">CheeseBrand</span><span class="p">(</span><span class="n">brand</span><span class="p">,</span> <span class="n">cost</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">menu</span><span class="p">[</span><span class="n">brand</span><span class="p">]</span> <span class="o">=</span> <span class="n">cheese</span>   <span class="c"># Shared Flyweight</span>
 </span><span class='line'>
-</span><span class='line'><span class="c1">// end of CS</span>
-</span><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span>    <span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span>
-</span><span class='line'><span class="n">turn</span> <span class="o">=</span> <span class="n">i</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">sell_cheese</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">brand</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">orders</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">brand</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">orders</span><span class="p">[</span><span class="n">brand</span><span class="p">]</span> <span class="o">+=</span> <span class="n">units</span>   <span class="c"># Instance attribute</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">while</span><span class="p">(</span> <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="n">i</span> <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="n">shop1</span> <span class="o">=</span> <span class="n">CheeseShop</span><span class="p">()</span>
+</span><span class='line'><span class="n">shop2</span> <span class="o">=</span> <span class="n">CheeseShop</span><span class="p">()</span>
 </span><span class='line'>
-</span><span class='line'><span class="c1">// start of CS</span>
+</span><span class='line'><span class="n">shop1</span><span class="o">.</span><span class="n">stock_cheese</span><span class="p">(</span><span class="s">&#39;white&#39;</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">)</span>
+</span><span class='line'><span class="n">shop1</span><span class="o">.</span><span class="n">stock_cheese</span><span class="p">(</span><span class="s">&#39;blue&#39;</span><span class="p">,</span> <span class="mf">3.75</span><span class="p">)</span>
+</span><span class='line'><span class="c"># Now every CheeseShop have &#39;white&#39; and &#39;blue&#39; on the inventory</span>
+</span><span class='line'><span class="c"># The SAME &#39;white&#39; and &#39;blue&#39; CheeseBrand</span>
 </span><span class='line'>
-</span><span class='line'><span class="c1">// end of CS</span>
-</span><span class='line'><span class="n">flag</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span>
+</span><span class='line'><span class="n">shop1</span><span class="o">.</span><span class="n">sell_cheese</span><span class="p">(</span><span class="s">&#39;blue&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>    <span class="c"># Both can sell</span>
+</span><span class='line'><span class="n">shop2</span><span class="o">.</span><span class="n">sell_cheese</span><span class="p">(</span><span class="s">&#39;blue&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>    <span class="c"># But the units sold are stored per-instance</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>NOTE: <a href="http://en.wikipedia.org/wiki/Peterson's_algorithm">Peterson’s algorithm</a> is restricted to two processes.
-Filter algorithm: Peterson&rsquo;s algorithm for N processes
-The filter algorithm generalizes Peterson&rsquo;s algorithm for N processes. It uses N different levels - each represents another &lsquo;waiting room&rsquo;, before the critical section. Each level will allow at least one process to advance, while keeping one process in waiting.</p>
+<h3>Proxy pattern</h3>
 
-<p><a href="http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms">http://cs.stackexchange.com/questions/12621/understanding-peterson-s-and-dekker-s-algorithms</a>
-Both processes indicates if the other want to enter CS, it can proceed. If both processes enter at the same time, turn will be set to i and j at the same time, and only one will last.
-Proof of bounded waiting: Pi will enter the CS after at most one entry by Pj.</p>
+<p>Both Real object and Proxy object implementing the same interface with Proxy object to control access to Real object.
+Proxy object can add functionality when Real object is accessed (filter, enrich).</p>
 
-<figure class='code'><figcaption><span>Analogies of Peterson's algorithm</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Proxy_pattern">Wikipedia has good descriptions and diagrams</a></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Java example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2437,358 +2391,362 @@ Proof of bounded waiting: Pi will enter the CS after at most one entry by Pj.</p
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Peterson's: "I want to enter."                 flag[0]=true;
-</span><span class='line'>            "You can enter next."              turn=1;
-</span><span class='line'>            "If you want to enter and          while(flag[1]==true&&turn==1){
-</span><span class='line'>            it's your turn I'll wait."         }
-</span><span class='line'>            Else: Enter CS!                    // CS
-</span><span class='line'>            "I don't want to enter any more."  flag[0]=false;
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">interface</span> <span class="nc">Image</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">displayImage</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
 </span><span class='line'>
-</span><span class='line'>Dekker's:   "I want to enter."                 flag[0]=true;
-</span><span class='line'>            "If you want to enter              while(flag[1]==true){
-</span><span class='line'>             and if it's your turn               if(turn!=0){
-</span><span class='line'>             I don't want to enter any more."      flag[0]=false;
-</span><span class='line'>            "If it's your turn                     while(turn!=0){
-</span><span class='line'>             I'll wait."                           }
-</span><span class='line'>            "I want to enter."                     flag[0]=true;
-</span><span class='line'>                                                 }
-</span><span class='line'>                                               }
-</span><span class='line'>            Enter CS!                          // CS
-</span><span class='line'>            "You can enter next."              turn=1;
-</span><span class='line'>            "I don't want to enter any more."  flag[0]=false;</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="kd">class</span> <span class="nc">RealImage</span> <span class="kd">implements</span> <span class="n">Image</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">String</span> <span class="n">filename</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">RealImage</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">loadImageFromDisk</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">loadImageFromDisk</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Loading   &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">displayImage</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Displaying &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">ProxyImage</span> <span class="kd">implements</span> <span class="n">Image</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">RealImage</span> <span class="n">image</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">String</span> <span class="n">filename</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">ProxyImage</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">displayImage</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="c1">// Lazy loading is possible due to controlled access</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">image</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>           <span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">RealImage</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="n">image</span><span class="o">.</span><span class="na">displayImage</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>5.4: Sync using hardware</h3>
 
-<p>Protect critical section by locking.</p>
 
-<p>Many modern computer systems therefore provide special hardware
-instructions that allow us either to test and modify the content of a word or
-to swap the contents of two words atomically—that is, as one uninterruptible unit.</p>
+<figure class='code'><figcaption><span>Python example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">AbstractCar</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ABCMeta</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@abstractmethod</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">NOT_IMPLEMENTED</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="n">AbstractCar</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Car has been driven!&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Driver</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">ProxyCar</span><span class="p">(</span><span class="n">AbstractCar</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">driver</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Sorry, the driver is too young to drive.&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="bp">self</span><span class="o">.</span><span class="n">car</span><span class="o">.</span><span class="n">drive</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Atomic test_and_set() and compare_and_swap() for locking:</p>
-
-<p>boolean test_and_set(boolean <em>target) {
-boolean rv = </em>target;
-*target = true;
-return rv;
-}</p>
-
-<p>int compare_and_swap(int <em>value, int expected, int new value) {
-int temp = </em>value;
-if (<em>value == expected)
-    </em>value = new value;
-return temp;
-}</p>
-
-<p>Simple Mutex with atomic test_and_set()
-Figure 5.5</p>
-
-<p>Bounded-Waiting mutex with atomic test_and_set(): data structure and algorithm
-Figure 5.7</p>
-
-<h3>5.5: Mutex locks</h3>
-
-<p>We use the mutex to lock to protect critical regions and thus prevent race conditions.</p>
-
-<p>Calls to either acquire() or release() must be performed atomically.</p>
-
-<p>acquire() {
-while (!available)
-; /<em> busy wait </em>/
-available = false;
-}</p>
-
-<p>release() {
-available = true;
-}
-Usage:</p>
-
-<p>acquire()</p>
-
-<p>// start of CS</p>
-
-<p>// end of CS</p>
-
-<p>release()</p>
-
-<p>The main disadvantage of the implementation given here is that it requires busy waiting. This type of mutex lock is also called a spinlock.
-Spinlocks do have an advantage, however, in that no context switch is required.</p>
-
-<h3>5.6: Semaphores</h3>
-
-<p>A semaphore S is an integer variable that, apart from initialization, is
-accessed only through two standard atomic operations: wait() and signal().</p>
-
-<p>wait(S) {
-while (S &lt;= 0 )
-; // busy wait
-S&ndash;;
-}</p>
-
-<p>signal(S) {
-S++;
-}</p>
-
-<p>The value of a counting semaphore can range over an unrestricted domain. Versus binary semaphore, which is similar to mutex.
-Counting semaphores can be used to control access to a given resources of a finite number of instances.</p>
-
-<p>We can also use semaphores to solve various synchronization problems.
-For example,consider two concurrently running processes: P1 with a statement
-S1 and P2 with a statement S2 . Suppose we require that S2 be executed only
-after S1 has completed. We can implement this scheme readily by letting P1
-and P2 share a common semaphore synch, initialized to 0. In process P1 , we
-insert the statements
-S1;
-signal(synch);</p>
-
-<p>In process P2 , we insert the statements
-wait(synch);
-S 2 ;</p>
-
-<p>Because synch is initialized to 0, P2 will execute S2 only after P1 has invoked
-signal(synch) , which is after statement S1 has been executed.</p>
-
-<p>Deadlock:
-P 0 P 1
-wait(S); wait(Q);
-wait(Q); wait(S);
-. .
-. .
-. .
-signal(S); signal(Q);
-signal(Q); signal(S);</p>
-
-<p>Priority inversion:
-The problem of priority inversion is when three processes of different priorities L &lt; M &lt; H. H is waiting for L to finish with a certain resource. M process becomes runnable and preempts L. Indirectly, process M with lower priority affects how long process H must wait for resource.
-It occurs when the system has more than two priorities. However, it is almost always the case.
-Solution: priority-inheritance protocol: all processes that use a resource, waited by a higher priority process, will inherit the highest priority until they are done with the resource.</p>
-
-<h4>Semaphore implementation</h4>
-
-<p>The naive definition of wait() and signal() above presents the same problem of busy waiting.
-In actual implementation, when a process execute wait() operation and find that semaphore value is not positive, it must wait. However, instead of busy waiting, the process block itself.
-In this implementation, semaphore values may be negative, while they are never negative in classical definition with busy waiting. If a semaphore value is negative, its magnitude indicates the number of waiting processes (note different order of decrement in wait()).</p>
-
-<p>It is critical that semaphore operations be executed atomically: no two processes can execute wait() and signal() operations on the same semaphore at the same time.
-In a multiprocessor environment, usually compare_and_swap() or spin locks are used to ensure wait() and signal() are atomic.
-So, we admit that busy waiting is NOT eliminated in this implementation. However, busy waiting is limited to CS of the wait() and signal() operations. These CSs are short (about 10 instructions). Thus, CS is almost never occupied, and busy waiting is rare and short, if ever happens.</p>
-
-<h3>5.7: Classic Problems of Synchronization</h3>
-
-<p>Use semaphores for synchronization. Actual implementation can use mutex instead of binary semaphore.</p>
-
-<p>Bounded-Buffer (Consumer-Producer) problem
-Problem: See 5.1.
-Solution: The producer and consumer share the following data structure:
-The mutex is used to provide mutual exclusion for accesses to the buffer pool.
-int n;
-semaphore mutex = 1;
-semaphore empty = n;
-semaphore full = 0</p>
-
-<p>Producer    Consumer
-do {
-&hellip;
-/<em> produce an item in next produced </em>/
-&hellip;
-wait(empty);
-wait(mutex);
-&hellip;
-/<em> add next produced to the buffer </em>/
-&hellip;
-signal(mutex);
-signal(full);
-} while (true);
-do {
-wait(full);
-wait(mutex);
-&hellip;
-/<em> remove an item from buffer to next consumed </em>/
-&hellip;
-signal(mutex);
-signal(empty);
-&hellip;
-/<em> consume the item in next consumed </em>/
-&hellip;
-} while (true);</p>
-
-<p>Reader-Writer problem:
-Writers should have exclusive access while writing to the shared database.
-There are several variants of “reader-writer” problems:
-First problem: No reader to be kept waiting unless a writer has already obtained accesss.
-Second problem: Once writer is ready, that writer perform its write ASAP. No new readers may start reading.
-A solution to either problem may result in starvation.</p>
-
-<p>Solution to first reader-writer problem: shared data structure
-semaphore rw_utex = 1;
-semaphore mutex = 1;
-int read count = 0;
-The mutex semaphore is used to ensure mutual exclusion when the variable read count is updated.
-The read count variable keeps track of how many processes are currently reading the object.
-The semaphore rw_mutex functions as a mutual exclusion semaphore for the writers.</p>
-
-<p>Writer  Reader
-do {
-wait(rw mutex);
-&hellip;
-/<em> writing is performed </em>/
-&hellip;
-signal(rw mutex);
-} while (true);
-do {
-wait(mutex);
-read count++;
-if (read count == 1)
-wait(rw mutex);
-signal(mutex);
-&hellip;
-/<em> reading is performed </em>/
-&hellip;
-wait(mutex);
-read count&ndash;;
-if (read count == 0)
-signal(rw mutex);
-signal(mutex);
-} while (true);</p>
-
-<p>Dining Philosopher problem: This solution can create a deadlock
-semaphore chopstick[5];</p>
-
-<p>do {
-wait(chopstick[i]);
-wait(chopstick[(i+1) % 5]);
-&hellip;
-/<em> eat for awhile </em>/
-&hellip;
-signal(chopstick[i]);
-signal(chopstick[(i+1) % 5]);
-&hellip;
-/<em> think for awhile </em>/
-&hellip;
-} while (true);</p>
-
-<p>Several possible remedies to the deadlock problem are replaced by:
-• Allow at most four philosophers to be sitting simultaneously at the table.
-• Allow a philosopher to pick up her chopsticks only if both chopsticks are
-available (to do this, she must pick them up in a critical section).
-• Use an asymmetric solution—that is,an odd-numbered philosopher picks
-up first her left chopstick and then her right chopstick, whereas an even-
-numbered philosopher picks up her right chopstick and then her left
-chopstick.</p>
-
-<p>In 5.8, we use monitor (equivalent to a waiter to tell which philosopher should eat) to provides deadlock-free solution.
-A deadlock-free solution does not necessarily eliminate the possibility of starvation.</p>
-
-<h3>5.8: Monitors</h3>
-
-<p>Semaphore is not a complete solution. If a single process is not well-behaved (semaphore used incorrectly), the system break down.
-Incorrect order of signal() and wait(): mutual exclusion is no longer guaranteed.
-wait() is used in place of signal(): a deadlock may occur.
-wait() or signal() or both are omitted: mutual exclusion violated or deadlock.</p>
-
-<p>Syntax of a monitor:</p>
-
-<p>Local variables of a monitor can be accessed by only the local functions. Only one process at a time is active within the monitor.
-We also defines condition construct: condition x, y; // condition variables
-The only operations that can be invoked on a condition variable are wait() and signal().
-The operation x.wait(); means that the process invoking this operation is suspended until another process invokes x.signal();
-The x.signal() operation resumes exactly one suspended process. If no process is suspended, then the signal() operation has no effect.
-(Different from semaphore’s signal(): semaphore() signal always change the state of semaphore, condition’s signal() may not).</p>
-
-<p>Dining Philosophers solution using Monitors:
-Monitor is acting like a waiter/moderator. Before a philosopher starts eating, she informs the waiter (invoked operation pickup()) and the waiter will tell her what to do.
-After she is done eating, she again informs the waiter (putdown()). It is still possible that some philosopher will starve to death.</p>
-
-<p>condition self[5];
-allows philosopher i to delay herself when she is hungry but is unable to obtain the chopsticks she needs.</p>
-
-<p>Implement a Monitor with Semaphores
-Check Section 5.8.3 page 229.</p>
-
-<p>Resuming Processes within a Monitor
-One simple solution is to use FIFO ordering.
-Another solution is conditional-wait construct, with c is the priority number input.
-x.wait&copy;;
-When x.signal() is executed, the process with the smallest priority number is resumed next.</p>
-
-<p>Java monitors
-Java uses monitor for thread synchronization.
-Every object in Java has a single lock associated with it. When a method is declared synchronized, calling the method requires owning the lock of the object.
-If the lock is not available, the synchronized method is placed in the entry set for the object’s lock.
-The Java Object class’s method wait() and notify() are similar to wait() and signal() statements for a monitor.</p>
-
-<h3>Reference</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Design Patterns: Behavioral]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/07/12/design-patterns-behavioral/"/>
+    <updated>2016-07-12T22:28:57-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/07/12/design-patterns-behavioral</id>
+    <content type="html"><![CDATA[<p>They are:</p>
 
 <ul>
-<li><a href="http://tdongsi.github.io/SqlTests/download/Java_Concurrency.pdf">Java Concurrency</a></li>
+<li>Observer</li>
+<li>State</li>
+<li>Visitor</li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>Observer pattern</h3>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Observer_pattern#Example">Example</a></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Java example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// Available in java.util</span>
+</span><span class='line'><span class="kd">interface</span> <span class="nc">Observer</span><span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="n">Observable</span> <span class="n">obj</span><span class="o">,</span> <span class="n">Object</span> <span class="n">arg</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">EventSource</span> <span class="kd">extends</span> <span class="n">Observable</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">).</span><span class="na">next</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">setChanged</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">notifyObservers</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyApp</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Enter Text: &quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">EventSource</span> <span class="n">eventSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">EventSource</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">eventSource</span><span class="o">.</span><span class="na">addObserver</span><span class="o">(</span><span class="k">new</span> <span class="nf">Observer</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="n">Observable</span> <span class="n">obj</span><span class="o">,</span> <span class="n">Object</span> <span class="n">arg</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Received response: &quot;</span> <span class="o">+</span> <span class="n">arg</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">});</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">eventSource</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Python example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Observable</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">__observers</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">register_observer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">__observers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">observer</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">notify_observers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">for</span> <span class="n">observer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__observers</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">observer</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Observer</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observable</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">observable</span><span class="o">.</span><span class="n">register_observer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Got&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="s">&#39;From&#39;</span><span class="p">,</span> <span class="n">observable</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">subject</span> <span class="o">=</span> <span class="n">Observable</span><span class="p">()</span>
+</span><span class='line'><span class="n">observer</span> <span class="o">=</span> <span class="n">Observer</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
+</span><span class='line'><span class="n">subject</span><span class="o">.</span><span class="n">notify_observers</span><span class="p">(</span><span class="s">&#39;test&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>State pattern</h3>
+
+<p>An object can change its behavior when its internal state changes.
+It is similar to Strategy pattern, except there is automatic state transitions and the strategies are changed for each state.</p>
+
+<ul>
+<li>State interface &lt;- Implemented in StateOne and StateTwo class.</li>
+<li>In both StateOne and StateTwo classes, there is a method <code>operation(mainObj, op)</code> that defines the current strategy AND state transition of mainObj.</li>
+<li>Object class has a private State, provides public method <code>setState</code> to be called in <code>operation</code> method.</li>
+<li>Object also provides a public method <code>doOperation</code> that will call State&rsquo;s <code>operation(this, op)</code> to carry out the action.</li>
+</ul>
+
+
+<p>Reference</p>
+
+<ul>
+<li><a href="https://github.com/tdongsi/java/tree/master/AdvancedJava/src/main/java/my/learning/patterns/state">Full example</a> based on <a href="https://en.wikipedia.org/wiki/State_pattern#Java">here</a></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Java example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">State</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">operation</span><span class="o">(</span><span class="n">StatefulObject</span> <span class="n">object</span><span class="o">,</span> <span class="n">String</span> <span class="n">params</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StateOne</span> <span class="kd">implements</span> <span class="n">State</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">operation</span><span class="o">(</span><span class="n">StatefulObject</span> <span class="n">object</span><span class="o">,</span> <span class="n">String</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">params</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">());</span>
+</span><span class='line'>        <span class="n">object</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="k">new</span> <span class="nf">StateTwo</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatefulObject</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">State</span> <span class="n">state</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">StatefulObject</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">setState</span><span class="o">(</span><span class="k">new</span> <span class="nf">StateOne</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setState</span><span class="o">(</span><span class="kd">final</span> <span class="n">State</span> <span class="n">newState</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">state</span> <span class="o">=</span> <span class="n">newState</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doOperation</span><span class="o">(</span><span class="n">String</span> <span class="n">params</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">state</span><span class="o">.</span><span class="na">operation</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Visitor</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Visitor_pattern#Uses">Use Visitor pattern when</a></p>
+
+<ul>
+<li>the classes that make up the object structure are known and NOT expected to change much</li>
+<li>new operations need to be added frequently</li>
 </ul>
 
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Compare Languages: Java vs. C++]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/11/compare-languages-java-vs-c-plus-plus/"/>
-    <updated>2016-01-11T10:11:40-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/11/compare-languages-java-vs-c-plus-plus</id>
-    <content type="html"><![CDATA[<p>How to answer the question &ldquo;What is the difference between Java and C++?&rdquo;.
-Knowing the subtle difference between similar languages shows mastery of both.</p>
-
-<!--more-->
-
-
-<h3>Strict differences</h3>
-
-<p>Java</p>
-
-<ol>
-<li>Multiple inheritance: by implementing multiple interfaces, only extending one superclass.</li>
-<li>Java is reflective, allowing dynamic code generation.</li>
-<li>Automatic garbage collection. The concept of destructor and using finalize() is not recommended.</li>
-<li>Operator overloading is not possible [2]. Only + overladed for String.</li>
-<li>Generic programming: syntactic sugar for backward compatibility (can be removed), just a wrapper for object casting.</li>
-</ol>
-
-
-<p>C++</p>
-
-<ol>
-<li>Extending multiple classes are allowed</li>
-<li>C++ provides only object types and class name.</li>
-<li>Explicit memory allocation and deallocation.</li>
-<li>Operator overloading is very common.</li>
-<li>Advanced version of preprocessor/macro programming.</li>
-</ol>
-
-
-<h3>Practical differences</h3>
-
-<p>In practice, the patterns of using two languages can be very different.</p>
-
-<p>Java</p>
-
-<ol>
-<li>Using Interfaces and Listeners to achieve similar effects.</li>
-<li>final has more limited usage.</li>
-<li>Label can be used in loops, such as break from nested <code>for</code> loops.</li>
-<li>Most libraries are based on class inheritance and object-oriented programming.</li>
-</ol>
-
-
-<p>C++</p>
-
-<ol>
-<li>Function pointers, function objects are common.</li>
-<li>const keyword has more functions and is more commonly used.</li>
-<li>goto statement is supported but not recommended.</li>
-<li>Most libraries are based on templates and generic programming.</li>
-</ol>
-
-
-<p>Java Generics are massively different to C++ templates.
-Basically in C++ templates are basically a glorified preprocessor/macro set.
-Java Generics are basically syntactic sugar (things can be removed from the language, added just to make expressions more clearly)</p>
+    <title type="html"><![CDATA[Design Patterns: Creational]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/07/11/design-patterns-creational/"/>
+    <updated>2016-07-11T22:28:33-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/07/11/design-patterns-creational</id>
+    <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
