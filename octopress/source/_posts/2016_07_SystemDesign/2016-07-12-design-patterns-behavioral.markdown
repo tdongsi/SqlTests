@@ -6,50 +6,13 @@ comments: true
 categories: 
 ---
 
+They are:
 
-### State pattern
+* Observer
+* State
+* Visitor
 
-An object can change its behavior when its internal state changes.
-It is similar to Strategy pattern, except there is automatic state transitions and the strategies are changed for each state.
-
-* State interface <- Implemented in StateOne and StateTwo class.
-* In both StateOne and StateTwo classes, there is a method `operation(mainObj, op)` that defines the current strategy AND state transition of mainObj.
-* Object class has a private State, provides public method `setState` to be called in `operation` method.
-* Object also provides a public method `doOperation` that will call State's `operation(this, op)` to carry out the action.
-
-Reference
-
-* [Full example](https://github.com/tdongsi/java/tree/master/AdvancedJava/src/main/java/my/learning/patterns/state) based on [here](https://en.wikipedia.org/wiki/State_pattern#Java)
-
-``` java Java example
-public interface State {
-    void operation(StatefulObject object, String params);
-}
-
-public class StateOne implements State {
-    @Override
-    public void operation(StatefulObject object, String params) {
-        System.out.println(params.toLowerCase());
-        object.setState(new StateTwo());
-    }
-}
-
-public class StatefulObject {
-    private State state;
-
-    public StatefulObject() {
-        setState(new StateOne());
-    }
-
-    public void setState(final State newState) {
-        this.state = newState;
-    }
-
-    public void doOperation(String params) {
-        state.operation(this, params);
-    }
-}
-```
+<!--more-->
 
 ### Observer pattern
 
@@ -110,3 +73,54 @@ subject = Observable()
 observer = Observer(subject)
 subject.notify_observers('test')
 ```
+
+### State pattern
+
+An object can change its behavior when its internal state changes.
+It is similar to Strategy pattern, except there is automatic state transitions and the strategies are changed for each state.
+
+* State interface <- Implemented in StateOne and StateTwo class.
+* In both StateOne and StateTwo classes, there is a method `operation(mainObj, op)` that defines the current strategy AND state transition of mainObj.
+* Object class has a private State, provides public method `setState` to be called in `operation` method.
+* Object also provides a public method `doOperation` that will call State's `operation(this, op)` to carry out the action.
+
+Reference
+
+* [Full example](https://github.com/tdongsi/java/tree/master/AdvancedJava/src/main/java/my/learning/patterns/state) based on [here](https://en.wikipedia.org/wiki/State_pattern#Java)
+
+``` java Java example
+public interface State {
+    void operation(StatefulObject object, String params);
+}
+
+public class StateOne implements State {
+    @Override
+    public void operation(StatefulObject object, String params) {
+        System.out.println(params.toLowerCase());
+        object.setState(new StateTwo());
+    }
+}
+
+public class StatefulObject {
+    private State state;
+
+    public StatefulObject() {
+        setState(new StateOne());
+    }
+
+    public void setState(final State newState) {
+        this.state = newState;
+    }
+
+    public void doOperation(String params) {
+        state.operation(this, params);
+    }
+}
+```
+
+### Visitor
+
+[Use Visitor pattern when](https://en.wikipedia.org/wiki/Visitor_pattern#Uses)
+
+* the classes that make up the object structure are known and NOT expected to change much
+* new operations need to be added frequently

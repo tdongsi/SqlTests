@@ -12,8 +12,31 @@ In [summary](https://en.wikipedia.org/wiki/Facade_pattern#Usage):
 * Decorator: Dynamically adds responsibility to the interface by wrapping the original code
 * Facade: Provides a simplified interface to a number of subsystems
 * Proxy: Real object and Proxy object both implementing the same interface.
+* Composite: Composite object containing multiple Single objects implementing the same interface.
 
 <!--more-->
+
+### Composite pattern
+
+A group of objects that is treated the same way as a single instance of the same type of object. 
+The intent of a composite is to "compose" objects into tree structures to represent some hierarchies.
+
+``` java Java example
+interface Graphic {
+    public void print();
+}
+
+class CompositeGraphic implements Graphic {
+    private List<Graphic> childGraphics = new ArrayList<Graphic>();
+
+    public void print() {
+        for (Graphic graphic : childGraphics) {
+            graphic.print();
+        }
+    }
+    ...
+}
+```
 
 ### Flyweight pattern
 
