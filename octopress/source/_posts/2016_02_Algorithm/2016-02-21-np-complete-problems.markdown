@@ -7,6 +7,10 @@ categories:
 - Algorithm
 ---
 
+Summary of what you need to know about NP-complete problems.
+
+<!--more-->
+
 ### Basic definitions
 
 * P
@@ -28,21 +32,18 @@ The most classic ones that you should know are [these NP-complete problems](http
             -   **[Set covering]**
             -   **[Feedback node set]**
             -   **[Feedback arc set]**
-            -   **[Directed Hamilton circuit]** (Karp\'s name, now
-                usually called **Directed Hamiltonian cycle**)
-                -   **[Undirected Hamilton circuit][Directed Hamilton
-                    circuit]** (Karp\'s name, now usually called
-                    **Undirected Hamiltonian cycle**)
+            -   **[Directed Hamilton cycle]**
+                -   **[Undirected Hamilton cycle]**
     -   **[Satisfiability with at most 3 literals per clause]**
         (equivalent to 3-SAT)
         -   **[Chromatic number]** (also called the [Graph Coloring
-            Problem][Chromatic number])
+            Problem])
             -   **[Clique cover]**
             -   **[Exact cover]**
                 -   **[Hitting set]**
                 -   **[Steiner tree]**
                 -   **[3-dimensional matching]**
-                -   **[Knapsack]** (Karp\'s definition of Knapsack is
+                -   **[Knapsack]** (Karp's definition of Knapsack is
                     closer to [Subset sum])
                     -   **[Job sequencing]**
                     -   **[Partition]**
@@ -50,7 +51,14 @@ The most classic ones that you should know are [these NP-complete problems](http
 
 Their relations are discussed in the Karp's paper.
 
-#### Problems that I know
+### Other related concepts
+
+Pseudo-polynomial solution: the complexity depends on the *value* of the input, instead of the *length* of the input.
+
+Difference between *value* and *length* of the input: an integer N has its *length* at `O(log(N))`, no matter what base it is using.
+Therefore, an algorithm that is polynomial to the *value* of the input is actually exponential to the size of the input.
+
+### Problems that I know
 
 * Satisfiability
   * 0-1 integer programming
@@ -64,9 +72,36 @@ Their relations are discussed in the Karp's paper.
     * Exact cover
       * Knapsack / Subset sum
 
-### Other related concepts
+#### Subset sum
 
-Pseudo-polynomial solution: the complexity depends on the *value* of the input, instead of the *length* of the input.
+The [Subset Sum problem](https://en.wikipedia.org/wiki/Subset_sum_problem) is this: given a set (or multiset) of integers, is there a non-empty subset whose sum is zero (or some value)?
+The problem is NP-complete, meaning roughly that while it is easy to confirm whether a proposed solution is valid, it may inherently be prohibitively difficult to determine in the first place whether any solution exists.
 
-Difference between *value* and *length* of the input: an integer N has its *length* at `log(N)`, no matter what base it is using.
-Therefore, an algorithm that is polynomial to the *value* of the input is actually exponential to the size of the input.
+The Dynamic Programming solution below runs in pseudo-polynomial time.
+As mentioned above, it means that the complexity is actually exponential.
+
+``` python
+def subset_sum(values: list, total: int) -> bool:
+    """ Given an array of non-negative numbers and a total, is there a way to add up those numbers to the total.
+
+    :param values: array of non-negative numbers
+    :param total: target total
+    :return: True if possible
+    """
+
+    n = len(values)
+    check = [[False] * (total+1) for _ in range(n+1)]
+
+    # if sum == 0, it is True no matter how many in the set
+    for i in range(n+1):
+        check[i][0] = True
+
+    for i in range(1, n+1):
+        for j in range(1, total+1):
+            if j < values[i-1]:
+                check[i][j] = check[i-1][j]
+            else:
+                check[i][j] = check[i-1][j] or check[i-1][j - values[i-1]]
+
+    return check[n][total]
+```
