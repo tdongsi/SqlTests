@@ -18,6 +18,8 @@ Summary of what you need to know about NP-complete problems.
 * NP-hard
 * NP-complete: intersection between NP-hard and NP.
 
+{% img /images/algorithms/NP.png 480 300 %}
+
 ### Common NP-complete problems
 
 The most classic ones that you should know are [these NP-complete problems](https://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems):
