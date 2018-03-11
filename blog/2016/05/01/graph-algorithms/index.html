@@ -263,6 +263,290 @@ However, when the graph is sparse, repeated DFS traversal approach is better in 
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h3>Shortest Paths</h3>
+
+<p>We have a few choices for implementing &ldquo;adaptable priority queue with location-aware entries&rdquo; (at least <code>remove_min</code> required) in Dijkstra&rsquo;s algorithm:</p>
+
+<ul>
+<li>Unsorted sequence implementation -> <code>O(n^2 +m)</code> runtime.</li>
+<li>A heap implementation -> <code>O( (n+m)log(n) )</code> runtime.</li>
+<li>Fibonacci heap implementation -> <code>O(m +nlog(n))</code> runtime.</li>
+</ul>
+
+
+<p>The &ldquo;heap implementation&rdquo; is &ldquo;AdaptableHeapPriorityQueue&rdquo; class from the chapter 9 of the same textbook.
+The &ldquo;Unsorted sequence implementation&rdquo; is implemented as follows, using the same signature of the above class for later compatibility:</p>
+
+<figure class='code'><figcaption><span>Simple Adaptable Priority Queue implementation</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">AdaptableUnsortedPriorityQueue</span><span class="p">():</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; Mocking AdaptableHeapPriorityQueue.</span>
+</span><span class='line'><span class="sd">    loc =&gt; key in internal map</span>
+</span><span class='line'><span class="sd">    key, val =&gt; value in internal map</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">_map</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;Add a key-value pair.&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">value</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">newkey</span><span class="p">,</span> <span class="n">newval</span><span class="p">):</span>
+</span><span class='line'>        <span class="sd">&quot;&quot;&quot;Update the key and value for the entry&quot;&quot;&quot;</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">[</span><span class="n">loc</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">newkey</span><span class="p">,</span> <span class="n">newval</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">remove_min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">min_key</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">&#39;inf&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">min_loc</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>        <span class="n">min_return</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min_key</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">min_key</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>                <span class="n">min_loc</span> <span class="o">=</span> <span class="n">loc</span>
+</span><span class='line'>                <span class="n">min_return</span> <span class="o">=</span> <span class="n">val</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">[</span><span class="n">min_loc</span><span class="p">]</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">min_return</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Python implementation of Dijkstra&rsquo;s algorithm is shown below.
+Dijkstra&rsquo;s algorithm is analogous to a weighted BFS traversal.
+A few assumptions must be true in this implementation:</p>
+
+<ul>
+<li>Theoretical requirement: All the weights are nonnegative.</li>
+<li><code>e.element()</code> returns the weight of the edge.</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Dijkstra's algorithm</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">shortest_path_lengths</span><span class="p">(</span><span class="n">g</span><span class="p">:</span><span class="n">Graph</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span><span class="n">Vertex</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; Compute shortest-path distances from src to reachable vertices of g.</span>
+</span><span class='line'><span class="sd">    Dijkstra&#39;s Algorithm for finding shortest paths.</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">    :param g: directed or undirected Graph. e.element() must return non-negative weight</span>
+</span><span class='line'><span class="sd">    :param s: Starting vertex</span>
+</span><span class='line'><span class="sd">    :return: dictionary mapping each reachable vertex to its distance from s.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>      <span class="c"># d[v] is upper bound from s to v</span>
+</span><span class='line'>    <span class="n">cloud</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c"># map reachable v to its d[v] value</span>
+</span><span class='line'>    <span class="n">pq</span> <span class="o">=</span> <span class="n">AdaptableUnsortedPriorityQueue</span><span class="p">()</span>   <span class="c"># vertex v will have key d[v]</span>
+</span><span class='line'>    <span class="n">pqlocator</span> <span class="o">=</span> <span class="p">{}</span>      <span class="c"># map from vertex to its pq locator</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">vertices</span><span class="p">():</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="n">s</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">&#39;inf&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">pqlocator</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">while</span> <span class="ow">not</span> <span class="n">pq</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+</span><span class='line'>        <span class="n">key</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">remove_min</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">cloud</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">incident_edges</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+</span><span class='line'>            <span class="n">v</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">opposite</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cloud</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">wgt</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">element</span><span class="p">()</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">wgt</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+</span><span class='line'>                    <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">wgt</span>
+</span><span class='line'>                    <span class="n">pq</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pqlocator</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">cloud</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, based on the returned computed shortest-path distances, we can compute <strong>shortest-path tree</strong>.
+We use the same data structure that represents <strong>DFS tree</strong> and <strong>BFS tree</strong>: a map that maps a vertex to its discovery edge (edge connecting to its parent).
+Because of using the same data structure, you can reuse the method <code>construct_path</code> to compute the path from one vertex to another.</p>
+
+<figure class='code'><figcaption><span>Compute shortest path tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">shortest_path_tree</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">Vertex</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span><span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; Reconstruct shortest-path tree rooted at vertex s, given the distance map d.</span>
+</span><span class='line'><span class="sd">    Return tree as a map from vertex v -&gt; discovery edge.</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">    :param g: Given graph, directed or undirected.</span>
+</span><span class='line'><span class="sd">    :param s: starting vertex.</span>
+</span><span class='line'><span class="sd">    :param d: distance map, created from Dijkstra&#39;s algorithm.</span>
+</span><span class='line'><span class="sd">    :return:</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">tree</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">s</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">incident_edges</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+</span><span class='line'>                <span class="n">u</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">opposite</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</span><span class='line'>                <span class="n">wgt</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">element</span><span class="p">()</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">wgt</span><span class="p">:</span>
+</span><span class='line'>                    <span class="n">tree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">tree</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Example usage:</p>
+
+<figure class='code'><figcaption><span>Example usage</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">test_dijkstra_algorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">g</span> <span class="o">=</span> <span class="n">ExampleGraphs</span><span class="o">.</span><span class="n">airport_graph</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">vertex_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="o">.</span><span class="n">element</span><span class="p">()</span> <span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">vertices</span><span class="p">()}</span>
+</span><span class='line'>    <span class="n">starting_vertex</span> <span class="o">=</span> <span class="n">vertex_map</span><span class="p">[</span><span class="s">&quot;JFK&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">cloud</span> <span class="o">=</span> <span class="n">shortest_path_lengths</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">starting_vertex</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cloud</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">sp_tree</span> <span class="o">=</span> <span class="n">shortest_path_tree</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">starting_vertex</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">path</span> <span class="o">=</span> <span class="n">construct_path</span><span class="p">(</span><span class="n">vertex_map</span><span class="p">[</span><span class="s">&quot;JFK&quot;</span><span class="p">],</span> <span class="n">vertex_map</span><span class="p">[</span><span class="s">&quot;LAX&quot;</span><span class="p">],</span> <span class="n">sp_tree</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Shortest path from JFK to LAX&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">ap</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ap</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Example output</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[Vertex: JFK]: 0
+</span><span class='line'>[Vertex: BOS]: 187
+</span><span class='line'>[Vertex: ORD]: 740
+</span><span class='line'>[Vertex: MIA]: 1090
+</span><span class='line'>[Vertex: DFW]: 1542
+</span><span class='line'>[Vertex: SFO]: 2586
+</span><span class='line'>[Vertex: LAX]: 2777
+</span><span class='line'>
+</span><span class='line'>Shortest path from JFK to LAX
+</span><span class='line'>[Vertex: JFK]
+</span><span class='line'>[Vertex: ORD]
+</span><span class='line'>[Vertex: DFW]
+</span><span class='line'>[Vertex: LAX]</span></code></pre></td></tr></table></div></figure>
 
 </div>
 

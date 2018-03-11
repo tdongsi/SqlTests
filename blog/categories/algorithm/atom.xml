@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-03-10T20:16:54-08:00</updated>
+  <updated>2018-03-10T22:07:47-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -121,6 +121,158 @@ However, when the graph is sparse, repeated DFS traversal approach is better in 
                 ready.append(v)
 
     return topo
+</code></pre>
+
+<h3>Shortest Paths</h3>
+
+<p>We have a few choices for implementing &ldquo;adaptable priority queue with location-aware entries&rdquo; (at least <code>remove_min</code> required) in Dijkstra&rsquo;s algorithm:</p>
+
+<ul>
+<li>Unsorted sequence implementation -> <code>O(n^2 +m)</code> runtime.</li>
+<li>A heap implementation -> <code>O( (n+m)log(n) )</code> runtime.</li>
+<li>Fibonacci heap implementation -> <code>O(m +nlog(n))</code> runtime.</li>
+</ul>
+
+
+<p>The &ldquo;heap implementation&rdquo; is &ldquo;AdaptableHeapPriorityQueue&rdquo; class from the chapter 9 of the same textbook.
+The &ldquo;Unsorted sequence implementation&rdquo; is implemented as follows, using the same signature of the above class for later compatibility:</p>
+
+<pre><code class="python Simple Adaptable Priority Queue implementation">class AdaptableUnsortedPriorityQueue():
+    """ Mocking AdaptableHeapPriorityQueue.
+    loc =&gt; key in internal map
+    key, val =&gt; value in internal map
+    """
+
+    def __init__(self):
+        self._map = {}
+
+    def add(self, key, value):
+        """Add a key-value pair."""
+        self._map[value] = (key, value)
+        return value
+
+    def update(self, loc, newkey, newval):
+        """Update the key and value for the entry"""
+        self._map[loc] = (newkey, newval)
+
+    def is_empty(self):
+        return (len(self._map) == 0)
+
+    def remove_min(self):
+
+        min_key = float('inf')
+        min_loc = None
+        min_return = None
+
+        for loc, val in self._map.items():
+            if val[0] &lt; min_key:
+                min_key = val[0]
+                min_loc = loc
+                min_return = val
+
+        del self._map[min_loc]
+        return min_return
+</code></pre>
+
+<p>Python implementation of Dijkstra&rsquo;s algorithm is shown below.
+Dijkstra&rsquo;s algorithm is analogous to a weighted BFS traversal.
+A few assumptions must be true in this implementation:</p>
+
+<ul>
+<li>Theoretical requirement: All the weights are nonnegative.</li>
+<li><code>e.element()</code> returns the weight of the edge.</li>
+</ul>
+
+
+<pre><code class="python Dijkstra's algorithm">def shortest_path_lengths(g:Graph, s:Vertex):
+    """ Compute shortest-path distances from src to reachable vertices of g.
+    Dijkstra's Algorithm for finding shortest paths.
+
+    :param g: directed or undirected Graph. e.element() must return non-negative weight
+    :param s: Starting vertex
+    :return: dictionary mapping each reachable vertex to its distance from s.
+    """
+
+    d = {}      # d[v] is upper bound from s to v
+    cloud = {}  # map reachable v to its d[v] value
+    pq = AdaptableUnsortedPriorityQueue()   # vertex v will have key d[v]
+    pqlocator = {}      # map from vertex to its pq locator
+
+    for v in g.vertices():
+        if v is s:
+            d[v] = 0
+        else:
+            d[v] = float('inf')
+
+        pqlocator[v] = pq.add(d[v], v)
+
+    while not pq.is_empty():
+        key, u = pq.remove_min()
+        cloud[u] = key
+
+        for e in g.incident_edges(u):
+            v = e.opposite(u)
+            if v not in cloud:
+                wgt = e.element()
+                if d[u] + wgt &lt; d[v]:
+                    d[v] = d[u] + wgt
+                    pq.update(pqlocator[v], d[v], v)
+
+    return cloud
+</code></pre>
+
+<p>Then, based on the returned computed shortest-path distances, we can compute <strong>shortest-path tree</strong>.
+We use the same data structure that represents <strong>DFS tree</strong> and <strong>BFS tree</strong>: a map that maps a vertex to its discovery edge (edge connecting to its parent).
+Because of using the same data structure, you can reuse the method <code>construct_path</code> to compute the path from one vertex to another.</p>
+
+<pre><code class="python Compute shortest path tree">def shortest_path_tree(g: Graph, s: Vertex, d:dict) -&gt; dict:
+    """ Reconstruct shortest-path tree rooted at vertex s, given the distance map d.
+    Return tree as a map from vertex v -&gt; discovery edge.
+
+    :param g: Given graph, directed or undirected.
+    :param s: starting vertex.
+    :param d: distance map, created from Dijkstra's algorithm.
+    :return:
+    """
+    tree = {}
+
+    for v in d:
+        if v is not s:
+            for e in g.incident_edges(v, False):
+                u = e.opposite(v)
+                wgt = e.element()
+                if d[v] == d[u] + wgt:
+                    tree[v] = e
+
+    return tree
+</code></pre>
+
+<p>Example usage:</p>
+
+<pre><code class="python Example usage">def test_dijkstra_algorithm(self):
+    g = ExampleGraphs.airport_graph()
+
+    vertex_map = {v.element() : v for v in g.vertices()}
+    starting_vertex = vertex_map["JFK"]
+
+    cloud = shortest_path_lengths(g, starting_vertex)
+
+    for k, v in cloud.items():
+        print("%s: %s"% (k,v))
+
+    sp_tree = shortest_path_tree(g, starting_vertex, cloud)
+    path = construct_path(vertex_map["JFK"], vertex_map["LAX"], sp_tree)
+
+    print("Shortest path from JFK to LAX")
+    for ap in path:
+        print(str(ap))
+</code></pre>
+
+<pre><code class="plain Example output">Shortest path from JFK to LAX
+[Vertex: JFK]
+[Vertex: ORD]
+[Vertex: DFW]
+[Vertex: LAX]
 </code></pre>
 ]]></content>
   </entry>
