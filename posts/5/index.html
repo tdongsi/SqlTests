@@ -19,13 +19,13 @@
 
   
   <link rel="canonical" href="http://tdongsi.github.io/SqlTests/posts/5/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/SqlTests/favicon.png" rel="icon">
+  <link href="/SqlTests/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/SqlTests/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/SqlTests/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -36,7 +36,7 @@
 
 <body    class="collapse-sidebar sidebar-footer" >
   <header role="banner"><hgroup>
-  <h1><a href="/">Personal Interview Notes</a></h1>
+  <h1><a href="/SqlTests/">Personal Interview Notes</a></h1>
   
     <h2>Neither success nor failure is ever final.</h2>
   
@@ -56,9 +56,9 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog Home</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/syllabus">Syllabus</a></li>
+  <li><a href="/SqlTests/">Blog Home</a></li>
+  <li><a href="/SqlTests/blog/archives">Archives</a></li>
+  <li><a href="/SqlTests/syllabus">Syllabus</a></li>
   <li><a href="http://tdongsi.github.io">Personal Home</a></li>
 </ul>
 
@@ -73,7 +73,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2005/12/02/misc-big-data-functional-tests-vs-unit-tests/">(Pt. 5) Big Data: Functional Tests vs. Unit Tests</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/02/misc-big-data-functional-tests-vs-unit-tests/">(Pt. 5) Big Data: Functional Tests vs. Unit Tests</a></h1>
     
     
       <p class="meta">
@@ -128,7 +128,7 @@
 
 <p>It should be noted that functional and unit tests are complementary to each other.
 Certain aspects of ETLs can be better verified as functional tests while others of the same ETLs should be verified as unit tests.
-For example, as discussed in <a href="/blog/2016/04/10/sql-unit-incremental-data-update/">this post</a>, unit tests are better suited for testing incremental data update in ETL scripts.</p>
+For example, as discussed in <a href="/SqlTests/blog/2016/04/10/sql-unit-incremental-data-update/">this post</a>, unit tests are better suited for testing incremental data update in ETL scripts.</p>
 
 <p>On the other hand, for example, an ETL that performs some kind of classification, such as categorizing user types based on some clickstream patterns, should be tested in functional tests.
 If there are more than 20 categories, it could become a daunting task to generate and maintain synthetic data for each of those categories.
@@ -158,7 +158,7 @@ Unit tests:
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2005/12/02/misc-sql-unit-testing/">(Pt. 4) SQL Unit Testing</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/02/misc-sql-unit-testing/">(Pt. 4) SQL Unit Testing</a></h1>
     
     
       <p class="meta">
@@ -218,7 +218,7 @@ Assumptions:
 <p>TODO indefinitely.</p>
 
 <p>The idea is to use a local Vertica VM as a sandbox test environment.
-It could be a <a href="/blog/2016/01/10/find-and-replace-a-string-in-multiple-files/">single cluster VM</a> or <a href="/blog/2016/03/12/set-up-three-node-vertica-sandbox-vms-on-mac/">three-node cluster VM</a>.</p>
+It could be a <a href="/SqlTests/blog/2016/01/10/find-and-replace-a-string-in-multiple-files/">single cluster VM</a> or <a href="/SqlTests/blog/2016/03/12/set-up-three-node-vertica-sandbox-vms-on-mac/">three-node cluster VM</a>.</p>
 
 <p>The following changes in SQL Test Runner are critical to enable unit testing:</p>
 
@@ -231,7 +231,7 @@ It could be a <a href="/blog/2016/01/10/find-and-replace-a-string-in-multiple-fi
 
 <p>In the following example, two <code>INSERT</code> statements is used to set up data in two input staging tables.
 They are followed by a new test block to run the ETL script.
-After the ETL is executed, the output data, <code>email_address</code> column for example, in the target dimension table is verified using the <a href="/blog/2016/03/28/sql-unit-test-runner/">standard test block</a>.
+After the ETL is executed, the output data, <code>email_address</code> column for example, in the target dimension table is verified using the <a href="/SqlTests/blog/2016/03/28/sql-unit-test-runner/">standard test block</a>.
 Other static dimension tables such as <code>dim_country</code> that the ETL script <code>my_etl.sql</code> depends on, can be created and populated using Java code.</p>
 
 <figure class='code'><figcaption><span>Example unit test</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -322,7 +322,7 @@ Other static dimension tables such as <code>dim_country</code> that the ETL scri
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>For full unit test script, see <a href="/blog/2016/04/10/sql-unit-incremental-data-update/">here</a>.</p>
+<p>For full unit test script, see <a href="/SqlTests/blog/2016/04/10/sql-unit-incremental-data-update/">here</a>.</p>
 </div>
   
   
@@ -335,7 +335,7 @@ Other static dimension tables such as <code>dim_country</code> that the ETL scri
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2005/12/02/misc-testing-incremental-data-update/">(Pt. 3) Testing Incremental Data Update</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/02/misc-testing-incremental-data-update/">(Pt. 3) Testing Incremental Data Update</a></h1>
     
     
       <p class="meta">
@@ -356,7 +356,7 @@ Challenges in functional testing motivates me to create a test framework to add 
 
 <h3>Incremental data update</h3>
 
-<p>In the last <a href="/blog/2016/03/16/sql-unit-functional-tests/">blog post</a>, I go over evolution of functional testing in data mart projects.
+<p>In the last <a href="/SqlTests/blog/2016/03/16/sql-unit-functional-tests/">blog post</a>, I go over evolution of functional testing in data mart projects.
 In functional tests, we deploy the data marts, run all the DDL, DML and ETL scripts, and, then, execute a bunch of SQL test queries to validate the tables.</p>
 
 <p>That kind of testing could be sufficient if the inputs of the ETL are snapshot tables: data extracted by the ETL scripts are from the latest snapshot of the data.
@@ -393,13 +393,13 @@ The following example scenario illustrates the challenge and complexity of ETLs 
 
 <ul>
 <li><code>stg_company_id</code> -> ID: 123, region: US.</li>
-<li><code>stg_company_contact</code> -> ID: 123, email: <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x62;&#x65;&#102;&#111;&#114;&#x65;&#x40;&#x6d;&#x6f;&#99;&#x6b;&#100;&#97;&#116;&#x61;&#x2e;&#x63;&#x6f;&#x6d;&#x2e;">&#98;&#101;&#102;&#111;&#x72;&#x65;&#x40;&#x6d;&#x6f;&#x63;&#107;&#100;&#97;&#116;&#97;&#46;&#x63;&#x6f;&#x6d;&#46;</a> (same company)</li>
+<li><code>stg_company_contact</code> -> ID: 123, email: <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x62;&#101;&#102;&#x6f;&#114;&#101;&#x40;&#x6d;&#x6f;&#99;&#107;&#100;&#x61;&#x74;&#97;&#x2e;&#x63;&#111;&#x6d;&#x2e;">&#98;&#x65;&#x66;&#x6f;&#114;&#x65;&#x40;&#109;&#x6f;&#x63;&#x6b;&#x64;&#x61;&#x74;&#97;&#x2e;&#99;&#x6f;&#x6d;&#x2e;</a> (same company)</li>
 </ul>
 </li>
 <li>Day 3
 
 <ul>
-<li>Email updated to <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x61;&#x66;&#116;&#x65;&#x72;&#64;&#x6d;&#x6f;&#99;&#x6b;&#x64;&#x61;&#116;&#97;&#46;&#99;&#111;&#109;">&#97;&#102;&#116;&#x65;&#x72;&#64;&#109;&#x6f;&#x63;&#x6b;&#x64;&#x61;&#x74;&#x61;&#46;&#x63;&#111;&#x6d;</a> in <code>stg_company_contact</code>.</li>
+<li>Email updated to <a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#58;&#x61;&#102;&#x74;&#101;&#114;&#64;&#x6d;&#x6f;&#x63;&#x6b;&#100;&#x61;&#116;&#x61;&#46;&#x63;&#111;&#109;">&#97;&#102;&#116;&#x65;&#x72;&#x40;&#x6d;&#111;&#x63;&#x6b;&#100;&#x61;&#x74;&#x61;&#x2e;&#99;&#x6f;&#x6d;</a> in <code>stg_company_contact</code>.</li>
 <li><code>stg_company_id</code> has one row with ID = 123.</li>
 <li><code>stg_company_contact</code> has two rows with ID = 123.</li>
 </ul>
@@ -415,7 +415,7 @@ The following example scenario illustrates the challenge and complexity of ETLs 
 <li>Day 15
 
 <ul>
-<li>Email updated to <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#98;&#101;&#x79;&#111;&#110;&#100;&#64;&#109;&#111;&#x63;&#x6b;&#100;&#x61;&#116;&#97;&#46;&#x63;&#x6f;&#109;&#46;">&#98;&#x65;&#121;&#x6f;&#x6e;&#100;&#64;&#x6d;&#111;&#99;&#x6b;&#x64;&#97;&#116;&#x61;&#46;&#99;&#111;&#109;&#46;</a></li>
+<li>Email updated to <a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#98;&#101;&#x79;&#x6f;&#x6e;&#x64;&#x40;&#x6d;&#x6f;&#x63;&#107;&#x64;&#97;&#116;&#97;&#x2e;&#99;&#111;&#x6d;&#x2e;">&#x62;&#x65;&#121;&#x6f;&#110;&#100;&#x40;&#109;&#111;&#99;&#x6b;&#100;&#x61;&#x74;&#x61;&#46;&#99;&#x6f;&#x6d;&#46;</a></li>
 <li><code>stg_company_id</code> has zero row with ID = 123.</li>
 <li><code>stg_company_contact</code> has one row with ID = 123.</li>
 </ul>
@@ -728,7 +728,7 @@ It leads to my strong conviction that incremental data update should tested in a
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Running the unit test script above from TestNG will be similar as in functional tests (see &ldquo;Level 3&rdquo; in <a href="/blog/2016/03/16/sql-unit-functional-tests/">this post</a>).
+<p>Running the unit test script above from TestNG will be similar as in functional tests (see &ldquo;Level 3&rdquo; in <a href="/SqlTests/blog/2016/03/16/sql-unit-functional-tests/">this post</a>).
 After one-time setup (in <code>@BeforeClass</code> and <code>@AfterClass</code> functions), there will be minimal Java code added (<code>@Test</code> functions):</p>
 
 <figure class='code'><figcaption><span>Calling unit test script</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -777,7 +777,7 @@ After one-time setup (in <code>@BeforeClass</code> and <code>@AfterClass</code> 
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2005/12/02/misc-sql-test-runner/">(Pt. 2) SQL Test Runner</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/02/misc-sql-test-runner/">(Pt. 2) SQL Test Runner</a></h1>
     
     
       <p class="meta">
@@ -793,7 +793,7 @@ After one-time setup (in <code>@BeforeClass</code> and <code>@AfterClass</code> 
   </header>
 
 
-  <div class="entry-content"><p>In this blog post, I shows some example test cases using the SQL Test Runner, introduced in &ldquo;Level 3&rdquo; in <a href="/blog/2016/03/20/sql-unit-functional-tests/">this post</a>.
+  <div class="entry-content"><p>In this blog post, I shows some example test cases using the SQL Test Runner, introduced in &ldquo;Level 3&rdquo; in <a href="/SqlTests/blog/2016/03/20/sql-unit-functional-tests/">this post</a>.
 As mentioned in that post and will be illustrated here, many decisions are based on my testing philosophy: <strong>prioritize readability of tests when possible</strong>.</p>
 
 <h3>Overview</h3>
@@ -823,7 +823,7 @@ As mentioned in that post and will be illustrated here, many decisions are based
 <li>Extract the JSON to retrieve the test query and expected output.
 
 <ul>
-<li>As shown in <a href="/blog/2016/04/10/sql-unit-incremental-data-update/">this</a> and <a href="/blog/2016/04/16/sql-unit-extension/">this</a>, we can add custom JSON for different testing needs.</li>
+<li>As shown in <a href="/SqlTests/blog/2016/04/10/sql-unit-incremental-data-update/">this</a> and <a href="/SqlTests/blog/2016/04/16/sql-unit-extension/">this</a>, we can add custom JSON for different testing needs.</li>
 </ul>
 </li>
 <li>Send the query to the database, and get the actual output from the database.</li>
@@ -1139,7 +1139,7 @@ The most commonly used is (&ldquo;name&rdquo;, &ldquo;query&rdquo;, &ldquo;expec
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As explained in more details in <a href="/blog/2016/04/17/sql-unit-data-parity/">this post</a>, &ldquo;equal&rdquo; is a recently added capability to easily compare two tables or projections from tables.</p>
+<p>As explained in more details in <a href="/SqlTests/blog/2016/04/17/sql-unit-data-parity/">this post</a>, &ldquo;equal&rdquo; is a recently added capability to easily compare two tables or projections from tables.</p>
 
 <figure class='code'><figcaption><span>"equal" clause</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1168,7 +1168,7 @@ The most commonly used is (&ldquo;name&rdquo;, &ldquo;query&rdquo;, &ldquo;expec
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2005/12/02/misc-functional-testing-for-data-marts/">(Pt. 1) Functional Testing for Data Marts</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/02/misc-functional-testing-for-data-marts/">(Pt. 1) Functional Testing for Data Marts</a></h1>
     
     
       <p class="meta">
@@ -1184,7 +1184,7 @@ The most commonly used is (&ldquo;name&rdquo;, &ldquo;query&rdquo;, &ldquo;expec
   </header>
 
 
-  <div class="entry-content"><p>For overview, see <a href="/blog/2016/03/16/sql-unit-overview/">here</a>.</p>
+  <div class="entry-content"><p>For overview, see <a href="/SqlTests/blog/2016/03/16/sql-unit-overview/">here</a>.</p>
 
 <p>In this blog post, I will go over on different approaches over time to verify if a data mart or data warehouse is implemented correctly, and pros and cons associated with each approach.</p>
 
@@ -1214,7 +1214,7 @@ There are not many tools available for automated testing of SQL scripts, especia
 <p>At the beginning, quality engineers and data analysts tested data marts by using a number of SQL queries as test queries.
 Data analysts are <em>de facto</em> end-users and main testers and many of those test queries are based on their experience.</p>
 
-<p><img class="center" src="/images/sql/squirrel.png" title="Manual testing" ></p>
+<p><img class="center" src="/SqlTests/images/sql/squirrel.png" title="Manual testing" ></p>
 
 <p>We used some SQL clients such as SQuirreL as shown above, connected to Vertica using some JDBC driver, ran the test queries and verified that the outputs match our expectations.
 This process is pretty much manual. If an ETL is updated <code>n</code> times, we have to repeat this <code>n</code> times.
@@ -1468,7 +1468,7 @@ If the tests are readable and accessible to developers, they can easily run the 
 
 <h4>Implementation</h4>
 
-<p>In this approach, I implemented a <a href="/blog/2016/03/28/sql-unit-test-runner/">test framework</a>. The same tests shown in the last sections, using that framework, will look like this:</p>
+<p>In this approach, I implemented a <a href="/SqlTests/blog/2016/03/28/sql-unit-test-runner/">test framework</a>. The same tests shown in the last sections, using that framework, will look like this:</p>
 
 <figure class='code'><figcaption><span>Test query in test files</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1593,7 +1593,7 @@ Each test query has a name (that tells its purpose) associated with it: key stri
 <p>In addition to those retained benefits, the most obvious benefit of this new approach is that the supporting Java code is minimal since all TestNG assertions have been removed.
 The TestNG assertions, which are ubiquitous in previous &ldquo;Level 1&rdquo; and &ldquo;Level 2&rdquo; approaches, are no longer present.
 Instead, the expected outputs are specified in <code>.test</code> file, in the same JSON block with each SQL query.
-The whole TestNG class will only contain code to initialize a connection to database and an instance of <a href="/blog/2016/03/28/sql-unit-test-runner/">SQL Test Runner</a>, all of which is <strong>one-time setup</strong>.
+The whole TestNG class will only contain code to initialize a connection to database and an instance of <a href="/SqlTests/blog/2016/03/28/sql-unit-test-runner/">SQL Test Runner</a>, all of which is <strong>one-time setup</strong>.
 As we continue writing functional tests, we can keep all tests in a single <code>.test</code> file or, optionally, group related tests into separate <code>.test</code> files.
 If we add more <code>.test</code> files, we can just specify the path to the files in functions annotated with <code>@Test</code>, as shown above.</p>
 
@@ -1622,7 +1622,7 @@ Test readability will save (lots of) QE&rsquo;s time in both developing and main
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2005/12/01/misc-sql-testing-in-data-marts/">(Pt. 0) SQL Testing in Data Marts</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/01/misc-sql-testing-in-data-marts/">(Pt. 0) SQL Testing in Data Marts</a></h1>
     
     
       <p class="meta">
@@ -1656,20 +1656,20 @@ Note that SQL scripts is only a small part of ETL processes. There are other scr
 <h3>Functional testing for Data Mart projects</h3>
 
 <p>We gradually figured out automated functional testing first and continued to improve it.
-This <a href="/blog/2016/03/20/sql-unit-functional-tests/">blog post</a> documents the journey of automated functional testing, the rationale after each cycle of its evolution.</p>
+This <a href="/SqlTests/blog/2016/03/20/sql-unit-functional-tests/">blog post</a> documents the journey of automated functional testing, the rationale after each cycle of its evolution.</p>
 
 <h3>SQL Test Runner</h3>
 
 <p>In the latest iteration of automated testing, supporting Java code is abstracted into a SQL Test Runner.
 Quality engineers and data analysts can now write test queries and assertions in more readable test blocks, using mostly SQL.
-This <a href="/blog/2016/03/28/sql-unit-test-runner/">blog post</a> provides some examples.
+This <a href="/SqlTests/blog/2016/03/28/sql-unit-test-runner/">blog post</a> provides some examples.
 As you can see, many design and impelmentation decisions are based on my motto: <strong>prioritize test readability</strong> when it makes sense.</p>
 
 <h3>Incremental data update</h3>
 
 <p>One of biggest challenges in SQL testing is &ldquo;incremental data update&rdquo; in ETL scripts.
 Challenges in functional testing those scripts motivates me to ajdust the above test framework (SQL Test Runner) to allow adding unit-like tests for those ETL scripts.
-This <a href="/blog/2016/04/10/sql-unit-incremental-data-update/">blog post</a> discusses &ldquo;incremental data update&rdquo; and how it should be tested as a number of unit tests.</p>
+This <a href="/SqlTests/blog/2016/04/10/sql-unit-incremental-data-update/">blog post</a> discusses &ldquo;incremental data update&rdquo; and how it should be tested as a number of unit tests.</p>
 
 <h3>Unit testing</h3>
 
@@ -1684,16 +1684,16 @@ If the data analysts are able to read unit test scripts and confirm the expectat
 
 <h3>Functional tests vs Unit tests</h3>
 
-<p>This <a href="/blog/2016/04/14/sql-unit-vs-functional/">blog post</a> recap the above sections by highlighting the difference between these groups of tests in the context of Big Data projects.
+<p>This <a href="/SqlTests/blog/2016/04/14/sql-unit-vs-functional/">blog post</a> recap the above sections by highlighting the difference between these groups of tests in the context of Big Data projects.
 Note that the two groups complement each other in assuring quality and functionality of Big Data projects.</p>
 
 <h3>Extending SQL Test Runner</h3>
 
 <p>SQL testing for ETL process is a pretty new area to us.
 Therefore, while the current SQL Unit Test framework appears adequate for most testing now, it must be able to support any new testing needs should they arise.
-This <a href="/blog/2016/04/16/sql-unit-extension/">blog post</a> explains how to extend the test framework to add new functionality or features.
+This <a href="/SqlTests/blog/2016/04/16/sql-unit-extension/">blog post</a> explains how to extend the test framework to add new functionality or features.
 The SQL Unit Test framework is designed based on <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Open/Closed principle</a>, and uses design patterns like Template Method and Strategy to make it easy to add new functionality.
-For illustration, I will discuss how I recently added a new functionality to handle a <a href="/blog/2016/04/17/sql-unit-data-parity/">new kind of tests</a>.</p>
+For illustration, I will discuss how I recently added a new functionality to handle a <a href="/SqlTests/blog/2016/04/17/sql-unit-data-parity/">new kind of tests</a>.</p>
 </div>
   
   
@@ -1706,7 +1706,7 @@ For illustration, I will discuss how I recently added a new functionality to han
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2001/01/01/blog-map/">Blog Map</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2001/01/01/blog-map/">Blog Map</a></h1>
     
     
       <p class="meta">
@@ -1726,7 +1726,7 @@ For illustration, I will discuss how I recently added a new functionality to han
 
 <ul>
 <li>2015: Archive of old public posts (not relevant to my desired career path).</li>
-<li>2016: Technical interviews, based on <a href="/syllabus/">this</a>.
+<li>2016: Technical interviews, based on <a href="/SqlTests/syllabus/">this</a>.
 
 <ul>
 <li>01: General info</li>
@@ -1754,9 +1754,9 @@ For illustration, I will discuss how I recently added a new functionality to han
   
   <div class="pagination">
     
-    <a href="/blog/archives">Blog Archives</a>
+    <a href="/SqlTests/blog/archives">Blog Archives</a>
     
-    <a class="next" href="/posts/4">Newer &rarr;</a>
+    <a class="next" href="/SqlTests/posts/4">Newer &rarr;</a>
     
   </div>
 </div>
@@ -1770,43 +1770,43 @@ For illustration, I will discuss how I recently added a new functionality to han
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2022/12/03/bash-cookbook/">Bash Cookbook</a>
+        <a href="/SqlTests/blog/2022/12/03/bash-cookbook/">Bash Cookbook</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2022/12/02/docker-cli-cookbook/">Docker CLI Cookbook</a>
+        <a href="/SqlTests/blog/2022/12/02/docker-cli-cookbook/">Docker CLI Cookbook</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2022/12/01/groupadd-cookbook/">User Group and Related Commands</a>
+        <a href="/SqlTests/blog/2022/12/01/groupadd-cookbook/">User Group and Related Commands</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2021/11/04/opencv/">OpenCV</a>
+        <a href="/SqlTests/blog/2021/11/04/opencv/">OpenCV</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2021/11/02/anomaly-detection/">Anomaly Detection</a>
+        <a href="/SqlTests/blog/2021/11/02/anomaly-detection/">Anomaly Detection</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2021/11/01/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
+        <a href="/SqlTests/blog/2021/11/01/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2019/09/02/reserved-ip-addresses/">Reserved IP Addresses</a>
+        <a href="/SqlTests/blog/2019/09/02/reserved-ip-addresses/">Reserved IP Addresses</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2019/09/01/network-question-bank/">Network Question Bank</a>
+        <a href="/SqlTests/blog/2019/09/01/network-question-bank/">Network Question Bank</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/08/06/vertica-sql-splitting-string/">Vertica SQL: Splitting String</a>
+        <a href="/SqlTests/blog/2018/08/06/vertica-sql-splitting-string/">Vertica SQL: Splitting String</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/08/05/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a>
+        <a href="/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a>
       </li>
     
   </ul>
@@ -1814,7 +1814,7 @@ For illustration, I will discuss how I recently added a new functionality to han
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/algorithm/'>algorithm (7)</a></li><li><a href='/blog/categories/apple/'>apple (1)</a></li><li><a href='/blog/categories/aws/'>aws (1)</a></li><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/book/'>book (1)</a></li><li><a href='/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/blog/categories/database/'>database (3)</a></li><li><a href='/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/blog/categories/google/'>google (1)</a></li><li><a href='/blog/categories/graph/'>graph (1)</a></li><li><a href='/blog/categories/gtg/'>gtg (1)</a></li><li><a href='/blog/categories/java/'>java (4)</a></li><li><a href='/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/blog/categories/network/'>network (2)</a></li><li><a href='/blog/categories/os/'>os (2)</a></li><li><a href='/blog/categories/python/'>python (2)</a></li><li><a href='/blog/categories/questions/'>questions (8)</a></li><li><a href='/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/blog/categories/sql/'>sql (3)</a></li><li><a href='/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/blog/categories/testing/'>testing (9)</a></li><li><a href='/blog/categories/todo/'>todo (2)</a></li><li><a href='/blog/categories/tutorial/'>tutorial (8)</a></li><li><a href='/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (7)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (1)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (1)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (4)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (2)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (8)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 

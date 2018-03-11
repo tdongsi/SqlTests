@@ -20,13 +20,13 @@ Challenges in functional testing motivates me to create a &hellip;">
 
   
   <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-testing-incremental-data-update/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/SqlTests/favicon.png" rel="icon">
+  <link href="/SqlTests/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/SqlTests/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/SqlTests/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -37,7 +37,7 @@ Challenges in functional testing motivates me to create a &hellip;">
 
 <body    class="collapse-sidebar sidebar-footer" >
   <header role="banner"><hgroup>
-  <h1><a href="/">Personal Interview Notes</a></h1>
+  <h1><a href="/SqlTests/">Personal Interview Notes</a></h1>
   
     <h2>Neither success nor failure is ever final.</h2>
   
@@ -57,9 +57,9 @@ Challenges in functional testing motivates me to create a &hellip;">
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog Home</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/syllabus">Syllabus</a></li>
+  <li><a href="/SqlTests/">Blog Home</a></li>
+  <li><a href="/SqlTests/blog/archives">Archives</a></li>
+  <li><a href="/SqlTests/syllabus">Syllabus</a></li>
   <li><a href="http://tdongsi.github.io">Personal Home</a></li>
 </ul>
 
@@ -92,7 +92,7 @@ Challenges in functional testing motivates me to create a test framework to add 
 
 <h3>Incremental data update</h3>
 
-<p>In the last <a href="/blog/2016/03/16/sql-unit-functional-tests/">blog post</a>, I go over evolution of functional testing in data mart projects.
+<p>In the last <a href="/SqlTests/blog/2016/03/16/sql-unit-functional-tests/">blog post</a>, I go over evolution of functional testing in data mart projects.
 In functional tests, we deploy the data marts, run all the DDL, DML and ETL scripts, and, then, execute a bunch of SQL test queries to validate the tables.</p>
 
 <p>That kind of testing could be sufficient if the inputs of the ETL are snapshot tables: data extracted by the ETL scripts are from the latest snapshot of the data.
@@ -129,13 +129,13 @@ The following example scenario illustrates the challenge and complexity of ETLs 
 
 <ul>
 <li><code>stg_company_id</code> -> ID: 123, region: US.</li>
-<li><code>stg_company_contact</code> -> ID: 123, email: <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x62;&#x65;&#102;&#111;&#114;&#x65;&#x40;&#x6d;&#x6f;&#99;&#x6b;&#100;&#97;&#116;&#x61;&#x2e;&#x63;&#x6f;&#x6d;&#x2e;">&#98;&#101;&#102;&#111;&#x72;&#x65;&#x40;&#x6d;&#x6f;&#x63;&#107;&#100;&#97;&#116;&#97;&#46;&#x63;&#x6f;&#x6d;&#46;</a> (same company)</li>
+<li><code>stg_company_contact</code> -> ID: 123, email: <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x62;&#101;&#102;&#x6f;&#114;&#101;&#x40;&#x6d;&#x6f;&#99;&#107;&#100;&#x61;&#x74;&#97;&#x2e;&#x63;&#111;&#x6d;&#x2e;">&#98;&#x65;&#x66;&#x6f;&#114;&#x65;&#x40;&#109;&#x6f;&#x63;&#x6b;&#x64;&#x61;&#x74;&#97;&#x2e;&#99;&#x6f;&#x6d;&#x2e;</a> (same company)</li>
 </ul>
 </li>
 <li>Day 3
 
 <ul>
-<li>Email updated to <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x61;&#x66;&#116;&#x65;&#x72;&#64;&#x6d;&#x6f;&#99;&#x6b;&#x64;&#x61;&#116;&#97;&#46;&#99;&#111;&#109;">&#97;&#102;&#116;&#x65;&#x72;&#64;&#109;&#x6f;&#x63;&#x6b;&#x64;&#x61;&#x74;&#x61;&#46;&#x63;&#111;&#x6d;</a> in <code>stg_company_contact</code>.</li>
+<li>Email updated to <a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#58;&#x61;&#102;&#x74;&#101;&#114;&#64;&#x6d;&#x6f;&#x63;&#x6b;&#100;&#x61;&#116;&#x61;&#46;&#x63;&#111;&#109;">&#97;&#102;&#116;&#x65;&#x72;&#x40;&#x6d;&#111;&#x63;&#x6b;&#100;&#x61;&#x74;&#x61;&#x2e;&#99;&#x6f;&#x6d;</a> in <code>stg_company_contact</code>.</li>
 <li><code>stg_company_id</code> has one row with ID = 123.</li>
 <li><code>stg_company_contact</code> has two rows with ID = 123.</li>
 </ul>
@@ -151,7 +151,7 @@ The following example scenario illustrates the challenge and complexity of ETLs 
 <li>Day 15
 
 <ul>
-<li>Email updated to <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#98;&#101;&#x79;&#111;&#110;&#100;&#64;&#109;&#111;&#x63;&#x6b;&#100;&#x61;&#116;&#97;&#46;&#x63;&#x6f;&#109;&#46;">&#98;&#x65;&#121;&#x6f;&#x6e;&#100;&#64;&#x6d;&#111;&#99;&#x6b;&#x64;&#97;&#116;&#x61;&#46;&#99;&#111;&#109;&#46;</a></li>
+<li>Email updated to <a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#98;&#101;&#x79;&#x6f;&#x6e;&#x64;&#x40;&#x6d;&#x6f;&#x63;&#107;&#x64;&#97;&#116;&#97;&#x2e;&#99;&#111;&#x6d;&#x2e;">&#x62;&#x65;&#121;&#x6f;&#110;&#100;&#x40;&#109;&#111;&#99;&#x6b;&#100;&#x61;&#x74;&#x61;&#46;&#99;&#x6f;&#x6d;&#46;</a></li>
 <li><code>stg_company_id</code> has zero row with ID = 123.</li>
 <li><code>stg_company_contact</code> has one row with ID = 123.</li>
 </ul>
@@ -464,7 +464,7 @@ It leads to my strong conviction that incremental data update should tested in a
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Running the unit test script above from TestNG will be similar as in functional tests (see &ldquo;Level 3&rdquo; in <a href="/blog/2016/03/16/sql-unit-functional-tests/">this post</a>).
+<p>Running the unit test script above from TestNG will be similar as in functional tests (see &ldquo;Level 3&rdquo; in <a href="/SqlTests/blog/2016/03/16/sql-unit-functional-tests/">this post</a>).
 After one-time setup (in <code>@BeforeClass</code> and <code>@AfterClass</code> functions), there will be minimal Java code added (<code>@Test</code> functions):</p>
 
 <figure class='code'><figcaption><span>Calling unit test script</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -521,7 +521,7 @@ After one-time setup (in <code>@BeforeClass</code> and <code>@AfterClass</code> 
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/sqlrunner/'>sqlrunner</a>, <a class='category' href='/blog/categories/testing/'>testing</a>
+    <a class='category' href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner</a>, <a class='category' href='/SqlTests/blog/categories/testing/'>testing</a>
   
 </span>
 
@@ -541,10 +541,10 @@ After one-time setup (in <code>@BeforeClass</code> and <code>@AfterClass</code> 
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2005/12/02/misc-sql-test-runner/" title="Previous Post: (Pt. 2) SQL Test Runner">&laquo; (Pt. 2) SQL Test Runner</a>
+        <a class="basic-alignment left" href="/SqlTests/blog/2005/12/02/misc-sql-test-runner/" title="Previous Post: (Pt. 2) SQL Test Runner">&laquo; (Pt. 2) SQL Test Runner</a>
       
       
-        <a class="basic-alignment right" href="/blog/2005/12/02/misc-sql-unit-testing/" title="Next Post: (Pt. 4) SQL unit testing">(Pt. 4) SQL unit testing &raquo;</a>
+        <a class="basic-alignment right" href="/SqlTests/blog/2005/12/02/misc-sql-unit-testing/" title="Next Post: (Pt. 4) SQL unit testing">(Pt. 4) SQL unit testing &raquo;</a>
       
     </p>
   </footer>
@@ -562,43 +562,43 @@ After one-time setup (in <code>@BeforeClass</code> and <code>@AfterClass</code> 
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2022/12/03/bash-cookbook/">Bash Cookbook</a>
+        <a href="/SqlTests/blog/2022/12/03/bash-cookbook/">Bash Cookbook</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2022/12/02/docker-cli-cookbook/">Docker CLI Cookbook</a>
+        <a href="/SqlTests/blog/2022/12/02/docker-cli-cookbook/">Docker CLI Cookbook</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2022/12/01/groupadd-cookbook/">User Group and Related Commands</a>
+        <a href="/SqlTests/blog/2022/12/01/groupadd-cookbook/">User Group and Related Commands</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2021/11/04/opencv/">OpenCV</a>
+        <a href="/SqlTests/blog/2021/11/04/opencv/">OpenCV</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2021/11/02/anomaly-detection/">Anomaly Detection</a>
+        <a href="/SqlTests/blog/2021/11/02/anomaly-detection/">Anomaly Detection</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2021/11/01/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
+        <a href="/SqlTests/blog/2021/11/01/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2019/09/02/reserved-ip-addresses/">Reserved IP Addresses</a>
+        <a href="/SqlTests/blog/2019/09/02/reserved-ip-addresses/">Reserved IP Addresses</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2019/09/01/network-question-bank/">Network Question Bank</a>
+        <a href="/SqlTests/blog/2019/09/01/network-question-bank/">Network Question Bank</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/08/06/vertica-sql-splitting-string/">Vertica SQL: Splitting String</a>
+        <a href="/SqlTests/blog/2018/08/06/vertica-sql-splitting-string/">Vertica SQL: Splitting String</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/08/05/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a>
+        <a href="/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/">Tutorial: Dashboard for Business Analytics</a>
       </li>
     
   </ul>
@@ -606,7 +606,7 @@ After one-time setup (in <code>@BeforeClass</code> and <code>@AfterClass</code> 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/algorithm/'>algorithm (7)</a></li><li><a href='/blog/categories/apple/'>apple (1)</a></li><li><a href='/blog/categories/aws/'>aws (1)</a></li><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/book/'>book (1)</a></li><li><a href='/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/blog/categories/database/'>database (3)</a></li><li><a href='/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/blog/categories/google/'>google (1)</a></li><li><a href='/blog/categories/graph/'>graph (1)</a></li><li><a href='/blog/categories/gtg/'>gtg (1)</a></li><li><a href='/blog/categories/java/'>java (4)</a></li><li><a href='/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/blog/categories/network/'>network (2)</a></li><li><a href='/blog/categories/os/'>os (2)</a></li><li><a href='/blog/categories/python/'>python (2)</a></li><li><a href='/blog/categories/questions/'>questions (8)</a></li><li><a href='/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/blog/categories/sql/'>sql (3)</a></li><li><a href='/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/blog/categories/testing/'>testing (9)</a></li><li><a href='/blog/categories/todo/'>todo (2)</a></li><li><a href='/blog/categories/tutorial/'>tutorial (8)</a></li><li><a href='/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (7)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (1)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (1)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (4)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (2)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (8)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (8)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 
