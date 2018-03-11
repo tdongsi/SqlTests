@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-03-10T01:01:25-08:00</updated>
+  <updated>2018-03-10T20:14:48-08:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,6 +12,118 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Graph Data Structures & Algorithms]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/05/01/graph-algorithms/"/>
+    <updated>2016-05-01T03:12:53-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/05/01/graph-algorithms</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+<!--more-->
+
+
+<h3>Graph traversals</h3>
+
+<h4>BFS</h4>
+
+<pre><code class="python Book version">def BFS(g:Graph, s:Vertex, discovered):
+    """ BFS traversal of the undiscovered portion of Graph g starting at vertex s.
+
+    :param g: give Graph
+    :param s: starting Vertex
+    :param discovered: Mapping each vertex to the edge used to discover it.
+    :return:
+    """
+    level = [s]
+
+    while len(level) &gt; 0:
+        next_level = []
+        for v in level:
+            for e in g.incident_edges(v):
+                u = e.opposite(v)
+                if u not in discovered:
+                    discovered[u] = e
+                    next_level.append(u)
+
+        level = next_level
+</code></pre>
+
+<h3>Transitive Closure</h3>
+
+<p>Background: If the graph representation is adjacency list or adjacency map, we can answer the question of reachability for any u and v in <code>O(n+m)</code> (where <code>n</code> is the number of nodes, <code>m</code> is the number of edges).
+However, if you have to answer <strong>many</strong> reachability queries (e.g., navigation application), it is better to construct a transitive closure for that graph.</p>
+
+<p>A transitive closure <code>G'</code> is for a directed graph <code>G</code>: any u and v that are reachable, there is an edge (u, v) in <code>G’</code>.</p>
+
+<p>In the classic adjacency list or adjacency map representation, transitive closure can be constructed in <code>O(n(n+m))</code> by repeating DFS at each vertex.
+However, when the graph is dense (m -> n<sup>2</sup>), you is better off with Floyd-Warshall algorithm <code>O(n^3)</code> using <strong>adjacency matrix</strong> representation.
+Floyd-Warshall requires get_edge and insert_edge to be done in <code>O(1)</code> time, which necessitates adjacency matrix requirements.</p>
+
+<p>In theory, <code>O(n^3)</code> is not better than repeated DFS traversals <code>O(n(n+m))</code>.
+However, in practice, Floyd-Warshall is faster and easier to implement because there are fewer low-level operations.
+However, when the graph is sparse, repeated DFS traversal approach is better in time and space complexity.</p>
+
+<pre><code class="python Floyd-Warshall implementation">def floyd_warshall(g:Graph) -&gt; Graph:
+    """ Return a new graph that is the transite closure of g.
+
+    :param g: input graph
+    :return: the transitive closure of g.
+    """
+    closure = deepcopy(g)
+    verts = list(closure.vertices())
+    n = len(verts)
+
+    for k in range(n):
+        for i in range(n):
+            # verify that edge(i, k) exists in the partial closure
+            if i != k and closure.get_edge(verts[i], verts[k]) is not None:
+                for j in range(n):
+                    # verify that edge(k, j) exists in the partial closure
+                    if i != j != k and closure.get_edge(verts[k], verts[j]) is not None:
+                        if closure.get_edge(verts[i], verts[j]) is None:
+                            # if (i, j) not yet included, add it to the closure
+                            closure.insert_edge(verts[i], verts[j])
+
+    return closure
+</code></pre>
+
+<h3>DAG and topological sorting.</h3>
+
+<p>A directed graph may have more than one topological ordering.</p>
+
+<blockquote><p><strong>Proposition</strong>: A directed graph has a topological sorting if and only if it is acyclic.</p></blockquote>
+
+<pre><code class="python Topological sorting">def topological_sort(g: Graph) -&gt; list:
+    """ Return a list of vertices of DAG in topological order
+
+    :param g: a directed acyclic graph (DAG)
+    :return: list of topological sort
+    """
+    topo = []
+    ready = []
+    incount = {}
+
+    for u in g.vertices():
+        incount[u] = g.degree(u, False)
+        if incount[u] == 0:
+            # u is free of constraints
+            ready.append(u)
+
+    while len(ready) &gt; 0:
+        u = ready.pop()
+        topo.append(u)
+
+        for e in g.incident_edges(u):
+            v = e.opposite(u)
+            incount[v] -= 1
+            if incount[v] == 0:
+                ready.append(v)
+
+    return topo
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[NP-complete Problems]]></title>
@@ -32,6 +144,8 @@
 <li>NP-complete: intersection between NP-hard and NP.</li>
 </ul>
 
+
+<p><img src="/images/algorithms/NP.png" width="480" height="300"></p>
 
 <h3>Common NP-complete problems</h3>
 
@@ -185,6 +299,81 @@ As mentioned above, it means that the complexity is actually exponential.</p>
 
     return check[n][total]
 </code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dynamic Programming]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/02/11/dynamic-programming/"/>
+    <updated>2016-02-11T02:12:32-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/02/11/dynamic-programming</id>
+    <content type="html"><![CDATA[<p>Classic problems using Dynamic Programming.</p>
+
+<!--more-->
+
+
+<h3><a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem">Longest Common Subsequence</a></h3>
+
+<p>The longest common subsequence problem is a classic computer science problem, the basis of data comparison programs such as the diff utility, and has applications in bioinformatics.
+It is also widely used by revision control systems such as Git for reconciling multiple changes made to a revision-controlled collection of files.</p>
+
+<p>The solution to this problem can be divided into two parts:</p>
+
+<ul>
+<li>A DP solution to find the <strong>length</strong> of the longest common subsequence by constructing a 2D matrix.</li>
+<li>Tracing that constructed matrix to find the common subsequence.</li>
+</ul>
+
+
+<pre><code class="python">def longest_common_subsequence(str1:str, str2:str) -&gt; str:
+    if not str1 or not str2:
+        return 0
+
+    m = len(str1)
+    n = len(str2)
+    mtable = [[0]*(n+1) for _ in range(m+1)]
+
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if str1[i-1] == str2[j-1]:
+                mtable[i][j] = 1 + mtable[i-1][j-1]
+            else:
+                mtable[i][j] = max(mtable[i-1][j], mtable[i][j-1])
+
+    # return mtable[m][n]
+    # We have longest_common_subsequence_length at this point
+
+    subsequence = [""] * mtable[m][n]
+    idx = mtable[m][n] - 1
+
+    i = m
+    j = n
+    while i &gt; 0 and j &gt; 0:
+        if str1[i-1] == str2[j-1]:
+            # if character matches, add to the array
+            subsequence[idx] = str2[j - 1]
+            i -= 1
+            j -= 1
+            idx -= 1
+        else:
+            # else, follow the larger number
+            if mtable[i-1][j] &gt; mtable[i][j-1]:
+                i -= 1
+            else:
+                j -= 1
+
+    return "".join(subsequence)
+</code></pre>
+
+<p>Some optimization pointers:</p>
+
+<ul>
+<li>The matrix in the naive algorithm grows quadratically with the lengths of the sequences.
+In most real-world cases, especially source code diffs and patches, the beginnings and ends of files rarely change.
+In that case, we can do preprocessing to remove the unchanged portions.</li>
+<li>If only the length of the LCS is required, the matrix can be reduced to a <code>2*min(n,m)</code> matrix with ease, or to a <code>min(m,n)+1</code> vector as the DP approach only needs the current and previous columns of the matrix.</li>
+</ul>
+
 ]]></content>
   </entry>
   
@@ -481,228 +670,6 @@ printf( "data.str[0]: %d\n", data.str[0]);
 
 <p>Or use <a href="https://linux.die.net/man/3/htonl"><code>htonl</code></a> function (Host TO Network Long) in Linux.
 If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Book: Introduction to Algorithm]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/01/book-introduction-to-algorithm/"/>
-    <updated>2012-02-01T18:52:05-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/01/book-introduction-to-algorithm</id>
-    <content type="html"><![CDATA[<p>Summary of CLRS, a classic. This book is more like a reference book than a textbok.</p>
-
-<!--more-->
-
-
-<p>Download:</p>
-
-<ul>
-<li><a href="https://github.com/haseebr/competitive-programming/tree/master/Materials">PDF</a></li>
-<li><a href="http://sites.math.rutgers.edu/~ajl213/CLRS/CLRS.html">Solutions</a></li>
-</ul>
-
-
-<h3>Order of Learning</h3>
-
-<ul>
-<li>Part 1: Foundations
-
-<ul>
-<li>Appendices A - C</li>
-<li>Chapter 1: Algorithm Role</li>
-<li>Chapter 2: Runtime notation</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>Appendix A</h3>
-
-<p>Appendix A.1.</p>
-
-<ul>
-<li>Arithmetic series. Formulas for k = 1-3.</li>
-<li>Geometric series. Formula for k = infi.</li>
-<li>Harmonic series. Bound.</li>
-<li>Example of Integrating and Differentiation.</li>
-<li>Telescoping series. Formula.</li>
-</ul>
-
-
-<p>Appendix A.2: Different techniques for bounding summations.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Checklist of Topics]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/06/checklist-of-topics/"/>
-    <updated>2011-01-06T13:24:37-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2011/01/06/checklist-of-topics</id>
-    <content type="html"><![CDATA[<p>Don&rsquo;t study way more topics than you needed to. Based on <a href="https://web.archive.org/web/20170308043103/https://googleyasheck.com/what-you-need-to-know-for-your-google-interview-and-what-you-dont/">this article</a> from the same one who created <a href="/blog/2011/01/05/exhaustive-syllabus/">this syllabus</a>.</p>
-
-<!--more-->
-
-
-<p>Legends:</p>
-
-<ul>
-<li>GTG: Data Structures and Algorithms in Python</li>
-<li></li>
-</ul>
-
-
-<h3>Essential</h3>
-
-<ul>
-<li>complexity/space analysis</li>
-<li>bitwise operations</li>
-<li>linked lists</li>
-<li>stacks</li>
-<li>queues/deques</li>
-<li>arrays/vectors</li>
-<li>hash tables (maps)</li>
-<li>sets</li>
-<li>binary search</li>
-<li>sorting
-
-<ul>
-<li>selection</li>
-<li>insertion</li>
-<li>heapsort</li>
-<li>quicksort</li>
-<li>merge sort</li>
-</ul>
-</li>
-<li>priority queues</li>
-<li>binary heap</li>
-<li>trees
-
-<ul>
-<li>binary search trees</li>
-<li>balanced search trees (general concept)</li>
-<li>traversals: preorder, inorder, postorder, BFS, DFS</li>
-</ul>
-</li>
-<li>Graphs (GTG-14.1, 14.2)
-
-<ul>
-<li>directed</li>
-<li>undirected</li>
-<li>adjacency matrix</li>
-<li>adjacency list</li>
-<li>adjacency map</li>
-<li>edge list</li>
-</ul>
-</li>
-<li>dynamic programming</li>
-<li>probability</li>
-<li>permutations and combinations</li>
-<li>object-oriented programming</li>
-<li>processes/threading
-
-<ul>
-<li>memory</li>
-<li>caching</li>
-<li>deadlock avoidance</li>
-<li>scheduling</li>
-</ul>
-</li>
-<li>testing practices (1+ year experience)</li>
-</ul>
-
-
-<p>Experienced hire:</p>
-
-<ul>
-<li>network stack / OSI</li>
-<li>scaling large systems</li>
-<li>designing for scale</li>
-<li>Design patterns</li>
-</ul>
-
-
-<h3>Advanced:</h3>
-
-<p>These algorithm topics will help you better in competitive programming (e.g., Google CodeJam).</p>
-
-<ul>
-<li>Dijkstra - single-source shortest paths (GTG 14.6)</li>
-<li>Bellman-Ford - single-source shortest paths, allowing negative weight edges</li>
-<li>Floyd-Warshall - all-pairs shortest paths</li>
-<li>Ford-Fulkerson - maximum flow</li>
-<li>Linear-time sorts:
-
-<ul>
-<li>radix sort</li>
-<li>bucket sort</li>
-<li>counting sort</li>
-</ul>
-</li>
-<li>pattern/substring matching: (GTG 13.2)
-
-<ul>
-<li>Rabin-Karp</li>
-<li>Boyer-Moore (Horspool)</li>
-<li>Knuth-Morris-Pratt</li>
-<li>suffix trees</li>
-<li>suffix arrays</li>
-<li>tries</li>
-</ul>
-</li>
-<li>union-find / disjoint sets</li>
-</ul>
-
-
-<h3>Not needed:</h3>
-
-<p>You only need to know the basic concepts.</p>
-
-<ul>
-<li>Minimum spanning tree (GTG-14.7)
-
-<ul>
-<li>Prim-Jarnik</li>
-<li>Kruskal</li>
-</ul>
-</li>
-<li>geometric algorithms
-
-<ul>
-<li>convex hull</li>
-<li>positional/overlap/horizons</li>
-</ul>
-</li>
-<li>backtracking</li>
-<li>Selection (k smallest items, etc)</li>
-<li>Other types of trees:
-
-<ul>
-<li>(a,b) trees, k-ary trees (example: (2,4)-trees)</li>
-<li>B-trees</li>
-<li>k-D trees</li>
-</ul>
-</li>
-<li>balanced search trees (details such as rotations)
-
-<ul>
-<li>red-black trees</li>
-<li>AVL</li>
-<li>splay trees</li>
-</ul>
-</li>
-<li>data compression, information theory</li>
-<li>linear programming</li>
-<li>garbage collection</li>
-<li>cryptography</li>
-<li>skip lists</li>
-<li>van Emde Boas trees</li>
-<li>treap</li>
-<li>multisets</li>
-<li>multimaps</li>
-<li>fast Fourier transform</li>
-<li>Bloom filter</li>
-</ul>
-
 ]]></content>
   </entry>
   

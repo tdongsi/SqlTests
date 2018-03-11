@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Book | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/book/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2018-03-10T20:14:48-08:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Graph Data Structures & Algorithms]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/05/01/graph-algorithms/"/>
+    <updated>2016-05-01T03:12:53-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/05/01/graph-algorithms</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+<!--more-->
+
+
+<h3>Graph traversals</h3>
+
+<h4>BFS</h4>
+
+<pre><code class="python Book version">def BFS(g:Graph, s:Vertex, discovered):
+    """ BFS traversal of the undiscovered portion of Graph g starting at vertex s.
+
+    :param g: give Graph
+    :param s: starting Vertex
+    :param discovered: Mapping each vertex to the edge used to discover it.
+    :return:
+    """
+    level = [s]
+
+    while len(level) &gt; 0:
+        next_level = []
+        for v in level:
+            for e in g.incident_edges(v):
+                u = e.opposite(v)
+                if u not in discovered:
+                    discovered[u] = e
+                    next_level.append(u)
+
+        level = next_level
+</code></pre>
+
+<h3>Transitive Closure</h3>
+
+<p>Background: If the graph representation is adjacency list or adjacency map, we can answer the question of reachability for any u and v in <code>O(n+m)</code> (where <code>n</code> is the number of nodes, <code>m</code> is the number of edges).
+However, if you have to answer <strong>many</strong> reachability queries (e.g., navigation application), it is better to construct a transitive closure for that graph.</p>
+
+<p>A transitive closure <code>G'</code> is for a directed graph <code>G</code>: any u and v that are reachable, there is an edge (u, v) in <code>G’</code>.</p>
+
+<p>In the classic adjacency list or adjacency map representation, transitive closure can be constructed in <code>O(n(n+m))</code> by repeating DFS at each vertex.
+However, when the graph is dense (m -> n<sup>2</sup>), you is better off with Floyd-Warshall algorithm <code>O(n^3)</code> using <strong>adjacency matrix</strong> representation.
+Floyd-Warshall requires get_edge and insert_edge to be done in <code>O(1)</code> time, which necessitates adjacency matrix requirements.</p>
+
+<p>In theory, <code>O(n^3)</code> is not better than repeated DFS traversals <code>O(n(n+m))</code>.
+However, in practice, Floyd-Warshall is faster and easier to implement because there are fewer low-level operations.
+However, when the graph is sparse, repeated DFS traversal approach is better in time and space complexity.</p>
+
+<pre><code class="python Floyd-Warshall implementation">def floyd_warshall(g:Graph) -&gt; Graph:
+    """ Return a new graph that is the transite closure of g.
+
+    :param g: input graph
+    :return: the transitive closure of g.
+    """
+    closure = deepcopy(g)
+    verts = list(closure.vertices())
+    n = len(verts)
+
+    for k in range(n):
+        for i in range(n):
+            # verify that edge(i, k) exists in the partial closure
+            if i != k and closure.get_edge(verts[i], verts[k]) is not None:
+                for j in range(n):
+                    # verify that edge(k, j) exists in the partial closure
+                    if i != j != k and closure.get_edge(verts[k], verts[j]) is not None:
+                        if closure.get_edge(verts[i], verts[j]) is None:
+                            # if (i, j) not yet included, add it to the closure
+                            closure.insert_edge(verts[i], verts[j])
+
+    return closure
+</code></pre>
+
+<h3>DAG and topological sorting.</h3>
+
+<p>A directed graph may have more than one topological ordering.</p>
+
+<blockquote><p><strong>Proposition</strong>: A directed graph has a topological sorting if and only if it is acyclic.</p></blockquote>
+
+<pre><code class="python Topological sorting">def topological_sort(g: Graph) -&gt; list:
+    """ Return a list of vertices of DAG in topological order
+
+    :param g: a directed acyclic graph (DAG)
+    :return: list of topological sort
+    """
+    topo = []
+    ready = []
+    incount = {}
+
+    for u in g.vertices():
+        incount[u] = g.degree(u, False)
+        if incount[u] == 0:
+            # u is free of constraints
+            ready.append(u)
+
+    while len(ready) &gt; 0:
+        u = ready.pop()
+        topo.append(u)
+
+        for e in g.incident_edges(u):
+            v = e.opposite(u)
+            incount[v] -= 1
+            if incount[v] == 0:
+                ready.append(v)
+
+    return topo
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
