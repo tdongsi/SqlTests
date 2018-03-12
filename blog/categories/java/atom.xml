@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-03-10T22:07:47-08:00</updated>
+  <updated>2018-03-11T19:19:08-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -388,6 +388,143 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
 
 <ul>
 <li><a href="/download/Java_Concurrency.pdf">Java Concurrency</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Classic Interview Questions]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/01/21/classic-interview-questions/"/>
+    <updated>2016-01-21T15:18:42-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/01/21/classic-interview-questions</id>
+    <content type="html"><![CDATA[<p>There are reasons that these interview questions are just popular.</p>
+
+<!--more-->
+
+
+<h3>Singleton design pattern</h3>
+
+<p>This question seems to be common because it shows that if a candidate knows “design pattern”, best practices, concurrency (<code>synchronized</code>, <code>volatile</code> keywords), and <code>enum</code> (newer, less common Java features).
+It also involves lazy initialization and performance, leaving opportunities to drill further.</p>
+
+<h4>Standard Singleton</h4>
+
+<p>According to &ldquo;Effective Java&rdquo; book, the best way to implement Singleton is to use single-item <code>enum</code>.</p>
+
+<pre><code class="java Singeton with example attribute, constructor, and method.">enum OnlyOneOfMe {
+    SINGLETON("King");
+
+    private String title;
+
+    OnlyOneOfMe(String title) {
+        this.title = title;
+    }
+
+    public String sayHello() {
+        return "Hello";
+    }
+}
+</code></pre>
+
+<p>Interviewers while appreciating that you know <code>enum</code> and best practices, they won&rsquo;t let you go easily.
+They will ask how it is implemented under the hood or using the older version.
+Then, you should provide the standard idiom with lazy initialization and private constructor.</p>
+
+<pre><code class="java Singleton with private constructor">public class OnlyOneOfMe {
+    private static OnlyOneOfMe singleton = null;
+
+    private OnlyOneOfMe() {
+        // init code
+    }
+
+    public static OnlyOneOfMe getSingleton() {
+        if (singleton == null) {
+            singleton = new OnlyOneOfMe();
+        }
+        return singleton;
+    }
+}
+</code></pre>
+
+<p>The common follow-up question is to ask whether if it is thread-safe.
+You should be able to point out that since there are write operations on <code>singleton</code> variable, it is not thread-safe if many threads call <code>getSingleton</code> method.
+To make it thread-safe (the next question), the simple fix is to add <code>synchronized</code> keyword to the function.</p>
+
+<pre><code class="java">public synchronized static OnlyOneOfMe getSingleton() {
+    ...
+}
+</code></pre>
+
+<p>If you come this far, the next question is whether it is fast.
+You should be able to point out that since there are locking at &ldquo;getSingleton&rdquo; method, it will be a bottleneck when many threads want to get the singleton instance.
+The next subsection will address the best ways to do lazy initialization for performance.
+However, it is shown here for completeness.</p>
+
+<pre><code class="java Lazy initialization for performance">public class OnlyOneOfMe {
+    private static class SingletonHolder {
+        static final OnlyOneOfMe singleton = new OnlyOneOfMe();
+    }
+
+    private OnlyOneOfMe() {
+        // init code
+    }
+
+    public static OnlyOneOfMe getSingleton() {
+        return SingletonHolder.singleton;
+    }
+}
+</code></pre>
+
+<h4>Lazy initialization and Performance</h4>
+
+<p>According to <a href="http://www.oracle.com/technetwork/articles/javase/bloch-effective-08-qa-140880.html">Bloch (&ldquo;Effective Java&rdquo; author)</a>, the single most important piece of advice is &ldquo;Don&rsquo;t do it unless you need to.&rdquo; The great majority of your initialization code should look like this:</p>
+
+<pre><code class="java">// Normal initialization, not lazy!
+private final FieldType field = computeFieldValue();
+</code></pre>
+
+<p>If you need lazy initialization for correctness &ndash; but not for performance &ndash; just use a <code>synchronized</code> accessor. It&rsquo;s simple and clearly correct.</p>
+
+<p>If you need better performance, your best choice depends on whether you&rsquo;re initializing a static field or an instance field. If it&rsquo;s a static field, use the lazy initialization holder class idiom:</p>
+
+<pre><code class="java Singleton static field.">// Lazy initialization holder class idiom for static fields
+private static class FieldHolder {
+     static final FieldType field = computeFieldValue();
+}
+static FieldType getField() { return FieldHolder.field; }
+</code></pre>
+
+<p>This idiom is almost magical. There&rsquo;s synchronization going on, but it&rsquo;s invisible.
+The Java Runtime Environment does it for you, behind the scenes.
+And many VMs actually patch the code to eliminate the synchronization once it&rsquo;s no longer necessary, so this idiom is extremely fast.</p>
+
+<p>If you need high-performance lazy initializing of an instance field, use the double-check idiom with a volatile field.
+This idiom wasn&rsquo;t guaranteed to work until release 5.0, when the platform got a new memory model.
+The idiom is very fast but also complicated and delicate, so don&rsquo;t be tempted to modify it in any way.
+Just copy and paste &ndash; normally not a good idea, but appropriate here:</p>
+
+<pre><code class="java Double-check idiom for Singleton instance fields.">// Double-check idiom for lazy initialization of instance fields.
+private volatile FieldType field;
+FieldType getField() {
+    FieldType result = field;
+    if (result == null) { // First check (no locking)
+        synchronized(this) {
+            result = field;
+            if (result == null) // Second check (with locking)
+                field = result = computeFieldValue();
+        }
+    }
+    return result;
+}
+</code></pre>
+
+<h4>References</h4>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Double-checked_locking#Usage_in_Java">Double-checked locking</a></li>
+<li><a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html">Analysis of idiom before Java 1.5</a></li>
+<li><a href="http://www.oracle.com/technetwork/articles/javase/bloch-effective-08-qa-140880.html">Bloch&rsquo;s interview</a></li>
 </ul>
 
 ]]></content>
