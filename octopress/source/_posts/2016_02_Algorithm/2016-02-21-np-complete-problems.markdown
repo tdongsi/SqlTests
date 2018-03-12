@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "NP-complete problems"
-date: 2016-02-21 23:26:20 -0800
+date: 2012-02-21 23:26:20 -0800
 comments: true
 categories: 
 - Algorithm

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Classic interview questions"
-date: 2016-01-21 16:18:42 -0700
+date: 2011-01-21 16:18:42 -0700
 comments: true
 categories: 
 - Java

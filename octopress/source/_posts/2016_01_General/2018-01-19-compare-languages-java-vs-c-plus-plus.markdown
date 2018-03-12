@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Compare languages: Java vs. C++"
-date: 2016-01-11 10:11:40 -0800
+date: 2011-01-11 10:11:40 -0800
 comments: true
 categories: 
 - Java

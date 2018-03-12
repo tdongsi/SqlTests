@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Dynamic Programming"
-date: 2016-02-11 02:12:32 -0800
+date: 2012-02-11 02:12:32 -0800
 comments: true
 categories: 
 - Algorithm
