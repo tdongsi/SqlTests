@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Graph Data Structures & Algorithms"
+title: "Graph Data Algorithms"
 date: 2015-05-01 02:12:53 -0800
 comments: true
 categories: 
