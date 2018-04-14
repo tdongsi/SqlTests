@@ -4,6 +4,7 @@ title: "Design Patterns: Behavioral"
 date: 2017-07-12 21:28:57 -0800
 comments: true
 categories: 
+- Design
 ---
 
 They are:

@@ -4,6 +4,7 @@ title: "Design Patterns: Structural"
 date: 2017-07-13 21:28:46 -0800
 comments: true
 categories: 
+- Design
 ---
 
 In [summary](https://en.wikipedia.org/wiki/Facade_pattern#Usage):
