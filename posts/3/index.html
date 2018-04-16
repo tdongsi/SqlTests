@@ -9,7 +9,7 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="From &ldquo;Operating System concepts&rdquo; book. ">
+  <meta name="description" content="Collection of advices on Blind Just make sure you study consistent hashing and understand it well, almost every system design interview I&rsquo;ve &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,86 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2017/02/01/system-design-distributed-system/">System Design: Distributed System</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-02-01T21:49:54-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>9:49 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Collection of advices on Blind</h3>
+
+<p>Just make sure you study consistent hashing and understand it well, almost every system design interview I&rsquo;ve had boiled down to applying it (Airbnb, FB, and Google twice).</p>
+
+<p>Theory : Understand basic things like CAP, PAXOS, Blockchain, LSM/B-Tree, two phase commit.</p>
+
+<p>Implement: Consistent hashing (I observed more than one candidate that didn’t really understand what it is - it is not complicated. Code it up, you will get it)</p>
+
+<p>Read : Existing designs/research - Zookeeper, Haystack , Cassandra, MapReduce, HDFS/Hadoop, Spanner (too many to list)</p>
+
+<p>Scale : Practice analyzing bottlenecks in all the systems above. Throughput/Storage/Number of Items/something else? Network/memory/cpu/IOPS/&hellip;/$$</p>
+
+<p>Like in real projects, understand requirements - ask questions and/or state assumptions you are making. Do not BS - no need to take any risk here, just ask for help when you need it.</p>
+
+<p>Good luck on your job hunt - leetcode might not be sufficient for senior backend roles anymore.</p>
+
+<h3>Topics</h3>
+
+<ul>
+<li>General training:
+
+<ul>
+<li><a href="https://www.safaribooksonline.com/library/view/distributed-systems-in/9781491924914/">Safari course</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>Basic topics in distributed system (based on the above Safari course):</p>
+
+<ul>
+<li>Storage: Relational/MongoDB, Cassandra, HDFS</li>
+<li>Computation: Hadoop, Storm, Spark</li>
+<li>Sync: NTP, vector clocks</li>
+<li>Consensus: Paxos, Zookeeper</li>
+<li>Messaging: Kafka</li>
+</ul>
+
+
+<h4>Consistent Hashing</h4>
+
+<ul>
+<li><a href="https://www.toptal.com/big-data/consistent-hashing">https://www.toptal.com/big-data/consistent-hashing</a></li>
+<li><a href="http://michaelnielsen.org/blog/consistent-hashing/">http://michaelnielsen.org/blog/consistent-hashing/</a>
+
+<ul>
+<li><a href="http://michaelnielsen.org/blog/a-number-theoretic-approach-to-consistent-hashing/">http://michaelnielsen.org/blog/a-number-theoretic-approach-to-consistent-hashing/</a></li>
+</ul>
+</li>
+<li></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -142,7 +222,7 @@ Topics in this chapter are the most intensive and frequently asked during interv
       
   <header>
     
-      <h1 class="entry-title"><a href="/SqlTests/blog/2015/05/01/graph-algorithms/">Graph Data Structures & Algorithms</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2015/05/01/graph-algorithms/">Graph Data Algorithms</a></h1>
     
     
       <p class="meta">
@@ -165,6 +245,74 @@ Topics in this chapter are the most intensive and frequently asked during interv
   
     <footer>
       <a rel="full-article" href="/SqlTests/blog/2015/05/01/graph-algorithms/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2015/04/11/network-flow-basics/">Network Flow: Basics</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-04-11T18:51:41-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:51 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Summary of chapter 7 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2015/04/11/network-flow-basics/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/SqlTests/blog/2015/04/10/graph-data-structures/">Graph Data Structures</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-04-10T10:54:59-07:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:54 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/SqlTests/blog/2015/04/10/graph-data-structures/">Read on &rarr;</a>
     </footer>
   
 
@@ -317,109 +465,6 @@ Topics in this chapter are the most intensive and frequently asked during interv
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/SqlTests/blog/2012/02/01/book-introduction-to-algorithm/">Book: Introduction to Algorithm</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-02-01T18:52:05-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>6:52 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Summary of CLRS, a classic. This book is more like a reference book than a textbok.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/SqlTests/blog/2012/02/01/book-introduction-to-algorithm/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/SqlTests/blog/2011/01/21/classic-interview-questions/">Classic Interview Questions</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-01-21T15:18:42-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>3:18 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>There are reasons that these interview questions are just popular.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/SqlTests/blog/2011/01/21/classic-interview-questions/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/SqlTests/blog/2011/01/11/compare-languages-java-vs-c-plus-plus/">Compare Languages: Java vs. C++</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-01-11T10:11:40-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>10:11 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>How to answer the question &ldquo;What is the difference between Java and C++?&rdquo;.
-Knowing the subtle difference between similar languages shows mastery of both.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/SqlTests/blog/2011/01/11/compare-languages-java-vs-c-plus-plus/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/SqlTests/posts/4">&larr; Older</a>
@@ -484,7 +529,7 @@ Knowing the subtle difference between similar languages shows mastery of both.</
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (7)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (1)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (1)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (1)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (2)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (8)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/ad/'>ad (1)</a></li><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (11)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (3)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (2)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (2)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Book | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/book/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-03-11T19:30:16-07:00</updated>
+  <updated>2018-04-16T10:46:51-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Graph Data Structures & Algorithms]]></title>
+    <title type="html"><![CDATA[Graph Data Algorithms]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2015/05/01/graph-algorithms/"/>
     <updated>2015-05-01T03:12:53-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2015/05/01/graph-algorithms</id>
@@ -274,6 +274,150 @@ Because of using the same data structure, you can reuse the method <code>constru
 [Vertex: DFW]
 [Vertex: LAX]
 </code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Network Flow: Basics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics/"/>
+    <updated>2015-04-11T18:51:41-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 7 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+<!--more-->
+
+
+<h3>Network Flow Basics</h3>
+
+<p>Augmenting Path</p>
+
+<p><code>plain Augment pseudocode
+</code></p>
+
+<p>Ford-Fulkerson method</p>
+
+<pre><code class="plain Ford-Fulkerson pseudocode"></code></pre>
+
+<p>If all capacities in the flow network G are integers, then the Ford-Fulkerson method runs in O(mC) time.</p>
+
+<h3>Capacity-Scaling Algorithm</h3>
+
+<p>Algorithm</p>
+
+<p>Runtime</p>
+
+<h3>Edmonds-Karp Algorithm</h3>
+
+<pre><code class="python Edmonds-Karp variant of Ford-Fulkerson method">def edmonds_karp(g: Graph, source: Vertex, sink: Vertex):
+    """ Edmonds-Karp implementation of Ford-Fulkerson method.
+    If you have an original network flow, you should create a deep copy of it AND retrieve the right source/sink vertcies.
+
+    :param g: residual graph
+    :param source: source Vertex
+    :param sink: sink Vertex
+    :return: maximum flow
+    """
+
+    def BFS_augment_path(g, s, t):
+        """ Find BFS path from s to t in network flow graph.
+
+        :param s: source
+        :param t: sink
+        :return: list of edges from s to t. Empty if there is no path.
+        """
+        discovered = BFS_iter(g, s)
+        vertices = construct_path(s, t, discovered)
+        edges = []
+
+        if vertices:
+            for i in range(len(vertices)-1):
+                edges.append(g.get_edge(vertices[i], vertices[i+1]))
+
+        return edges
+
+    max_flow = 0
+    path = BFS_augment_path(g, source, sink)
+
+    while path:
+
+        path_flow = min([e.element() for e in path])
+        max_flow += path_flow
+
+        for e in path:
+            u, v = e.endpoints()
+
+            # Update forward residual edge
+            cur = e.element()
+            if cur - path_flow == 0:
+                g.delete_edge(u, v)
+            else:
+                e.set_element(cur - path_flow)
+
+            # Update backward residual edge
+            if g.get_edge(v, u) is None:
+                g.insert_edge(v, u, path_flow)
+            else:
+                reverse_edge = g.get_edge(v, u)
+                cur = reverse_edge.element()
+                reverse_edge.set_element(cur + path_flow)
+
+        path = BFS_augment_path(g, source, sink)
+
+    return max_flow
+</code></pre>
+
+<h3>Blocking-Flow Algorithm</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Graph Data Structures]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/10/graph-data-structures/"/>
+    <updated>2015-04-10T10:54:59-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2015/04/10/graph-data-structures</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+<!--more-->
+
+
+<h3>Vertices and Edges</h3>
+
+<p>TODO</p>
+
+<h3>Graph</h3>
+
+<p>TODO</p>
+
+<pre><code class="python Graph">class Graph():
+
+    def __init__(self, directed=False):
+        self._directed = directed
+        self._outgoing = {}
+        self._incoming = {} if directed else self._outgoing
+
+    def is_directed(self):
+        return self._directed
+
+    def vertex_count(self):
+        return len(self._outgoing)
+
+    def vertices(self):
+        return self._outgoing.keys()
+
+    def edge_count(self):
+        total = sum([len(e) for e in self._outgoing.values()])
+        return total if self.is_directed() else total//2
+
+    def edges(self):
+        out = set()
+        for e in self._outgoing.values():
+            out.update(e.values())
+        return out
+</code></pre>
+
+<h3>Modifications for Network Flows</h3>
+
+<p>TODO</p>
 ]]></content>
   </entry>
   

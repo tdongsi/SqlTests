@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ad | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/ad/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2018-04-16T10:46:51-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Network Flow: Basics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics/"/>
+    <updated>2015-04-11T18:51:41-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 7 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+<!--more-->
+
+
+<h3>Network Flow Basics</h3>
+
+<p>Augmenting Path</p>
+
+<p><code>plain Augment pseudocode
+</code></p>
+
+<p>Ford-Fulkerson method</p>
+
+<pre><code class="plain Ford-Fulkerson pseudocode"></code></pre>
+
+<p>If all capacities in the flow network G are integers, then the Ford-Fulkerson method runs in O(mC) time.</p>
+
+<h3>Capacity-Scaling Algorithm</h3>
+
+<p>Algorithm</p>
+
+<p>Runtime</p>
+
+<h3>Edmonds-Karp Algorithm</h3>
+
+<pre><code class="python Edmonds-Karp variant of Ford-Fulkerson method">def edmonds_karp(g: Graph, source: Vertex, sink: Vertex):
+    """ Edmonds-Karp implementation of Ford-Fulkerson method.
+    If you have an original network flow, you should create a deep copy of it AND retrieve the right source/sink vertcies.
+
+    :param g: residual graph
+    :param source: source Vertex
+    :param sink: sink Vertex
+    :return: maximum flow
+    """
+
+    def BFS_augment_path(g, s, t):
+        """ Find BFS path from s to t in network flow graph.
+
+        :param s: source
+        :param t: sink
+        :return: list of edges from s to t. Empty if there is no path.
+        """
+        discovered = BFS_iter(g, s)
+        vertices = construct_path(s, t, discovered)
+        edges = []
+
+        if vertices:
+            for i in range(len(vertices)-1):
+                edges.append(g.get_edge(vertices[i], vertices[i+1]))
+
+        return edges
+
+    max_flow = 0
+    path = BFS_augment_path(g, source, sink)
+
+    while path:
+
+        path_flow = min([e.element() for e in path])
+        max_flow += path_flow
+
+        for e in path:
+            u, v = e.endpoints()
+
+            # Update forward residual edge
+            cur = e.element()
+            if cur - path_flow == 0:
+                g.delete_edge(u, v)
+            else:
+                e.set_element(cur - path_flow)
+
+            # Update backward residual edge
+            if g.get_edge(v, u) is None:
+                g.insert_edge(v, u, path_flow)
+            else:
+                reverse_edge = g.get_edge(v, u)
+                cur = reverse_edge.element()
+                reverse_edge.set_element(cur + path_flow)
+
+        path = BFS_augment_path(g, source, sink)
+
+    return max_flow
+</code></pre>
+
+<h3>Blocking-Flow Algorithm</h3>
+]]></content>
+  </entry>
+  
+</feed>

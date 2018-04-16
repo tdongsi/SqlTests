@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-03-11T19:30:16-07:00</updated>
+  <updated>2018-04-16T10:46:51-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Graph Data Structures & Algorithms]]></title>
+    <title type="html"><![CDATA[Graph Data Algorithms]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2015/05/01/graph-algorithms/"/>
     <updated>2015-05-01T03:12:53-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2015/05/01/graph-algorithms</id>
@@ -274,6 +274,150 @@ Because of using the same data structure, you can reuse the method <code>constru
 [Vertex: DFW]
 [Vertex: LAX]
 </code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Network Flow: Basics]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics/"/>
+    <updated>2015-04-11T18:51:41-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 7 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+<!--more-->
+
+
+<h3>Network Flow Basics</h3>
+
+<p>Augmenting Path</p>
+
+<p><code>plain Augment pseudocode
+</code></p>
+
+<p>Ford-Fulkerson method</p>
+
+<pre><code class="plain Ford-Fulkerson pseudocode"></code></pre>
+
+<p>If all capacities in the flow network G are integers, then the Ford-Fulkerson method runs in O(mC) time.</p>
+
+<h3>Capacity-Scaling Algorithm</h3>
+
+<p>Algorithm</p>
+
+<p>Runtime</p>
+
+<h3>Edmonds-Karp Algorithm</h3>
+
+<pre><code class="python Edmonds-Karp variant of Ford-Fulkerson method">def edmonds_karp(g: Graph, source: Vertex, sink: Vertex):
+    """ Edmonds-Karp implementation of Ford-Fulkerson method.
+    If you have an original network flow, you should create a deep copy of it AND retrieve the right source/sink vertcies.
+
+    :param g: residual graph
+    :param source: source Vertex
+    :param sink: sink Vertex
+    :return: maximum flow
+    """
+
+    def BFS_augment_path(g, s, t):
+        """ Find BFS path from s to t in network flow graph.
+
+        :param s: source
+        :param t: sink
+        :return: list of edges from s to t. Empty if there is no path.
+        """
+        discovered = BFS_iter(g, s)
+        vertices = construct_path(s, t, discovered)
+        edges = []
+
+        if vertices:
+            for i in range(len(vertices)-1):
+                edges.append(g.get_edge(vertices[i], vertices[i+1]))
+
+        return edges
+
+    max_flow = 0
+    path = BFS_augment_path(g, source, sink)
+
+    while path:
+
+        path_flow = min([e.element() for e in path])
+        max_flow += path_flow
+
+        for e in path:
+            u, v = e.endpoints()
+
+            # Update forward residual edge
+            cur = e.element()
+            if cur - path_flow == 0:
+                g.delete_edge(u, v)
+            else:
+                e.set_element(cur - path_flow)
+
+            # Update backward residual edge
+            if g.get_edge(v, u) is None:
+                g.insert_edge(v, u, path_flow)
+            else:
+                reverse_edge = g.get_edge(v, u)
+                cur = reverse_edge.element()
+                reverse_edge.set_element(cur + path_flow)
+
+        path = BFS_augment_path(g, source, sink)
+
+    return max_flow
+</code></pre>
+
+<h3>Blocking-Flow Algorithm</h3>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Graph Data Structures]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/10/graph-data-structures/"/>
+    <updated>2015-04-10T10:54:59-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2015/04/10/graph-data-structures</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+<!--more-->
+
+
+<h3>Vertices and Edges</h3>
+
+<p>TODO</p>
+
+<h3>Graph</h3>
+
+<p>TODO</p>
+
+<pre><code class="python Graph">class Graph():
+
+    def __init__(self, directed=False):
+        self._directed = directed
+        self._outgoing = {}
+        self._incoming = {} if directed else self._outgoing
+
+    def is_directed(self):
+        return self._directed
+
+    def vertex_count(self):
+        return len(self._outgoing)
+
+    def vertices(self):
+        return self._outgoing.keys()
+
+    def edge_count(self):
+        total = sum([len(e) for e in self._outgoing.values()])
+        return total if self.is_directed() else total//2
+
+    def edges(self):
+        out = set()
+        for e in self._outgoing.values():
+            out.update(e.values())
+        return out
+</code></pre>
+
+<h3>Modifications for Network Flows</h3>
+
+<p>TODO</p>
 ]]></content>
   </entry>
   
@@ -570,258 +714,6 @@ printf( "data.str[0]: %d\n", data.str[0]);
 
 <p>Or use <a href="https://linux.die.net/man/3/htonl"><code>htonl</code></a> function (Host TO Network Long) in Linux.
 If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[NP-complete Problems]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/21/np-complete-problems/"/>
-    <updated>2012-02-21T23:26:20-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/21/np-complete-problems</id>
-    <content type="html"><![CDATA[<p>Summary of what you need to know about NP-complete problems.</p>
-
-<!--more-->
-
-
-<h3>Basic definitions</h3>
-
-<ul>
-<li>P</li>
-<li>NP</li>
-<li>NP-hard</li>
-<li>NP-complete: intersection between NP-hard and NP.</li>
-</ul>
-
-
-<p><img src="/images/algorithms/NP.png" width="480" height="300"></p>
-
-<h3>Common NP-complete problems</h3>
-
-<p>The most classic ones that you should know are <a href="https://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems">these NP-complete problems</a>:</p>
-
-<ul>
-<li><strong>[Satisfiability]</strong>: the boolean satisfiability problem for
-formulas in [conjunctive normal form] (often referred to as SAT)
-
-<ul>
-<li><strong>[0&ndash;1 integer programming]</strong> (A variation in which only the
-restrictions must be satisfied, with no optimization)</li>
-<li><strong>[Clique]</strong> (see also [independent set problem])
-
-<ul>
-<li><strong>[Set packing]</strong></li>
-<li><strong>[Vertex cover]</strong>
-
-<ul>
-<li><strong>[Set covering]</strong></li>
-<li><strong>[Feedback node set]</strong></li>
-<li><strong>[Feedback arc set]</strong></li>
-<li><strong>[Directed Hamilton cycle]</strong>
-
-<ul>
-<li><strong>[Undirected Hamilton cycle]</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>[Satisfiability with at most 3 literals per clause]</strong>
-(equivalent to 3-SAT)
-
-<ul>
-<li><strong>[Chromatic number]</strong> (also called the [Graph Coloring
-Problem])
-
-<ul>
-<li><strong>[Clique cover]</strong></li>
-<li><strong>[Exact cover]</strong>
-
-<ul>
-<li><strong>[Hitting set]</strong></li>
-<li><strong>[Steiner tree]</strong></li>
-<li><strong>[3-dimensional matching]</strong></li>
-<li><strong>[Knapsack]</strong> (Karp&rsquo;s definition of Knapsack is
-closer to [Subset sum])
-
-<ul>
-<li><strong>[Job sequencing]</strong></li>
-<li><strong>[Partition]</strong>
-
-<ul>
-<li><strong>[Max cut]</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<p>Their relations are discussed in the Karp&rsquo;s paper.</p>
-
-<h3>Other related concepts</h3>
-
-<p>Pseudo-polynomial solution: the complexity depends on the <em>value</em> of the input, instead of the <em>length</em> of the input.</p>
-
-<p>Difference between <em>value</em> and <em>length</em> of the input: an integer N has its <em>length</em> at <code>O(log(N))</code>, no matter what base it is using.
-Therefore, an algorithm that is polynomial to the <em>value</em> of the input is actually exponential to the size of the input.</p>
-
-<h3>Problems that I know</h3>
-
-<ul>
-<li>Satisfiability
-
-<ul>
-<li>0-1 integer programming</li>
-<li>Clique
-
-<ul>
-<li>Vertex cover
-
-<ul>
-<li>Set cover</li>
-<li>Directed Hamilton cycle
-
-<ul>
-<li>Undirected Hamilton cycle</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>3-SAT
-
-<ul>
-<li>Chromatic number / Graph Coloring Problem</li>
-<li>Exact cover
-
-<ul>
-<li>Knapsack / Subset sum</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h4>Subset sum</h4>
-
-<p>The <a href="https://en.wikipedia.org/wiki/Subset_sum_problem">Subset Sum problem</a> is this: given a set (or multiset) of integers, is there a non-empty subset whose sum is zero (or some value)?
-The problem is NP-complete, meaning roughly that while it is easy to confirm whether a proposed solution is valid, it may inherently be prohibitively difficult to determine in the first place whether any solution exists.</p>
-
-<p>The Dynamic Programming solution below runs in pseudo-polynomial time.
-As mentioned above, it means that the complexity is actually exponential.</p>
-
-<pre><code class="python">def subset_sum(values: list, total: int) -&gt; bool:
-    """ Given an array of non-negative numbers and a total, is there a way to add up those numbers to the total.
-
-    :param values: array of non-negative numbers
-    :param total: target total
-    :return: True if possible
-    """
-
-    n = len(values)
-    check = [[False] * (total+1) for _ in range(n+1)]
-
-    # if sum == 0, it is True no matter how many in the set
-    for i in range(n+1):
-        check[i][0] = True
-
-    for i in range(1, n+1):
-        for j in range(1, total+1):
-            if j &lt; values[i-1]:
-                check[i][j] = check[i-1][j]
-            else:
-                check[i][j] = check[i-1][j] or check[i-1][j - values[i-1]]
-
-    return check[n][total]
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dynamic Programming]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/11/dynamic-programming/"/>
-    <updated>2012-02-11T02:12:32-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/11/dynamic-programming</id>
-    <content type="html"><![CDATA[<p>Classic problems using Dynamic Programming.</p>
-
-<!--more-->
-
-
-<h3><a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem">Longest Common Subsequence</a></h3>
-
-<p>The longest common subsequence problem is a classic computer science problem, the basis of data comparison programs such as the diff utility, and has applications in bioinformatics.
-It is also widely used by revision control systems such as Git for reconciling multiple changes made to a revision-controlled collection of files.</p>
-
-<p>The solution to this problem can be divided into two parts:</p>
-
-<ul>
-<li>A DP solution to find the <strong>length</strong> of the longest common subsequence by constructing a 2D matrix.</li>
-<li>Tracing that constructed matrix to find the common subsequence.</li>
-</ul>
-
-
-<pre><code class="python">def longest_common_subsequence(str1:str, str2:str) -&gt; str:
-    if not str1 or not str2:
-        return 0
-
-    m = len(str1)
-    n = len(str2)
-    mtable = [[0]*(n+1) for _ in range(m+1)]
-
-    for i in range(1, m+1):
-        for j in range(1, n+1):
-            if str1[i-1] == str2[j-1]:
-                mtable[i][j] = 1 + mtable[i-1][j-1]
-            else:
-                mtable[i][j] = max(mtable[i-1][j], mtable[i][j-1])
-
-    # return mtable[m][n]
-    # We have longest_common_subsequence_length at this point
-
-    subsequence = [""] * mtable[m][n]
-    idx = mtable[m][n] - 1
-
-    i = m
-    j = n
-    while i &gt; 0 and j &gt; 0:
-        if str1[i-1] == str2[j-1]:
-            # if character matches, add to the array
-            subsequence[idx] = str2[j - 1]
-            i -= 1
-            j -= 1
-            idx -= 1
-        else:
-            # else, follow the larger number
-            if mtable[i-1][j] &gt; mtable[i][j-1]:
-                i -= 1
-            else:
-                j -= 1
-
-    return "".join(subsequence)
-</code></pre>
-
-<p>Some optimization pointers:</p>
-
-<ul>
-<li>The matrix in the naive algorithm grows quadratically with the lengths of the sequences.
-In most real-world cases, especially source code diffs and patches, the beginnings and ends of files rarely change.
-In that case, we can do preprocessing to remove the unchanged portions.</li>
-<li>If only the length of the LCS is required, the matrix can be reduced to a <code>2*min(n,m)</code> matrix with ease, or to a <code>min(m,n)+1</code> vector as the DP approach only needs the current and previous columns of the matrix.</li>
-</ul>
-
 ]]></content>
   </entry>
   

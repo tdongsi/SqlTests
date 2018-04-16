@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Design | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/design/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2018-04-16T10:46:51-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Design Patterns: Structural]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/13/design-patterns-structural/"/>
+    <updated>2017-07-13T22:28:46-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/13/design-patterns-structural</id>
+    <content type="html"><![CDATA[<p>In <a href="https://en.wikipedia.org/wiki/Facade_pattern#Usage">summary</a>:</p>
+
+<ul>
+<li>Adapter: Converts one interface to another so that it matches what the client is expecting</li>
+<li>Decorator: Dynamically adds responsibility to the interface by wrapping the original code</li>
+<li>Facade: Provides a simplified interface to a number of subsystems</li>
+<li>Proxy: Real object and Proxy object both implementing the same interface.</li>
+<li>Composite: Composite object containing multiple Single objects implementing the same interface.</li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>Composite pattern</h3>
+
+<p>A group of objects that is treated the same way as a single instance of the same type of object.
+The intent of a composite is to &ldquo;compose&rdquo; objects into tree structures to represent some hierarchies.</p>
+
+<pre><code class="java Java example">interface Graphic {
+    public void print();
+}
+
+class CompositeGraphic implements Graphic {
+    private List&lt;Graphic&gt; childGraphics = new ArrayList&lt;Graphic&gt;();
+
+    public void print() {
+        for (Graphic graphic : childGraphics) {
+            graphic.print();
+        }
+    }
+    ...
+}
+</code></pre>
+
+<h3>Flyweight pattern</h3>
+
+<p>Uses sharing to support large numbers of fine-grained objects efficiently.</p>
+
+<p>Java example: String interning (<code>intern()</code> method in class String) is the example of Flyweight pattern.</p>
+
+<p>Python example: from <a href="https://en.wikipedia.org/wiki/Flyweight_pattern">here</a></p>
+
+<pre><code class="python">class CheeseShop(object):
+    menu = {}  # Shared container to access the Flyweights
+
+    def __init__(self):
+        self.orders = {}  # per-instance container with private attributes
+
+    def stock_cheese(self, brand, cost):
+        cheese = CheeseBrand(brand, cost)
+        self.menu[brand] = cheese   # Shared Flyweight
+
+    def sell_cheese(self, brand, units):
+        self.orders.setdefault(brand, 0)
+        self.orders[brand] += units   # Instance attribute
+
+shop1 = CheeseShop()
+shop2 = CheeseShop()
+
+shop1.stock_cheese('white', 1.25)
+shop1.stock_cheese('blue', 3.75)
+# Now every CheeseShop have 'white' and 'blue' on the inventory
+# The SAME 'white' and 'blue' CheeseBrand
+
+shop1.sell_cheese('blue', 3)    # Both can sell
+shop2.sell_cheese('blue', 8)    # But the units sold are stored per-instance
+</code></pre>
+
+<h3>Proxy pattern</h3>
+
+<p>Both Real object and Proxy object implementing the same interface with Proxy object to control access to Real object.
+Proxy object can add functionality when Real object is accessed (filter, enrich).</p>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Proxy_pattern">Wikipedia has good descriptions and diagrams</a></li>
+</ul>
+
+
+<pre><code class="java Java example">interface Image {
+    public void displayImage();
+}
+
+class RealImage implements Image {
+    private String filename = null;
+
+    public RealImage(final String filename) {
+        this.filename = filename;
+        loadImageFromDisk();
+    }
+
+    private void loadImageFromDisk() {
+        System.out.println("Loading   " + filename);
+    }
+
+    public void displayImage() {
+        System.out.println("Displaying " + filename);
+    }
+
+}
+
+class ProxyImage implements Image {
+    private RealImage image = null;
+    private String filename = null;
+
+    public ProxyImage(final String filename) {
+        this.filename = filename;
+    }
+
+    public void displayImage() {
+        // Lazy loading is possible due to controlled access
+        if (image == null) {
+           image = new RealImage(filename);
+        }
+        image.displayImage();
+    }
+
+}
+</code></pre>
+
+<pre><code class="python Python example">from abc import ABCMeta, abstractmethod
+
+class AbstractCar:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def drive(self):
+        raise NotImplementedError(NOT_IMPLEMENTED)
+
+
+class Car(AbstractCar):
+    def drive(self):
+        print("Car has been driven!")
+
+
+class Driver(object):
+    def __init__(self, age):
+        self.age = age
+
+
+class ProxyCar(AbstractCar):
+    def __init__(self, driver):
+        self.car = Car()
+        self.driver = driver
+
+    def drive(self):
+        if self.driver.age &lt;= 16:
+            print("Sorry, the driver is too young to drive.")
+        else:
+            self.car.drive()
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Design Patterns: Behavioral]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/12/design-patterns-behavioral/"/>
+    <updated>2017-07-12T22:28:57-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/07/12/design-patterns-behavioral</id>
+    <content type="html"><![CDATA[<p>They are:</p>
+
+<ul>
+<li>Observer</li>
+<li>State</li>
+<li>Visitor</li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>Observer pattern</h3>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Observer_pattern#Example">Example</a></li>
+</ul>
+
+
+<pre><code class="java Java example">// Available in java.util
+interface Observer{
+    public void update(Observable obj, Object arg);
+}
+
+class EventSource extends Observable implements Runnable {
+    public void run() {
+        while (true) {
+            String response = new Scanner(System.in).next();
+            setChanged();
+            notifyObservers(response);
+        }
+    }
+}
+
+public class MyApp {
+    public static void main(String[] args) {
+        System.out.println("Enter Text: ");
+        EventSource eventSource = new EventSource();
+
+        eventSource.addObserver(new Observer() {
+            public void update(Observable obj, Object arg) {
+                System.out.println("Received response: " + arg);
+            }
+        });
+
+        new Thread(eventSource).start();
+    }
+}
+</code></pre>
+
+<pre><code class="python Python example">class Observable:
+    def __init__(self):
+        self.__observers = []
+
+    def register_observer(self, observer):
+        self.__observers.append(observer)
+
+    def notify_observers(self, *args, **kwargs):
+        for observer in self.__observers:
+            observer.notify(self, *args, **kwargs)
+
+class Observer:
+    def __init__(self, observable):
+        observable.register_observer(self)
+
+    def notify(self, observable, *args, **kwargs):
+        print('Got', args, kwargs, 'From', observable)
+
+subject = Observable()
+observer = Observer(subject)
+subject.notify_observers('test')
+</code></pre>
+
+<h3>State pattern</h3>
+
+<p>An object can change its behavior when its internal state changes.
+It is similar to Strategy pattern, except there is automatic state transitions and the strategies are changed for each state.</p>
+
+<ul>
+<li>State interface &lt;- Implemented in StateOne and StateTwo class.</li>
+<li>In both StateOne and StateTwo classes, there is a method <code>operation(mainObj, op)</code> that defines the current strategy AND state transition of mainObj.</li>
+<li>Object class has a private State, provides public method <code>setState</code> to be called in <code>operation</code> method.</li>
+<li>Object also provides a public method <code>doOperation</code> that will call State&rsquo;s <code>operation(this, op)</code> to carry out the action.</li>
+</ul>
+
+
+<p>Reference</p>
+
+<ul>
+<li><a href="https://github.com/tdongsi/java/tree/master/AdvancedJava/src/main/java/my/learning/patterns/state">Full example</a> based on <a href="https://en.wikipedia.org/wiki/State_pattern#Java">here</a></li>
+</ul>
+
+
+<pre><code class="java Java example">public interface State {
+    void operation(StatefulObject object, String params);
+}
+
+public class StateOne implements State {
+    @Override
+    public void operation(StatefulObject object, String params) {
+        System.out.println(params.toLowerCase());
+        object.setState(new StateTwo());
+    }
+}
+
+public class StatefulObject {
+    private State state;
+
+    public StatefulObject() {
+        setState(new StateOne());
+    }
+
+    public void setState(final State newState) {
+        this.state = newState;
+    }
+
+    public void doOperation(String params) {
+        state.operation(this, params);
+    }
+}
+</code></pre>
+
+<h3>Visitor</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Visitor_pattern#Uses">Use Visitor pattern when</a></p>
+
+<ul>
+<li>the classes that make up the object structure are known and NOT expected to change much</li>
+<li>new operations need to be added frequently</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[System Design: Distributed System]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2017/02/01/system-design-distributed-system/"/>
+    <updated>2017-02-01T21:49:54-08:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2017/02/01/system-design-distributed-system</id>
+    <content type="html"><![CDATA[<h3>Collection of advices on Blind</h3>
+
+<p>Just make sure you study consistent hashing and understand it well, almost every system design interview I&rsquo;ve had boiled down to applying it (Airbnb, FB, and Google twice).</p>
+
+<p>Theory : Understand basic things like CAP, PAXOS, Blockchain, LSM/B-Tree, two phase commit.</p>
+
+<p>Implement: Consistent hashing (I observed more than one candidate that didn’t really understand what it is - it is not complicated. Code it up, you will get it)</p>
+
+<p>Read : Existing designs/research - Zookeeper, Haystack , Cassandra, MapReduce, HDFS/Hadoop, Spanner (too many to list)</p>
+
+<p>Scale : Practice analyzing bottlenecks in all the systems above. Throughput/Storage/Number of Items/something else? Network/memory/cpu/IOPS/&hellip;/$$</p>
+
+<p>Like in real projects, understand requirements - ask questions and/or state assumptions you are making. Do not BS - no need to take any risk here, just ask for help when you need it.</p>
+
+<p>Good luck on your job hunt - leetcode might not be sufficient for senior backend roles anymore.</p>
+
+<h3>Topics</h3>
+
+<ul>
+<li>General training:
+
+<ul>
+<li><a href="https://www.safaribooksonline.com/library/view/distributed-systems-in/9781491924914/">Safari course</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>Basic topics in distributed system (based on the above Safari course):</p>
+
+<ul>
+<li>Storage: Relational/MongoDB, Cassandra, HDFS</li>
+<li>Computation: Hadoop, Storm, Spark</li>
+<li>Sync: NTP, vector clocks</li>
+<li>Consensus: Paxos, Zookeeper</li>
+<li>Messaging: Kafka</li>
+</ul>
+
+
+<h4>Consistent Hashing</h4>
+
+<ul>
+<li><a href="https://www.toptal.com/big-data/consistent-hashing">https://www.toptal.com/big-data/consistent-hashing</a></li>
+<li><a href="http://michaelnielsen.org/blog/consistent-hashing/">http://michaelnielsen.org/blog/consistent-hashing/</a>
+
+<ul>
+<li><a href="http://michaelnielsen.org/blog/a-number-theoretic-approach-to-consistent-hashing/">http://michaelnielsen.org/blog/a-number-theoretic-approach-to-consistent-hashing/</a></li>
+</ul>
+</li>
+<li></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
