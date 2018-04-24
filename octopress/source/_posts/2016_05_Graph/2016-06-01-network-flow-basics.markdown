@@ -7,10 +7,10 @@ categories:
 - Algorithm
 - Graph
 - Book
-- AD
+- AlgorithmDesign
 ---
 
-Summary of chapter 7 "Graph Algorithms" in "Data Structures & Algorithms in Python" by GTG.
+Summary of chapter 7 "Network Flows" in "Algorithm Design" by Kleinberg & Tardos.
 
 <!--more-->
 
