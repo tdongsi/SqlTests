@@ -13,11 +13,12 @@ categories:
 ### Questions
 
 1. Addition using only bit manipulation.
-1. Subtraction using only bit manipulation.
-1. Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.
-1. Quickly determine if a number is a power of 2 (i.e., n = 2^x).
-1. What is big-endian? What is little-endian?
-1. How would you determine if the system is big-endian or little-endian.
+2. Subtraction using only bit manipulation.
+3. Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.
+4. Quickly determine if a number is a power of 2 (i.e., n = 2^x).
+5. What is big-endian? What is little-endian?
+6. How would you determine if the system is big-endian or little-endian.
+7. Isolate the right-most 1 bit in `x`.
 
 <!--more-->
 
@@ -74,3 +75,5 @@ printf( "data.str[0]: %d\n", data.str[0]);
 
 Or use [`htonl`](https://linux.die.net/man/3/htonl) function (Host TO Network Long) in Linux.
 If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.
+
+(7) `x & ~(x-1)`.
