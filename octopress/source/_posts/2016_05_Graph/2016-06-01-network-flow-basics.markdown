@@ -19,12 +19,13 @@ Summary of chapter 7 "Graph Algorithms" in "Data Structures & Algorithms in Pyth
 Augmenting Path
 
 ``` plain Augment pseudocode
+TODO
 ```
 
 Ford-Fulkerson method
 
 ``` plain Ford-Fulkerson pseudocode
-
+TODO
 ```
 
 If all capacities in the flow network G are integers, then the Ford-Fulkerson method runs in O(mC) time.

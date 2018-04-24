@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Book: GTG: Text Processing"
-date: 2018-04-23 16:34:23 -0700
+date: 2013-04-23 16:34:23 -0700
 comments: true
 categories: 
 - GTG
