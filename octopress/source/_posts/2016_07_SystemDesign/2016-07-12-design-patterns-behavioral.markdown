@@ -88,6 +88,7 @@ It is similar to Strategy pattern, except there is automatic state transitions a
 Reference
 
 * [Full example](https://github.com/tdongsi/java/tree/master/AdvancedJava/src/main/java/my/learning/patterns/state) based on [here](https://en.wikipedia.org/wiki/State_pattern#Java)
+* [Python example](https://github.com/tdongsi/gtg/blob/develop/hackerrank/Encircular.py) used to solve a HackerRank problem.
 
 ``` java Java example
 public interface State {
