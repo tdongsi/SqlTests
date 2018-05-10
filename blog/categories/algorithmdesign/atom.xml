@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Ad | Personal Interview Notes]]></title>
-  <link href="http://tdongsi.github.io/SqlTests/blog/categories/ad/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Algorithmdesign | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithmdesign/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-04-16T10:46:51-07:00</updated>
+  <updated>2018-05-10T14:25:05-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -18,7 +18,7 @@
     <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics/"/>
     <updated>2015-04-11T18:51:41-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics</id>
-    <content type="html"><![CDATA[<p>Summary of chapter 7 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+    <content type="html"><![CDATA[<p>Summary of chapter 7 &ldquo;Network Flows&rdquo; in &ldquo;Algorithm Design&rdquo; by Kleinberg &amp; Tardos.</p>
 
 <!--more-->
 
@@ -27,12 +27,13 @@
 
 <p>Augmenting Path</p>
 
-<p><code>plain Augment pseudocode
-</code></p>
+<pre><code class="plain Augment pseudocode">TODO
+</code></pre>
 
 <p>Ford-Fulkerson method</p>
 
-<pre><code class="plain Ford-Fulkerson pseudocode"></code></pre>
+<pre><code class="plain Ford-Fulkerson pseudocode">TODO
+</code></pre>
 
 <p>If all capacities in the flow network G are integers, then the Ford-Fulkerson method runs in O(mC) time.</p>
 

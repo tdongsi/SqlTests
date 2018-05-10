@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-04-16T10:46:51-07:00</updated>
+  <updated>2018-05-10T14:25:05-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -12,6 +12,143 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Graph Data Structures]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2015/05/02/graph-data-structures/"/>
+    <updated>2015-05-02T10:54:59-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2015/05/02/graph-data-structures</id>
+    <content type="html"><![CDATA[<p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+
+<!--more-->
+
+
+<h3>Vertices and Edges</h3>
+
+<pre><code class="python Vertex">class Vertex:
+    """Lightweight vertex structure for graph"""
+    __slots__ = "_element"
+
+    def __init__(self, x):
+        self._element = x
+
+    def element(self):
+        return self._element
+
+    def __hash__(self):
+        return hash(id(self))
+
+    def __str__(self):
+        return "[Vertex: %s]" % self._element
+</code></pre>
+
+<pre><code class="python Edge">class Edge:
+    """Lightweight edge structure for graph"""
+    __slots__ = "_src", "_des", "_element"
+
+    def __init__(self, u, v, x):
+        self._src = u  # source
+        self._des = v  # destination
+        self._element = x
+
+    def endpoints(self):
+        return self._src, self._des
+
+    def opposite(self, u):
+        if u is self._src:
+            return self._des
+        elif u is self._des:
+            return self._src
+        else:
+            raise ValueError("Unknown vertex")
+
+    def element(self):
+        return self._element
+
+    def set_element(self, val):
+        self._element = val
+        pass
+
+    def __hash__(self):
+        return hash((self._src, self._des))
+
+    def __str__(self):
+        return "%s &gt;- %s -&gt; %s" % (self._src, self._element, self._des)
+</code></pre>
+
+<h3>Graph</h3>
+
+<pre><code class="python Graph">class Graph:
+    """Simple graph using an adjancency map"""
+
+    def __init__(self, directed=False):
+        self._outgoing = {}
+        # Only create the second map for directed graph
+        self._incoming = {} if directed else self._outgoing
+
+    def is_directed(self):
+        return self._outgoing is not self._incoming
+
+    def vertex_count(self):
+        """Return the number of vertices in the graph"""
+        return len(self._outgoing)
+
+    def vertices(self):
+        """Return the iteration of all vertices"""
+        return self._outgoing.keys()
+
+    def edge_count(self):
+        """Return the number of edges"""
+        total = sum([len(self._outgoing[v]) for v in self.vertices()])
+        return total if self.is_directed() else total//2
+
+    def edges(self):
+        """Return the iteration of all edges"""
+        result = set()
+        for secondary_map in self._outgoing.values():
+            result.update(secondary_map.values())
+        return result
+
+    def get_edge(self, u, v):
+        # TRICKY: self._outgoing[u][v] will raise KeyError instead of None if (u,v) not found
+        return self._outgoing[u].get(v)
+
+    def degree(self, v, outgoing=True):
+        if outgoing:
+            return len(self._outgoing[v])
+        else:
+            return len(self._incoming[v])
+
+    def incident_edges(self, v, outgoing=True):
+        """Return an *iteration* of incident edges"""
+        adj = self._outgoing if outgoing else self._incoming
+        for e in adj[v].values():
+            yield e
+
+    def insert_vertex(self, x=None):
+        v = Vertex(x)
+        self._outgoing[v] = {}
+        if self.is_directed():
+            self._incoming[v] = {}
+        return v
+
+    def insert_edge(self, u, v, x=None):
+        e = Edge(u, v, x)
+        self._outgoing[u][v] = e
+        self._incoming[v][u] = e
+        return e
+
+    def delete_edge(self, u, v):
+        del self._outgoing[u][v]
+        del self._incoming[v][u]
+        pass
+</code></pre>
+
+<h3>Modifications for Network Flows</h3>
+
+<p>Note that for Network Flow problem, we must add <code>set_element</code> to Edge class and <code>delete_edge</code> to Graph class.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Graph Data Algorithms]]></title>
@@ -282,7 +419,7 @@ Because of using the same data structure, you can reuse the method <code>constru
     <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics/"/>
     <updated>2015-04-11T18:51:41-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics</id>
-    <content type="html"><![CDATA[<p>Summary of chapter 7 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
+    <content type="html"><![CDATA[<p>Summary of chapter 7 &ldquo;Network Flows&rdquo; in &ldquo;Algorithm Design&rdquo; by Kleinberg &amp; Tardos.</p>
 
 <!--more-->
 
@@ -291,12 +428,13 @@ Because of using the same data structure, you can reuse the method <code>constru
 
 <p>Augmenting Path</p>
 
-<p><code>plain Augment pseudocode
-</code></p>
+<pre><code class="plain Augment pseudocode">TODO
+</code></pre>
 
 <p>Ford-Fulkerson method</p>
 
-<pre><code class="plain Ford-Fulkerson pseudocode"></code></pre>
+<pre><code class="plain Ford-Fulkerson pseudocode">TODO
+</code></pre>
 
 <p>If all capacities in the flow network G are integers, then the Ford-Fulkerson method runs in O(mC) time.</p>
 
@@ -371,53 +509,250 @@ Because of using the same data structure, you can reuse the method <code>constru
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Graph Data Structures]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/10/graph-data-structures/"/>
-    <updated>2015-04-10T10:54:59-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2015/04/10/graph-data-structures</id>
+    <title type="html"><![CDATA[Book: GTG: Text Processing]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2013/04/23/book-gtg-text-processing/"/>
+    <updated>2013-04-23T16:34:23-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2013/04/23/book-gtg-text-processing</id>
     <content type="html"><![CDATA[<p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
 
 <!--more-->
 
 
-<h3>Vertices and Edges</h3>
+<h3>Pattern-Matching Algorithms</h3>
 
-<p>TODO</p>
+<p>For the following algorithms, <code>m</code> is the length of the pattern (substring) and <code>n</code> is the length of the larger text.</p>
 
-<h3>Graph</h3>
+<h4>Brute-force algorithm</h4>
 
-<p>TODO</p>
+<p>The brute force running time is <code>O(mn)</code>.</p>
 
-<pre><code class="python Graph">class Graph():
+<pre><code class="python Brute Force">def find_brute(text:str, subs: str):
+    """ Pattern matching with brute force.
+    Return the lowest index of text T at which substring P begins (or else -1).
 
-    def __init__(self, directed=False):
-        self._directed = directed
-        self._outgoing = {}
-        self._incoming = {} if directed else self._outgoing
+    :param text: text T
+    :param subs: substring P
+    :return: lowest index of T
+    """
+    if not text or not subs:
+        return -1
 
-    def is_directed(self):
-        return self._directed
+    n, m = len(text), len(subs)
 
-    def vertex_count(self):
-        return len(self._outgoing)
+    for i in range(n - m + 1):
+        k = 0
+        while k &lt; m and text[i+k] == subs[k]:
+            k += 1
+        if k == m:
+            return i
 
-    def vertices(self):
-        return self._outgoing.keys()
-
-    def edge_count(self):
-        total = sum([len(e) for e in self._outgoing.values()])
-        return total if self.is_directed() else total//2
-
-    def edges(self):
-        out = set()
-        for e in self._outgoing.values():
-            out.update(e.values())
-        return out
+    return -1
 </code></pre>
 
-<h3>Modifications for Network Flows</h3>
+<h4>Boyer-Moore algorithm</h4>
 
-<p>TODO</p>
+<pre><code class="python Boyer-Moore algorihtm">def find_boyer_moore(text:str, subs:str):
+    """ Pattern matching with Boyer-Moore algorithm.
+    Return the lowest index of text T at which substring P begins (or else -1).
+
+    :param text: text T
+    :param subs: substring P
+    :return: lowest index of T
+    """
+    if not text or not subs:
+        return -1
+
+    n, m = len(text), len(subs)
+
+    last = {}
+    for k in range(m):
+        last[subs[k]] = k
+
+    # align end of pattern at index m-1 of text
+    i = m-1  # index into 'text'
+    k = m-1  # index into 'subs'
+    while i &lt; n:
+        if text[i] == subs[k]:  # a matching character
+            if k == 0:
+                return i  # pattern begins at index i of text
+            else:
+                i -= 1  # examine previous characters in both T &amp; P
+                k -= 1
+        else:
+            j = last.get(text[i], -1)
+            # Sanity check:
+            # 1) text[i] not in last -&gt; i += m
+            # 2) text[i] in last -&gt; i += m - (j+1)
+            i += m - min(k, j+1)
+            k = m -1  # restart at end of pattern
+
+    return -1
+</code></pre>
+
+<h4>Knuth-Morris-Pratt algorithm.</h4>
+
+<p>The KMP running time is <code>O(m+n)</code>.</p>
+
+<pre><code class="Python KMP algorithm">def compute_kmp_fail(pattern: str):
+    """ Utility function that computes and returns KMP failure function.
+
+    :param pattern: the pattern
+    :return: list as lookup table
+    """
+    m = len(pattern)
+    fail = [0] * m
+    j = 1
+    k = 0
+    while j &lt; m:
+        if pattern[j] == pattern[k]:  # k+1 characters match thus far
+            fail[j] = k+1
+            j += 1
+            k += 1
+        elif k &gt; 0:
+            k = fail[k-1]
+        else:  # no match found starting a j
+            j += 1
+    return fail
+
+
+def find_kmp(text: str, subs: str):
+    """ Pattern matching with Knuth-Morris-Pratt algorithm.
+    Return the lowest index of text T at which substring P begins (or else -1).
+
+    :param text: text T
+    :param subs: substring P
+    :return: lowest index of T
+    """
+    if not text or not subs:
+        return -1
+
+    n, m = len(text), len(subs)
+
+    fail = compute_kmp_fail(subs)
+
+    j = 0
+    k = 0
+    while j &lt; n:
+        if text[j] == subs[k]:
+            if k == m-1:
+                return j - m + 1
+            j += 1
+            k += 1
+        elif k &gt; 0:
+            k = fail[k-1]
+        else:
+            j += 1
+
+    return -1
+</code></pre>
+
+<h3>DP and Longest Common Subsequence</h3>
+
+<p>See <a href="TODO">here</a>.</p>
+
+<h3>Huffman coding method.</h3>
+
+<p>SKIP.</p>
+
+<h3>Tries</h3>
+
+<p>The idea of tries comes from the fact that text search can be sped up with preprocessing the pattern such as Boyer-More and KMP algorithms.
+Such approach is suitable for applications where a series of queries is performed on a fixed text, so that the initial cost of preprocessing is compensated by a speed up in each subsequent query.</p>
+
+<p>A trie is for storing strings in order to support fast pattern matching.
+The main application for tries is for information retrieval.
+The primary query operations are pattern matching and prefix matching.</p>
+
+<h4>Standard trie</h4>
+
+<p>One key assumption in trie is that no string in S is a prefix of another string.
+This ensures that each string in S is uniquely associated with a leaf of T.
+We can satisfy this assumption by adding a special termination character (conventionally <code>$</code>) that is not in the alphabet at the end of each string.</p>
+
+<p>Standard operations:</p>
+
+<ul>
+<li>Seach for a string of length <code>m</code>: <code>O(m)</code>.
+
+<ul>
+<li>Rationale: We visit at most <code>m+1</code> nodes in T and we spend <code>O(1)</code> at each node if we have secondary hash table/lookup table at each node for search.</li>
+<li>Only works for exact word matching or prefix matching. Arbitrary substring search does not work.</li>
+</ul>
+</li>
+<li>Construction of trie: <code>O(n)</code>.
+
+<ul>
+<li><code>n</code> is the total length of the strings in S.</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>Compressed trie</h4>
+
+<p>Compressed trie is also known as Patricia trie for historical reasons.
+Each internal node of compressed trie has at least two children.
+It enforces this rule by compressing chains of single-child nodes into individual edges.
+Nodes in compressed trie are labeled with strings instead of single characters as in standard trie.
+The advantange of compressed trie is that the number of nodes of the compressed trie is proportional to number of strings, instead of its total length.</p>
+
+<p>The real space savings come when it is used as auxiliary index structure over a collection of strings already stored in some other primary structure.
+Then, we can use numeric indexes in trie instead of storing actual characters.
+Searching in a compressed trie is not actually faster than a standard trie.</p>
+
+<h4>Suffix Trie</h4>
+
+<p>More info at <a href="https://www.youtube.com/watch?v=N70NPX6xgsA">here</a>.</p>
+
+<p>A suffix trie is a compressed trie containing all the suffixes of the given text X of size <code>n</code> from an alphabet of size <code>d</code>.
+Note that trivially storing all the suffixes of an X would take <code>O(n^2)</code> space.
+However, the compact representation of a compressed trie is proportional to number of strings and uses <code>O(n)</code> space instead.
+It can be constructed with a specialized algorithm in <code>O(dn)</code> time (not discussed in book).
+The standard trie construction would take <code>O(d*n^2)</code> time.</p>
+
+<p>Standard operations:</p>
+
+<ul>
+<li>Seach for a pattern/prefix of length <code>m</code>: <code>O(dm)</code>.</li>
+</ul>
+
+
+<p>Applications:</p>
+
+<ul>
+<li>Pattern/Prefix searching</li>
+<li>Exact string matching</li>
+<li>Finding the longest repeated substring</li>
+<li>Finding the longest palindrome in a string: Manacher&rsquo;s algorithm.</li>
+<li>Lowest common ancestors</li>
+<li>Finding the longest commont substring</li>
+</ul>
+
+
+<h4>Search Engine Indexing</h4>
+
+<p>The core information stored by a search engine is a dictionary, called an <strong>inverted index</strong> or <strong>inverted file</strong>, storing the following key-value pairs:</p>
+
+<ul>
+<li>keys: words (index terms)</li>
+<li>values: occurrence lists: collection of pages containing the corresponding key word.</li>
+</ul>
+
+
+<p>We can implement the inverted file with a data structure consisting of the following:</p>
+
+<ul>
+<li>A compressed trie for the set of keys (index terms), where each leaf stores the index of the occurence list.</li>
+<li>An array storing the occurrence lists of the terms.</li>
+</ul>
+
+
+<p>The compressed trie can be fit into the memory while the much larger array for the occurrence lists can be stored on disk.</p>
+
+<p>A query for a single keyword is similar to a word-matching query.
+Namely, we find the keyword in the trie and we return the associated occurrence list.
+When multiple words are given and the desired output are the pages containing all the given keywords, we retrieve all the occurrence lists and find their intersection.
+Note that for a real search engine, additional service must be provided such as ranking the pages returned by relevance.</p>
 ]]></content>
   </entry>
   
@@ -641,79 +976,6 @@ b) If the array is not sorted, create a hash table with keys as (k-a[i]). Then l
 <li>Message passing: in OOP, a message is the single means to pass control to an object. Alan Kay has argued that message passing is more important than objects in OOP, and that objects themselves are often over-emphasized.</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Questions: Bit Manipulation]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/28/tutorial-bit-manipulation/"/>
-    <updated>2012-02-28T00:23:25-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2012/02/28/tutorial-bit-manipulation</id>
-    <content type="html"><![CDATA[<h3>Questions</h3>
-
-<ol>
-<li>Addition using only bit manipulation.</li>
-<li>Subtraction using only bit manipulation.</li>
-<li>Odd Man Out: Given an unsorted array of integers where every integer appears exactly twice, except for one integer which appears once. Find the odd one out.</li>
-<li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
-<li>What is big-endian? What is little-endian?</li>
-<li>How would you determine if the system is big-endian or little-endian.</li>
-</ol>
-
-
-<!--more-->
-
-
-<h3>Answers</h3>
-
-<p>(1) <a href="http://stackoverflow.com/questions/4068033/add-two-integers-using-only-bitwise-operators">Addition</a>: Recursive formula <code>x + y = (x ^ y) + (x &amp; y) &lt;&lt; 1</code> is the most easy to understand.
-In code, it is implemented as follows:</p>
-
-<pre><code class="java Addition">    private int add(int a, int b) {
-        if(b == 0)
-            return a;
-
-        return add( a ^ b, (a &amp; b) &lt;&lt; 1);
-    }
-</code></pre>
-
-<p>(2) <a href="http://www.geeksforgeeks.org/subtract-two-numbers-without-using-arithmetic-operators/">Subtraction</a>: The recursive formula is <code>x - y = (x ^ y) - (~x &amp; y) &lt;&lt; 1</code>.
-In code, it is implemented as follows:</p>
-
-<pre><code class="java Subtraction">    private int subtract(int a, int b) {
-        if(b == 0)
-            return a;
-
-        return subtract( a ^ b, (~a &amp; b) &lt;&lt; 1);
-    }
-</code></pre>
-
-<p>(3) Find odd one.</p>
-
-<p>XOR all the values of the array together. <code>a XOR a = 0</code>.</p>
-
-<p>(4) Quickly determine if a number is a power of 2.</p>
-
-<p>If x == 0, return False. Then, check <code>x &amp; (x-1) == 0</code>.</p>
-
-<p>(5) Big-endian stores the most significant byte first, while little-endian stores the least significant byte first.
-Fields in the protocols of the Internet protocol suite, such as IPv4, IPv6, TCP, and UDP, are transmitted in big-endian order.
-For this reason, big-endian byte order is also referred to as network byte order.</p>
-
-<p>(6) Use union type in C. Then check it based on definition.</p>
-
-<pre><code class="c Check endianess">union Data
-{
-int i;
-char str[2];
-} data;
-
-data.i = 0x00ff;
-printf( "data.str[0]: %d\n", data.str[0]);
-</code></pre>
-
-<p>Or use <a href="https://linux.die.net/man/3/htonl"><code>htonl</code></a> function (Host TO Network Long) in Linux.
-If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Design | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/design/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-04-16T10:46:51-07:00</updated>
+  <updated>2018-05-10T14:25:05-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -267,6 +267,7 @@ It is similar to Strategy pattern, except there is automatic state transitions a
 
 <ul>
 <li><a href="https://github.com/tdongsi/java/tree/master/AdvancedJava/src/main/java/my/learning/patterns/state">Full example</a> based on <a href="https://en.wikipedia.org/wiki/State_pattern#Java">here</a></li>
+<li><a href="https://github.com/tdongsi/gtg/blob/develop/hackerrank/Encircular.py">Python example</a> used to solve a HackerRank problem.</li>
 </ul>
 
 

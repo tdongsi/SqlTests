@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apple | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/apple/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-04-16T10:46:51-07:00</updated>
+  <updated>2018-05-10T14:25:05-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -27,6 +27,7 @@
 <li>Quickly determine if a number is a power of 2 (i.e., n = 2<sup>x</sup>).</li>
 <li>What is big-endian? What is little-endian?</li>
 <li>How would you determine if the system is big-endian or little-endian.</li>
+<li>Isolate the right-most 1 bit in <code>x</code>.</li>
 </ol>
 
 
@@ -83,6 +84,8 @@ printf( "data.str[0]: %d\n", data.str[0]);
 
 <p>Or use <a href="https://linux.die.net/man/3/htonl"><code>htonl</code></a> function (Host TO Network Long) in Linux.
 If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.</p>
+
+<p>(7) <code>x &amp; ~(x-1)</code>.</p>
 ]]></content>
   </entry>
   
