@@ -47,4 +47,8 @@ It will continue to reinforce and remind you, and you won't forget it.
 The time interval can get longer over time. 
 This is called "spaced repetition" (thanks to commenter).
 
+PERSONAL NOTE: I'd strongly recommend to use Anki as your flash card application.
+There are Anki decks exported and [available online](https://ankiweb.net/shared/info/25173560).
+Utilize those and delete cards that are irrelevant or too trivial to your experience (e.g., probability).
+
 [**Reference**](https://web.archive.org/web/20170307225038/https://googleyasheck.com/retaining-computer-science-knowledge/)

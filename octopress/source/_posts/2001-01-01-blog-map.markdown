@@ -8,8 +8,8 @@ categories:
 
 A blog post in 2011 will serve as a general guideline on how posts are organized in this blog.
 
-* 2015: Archive of old public posts (not relevant to my desired career path).
-* 2016: Technical interviews, based on [this](/syllabus/).
+* 2005: Archive of old public posts (not relevant to my desired career path).
+* 2011-2022: Technical interviews, based on [this](/syllabus/).
   * 01: General info
   * 02: Algorithms
   * 03: Data structure

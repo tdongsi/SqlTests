@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Data strucutre: Binary Tree"
+title: "Data strucutre: Binary Tree/Binary Search Tree"
 date: 2013-05-14 19:10:18 -0700
 comments: true
 categories: 

@@ -48,5 +48,5 @@ Questions:
 ### Java Answers
 
 1. Know your audience. 
-   A new grad will mention something about abstraction, encapsulation, inheritance, polymorphism, and pass. 
+   A new grad will mention something about abstraction, polymorphism, inheritance, encapsulation (A PIE) and pass. 
    Alan Kay (father of OOP) will say something about message passing and late binding and might fail. 
