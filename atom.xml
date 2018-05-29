@@ -4,7 +4,7 @@
   <title><![CDATA[Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-15T22:40:14-07:00</updated>
+  <updated>2018-05-29T17:17:47-06:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Bash Cookbook]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2022/12/03/bash-cookbook/"/>
-    <updated>2022-12-03T00:31:51-08:00</updated>
+    <updated>2022-12-03T01:31:51-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2022/12/03/bash-cookbook</id>
     <content type="html"><![CDATA[<p>All various tricky bash/Linux questions.</p>
 
@@ -149,7 +149,7 @@
   <entry>
     <title type="html"><![CDATA[Docker CLI Cookbook]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2022/12/02/docker-cli-cookbook/"/>
-    <updated>2022-12-02T09:20:53-08:00</updated>
+    <updated>2022-12-02T10:20:53-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2022/12/02/docker-cli-cookbook</id>
     <content type="html"><![CDATA[<p>Standard Docker CLI commands for everyday workflow.</p>
 
@@ -278,7 +278,7 @@ It is very similar to <code>docker</code> CLI in many situations (see <a href="h
   <entry>
     <title type="html"><![CDATA[User Group and Related Commands]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2022/12/01/groupadd-cookbook/"/>
-    <updated>2022-12-01T18:21:32-08:00</updated>
+    <updated>2022-12-01T19:21:32-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2022/12/01/groupadd-cookbook</id>
     <content type="html"><![CDATA[<p>User groups and commands to manipulate them.</p>
 
@@ -347,7 +347,7 @@ Or you can run the following command to find out what groups you belong to.</p>
   <entry>
     <title type="html"><![CDATA[OpenCV]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/04/opencv/"/>
-    <updated>2021-11-04T03:03:26-07:00</updated>
+    <updated>2021-11-04T04:03:26-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2021/11/04/opencv</id>
     <content type="html"><![CDATA[<h3>Python</h3>
 
@@ -419,7 +419,7 @@ Or you can run the following command to find out what groups you belong to.</p>
   <entry>
     <title type="html"><![CDATA[Anomaly Detection]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/02/anomaly-detection/"/>
-    <updated>2021-11-02T22:42:54-07:00</updated>
+    <updated>2021-11-02T23:42:54-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2021/11/02/anomaly-detection</id>
     <content type="html"><![CDATA[<p>Anomaly detection is pretty important in DevOps world.
 It is great if it can generate some alarm when something odd is happening in monitoring metrics.
@@ -484,9 +484,9 @@ Such transformations (kernels) must have some properties and there are list of c
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Estimation Theory]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory/"/>
-    <updated>2021-11-01T23:40:12-07:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/02/tutorial-estimation-theory/"/>
+    <updated>2021-11-02T00:40:12-06:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/02/tutorial-estimation-theory</id>
     <content type="html"><![CDATA[<p>Math in Estimation theory.</p>
 
 <!--more-->
@@ -609,7 +609,7 @@ The degenerate cases are known and rare cases.</p>
   <entry>
     <title type="html"><![CDATA[Reserved IP Addresses]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2019/09/02/reserved-ip-addresses/"/>
-    <updated>2019-09-02T20:22:02-07:00</updated>
+    <updated>2019-09-02T21:22:02-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2019/09/02/reserved-ip-addresses</id>
     <content type="html"><![CDATA[<p>Various IP addresses are reserved for special purposes.
 It is good to recognize if two containers are communicating using their private channels based on their IPs.</p>
@@ -687,7 +687,7 @@ All hosts are to accept and respond to the broadcast address.</p>
   <entry>
     <title type="html"><![CDATA[Network Question Bank]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2019/09/01/network-question-bank/"/>
-    <updated>2019-09-01T01:45:07-07:00</updated>
+    <updated>2019-09-01T02:45:07-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2019/09/01/network-question-bank</id>
     <content type="html"><![CDATA[<p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
 
@@ -769,7 +769,7 @@ To give examples of REST-style resources:
   <entry>
     <title type="html"><![CDATA[Vertica SQL: Splitting String]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/06/vertica-sql-splitting-string/"/>
-    <updated>2018-08-06T12:27:12-07:00</updated>
+    <updated>2018-08-06T13:27:12-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/06/vertica-sql-splitting-string</id>
     <content type="html"><![CDATA[<p>It is not so straight-forward for splitting strings in SQL, including but not limited to comma-separated strings.</p>
 
@@ -856,7 +856,7 @@ Different database systems have different ways of doing so in SQL, as shown in t
   <entry>
     <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/"/>
-    <updated>2018-08-05T15:40:35-07:00</updated>
+    <updated>2018-08-05T16:40:35-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics</id>
     <content type="html"><![CDATA[<p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
 
@@ -1002,7 +1002,7 @@ Tableau has “Show Me” button that gives suggestions for different combinatio
   <entry>
     <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling/"/>
-    <updated>2018-08-04T15:38:20-07:00</updated>
+    <updated>2018-08-04T16:38:20-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling</id>
     <content type="html"><![CDATA[<p>From Kimball group reader.</p>
 
@@ -1170,7 +1170,7 @@ In Vertica, CREATE SEQUENCE.</p>
   <entry>
     <title type="html"><![CDATA[Database Question Bank]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/03/database-question-bank/"/>
-    <updated>2018-08-03T01:41:54-07:00</updated>
+    <updated>2018-08-03T02:41:54-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/03/database-question-bank</id>
     <content type="html"><![CDATA[<p>Questions about database in general. For data warehouse and dimensional modelling, check <a href="http://tdongsi.github.io/SqlTests/blog/2016/09/15/tutorial-dimensional-modelling/">this</a>.</p>
 
@@ -1341,7 +1341,7 @@ It&rsquo;ll run faster that way.</p>
   <entry>
     <title type="html"><![CDATA[Questions: SQL Basics]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/02/select-basics/"/>
-    <updated>2018-08-02T01:39:37-07:00</updated>
+    <updated>2018-08-02T02:39:37-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/02/select-basics</id>
     <content type="html"><![CDATA[<p>This post is about basic DDL, <code>SELECT</code> questions (phone-screen level).</p>
 
@@ -1888,7 +1888,7 @@ You are expected to write the following DDL statements.</p>
   <entry>
     <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround/"/>
-    <updated>2018-08-01T01:42:23-07:00</updated>
+    <updated>2018-08-01T02:42:23-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround</id>
     <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
 Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
@@ -2100,7 +2100,7 @@ Write a SQL query to delete all duplicate email entries in a table named <code>P
   <entry>
     <title type="html"><![CDATA[Design Patterns: Structural]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/13/design-patterns-structural/"/>
-    <updated>2017-07-13T22:28:46-07:00</updated>
+    <updated>2017-07-13T23:28:46-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/07/13/design-patterns-structural</id>
     <content type="html"><![CDATA[<p>In <a href="https://en.wikipedia.org/wiki/Facade_pattern#Usage">summary</a>:</p>
 
@@ -2372,7 +2372,7 @@ Proxy object can add functionality when Real object is accessed (filter, enrich)
   <entry>
     <title type="html"><![CDATA[Design Patterns: Behavioral]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/12/design-patterns-behavioral/"/>
-    <updated>2017-07-12T22:28:57-07:00</updated>
+    <updated>2017-07-12T23:28:57-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/07/12/design-patterns-behavioral</id>
     <content type="html"><![CDATA[<p>They are:</p>
 
@@ -2594,7 +2594,7 @@ It is similar to Strategy pattern, except there is automatic state transitions a
   <entry>
     <title type="html"><![CDATA[Design Patterns: Creational]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/11/design-patterns-creational/"/>
-    <updated>2017-07-11T22:28:33-07:00</updated>
+    <updated>2017-07-11T23:28:33-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/07/11/design-patterns-creational</id>
     <content type="html"><![CDATA[
 ]]></content>
@@ -2603,7 +2603,7 @@ It is similar to Strategy pattern, except there is automatic state transitions a
   <entry>
     <title type="html"><![CDATA[System Design: Service Mesh]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/03/system-design-service-mesh/"/>
-    <updated>2017-07-03T11:26:18-07:00</updated>
+    <updated>2017-07-03T12:26:18-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/07/03/system-design-service-mesh</id>
     <content type="html"><![CDATA[
 ]]></content>
@@ -2612,7 +2612,7 @@ It is similar to Strategy pattern, except there is automatic state transitions a
   <entry>
     <title type="html"><![CDATA[System Design: Log Management]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/02/system-design-log-management/"/>
-    <updated>2017-07-02T11:25:56-07:00</updated>
+    <updated>2017-07-02T12:25:56-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/07/02/system-design-log-management</id>
     <content type="html"><![CDATA[
 ]]></content>
@@ -2621,7 +2621,7 @@ It is similar to Strategy pattern, except there is automatic state transitions a
   <entry>
     <title type="html"><![CDATA[System Design Questions]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions/"/>
-    <updated>2017-07-01T02:13:01-07:00</updated>
+    <updated>2017-07-01T03:13:01-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions</id>
     <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
 

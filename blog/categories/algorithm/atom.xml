@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-15T22:40:14-07:00</updated>
+  <updated>2018-05-29T17:17:47-06:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Graph Data Structures]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2015/05/02/graph-data-structures/"/>
-    <updated>2015-05-02T10:54:59-07:00</updated>
+    <updated>2015-05-02T11:54:59-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2015/05/02/graph-data-structures</id>
     <content type="html"><![CDATA[<p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
 
@@ -153,7 +153,7 @@
   <entry>
     <title type="html"><![CDATA[Graph Data Algorithms]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2015/05/01/graph-algorithms/"/>
-    <updated>2015-05-01T03:12:53-07:00</updated>
+    <updated>2015-05-01T04:12:53-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2015/05/01/graph-algorithms</id>
     <content type="html"><![CDATA[<p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
 
@@ -417,7 +417,7 @@ Because of using the same data structure, you can reuse the method <code>constru
   <entry>
     <title type="html"><![CDATA[Network Flow: Basics]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics/"/>
-    <updated>2015-04-11T18:51:41-07:00</updated>
+    <updated>2015-04-11T19:51:41-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics</id>
     <content type="html"><![CDATA[<p>Summary of chapter 7 &ldquo;Network Flows&rdquo; in &ldquo;Algorithm Design&rdquo; by Kleinberg &amp; Tardos.</p>
 
@@ -511,7 +511,7 @@ Because of using the same data structure, you can reuse the method <code>constru
   <entry>
     <title type="html"><![CDATA[Book: GTG: Text Processing]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2013/04/23/book-gtg-text-processing/"/>
-    <updated>2013-04-23T16:34:23-07:00</updated>
+    <updated>2013-04-23T17:34:23-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2013/04/23/book-gtg-text-processing</id>
     <content type="html"><![CDATA[<p>Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG.</p>
 
@@ -759,7 +759,7 @@ Note that for a real search engine, additional service must be provided such as 
   <entry>
     <title type="html"><![CDATA[Glassdoor: Algorithm Question Bank]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2012/02/29/question-bank/"/>
-    <updated>2012-02-29T22:31:29-08:00</updated>
+    <updated>2012-02-29T23:31:29-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2012/02/29/question-bank</id>
     <content type="html"><![CDATA[<p>These questions are gathered from Glassdoor.</p>
 

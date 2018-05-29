@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Vertica | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/vertica/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-15T22:40:14-07:00</updated>
+  <updated>2018-05-29T17:17:47-06:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Vertica SQL: Splitting String]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/06/vertica-sql-splitting-string/"/>
-    <updated>2018-08-06T12:27:12-07:00</updated>
+    <updated>2018-08-06T13:27:12-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/06/vertica-sql-splitting-string</id>
     <content type="html"><![CDATA[<p>It is not so straight-forward for splitting strings in SQL, including but not limited to comma-separated strings.</p>
 
@@ -72,9 +72,9 @@ WHERE SPLIT_PART(labels, ',', row_num) &lt;&gt; '';
   
   <entry>
     <title type="html"><![CDATA[Vertica Installation: Troubleshooting Tips]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-vertica-installation-troubleshooting/"/>
-    <updated>2005-12-02T23:43:30-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-vertica-installation-troubleshooting</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2005/12/03/misc-vertica-installation-troubleshooting/"/>
+    <updated>2005-12-03T00:43:30-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2005/12/03/misc-vertica-installation-troubleshooting</id>
     <content type="html"><![CDATA[<p>In this post, I will list some problems that I encountered when installing and using the <a href="/blog/2015/12/02/misc-setup-three-node-vertica-vm-sandbox/">three-node VM cluster of Vertica</a> and how to work around those.
 Each installation problem has a documentation page that is displayed in the error message, such as <a href="https://my.vertica.com/docs/7.1.x/HTML/index.htm#cshid=S0150">this page</a> for S0150 error.
 I listed the quick, single-command solutions here for reference purpose.
@@ -187,9 +187,9 @@ To fix the error above, I had to reconfigure the VMs to one processor core with 
   
   <entry>
     <title type="html"><![CDATA[Set Up Three-node Vertica VM Sandbox]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-setup-three-node-vertica-vm-sandbox/"/>
-    <updated>2005-12-02T23:41:22-08:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-setup-three-node-vertica-vm-sandbox</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2005/12/03/misc-setup-three-node-vertica-vm-sandbox/"/>
+    <updated>2005-12-03T00:41:22-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2005/12/03/misc-setup-three-node-vertica-vm-sandbox</id>
     <content type="html"><![CDATA[<p>I have been using a <strong>single-node</strong> Vertica VM to run ETL tests for <a href="http://tdongsi.github.io/blog/2016/01/10/find-and-replace-a-string-in-multiple-files/">sometime</a>.
 The only minor problem is that when we add <code>KSAFE 1</code> in our DDL scripts (i.e., <code>CREATE TABLE</code> statements) for production purposes, it gives error on single-node VM when running DDL scripts to set up schema since single-node cluster is not k-safe.
 Even then, the workaround for running those DDL scripts in tests is easy enough, as shown in the <a href="http://tdongsi.github.io/blog/2016/01/10/find-and-replace-a-string-in-multiple-files/">previous blog post</a>.</p>

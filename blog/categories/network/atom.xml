@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Network | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-15T22:40:14-07:00</updated>
+  <updated>2018-05-29T17:17:47-06:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Reserved IP Addresses]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2019/09/02/reserved-ip-addresses/"/>
-    <updated>2019-09-02T20:22:02-07:00</updated>
+    <updated>2019-09-02T21:22:02-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2019/09/02/reserved-ip-addresses</id>
     <content type="html"><![CDATA[<p>Various IP addresses are reserved for special purposes.
 It is good to recognize if two containers are communicating using their private channels based on their IPs.</p>
@@ -77,7 +77,7 @@ D       224.0.0.0/4     224.0.0.0   239.255.255.255
   <entry>
     <title type="html"><![CDATA[Network Question Bank]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2019/09/01/network-question-bank/"/>
-    <updated>2019-09-01T01:45:07-07:00</updated>
+    <updated>2019-09-01T02:45:07-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2019/09/01/network-question-bank</id>
     <content type="html"><![CDATA[<p>Brush up on networking theory, including familiarity with major components of the IP suite.</p>
 

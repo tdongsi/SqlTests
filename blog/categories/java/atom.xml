@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-15T22:40:14-07:00</updated>
+  <updated>2018-05-29T17:17:47-06:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization/"/>
-    <updated>2016-06-02T00:35:03-07:00</updated>
+    <updated>2016-06-02T01:35:03-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization</id>
     <content type="html"><![CDATA[<p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
 Topics in this chapter are the most intensive and frequently asked during interviews.</p>
@@ -396,7 +396,7 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
   <entry>
     <title type="html"><![CDATA[Classic Interview Questions]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/21/classic-interview-questions/"/>
-    <updated>2011-01-21T15:18:42-08:00</updated>
+    <updated>2011-01-21T16:18:42-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2011/01/21/classic-interview-questions</id>
     <content type="html"><![CDATA[<p>There are reasons that these interview questions are just popular.</p>
 
@@ -533,7 +533,7 @@ FieldType getField() {
   <entry>
     <title type="html"><![CDATA[Compare Languages: Java vs. C++]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/11/compare-languages-java-vs-c-plus-plus/"/>
-    <updated>2011-01-11T10:11:40-08:00</updated>
+    <updated>2011-01-11T11:11:40-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2011/01/11/compare-languages-java-vs-c-plus-plus</id>
     <content type="html"><![CDATA[<p>How to answer the question &ldquo;What is the difference between Java and C++?&rdquo;.
 Knowing the subtle difference between similar languages shows mastery of both.</p>
@@ -598,7 +598,7 @@ Java Generics are basically syntactic sugar (things can be removed from the lang
   <entry>
     <title type="html"><![CDATA[Language Index]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/02/language-index/"/>
-    <updated>2011-01-02T09:07:55-08:00</updated>
+    <updated>2011-01-02T10:07:55-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2011/01/02/language-index</id>
     <content type="html"><![CDATA[<p>Overview of most common languages.</p>
 
@@ -654,7 +654,7 @@ Java Generics are basically syntactic sugar (things can be removed from the lang
 
 <ol>
 <li>Know your audience.
-A new grad will mention something about abstraction, encapsulation, inheritance, polymorphism, and pass.
+A new grad will mention something about abstraction, polymorphism, inheritance, encapsulation (A PIE) and pass.
 Alan Kay (father of OOP) will say something about message passing and late binding and might fail.</li>
 </ol>
 
@@ -664,7 +664,7 @@ Alan Kay (father of OOP) will say something about message passing and late bindi
   <entry>
     <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/01/tutorial-test-driven-development/"/>
-    <updated>2011-01-01T21:57:00-08:00</updated>
+    <updated>2011-01-01T22:57:00-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2011/01/01/tutorial-test-driven-development</id>
     <content type="html"><![CDATA[<!-- Reference:
 Evernote: "QE cheat sheet"

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Database | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/database/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-15T22:40:14-07:00</updated>
+  <updated>2018-05-29T17:17:47-06:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/"/>
-    <updated>2018-08-05T15:40:35-07:00</updated>
+    <updated>2018-08-05T16:40:35-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics</id>
     <content type="html"><![CDATA[<p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
 
@@ -162,7 +162,7 @@ Tableau has “Show Me” button that gives suggestions for different combinatio
   <entry>
     <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling/"/>
-    <updated>2018-08-04T15:38:20-07:00</updated>
+    <updated>2018-08-04T16:38:20-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling</id>
     <content type="html"><![CDATA[<p>From Kimball group reader.</p>
 
@@ -330,7 +330,7 @@ In Vertica, CREATE SEQUENCE.</p>
   <entry>
     <title type="html"><![CDATA[Database Question Bank]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/03/database-question-bank/"/>
-    <updated>2018-08-03T01:41:54-07:00</updated>
+    <updated>2018-08-03T02:41:54-06:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/03/database-question-bank</id>
     <content type="html"><![CDATA[<p>Questions about database in general. For data warehouse and dimensional modelling, check <a href="/blog/2016/09/15/tutorial-dimensional-modelling/">this</a>.</p>
 
