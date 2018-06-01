@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Testing | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/testing/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-29T17:17:47-06:00</updated>
+  <updated>2018-06-01T13:41:19-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/01/tutorial-test-driven-development/"/>
-    <updated>2011-01-01T22:57:00-07:00</updated>
+    <updated>2011-01-01T21:57:00-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2011/01/01/tutorial-test-driven-development</id>
     <content type="html"><![CDATA[<!-- Reference:
 Evernote: "QE cheat sheet"
@@ -140,7 +140,7 @@ Personally, I would mention that many languages like Java allow you to run at a 
   <entry>
     <title type="html"><![CDATA[(Pt. 7) Extending for Data Parity Checks]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-extending-for-data-parity-checks/"/>
-    <updated>2005-12-02T23:48:01-07:00</updated>
+    <updated>2005-12-02T22:48:01-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-extending-for-data-parity-checks</id>
     <content type="html"><![CDATA[<p>As an example to discussion in <a href="/blog/2016/04/16/sql-unit-extension/">this post</a>, I will discuss how I recently added a new functionality to handle a new kind of tests.</p>
 
@@ -281,7 +281,7 @@ Note that this approach is recommended over subclassing <code>TestHandler</code>
   <entry>
     <title type="html"><![CDATA[(Pt. 6) Extending SQL Test Runner]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-extending-sql-test-runner/"/>
-    <updated>2005-12-02T23:47:43-07:00</updated>
+    <updated>2005-12-02T22:47:43-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-extending-sql-test-runner</id>
     <content type="html"><![CDATA[<p>In this post, I will discuss the design of the SQL Test Runner.
 From that, I explain how to easily extend the Test Runner to add new capability for new testing needs.
@@ -423,7 +423,7 @@ Instead, we should create a new test runner class with new class extend TestStra
   <entry>
     <title type="html"><![CDATA[(Pt. 5) Big Data: Functional Tests vs. Unit Tests]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-big-data-functional-tests-vs-unit-tests/"/>
-    <updated>2005-12-02T23:47:20-07:00</updated>
+    <updated>2005-12-02T22:47:20-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-big-data-functional-tests-vs-unit-tests</id>
     <content type="html"><![CDATA[<p>In the context of Big Data projects, the differences between functional tests and unit tests can be summarized as follows:</p>
 
@@ -488,7 +488,7 @@ Unit tests:
   <entry>
     <title type="html"><![CDATA[(Pt. 4) SQL Unit Testing]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-sql-unit-testing/"/>
-    <updated>2005-12-02T23:46:53-07:00</updated>
+    <updated>2005-12-02T22:46:53-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2005/12/02/misc-sql-unit-testing</id>
     <content type="html"><![CDATA[<!-- 
 Changes I made:

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-29T17:17:47-06:00</updated>
+  <updated>2018-06-01T13:41:19-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Data Structure: Trie]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2013/05/14/trie-data-structure/"/>
-    <updated>2013-05-14T20:10:03-06:00</updated>
+    <updated>2013-05-14T19:10:03-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2013/05/14/trie-data-structure</id>
     <content type="html"><![CDATA[<p>TODO: Link to the Python code</p>
 
@@ -116,7 +116,7 @@ class Trie():
   <entry>
     <title type="html"><![CDATA[Language Index]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/02/language-index/"/>
-    <updated>2011-01-02T10:07:55-07:00</updated>
+    <updated>2011-01-02T09:07:55-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2011/01/02/language-index</id>
     <content type="html"><![CDATA[<p>Overview of most common languages.</p>
 
@@ -182,7 +182,7 @@ Alan Kay (father of OOP) will say something about message passing and late bindi
   <entry>
     <title type="html"><![CDATA[Tutorial: Test-Driven Development]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/01/tutorial-test-driven-development/"/>
-    <updated>2011-01-01T22:57:00-07:00</updated>
+    <updated>2011-01-01T21:57:00-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2011/01/01/tutorial-test-driven-development</id>
     <content type="html"><![CDATA[<!-- Reference:
 Evernote: "QE cheat sheet"

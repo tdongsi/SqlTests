@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tutorial | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/tutorial/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-29T17:17:47-06:00</updated>
+  <updated>2018-06-01T13:41:19-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Tutorial: Estimation Theory]]></title>
-    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/02/tutorial-estimation-theory/"/>
-    <updated>2021-11-02T00:40:12-06:00</updated>
-    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/02/tutorial-estimation-theory</id>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory/"/>
+    <updated>2021-11-01T23:40:12-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2021/11/01/tutorial-estimation-theory</id>
     <content type="html"><![CDATA[<p>Math in Estimation theory.</p>
 
 <!--more-->
@@ -140,7 +140,7 @@ The degenerate cases are known and rare cases.</p>
   <entry>
     <title type="html"><![CDATA[Tutorial: Dashboard for Business Analytics]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics/"/>
-    <updated>2018-08-05T16:40:35-06:00</updated>
+    <updated>2018-08-05T15:40:35-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/05/tutorial-dashboard-for-business-analytics</id>
     <content type="html"><![CDATA[<p>Summary of &ldquo;Business Dashboard Fundamentals&rdquo; on Pluralsight.</p>
 
@@ -286,7 +286,7 @@ Tableau has “Show Me” button that gives suggestions for different combinatio
   <entry>
     <title type="html"><![CDATA[Tutorial: Dimensional Modelling]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling/"/>
-    <updated>2018-08-04T16:38:20-06:00</updated>
+    <updated>2018-08-04T15:38:20-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/04/tutorial-dimensional-modelling</id>
     <content type="html"><![CDATA[<p>From Kimball group reader.</p>
 
@@ -454,7 +454,7 @@ In Vertica, CREATE SEQUENCE.</p>
   <entry>
     <title type="html"><![CDATA[Tutorial: MySQL Workarounds]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround/"/>
-    <updated>2018-08-01T02:42:23-06:00</updated>
+    <updated>2018-08-01T01:42:23-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2018/08/01/mysql-workaround</id>
     <content type="html"><![CDATA[<p>MySQL has traditionally lagged behind in support for the SQL standard.
 Unfortunately, from my experience, MySQL is often used as the sandbox for SQL code challenges and interviews.
@@ -593,7 +593,7 @@ where Id not in
   <entry>
     <title type="html"><![CDATA[System Design Questions]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions/"/>
-    <updated>2017-07-01T03:13:01-06:00</updated>
+    <updated>2017-07-01T02:13:01-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/07/01/system-design-questions</id>
     <content type="html"><![CDATA[<p>How to practice for System Design questions and some design questions.</p>
 

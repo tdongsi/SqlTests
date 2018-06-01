@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Design | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/design/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-29T17:17:47-06:00</updated>
+  <updated>2018-06-01T13:41:19-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Design Patterns: Structural]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/13/design-patterns-structural/"/>
-    <updated>2017-07-13T23:28:46-06:00</updated>
+    <updated>2017-07-13T22:28:46-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/07/13/design-patterns-structural</id>
     <content type="html"><![CDATA[<p>In <a href="https://en.wikipedia.org/wiki/Facade_pattern#Usage">summary</a>:</p>
 
@@ -175,7 +175,7 @@ class ProxyCar(AbstractCar):
   <entry>
     <title type="html"><![CDATA[Design Patterns: Behavioral]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/07/12/design-patterns-behavioral/"/>
-    <updated>2017-07-12T23:28:57-06:00</updated>
+    <updated>2017-07-12T22:28:57-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/07/12/design-patterns-behavioral</id>
     <content type="html"><![CDATA[<p>They are:</p>
 
@@ -315,7 +315,7 @@ public class StatefulObject {
   <entry>
     <title type="html"><![CDATA[System Design: Distributed System]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2017/02/01/system-design-distributed-system/"/>
-    <updated>2017-02-01T22:49:54-07:00</updated>
+    <updated>2017-02-01T21:49:54-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2017/02/01/system-design-distributed-system</id>
     <content type="html"><![CDATA[<h3>Collection of advices on Blind</h3>
 

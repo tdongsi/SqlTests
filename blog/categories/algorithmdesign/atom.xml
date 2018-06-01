@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithmdesign | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithmdesign/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-29T17:17:47-06:00</updated>
+  <updated>2018-06-01T13:41:19-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Network Flow: Basics]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics/"/>
-    <updated>2015-04-11T19:51:41-06:00</updated>
+    <updated>2015-04-11T18:51:41-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2015/04/11/network-flow-basics</id>
     <content type="html"><![CDATA[<p>Summary of chapter 7 &ldquo;Network Flows&rdquo; in &ldquo;Algorithm Design&rdquo; by Kleinberg &amp; Tardos.</p>
 

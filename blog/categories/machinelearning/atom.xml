@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Machinelearning | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/machinelearning/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-29T17:17:47-06:00</updated>
+  <updated>2018-06-01T13:41:19-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Anomaly Detection]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2021/11/02/anomaly-detection/"/>
-    <updated>2021-11-02T23:42:54-06:00</updated>
+    <updated>2021-11-02T22:42:54-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2021/11/02/anomaly-detection</id>
     <content type="html"><![CDATA[<p>Anomaly detection is pretty important in DevOps world.
 It is great if it can generate some alarm when something odd is happening in monitoring metrics.

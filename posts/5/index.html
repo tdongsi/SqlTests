@@ -84,7 +84,7 @@ Pick One Language for the Interview: Python &hellip;">
 
 
 
-<time class='entry-date' datetime='2011-01-05T18:51:04-07:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>6:51 pm</span></time>
+<time class='entry-date' datetime='2011-01-05T17:51:04-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>5:51 pm</span></time>
         
       </p>
     
@@ -377,7 +377,7 @@ Pick One Language for the Interview: Python &hellip;">
 <li>Answers:
 
 <ul>
-<li><a href="http://www.algorithm.cs.sunysb.edu/algowiki/index.php/The_Algorithms_Design_Manual_(Second_Edition">Solutions</a>)</li>
+<li><a href="http://www.algorithm.cs.sunysb.edu/algowiki/index.php/The_Algorithms_Design_Manual_(Second_Edition)">Solutions</a></li>
 <li><a href="http://blog.panictank.net/category/algorithmndesignmanualsolutions/page/2/">Solutions</a></li>
 </ul>
 </li>
@@ -429,46 +429,6 @@ Test with some sample inputs. Then test it out on a computer.</p>
 
 <ul>
 <li>Implement an automatically resizing vector.</li>
-<li>[ ] Description:
-
-<ul>
-<li><a href="https://www.coursera.org/learn/data-structures/lecture/OsBSF/arrays">Arrays (video)</a></li>
-<li><a href="https://archive.org/details/ucberkeley_webcast_Wp8oiO_CZZE">UC Berkeley CS61B - Linear and Multi-Dim Arrays (video)</a> (Start watching from 15m 32s)</li>
-<li><a href="https://www.coursera.org/learn/data-structures/lecture/EwbnV/dynamic-arrays">Dynamic Arrays (video)</a></li>
-<li><a href="https://www.youtube.com/watch?v=1jtrQqYpt7g">Jagged Arrays (video)</a></li>
-</ul>
-</li>
-<li>[ ] Implement a vector (mutable array with automatic resizing):
-
-<ul>
-<li>[ ] Practice coding using arrays and pointers, and pointer math to jump to an index instead of using indexing.</li>
-<li>[ ] new raw data array with allocated memory
-
-<ul>
-<li>can allocate int array under the hood, just not use its features</li>
-<li>start with 16, or if starting number is greater, use power of 2 - 16, 32, 64, 128</li>
-</ul>
-</li>
-<li>[ ] size() - number of items</li>
-<li>[ ] capacity() - number of items it can hold</li>
-<li>[ ] is_empty()</li>
-<li>[ ] at(index) - returns item at given index, blows up if index out of bounds</li>
-<li>[ ] push(item)</li>
-<li>[ ] insert(index, item) - inserts item at index, shifts that index&rsquo;s value and trailing elements to the right</li>
-<li>[ ] prepend(item) - can use insert above at index 0</li>
-<li>[ ] pop() - remove from end, return value</li>
-<li>[ ] delete(index) - delete item at index, shifting all trailing elements left</li>
-<li>[ ] remove(item) - looks for value and removes index holding it (even if in multiple places)</li>
-<li>[ ] find(item) - looks for value and returns first index with that value, -1 if not found</li>
-<li>[ ] resize(new_capacity) // private function
-
-<ul>
-<li>when you reach capacity, resize to double the size</li>
-<li>when popping an item, if size is &frac14; of capacity, resize to half</li>
-</ul>
-</li>
-</ul>
-</li>
 <li>[ ] Time
 
 <ul>
@@ -488,18 +448,6 @@ Test with some sample inputs. Then test it out on a computer.</p>
 <li><h3>Linked Lists</h3>
 
 <ul>
-<li>[ ] Description:
-
-<ul>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/lecture/kHhgK/singly-linked-lists">Singly Linked Lists (video)</a></li>
-<li>[ ] <a href="https://archive.org/details/ucberkeley_webcast_htzJdKoEmO0">CS 61B - Linked Lists 1 (video)</a></li>
-<li>[ ] <a href="https://archive.org/details/ucberkeley_webcast_-c4I3gFYe3w">CS 61B - Linked Lists 2 (video)</a></li>
-</ul>
-</li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=QN6FPiD0Gzo">C Code (video)</a>
-
-<pre><code>  - not the whole video, just portions about Node struct and memory allocation.
-</code></pre></li>
 <li>[ ] Linked List vs Arrays:
 
 <ul>
@@ -514,32 +462,6 @@ Test with some sample inputs. Then test it out on a computer.</p>
 
 <ul>
 <li><a href="https://www.eskimo.com/~scs/cclass/int/sx8.html">Pointers to Pointers</a></li>
-</ul>
-</li>
-<li>[ ] implement (I did with tail pointer &amp; without):
-
-<ul>
-<li>[ ] size() - returns number of data elements in list</li>
-<li>[ ] empty() - bool returns true if empty</li>
-<li>[ ] value_at(index) - returns the value of the nth item (starting at 0 for first)</li>
-<li>[ ] push_front(value) - adds an item to the front of the list</li>
-<li>[ ] pop_front() - remove front item and return its value</li>
-<li>[ ] push_back(value) - adds an item at the end</li>
-<li>[ ] pop_back() - removes end item and returns its value</li>
-<li>[ ] front() - get value of front item</li>
-<li>[ ] back() - get value of end item</li>
-<li>[ ] insert(index, value) - insert value at index, so current item at that index is pointed to by new item at index</li>
-<li>[ ] erase(index) - removes node at given index</li>
-<li>[ ] value_n_from_end(n) - returns the value of the node at nth position from the end of the list</li>
-<li>[ ] reverse() - reverses the list</li>
-<li>[ ] remove_value(value) - removes the first item in the list with this value</li>
-</ul>
-</li>
-<li>[ ] Doubly-linked List
-
-<ul>
-<li><a href="https://www.coursera.org/learn/data-structures/lecture/jpGKD/doubly-linked-lists">Description (video)</a></li>
-<li>No need to implement</li>
 </ul>
 </li>
 </ul>
@@ -634,8 +556,6 @@ Test with some sample inputs. Then test it out on a computer.</p>
 <li><h3>Binary search</h3>
 
 <ul>
-<li>[ ] <a href="https://www.youtube.com/watch?v=D5SrAga1pno">Binary Search (video)</a></li>
-<li>[ ] <a href="https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search">Binary Search (video)</a></li>
 <li>[ ] <a href="https://www.topcoder.com/community/data-science/data-science-tutorials/binary-search/">detail</a></li>
 <li>[ ] Implement:
 
@@ -649,33 +569,16 @@ Test with some sample inputs. Then test it out on a computer.</p>
 <li><h3>Bitwise operations</h3>
 
 <ul>
-<li>[ ] <a href="https://github.com/jwasham/coding-interview-university/blob/master/extras/cheat%20sheets/bits-cheat-cheet.pdf">Bits cheat sheet</a> - you should know many of the powers of 2 from (2<sup>1</sup> to 2<sup>16</sup> and 2<sup>32</sup>)</li>
 <li>[ ] Get a really good understanding of manipulating bits with: &amp;, |, ^, ~, >>, &lt;&lt;
 
 <ul>
-<li>[ ] <a href="https://en.wikipedia.org/wiki/Word_(computer_architecture">words</a>)</li>
-<li>[ ] Good intro:
-  <a href="https://www.youtube.com/watch?v=7jkIUgLC29I">Bit Manipulation (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=d0AwjSpNXR0">C Programming Tutorial 2-10: Bitwise Operators (video)</a></li>
-<li>[ ] <a href="https://en.wikipedia.org/wiki/Bit_manipulation">Bit Manipulation</a></li>
-<li>[ ] <a href="https://en.wikipedia.org/wiki/Bitwise_operation">Bitwise Operation</a></li>
 <li>[ ] <a href="https://graphics.stanford.edu/~seander/bithacks.html">Bithacks</a></li>
-<li>[ ] <a href="http://bits.stephan-brumme.com/">The Bit Twiddler</a></li>
-<li>[ ] <a href="http://bits.stephan-brumme.com/interactive.html">The Bit Twiddler Interactive</a></li>
 </ul>
 </li>
-<li>[ ] 2s and 1s complement
-
-<ul>
-<li><a href="https://www.youtube.com/watch?v=lKTsv6iVxV4">Binary: Plusses &amp; Minuses (Why We Use Two&rsquo;s Complement) (video)</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Ones%27_complement">1s Complement</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Two%27s_complement">2s Complement</a></li>
-</ul>
-</li>
+<li>[ ] 2s and 1s complement</li>
 <li>[ ] count set bits
 
 <ul>
-<li><a href="https://youtu.be/Hzuzo9NJrlc">4 ways to count bits in a byte (video)</a></li>
 <li><a href="https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan">Count Bits</a></li>
 <li><a href="http://stackoverflow.com/questions/109023/how-to-count-the-number-of-set-bits-in-a-32-bit-integer">How To Count The Number Of Set Bits In a 32 Bit Integer</a></li>
 </ul>
@@ -788,38 +691,10 @@ Test with some sample inputs. Then test it out on a computer.</p>
 
 <ul>
 <li>visualized as a tree, but is usually linear in storage (array, linked list)</li>
-<li>[ ] <a href="https://en.wikipedia.org/wiki/Heap_(data_structure">Heap</a>)</li>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/lecture/2OpTs/introduction">Introduction (video)</a></li>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/lecture/z3l9N/naive-implementations">Naive Implementations (video)</a></li>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/lecture/GRV2q/binary-trees">Binary Trees (video)</a></li>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/supplement/S5xxz/tree-height-remark">Tree Height Remark (video)</a></li>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/lecture/0g1dl/basic-operations">Basic Operations (video)</a></li>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/lecture/gl5Ni/complete-binary-trees">Complete Binary Trees (video)</a></li>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/lecture/HxQo9/pseudocode">Pseudocode (video)</a></li>
-<li>[ ] <a href="https://youtu.be/odNJmw5TOEE?list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm&amp;t=3291">Heap Sort - jumps to start (video)</a></li>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/lecture/hSzMO/heap-sort">Heap Sort (video)</a></li>
-<li>[ ] <a href="https://www.coursera.org/learn/data-structures/lecture/dwrOS/building-a-heap">Building a heap (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=B7hVxCmfPtM&amp;index=4&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb">MIT: Heaps and Heap Sort (video)</a></li>
-<li>[ ] <a href="https://archive.org/details/ucberkeley_webcast_yIUFT6AKBGE">CS 61B Lecture 24: Priority Queues (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=MiyLo8adrWw">Linear Time BuildHeap (max-heap)</a></li>
-<li>[ ] Implement a max-heap:
+<li>Know how to use <code>heapq</code> module in Python.
 
 <ul>
-<li>[ ] insert</li>
-<li>[ ] sift_up - needed for insert</li>
-<li>[ ] get_max - returns the max item, without removing it</li>
-<li>[ ] get_size() - return number of elements stored</li>
-<li>[ ] is_empty() - returns true if heap contains no elements</li>
-<li>[ ] extract_max - returns the max item, removing it</li>
-<li>[ ] sift_down - needed for extract_max</li>
-<li>[ ] remove(i) - removes item at index x</li>
-<li>[ ] heapify - create a heap from an array of elements, needed for heap_sort</li>
-<li>[ ] heap_sort() - take an unsorted array and turn it into a sorted array in-place using a max heap
-
-<ul>
-<li>note: using a min heap instead would save operations, but double the space needed (cannot do in-place).</li>
-</ul>
-</li>
+<li>Know recipe for heapsort.</li>
 </ul>
 </li>
 </ul>
@@ -830,22 +705,16 @@ Test with some sample inputs. Then test it out on a computer.</p>
 <h2>Sorting</h2>
 
 <ul>
-<li><p>[ ] Notes:</p>
+<li>[ ] Notes:
 
 <ul>
-<li>Implement sorts &amp; know best case/worst case, average complexity of each:
-
-<ul>
-<li>no bubble sort - it&rsquo;s terrible - O(n<sup>2</sup>), except when n &lt;= 16</li>
-</ul>
-</li>
+<li><a href="/SqlTests/blog/2012/01/01/tutorial-sorting-algorithms/">Implement sorts &amp; know best case/worst case, average complexity of each</a>.</li>
+<li><a href="/SqlTests/blog/2012/01/02/tutorial-more-about-quick-sort/">MergeSort3 and Quick Select</a></li>
 <li>[ ] stability in sorting algorithms (&ldquo;Is Quicksort stable?&rdquo;)
 
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability">Sorting Algorithm Stability</a></li>
 <li><a href="http://stackoverflow.com/questions/1517793/stability-in-sorting-algorithms">Stability In Sorting Algorithms</a></li>
-<li><a href="http://www.geeksforgeeks.org/stability-in-sorting-algorithms/">Stability In Sorting Algorithms</a></li>
-<li><a href="http://homepages.math.uic.edu/~leon/cs-mcs401-s08/handouts/stability.pdf">Sorting Algorithms - Stability</a></li>
 </ul>
 </li>
 <li>[ ] Which algorithms can be used on linked lists? Which on arrays? Which on both?
@@ -857,97 +726,15 @@ Test with some sample inputs. Then test it out on a computer.</p>
 </li>
 </ul>
 </li>
-<li><p>For heapsort, see Heap data structure above. Heap sort is great, but not stable.</p></li>
-<li><p>[ ] <a href="https://www.youtube.com/watch?v=4nKwesx_c8E&amp;list=PLe-ggMe31CTeunC6GZHFBmQx7EKtjbGf9">Sedgewick - Mergesort (5 videos)</a></p>
-
-<ul>
-<li>[ ] <a href="https://www.youtube.com/watch?v=4nKwesx_c8E&amp;list=PLe-ggMe31CTeunC6GZHFBmQx7EKtjbGf9&amp;index=1">1. Mergesort</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=HGOIGUYjeyk&amp;list=PLe-ggMe31CTeunC6GZHFBmQx7EKtjbGf9&amp;index=2">2. Bottom up Mergesort</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=WvU_mIWo0Ac&amp;index=3&amp;list=PLe-ggMe31CTeunC6GZHFBmQx7EKtjbGf9">3. Sorting Complexity</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=7MvC1kmBza0&amp;index=4&amp;list=PLe-ggMe31CTeunC6GZHFBmQx7EKtjbGf9">4. Comparators</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=XD_5iINB5GI&amp;index=5&amp;list=PLe-ggMe31CTeunC6GZHFBmQx7EKtjbGf9">5. Stability</a></li>
-</ul>
-</li>
-<li><p>[ ] <a href="https://www.youtube.com/playlist?list=PLe-ggMe31CTeE3x2-nF1-toca1QpuXwE1">Sedgewick - Quicksort (4 videos)</a></p>
-
-<ul>
-<li>[ ] <a href="https://www.youtube.com/watch?v=5M5A7qPWk84&amp;index=1&amp;list=PLe-ggMe31CTeE3x2-nF1-toca1QpuXwE1">1. Quicksort</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=CgVYfSyct_M&amp;index=2&amp;list=PLe-ggMe31CTeE3x2-nF1-toca1QpuXwE1">2. Selection</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=WBFzOYJ5ybM&amp;index=3&amp;list=PLe-ggMe31CTeE3x2-nF1-toca1QpuXwE1">3. Duplicate Keys</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=rejpZ2htBjE&amp;index=4&amp;list=PLe-ggMe31CTeE3x2-nF1-toca1QpuXwE1">4. System Sorts</a></li>
-</ul>
-</li>
-<li><p>[ ] UC Berkeley:</p>
-
-<ul>
-<li>[ ] <a href="https://archive.org/details/ucberkeley_webcast_EiUvYS2DT6I">CS 61B Lecture 29: Sorting I (video)</a></li>
-<li>[ ] <a href="https://archive.org/details/ucberkeley_webcast_2hTY3t80Qsk">CS 61B Lecture 30: Sorting II (video)</a></li>
-<li>[ ] <a href="https://archive.org/details/ucberkeley_webcast_Y6LOLpxg6Dc">CS 61B Lecture 32: Sorting III (video)</a></li>
-<li>[ ] <a href="https://archive.org/details/ucberkeley_webcast_qNMQ4ly43p4">CS 61B Lecture 33: Sorting V (video)</a></li>
-</ul>
-</li>
-<li><p>[ ] <a href="https://www.youtube.com/watch?v=P00xJgWzz2c&amp;index=1&amp;list=PL89B61F78B552C1AB">Bubble Sort (video)</a></p></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=ni_zk257Nqo&amp;index=7&amp;list=PL89B61F78B552C1AB">Analyzing Bubble Sort (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=Kg4bqzAqRBM&amp;index=3&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb">Insertion Sort, Merge Sort (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=c4BRHC7kTaQ&amp;index=2&amp;list=PL89B61F78B552C1AB">Insertion Sort (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=GCae1WNvnZM&amp;index=3&amp;list=PL89B61F78B552C1AB">Merge Sort (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=y_G9BkAm6B8&amp;index=4&amp;list=PL89B61F78B552C1AB">Quicksort (video)</a></li>
-<li><p>[ ] <a href="https://www.youtube.com/watch?v=6nDMgr0-Yyo&amp;index=8&amp;list=PL89B61F78B552C1AB">Selection Sort (video)</a></p></li>
-<li><p>[ ] Merge sort code:</p>
-
-<ul>
-<li>[ ] <a href="http://www.cs.yale.edu/homes/aspnes/classes/223/examples/sorting/mergesort.c">Using output array &copy;</a></li>
-<li>[ ] <a href="https://github.com/jwasham/practice-python/blob/master/merge_sort/merge_sort.py">Using output array (Python)</a></li>
-<li>[ ] <a href="https://github.com/jwasham/practice-cpp/blob/master/merge_sort/merge_sort.cc">In-place (C++)</a></li>
-</ul>
-</li>
-<li><p>[ ] Quick sort code:</p>
-
-<ul>
-<li>[ ] <a href="http://www.cs.yale.edu/homes/aspnes/classes/223/examples/randomization/quick.c">Implementation &copy;</a></li>
-<li>[ ] <a href="https://github.com/jwasham/practice-c/blob/master/quick_sort/quick_sort.c">Implementation &copy;</a></li>
-<li>[ ] <a href="https://github.com/jwasham/practice-python/blob/master/quick_sort/quick_sort.py">Implementation (Python)</a></li>
-</ul>
-</li>
-<li><p>[ ] Implement:</p>
-
-<ul>
-<li>[ ] Mergesort: O(n log n) average and worst case</li>
-<li>[ ] Quicksort O(n log n) average case</li>
-<li>Selection sort and insertion sort are both O(n<sup>2</sup>) average and worst case</li>
-<li>For heapsort, see Heap data structure above.</li>
-</ul>
-</li>
-<li><p>[ ] Not required, but I recommended them:</p>
-
-<ul>
-<li>[ ] <a href="https://www.youtube.com/playlist?list=PLe-ggMe31CTcNvUX9E3tQeM6ntrdR8e53">Sedgewick - Radix Sorts (6 videos)</a>
-
-<ul>
-<li>[ ] <a href="https://www.youtube.com/watch?v=zRzU-FWsjNU&amp;list=PLe-ggMe31CTcNvUX9E3tQeM6ntrdR8e53&amp;index=6">1. Strings in Java</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=CtgKYmXs62w&amp;list=PLe-ggMe31CTcNvUX9E3tQeM6ntrdR8e53&amp;index=5">2. Key Indexed Counting</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=2pGVq_BwPKs&amp;list=PLe-ggMe31CTcNvUX9E3tQeM6ntrdR8e53&amp;index=4">3. Least Significant Digit First String Radix Sort</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=M3cYNY90R6c&amp;index=3&amp;list=PLe-ggMe31CTcNvUX9E3tQeM6ntrdR8e53">4. Most Significant Digit First String Radix Sort</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=YVl58kfE6i8&amp;index=2&amp;list=PLe-ggMe31CTcNvUX9E3tQeM6ntrdR8e53">5. 3 Way Radix Quicksort</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=HKPrVm5FWvg&amp;list=PLe-ggMe31CTcNvUX9E3tQeM6ntrdR8e53&amp;index=1">6. Suffix Arrays</a></li>
-</ul>
-</li>
-<li>[ ] <a href="http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html#radixSort">Radix Sort</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=xhr26ia4k38">Radix Sort (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=Nz1KZXbghj8&amp;index=7&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb">Radix Sort, Counting Sort (linear time given constraints) (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=cNB2lADK3_s&amp;index=8&amp;list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp">Randomization: Matrix Multiply, Quicksort, Freivalds' algorithm (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=pOKy3RZbSws&amp;list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf&amp;index=14">Sorting in Linear Time (video)</a></li>
-</ul>
-</li>
 </ul>
 
 
-<p>As a summary, here is a visual representation of <a href="https://www.youtube.com/watch?v=kPRA0W1kECg">15 sorting algorithms</a>.
-If you need more detail on this subject, see &ldquo;Sorting&rdquo; section in <a href="#additional-detail-on-some-subjects">Additional Detail on Some Subjects</a></p>
+<p>As a summary, here is a visual representation of <a href="https://www.youtube.com/watch?v=kPRA0W1kECg">15 sorting algorithms</a>.</p>
 
 <h2>Graphs</h2>
 
-<p>Graphs can be used to represent many problems in computer science, so this section is long, like trees and sorting were.</p>
+<p>Graphs can be used to represent many problems in computer science, so this section is long, like trees and sorting were.
+For learning this topic, I&rsquo;ll STRONGLY RECOMMEND Chapter 14 of this book <a href="https://www.amazon.com/Structures-Algorithms-Python-Michael-Goodrich/dp/1118290275/">Data Structures and Algorithms in Python</a>.</p>
 
 <ul>
 <li><p>Notes:</p>
@@ -967,52 +754,14 @@ If you need more detail on this subject, see &ldquo;Sorting&rdquo; section in <a
 <li>When asked a question, look for a graph-based solution first, then move on if none.</li>
 </ul>
 </li>
-<li><p>[ ] Skiena Lectures - great intro:</p>
-
-<ul>
-<li>[ ] <a href="https://www.youtube.com/watch?v=OiXxhDrFruw&amp;list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b&amp;index=11">CSE373 2012 - Lecture 11 - Graph Data Structures (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=g5vF8jscteo&amp;list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b&amp;index=12">CSE373 2012 - Lecture 12 - Breadth-First Search (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=S23W6eTcqdY&amp;list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b&amp;index=13">CSE373 2012 - Lecture 13 - Graph Algorithms (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=WitPBKGV0HY&amp;index=14&amp;list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b">CSE373 2012 - Lecture 14 - Graph Algorithms (con&rsquo;t) (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=ia1L30l7OIg&amp;index=15&amp;list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b">CSE373 2012 - Lecture 15 - Graph Algorithms (con&rsquo;t 2) (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=jgDOQq6iWy8&amp;index=16&amp;list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b">CSE373 2012 - Lecture 16 - Graph Algorithms (con&rsquo;t 3) (video)</a></li>
-</ul>
-</li>
-<li><p>[ ] Graphs (review and more):</p>
-
-<ul>
-<li>[ ] <a href="https://www.youtube.com/watch?v=Aa2sqUhIn-E&amp;index=15&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb">6.006 Single-Source Shortest Paths Problem (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=2E7MmKv0Y24&amp;index=16&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb">6.006 Dijkstra (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=ozsuci5pIso&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&amp;index=17">6.006 Bellman-Ford (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=CHvQ3q_gJ7E&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&amp;index=18">6.006 Speeding Up Dijkstra (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=i_AQT_XfvD8&amp;index=6&amp;list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm">Aduni: Graph Algorithms I - Topological Sorting, Minimum Spanning Trees, Prim&rsquo;s Algorithm -  Lecture 6 (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=ufj5_bppBsA&amp;list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm&amp;index=7">Aduni: Graph Algorithms II - DFS, BFS, Kruskal&rsquo;s Algorithm, Union Find Data Structure - Lecture 7 (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=DiedsPsMKXc&amp;list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm&amp;index=8">Aduni: Graph Algorithms III: Shortest Path - Lecture 8 (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=XIAQRlNkJAw&amp;list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm&amp;index=9">Aduni: Graph Alg. IV: Intro to geometric algorithms - Lecture 9 (video)</a></li>
-<li>[ ] <del><a href="https://youtu.be/dgjX4HdMI-Q?list=PL-XXv-cvA_iAlnI-BQr9hjqADPBtujFJd&amp;t=3489">CS 61B 2014 (starting at 58:09) (video)</a></del></li>
-<li>[ ] <a href="https://archive.org/details/ucberkeley_webcast_zFbq8vOZ_0k">CS 61B 2014: Weighted graphs (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=tKwnms5iRBU&amp;index=16&amp;list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp">Greedy Algorithms: Minimum Spanning Tree (video)</a></li>
-<li>[ ] <a href="https://www.youtube.com/watch?v=RpgcYiky7uw">Strongly Connected Components Kosaraju&rsquo;s Algorithm Graph Algorithm (video)</a></li>
-</ul>
-</li>
-<li><p>Full Coursera Course:</p>
-
-<ul>
-<li>[ ] <a href="https://www.coursera.org/learn/algorithms-on-graphs/home/welcome">Algorithms on Graphs (video)</a></li>
-</ul>
-</li>
 <li><p>I&rsquo;ll implement:</p>
 
 <ul>
-<li>[ ] DFS with adjacency list (recursive)</li>
-<li>[ ] DFS with adjacency list (iterative with stack)</li>
-<li>[ ] DFS with adjacency matrix (recursive)</li>
-<li>[ ] DFS with adjacency matrix (iterative with stack)</li>
-<li>[ ] BFS with adjacency list</li>
-<li>[ ] BFS with adjacency matrix</li>
+<li>[ ] DFS with adjacency map (recursive)</li>
+<li>[ ] DFS with adjacency map (iterative with stack)</li>
+<li>[ ] BFS with adjacency map</li>
 <li>[ ] single-source shortest path (Dijkstra)</li>
-<li>[ ] minimum spanning tree</li>
-<li>DFS-based algorithms (see Aduni videos above):
+<li>DFS-based algorithms:
 
 <ul>
 <li>[ ] check for cycle (needed for topological sort, since we&rsquo;ll check for cycle before starting)</li>
@@ -1027,7 +776,7 @@ If you need more detail on this subject, see &ldquo;Sorting&rdquo; section in <a
 </ul>
 
 
-<p>You&rsquo;ll get more graph practice in Skiena&rsquo;s book (see Books section below) and the interview books</p>
+<p>See <a href="/SqlTests/blog/2015/05/02/graph-data-structures/">Graph Data Structures</a> and <a href="/SqlTests/blog/2015/05/01/graph-algorithms/">Graph Algorithms</a>.</p>
 
 <h2>Even More Knowledge</h2>
 
@@ -1432,20 +1181,6 @@ If you need more detail on this subject, see &ldquo;Sorting&rdquo; section in <a
 <li>[ ] <a href="http://jasonpolites.github.io/tao-of-testing/ch4-1.1.html">How to write tests</a></li>
 </ul>
 </li>
-<li><h3>Scheduling</h3>
-
-<ul>
-<li>in an OS, how it works</li>
-<li>can be gleaned from Operating System videos</li>
-</ul>
-</li>
-<li><h3>Implement system routines</h3>
-
-<ul>
-<li>understand what lies beneath the programming APIs you use</li>
-<li>can you implement them?</li>
-</ul>
-</li>
 <li><h3>String searching &amp; manipulations</h3>
 
 <ul>
@@ -1492,19 +1227,6 @@ If you need more detail on this subject, see &ldquo;Sorting&rdquo; section in <a
 <li>[ ] <a href="https://www.topcoder.com/community/data-science/data-science-tutorials/using-tries/">TopCoder - Using Tries</a></li>
 <li>[ ] <a href="https://www.youtube.com/watch?v=TJ8SkcUSdbU">Stanford Lecture (real world use case) (video)</a></li>
 <li>[ ] <a href="https://www.youtube.com/watch?v=NinWEPPrkDQ&amp;index=16&amp;list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf">MIT, Advanced Data Structures, Strings (can get pretty obscure about halfway through)</a></li>
-</ul>
-</li>
-<li><h3>Floating Point Numbers</h3>
-
-<ul>
-<li>[ ] simple 8-bit: <a href="https://www.youtube.com/watch?v=ji3SfClm8TU">Representation of Floating Point Numbers - 1 (video - there is an error in calculations - see video description)</a></li>
-<li>[ ] 32 bit: <a href="https://www.youtube.com/watch?v=50ZYcZebIec">IEEE754 32-bit floating point binary (video)</a></li>
-</ul>
-</li>
-<li><h3>Unicode</h3>
-
-<ul>
-<li>[x] <a href="http://www.joelonsoftware.com/articles/Unicode.html">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets</a></li>
 </ul>
 </li>
 <li><h3>Endianness</h3>
@@ -2507,7 +2229,7 @@ You want to get hired in this century, right?
 
 
 
-<time class='entry-date' datetime='2011-01-04T23:46:44-07:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>11:46 pm</span></time>
+<time class='entry-date' datetime='2011-01-04T22:46:44-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>10:46 pm</span></time>
         
       </p>
     
@@ -2541,7 +2263,7 @@ You want to get hired in this century, right?
 
 
 
-<time class='entry-date' datetime='2011-01-03T23:19:56-07:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2011</span></span> <span class='time'>11:19 pm</span></time>
+<time class='entry-date' datetime='2011-01-03T22:19:56-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2011</span></span> <span class='time'>10:19 pm</span></time>
         
       </p>
     
@@ -2575,7 +2297,7 @@ You want to get hired in this century, right?
 
 
 
-<time class='entry-date' datetime='2011-01-02T10:07:55-07:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2011</span></span> <span class='time'>10:07 am</span></time>
+<time class='entry-date' datetime='2011-01-02T09:07:55-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2011</span></span> <span class='time'>9:07 am</span></time>
         
       </p>
     
@@ -2654,7 +2376,7 @@ You want to get hired in this century, right?
 
 
 
-<time class='entry-date' datetime='2011-01-01T22:57:00-07:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>10:57 pm</span></time>
+<time class='entry-date' datetime='2011-01-01T21:57:00-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>9:57 pm</span></time>
         
       </p>
     
@@ -2686,7 +2408,7 @@ You should expect testing questions come up, even when you interview for develop
       
   <header>
     
-      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/05/aws-amazon-dynamodb/">AWS: Amazon DynamoDB</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/04/aws-amazon-dynamodb/">AWS: Amazon DynamoDB</a></h1>
     
     
       <p class="meta">
@@ -2695,7 +2417,7 @@ You should expect testing questions come up, even when you interview for develop
 
 
 
-<time class='entry-date' datetime='2005-12-05T00:58:19-07:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2005</span></span> <span class='time'>12:58 am</span></time>
+<time class='entry-date' datetime='2005-12-04T23:58:19-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2005</span></span> <span class='time'>11:58 pm</span></time>
         
       </p>
     
@@ -2795,7 +2517,7 @@ Primary key is composed of the partition key and the optional sort key that uniq
       
   <header>
     
-      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/03/misc-vertica-installation-troubleshooting/">Vertica Installation: Troubleshooting Tips</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/02/misc-vertica-installation-troubleshooting/">Vertica Installation: Troubleshooting Tips</a></h1>
     
     
       <p class="meta">
@@ -2804,7 +2526,7 @@ Primary key is composed of the partition key and the optional sort key that uniq
 
 
 
-<time class='entry-date' datetime='2005-12-03T00:43:30-07:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2005</span></span> <span class='time'>12:43 am</span></time>
+<time class='entry-date' datetime='2005-12-02T23:43:30-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2005</span></span> <span class='time'>11:43 pm</span></time>
         
       </p>
     
@@ -2945,7 +2667,7 @@ To fix the error above, I had to reconfigure the VMs to one processor core with 
       
   <header>
     
-      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/03/misc-setup-three-node-vertica-vm-sandbox/">Set Up Three-node Vertica VM Sandbox</a></h1>
+      <h1 class="entry-title"><a href="/SqlTests/blog/2005/12/02/misc-setup-three-node-vertica-vm-sandbox/">Set Up Three-node Vertica VM Sandbox</a></h1>
     
     
       <p class="meta">
@@ -2954,7 +2676,7 @@ To fix the error above, I had to reconfigure the VMs to one processor core with 
 
 
 
-<time class='entry-date' datetime='2005-12-03T00:41:22-07:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2005</span></span> <span class='time'>12:41 am</span></time>
+<time class='entry-date' datetime='2005-12-02T23:41:22-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2005</span></span> <span class='time'>11:41 pm</span></time>
         
       </p>
     
@@ -3178,7 +2900,7 @@ There is no apparent advantage of using CentOS 5 over CentOS 6.</p>
 
 
 
-<time class='entry-date' datetime='2005-12-02T23:48:01-07:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2005</span></span> <span class='time'>11:48 pm</span></time>
+<time class='entry-date' datetime='2005-12-02T22:48:01-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2005</span></span> <span class='time'>10:48 pm</span></time>
         
       </p>
     
@@ -3388,7 +3110,7 @@ Note that this approach is recommended over subclassing <code>TestHandler</code>
 
 
 
-<time class='entry-date' datetime='2005-12-02T23:47:43-07:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2005</span></span> <span class='time'>11:47 pm</span></time>
+<time class='entry-date' datetime='2005-12-02T22:47:43-08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2005</span></span> <span class='time'>10:47 pm</span></time>
         
       </p>
     
@@ -3645,7 +3367,7 @@ Instead, we should create a new test runner class with new class extend TestStra
       </li>
     
       <li class="post">
-        <a href="/SqlTests/blog/2021/11/02/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
+        <a href="/SqlTests/blog/2021/11/01/tutorial-estimation-theory/">Tutorial: Estimation Theory</a>
       </li>
     
       <li class="post">

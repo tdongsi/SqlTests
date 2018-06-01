@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Addepar | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/addepar/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-29T17:17:47-06:00</updated>
+  <updated>2018-06-01T13:41:19-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Tutorial: More About Quick Sort]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2012/01/02/tutorial-more-about-quick-sort/"/>
-    <updated>2012-01-02T21:48:49-07:00</updated>
+    <updated>2012-01-02T20:48:49-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2012/01/02/tutorial-more-about-quick-sort</id>
     <content type="html"><![CDATA[<p>This post discuses more about partition algorithms used in Quick Sort and its runtime.
 Partition algorithms are also used to efficiently find certain groups of the list, also known as &ldquo;Quick Select&rdquo;.</p>

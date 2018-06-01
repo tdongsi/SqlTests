@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Os | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/os/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-05-29T17:17:47-06:00</updated>
+  <updated>2018-06-01T13:41:19-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Questions: Operating System Drills]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/03/questions-operating-system-drills/"/>
-    <updated>2016-06-03T01:42:41-06:00</updated>
+    <updated>2016-06-03T00:42:41-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/06/03/questions-operating-system-drills</id>
     <content type="html"><![CDATA[<p>From &ldquo;Operating System concepts&rdquo; book.</p>
 
@@ -53,7 +53,7 @@
   <entry>
     <title type="html"><![CDATA[Tutorial: Process Synchronization]]></title>
     <link href="http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization/"/>
-    <updated>2016-06-02T01:35:03-06:00</updated>
+    <updated>2016-06-02T00:35:03-07:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2016/06/02/tutorial-process-synchronization</id>
     <content type="html"><![CDATA[<p>Summary of chapter 5 of &ldquo;Operating System concepts&rdquo; (Dinosaur book).
 Topics in this chapter are the most intensive and frequently asked during interviews.</p>
