@@ -5,9 +5,14 @@ date: 2013-05-14 19:10:03 -0700
 comments: true
 categories: 
 - Python
+- Algorithm
 ---
 
-TODO: Link to the Python code
+TODO: Trie section in GTG's chapter 13.
+
+<!--more-->
+
+### Basic implementation
 
 ``` python Trie data structure
 class TrieNode():
@@ -101,3 +106,7 @@ class Trie():
                 yield from self._list(current.children[k], prefix + k)
 ```
 
+### References
+
+* [My Python code](https://github.com/tdongsi/gtg/blob/develop/chapter13/string.py).
+* [Alternative implementation](https://web.archive.org/web/20170307224715/http://googleyasheck.com/fun-with-tries/).
