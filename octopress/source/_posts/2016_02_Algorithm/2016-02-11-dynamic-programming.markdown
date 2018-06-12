@@ -68,3 +68,32 @@ Some optimization pointers:
   In most real-world cases, especially source code diffs and patches, the beginnings and ends of files rarely change.
   In that case, we can do preprocessing to remove the unchanged portions.
 * If only the length of the LCS is required, the matrix can be reduced to a `2*min(n,m)` matrix with ease, or to a `min(m,n)+1` vector as the DP approach only needs the current and previous columns of the matrix.
+
+### Subset sum problem
+
+TODO: NP-complete problem. Pseudo-polynomial solution.
+
+``` python Subset sum problem
+def subset_sum(values: list, total: int) -> bool:
+    """ Given an array of non-negative numbers and a total, is there a way to add up those numbers to the total.
+    """
+
+    if not values:
+        return False
+
+    n = len(values)
+    check = [[False] * (total+1) for _ in range(n+1)]
+
+    # if sum == 0, it is True no matter how many in the set
+    for i in range(n+1):
+        check[i][0] = True
+
+    for i in range(1, n+1):
+        for j in range(1, total+1):
+            if j < values[i-1]:
+                check[i][j] = check[i-1][j]
+            else:
+                check[i][j] = check[i-1][j] or check[i-1][j - values[i-1]]
+
+    return check[n][total]
+```

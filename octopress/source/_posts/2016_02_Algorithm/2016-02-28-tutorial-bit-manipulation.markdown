@@ -19,6 +19,7 @@ categories:
 5. What is big-endian? What is little-endian?
 6. How would you determine if the system is big-endian or little-endian.
 7. Isolate the right-most 1 bit in `x`.
+8. Hamming Weight of an integer (Hamming distance).
 
 <!--more-->
 
@@ -77,3 +78,20 @@ Or use [`htonl`](https://linux.die.net/man/3/htonl) function (Host TO Network Lo
 If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.
 
 (7) `x & ~(x-1)`.
+
+(8) 
+
+``` python Hamming weight
+def hamming_weight(x: int) -> int:
+    """ Hamming weight is effectively Hamming distance between x and 0.
+    """
+    count = 0
+
+    while x != 0:
+        # increment the cound
+        count += 1
+        # clear the least significant bit
+        x &= x - 1
+
+    return count
+```
