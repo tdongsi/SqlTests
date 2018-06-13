@@ -12,6 +12,38 @@ There are reasons that these interview questions are just popular.
 
 <!--more-->
 
+### LRU Cache 
+
+The LRU cache can be easily implemented in Java using LinkedHashMap.
+There is a `protected` method that allow you to override to specify the cache size. 
+TODO: that method.
+
+In Python, the natural equivalent to Java's LinkedHashMap is OrderedDict.
+In fact, one implementation of LRU cache can be as follows:
+
+``` python LRU cache
+class LRUCache:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.cache = collections.OrderedDict()
+
+    def get(self, key):
+        try:
+            value = self.cache.pop(key)
+            self.cache[key] = value
+            return value
+        except KeyError:
+            return None
+
+    def set(self, key, value):
+        try:
+            self.cache.pop(key)
+        except KeyError:
+            if len(self.cache) >= self.capacity:
+                self.cache.popitem(last=False)
+        self.cache[key] = value
+```
+
 ### Singleton design pattern
 
 This question seems to be common because it shows that if a candidate knows “design pattern”, best practices, concurrency (`synchronized`, `volatile` keywords), and `enum` (newer, less common Java features).
