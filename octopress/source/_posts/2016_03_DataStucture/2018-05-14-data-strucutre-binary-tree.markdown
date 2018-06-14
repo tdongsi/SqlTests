@@ -86,3 +86,29 @@ def _insert_node_into_binarysearchtree(node, data):
             node.right = _insert_node_into_binarysearchtree(node.right, data);
     return node
 ```
+
+```python Insert node (iterative)
+def insert_node(root: BstNode, val: int):
+    if root is None:
+        return BstNode(val)
+    
+    prev = None
+    cur = root
+    while cur is not None:
+        if cur.val == val:
+            raise ValueError()
+        elif cur.val < val:
+            prev = cur
+            cur = cur.right
+        else:
+            prev = cur
+            cur = cur.left
+            
+    cur = BstNode(val)
+    if val < prev.val:
+        prev.left = cur
+    else:
+        prev.right = cur
+        
+    return root
+```

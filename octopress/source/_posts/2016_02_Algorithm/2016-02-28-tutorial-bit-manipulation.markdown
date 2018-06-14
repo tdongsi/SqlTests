@@ -20,6 +20,7 @@ categories:
 6. How would you determine if the system is big-endian or little-endian.
 7. Isolate the right-most 1 bit in `x`.
 8. Hamming Weight of an integer (Hamming distance).
+9. Java: Write a function to calculate the absolute value of a 32-bit integer without branching.
 
 <!--more-->
 
@@ -94,4 +95,18 @@ def hamming_weight(x: int) -> int:
         x &= x - 1
 
     return count
+```
+
+(9)
+
+``` java Absolute without branching
+public int abs(int num) {
+    // mask will be all 1s for negative, all 0s for positive
+    int mask = num >> 31
+
+    // Effectively: if num < 0
+    // Toggle the bits and add 1. 
+    // For two's complement format. All 1s = -1
+    return num ^ mask - mask
+}
 ```
