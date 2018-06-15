@@ -12,6 +12,36 @@ There are reasons that these interview questions are just popular.
 
 <!--more-->
 
+### Reverse linked list. Find cycle in linked list
+
+The first problem "reversing a linked list" used to be the "foobar" challenge, although slightly harder.
+They just want to check if you know the most basic stuffs.
+Now, they are usually used as a warm-up question.
+However, there is a reason for "foobar" challenges since reversing linked list can be tricky with corner cases even for experienced but ill-prepared candidates.
+In addition, if you are interviewing for senior positions, they expect you to solve this question quickly (as if you do interview every single day).
+So, you usually have no choice but make sure that you can do this problem quickly.
+
+``` python Reverse linked list
+def reverse_list(head:Node) -> Node:
+    """ Write a function that reverses a linked list
+    :param head: The head of the linked list.
+    :return: The new head of the reversed list.
+    """
+    prev = None
+    cur = head
+
+    while cur is not None:
+        temp = cur
+        cur = cur.get_next()
+        temp.set_next(prev)
+        prev = temp
+
+    return prev
+```
+
+Check if there is a cycle in a linked list. 
+TODO: Floyd algorithm.
+
 ### LRU Cache 
 
 The LRU cache can be easily implemented in Java using LinkedHashMap.
