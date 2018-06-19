@@ -25,6 +25,7 @@ See [main syllabus](/syllabus/).
 5. Basic understanding of SSL/TLS.
 6. Other application protocols (FTP, IMAP, SSH etc.)
 7. What is REST and how it's used.
+8. Three-way handshake in TCP.
 
 On the practical side, make sure you're very comfortable with the networking stack of your language or framework of choice.
 
@@ -58,6 +59,12 @@ UDP: User Datagram Protocol
 2. No guarantee: if receivers don’t receive it, too bad.
 3. No error checking for better performance.
 4. Example usage: game, live video stream.
+
+(8) 
+Phase 1: Client sends SYN=M.
+Phase 2: Server sends SYN=N, ACK=M+1.
+Phase 3: Client sends ACK=N+1.
+Now connection is established.
 
 #### Section B
 
