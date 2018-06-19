@@ -112,3 +112,31 @@ def insert_node(root: BstNode, val: int):
         
     return root
 ```
+
+``` python Find successor
+def find_sucessor(root: BinaryTreeNode, target) -> int:
+    """Get the successor of a value in a BST rooted by given node. Returns int."""
+    if root is None:
+        return None
+
+    prev = None
+    curr = root
+
+    while curr is not None:
+        if curr.element() == target:
+            if curr.right() is not None:
+                return find_min(curr.right())
+            else:
+                if prev is not None and prev.element() > target:
+                    return prev.element()
+                else:
+                    return None
+        elif curr.element() < target:
+            # prev = curr  # TRICKY: enabling this is a bug
+            curr = curr.right()
+        else:
+            prev = curr
+            curr = curr.left()
+
+    return None
+```

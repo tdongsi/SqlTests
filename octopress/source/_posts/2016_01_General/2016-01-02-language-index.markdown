@@ -36,7 +36,7 @@ Questions:
   * Essential: Maybe only Python 2 is supported in interviews while you've been using Python 3 or vice versa. Learn this to unblock yourself.
   * Bonus points to explain that to interviewers.
 
-Warm-up question: Write a function that reads file numbers.txt and outputs numbers-mult.txt where each number in numbers.txt is multiplied by its line number, starting from 1.
+Warm-up question 1: Write a function that reads file numbers.txt and outputs numbers-mult.txt where each number in numbers.txt is multiplied by its line number, starting from 1.
 
 ``` python Warm up exercise
 def mult_file(INFILE='numbers.txt', OUTFILE='numbers-mult.txt'):
@@ -53,6 +53,33 @@ def mult_file(INFILE='numbers.txt', OUTFILE='numbers-mult.txt'):
 
 This is a good warm-up exercise for Python since it touches many common operations in Python: reading from/writing to files, string to int. 
 It is aslo not trivial to write Pythonic code for it.
+
+Warm-up question 2: You are given a search string and a magazine. 
+You seek to generate all the characters in search string by cutting them out from the magazine. 
+Give an algorithm to efficiently determine whether the magazine contains all the letters in the search string.
+
+``` python Text from magazine
+def create_text_from_magazine(text, magazine):
+    """ Create search string from magazines.
+    :param text: Text you want to generate.
+    :param magazine: Where you get characters from.
+    :return: True or False
+    """
+    from collections import Counter
+
+    text_count = Counter(text.strip().lower())
+    del text_count[' ']  # We don't care about spaces
+
+    lines = magazine.split("\n")
+    for line in lines:
+        mag_count = Counter(line.strip().lower())
+        text_count -= mag_count
+        # print(text_count)
+        if not text_count:
+            return True
+
+    return False
+```
 
 ### [JavaScript](https://tdongsi.github.io/javascript/)
 
