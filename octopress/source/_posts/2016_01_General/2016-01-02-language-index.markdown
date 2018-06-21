@@ -81,6 +81,31 @@ def create_text_from_magazine(text, magazine):
     return False
 ```
 
+Question 3: Define abstract class in Python.
+
+``` python Abstract class
+from abc import ABCMeta, abstractmethod
+
+class Sequence(metaclass=ABCMeta):
+    """Simulate collections.Sequence"""
+
+    @abstractmethod
+    def __len__(self):
+        """Return the length of the sequence"""
+
+    @abstractmethod
+    def __getitem__(self, j):
+        """Return the element at index j"""
+
+    def __contains__(self, item):
+        """Concrete behavior based on abstract methods"""
+        for j in range(len(self)):
+            if self[j] == item:
+                return True
+
+        return False
+```
+
 ### [JavaScript](https://tdongsi.github.io/javascript/)
 
 ### Next language?

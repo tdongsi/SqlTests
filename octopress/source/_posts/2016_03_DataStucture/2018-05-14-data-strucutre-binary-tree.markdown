@@ -113,6 +113,37 @@ def insert_node(root: BstNode, val: int):
     return root
 ```
 
+``` python Delete node
+def delete_node(root:BinaryTreeNode, target) -> BinaryTreeNode:
+    """Delete a given value from a BST rooted at given node."""
+    if root is None:
+        return
+    elif root.element() > target:
+        new_left = delete_node(root.left(), target)
+        root.set_left(new_left)
+        return root
+    elif root.element() < target:
+        new_right = delete_node(root.right(), target)
+        root.set_right(new_right)
+        return root
+    else:
+        # root.element() == target
+        if root.left() is None and root.right() is None:
+            # del root or let garbage collector delete the node
+            return None
+        elif root.left() is None:
+            return root.right()
+        elif root.right() is None:
+            return root.left()
+        else:
+            right_min = find_min(root.right())
+            root.set_value(right_min)
+            new_right = delete_node(root.right(), right_min)
+            root.set_right(new_right)
+            return root
+```
+
+
 ``` python Find successor
 def find_sucessor(root: BinaryTreeNode, target) -> int:
     """Get the successor of a value in a BST rooted by given node. Returns int."""
