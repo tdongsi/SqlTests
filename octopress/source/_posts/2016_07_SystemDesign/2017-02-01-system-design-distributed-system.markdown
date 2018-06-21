@@ -19,6 +19,16 @@ Read : Existing designs/research - Zookeeper, Haystack , Cassandra, MapReduce, H
 
 Scale : Practice analyzing bottlenecks in all the systems above. Throughput/Storage/Number of Items/something else? Network/memory/cpu/IOPS/.../$$
 
+1. Distributed: using microservice architecture instead of monolith
+2. -> Parallel/Concurrent processing
+3. Load balancing
+4. Highly available/Fault tolerance: something will fail
+5. Horizontal scaling
+6. Design for asynchronous processing (message queues, pubsub)
+7. Avoid sync/point of contention.
+8. Cache like crazy: distributed key/value stores. Avoid writing to disk.
+
+
 Like in real projects, understand requirements - ask questions and/or state assumptions you are making. Do not BS - no need to take any risk here, just ask for help when you need it.
 
 Good luck on your job hunt - leetcode might not be sufficient for senior backend roles anymore.

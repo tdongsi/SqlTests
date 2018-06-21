@@ -12,6 +12,15 @@ There are reasons that these interview questions are just popular.
 
 <!--more-->
 
+### How to implement a hash map
+
+https://www.geeksforgeeks.org/internal-working-of-hashmap-java/
+
+ArrayList of LinkedList of Entry (Key, Value).
+Convert hashcode of Key to integer index (H % bucket).
+Use index to move in array.
+Use Key to find entry in LinkedList.
+
 ### Reverse linked list. Find cycle in linked list
 
 The first problem "reversing a linked list" used to be the "foobar" challenge, although slightly harder.
