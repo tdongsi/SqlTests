@@ -9,7 +9,7 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="From HackerRank. 1
+  <meta name="description" content="Binary Search See &ldquo;Sorting&rdquo;. Binary search (recrusive)1
 2
 3
 4
@@ -23,7 +23,18 @@
 12
 13
 14
-class BSTreeNode: def __init__(self, node_value): self.value = node_value self.left = self.right = &hellip;">
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+def binary_search &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -100,7 +111,118 @@ class BSTreeNode: def __init__(self, node_value): self.value = node_value self.l
   </header>
 
 
-<div class="entry-content"><p>From HackerRank.</p>
+<div class="entry-content"><h3>Binary Search</h3>
+
+<p>See &ldquo;Sorting&rdquo;.</p>
+
+<figure class='code'><figcaption><span>Binary search (recrusive)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">binary_search</span><span class="p">(</span><span class="n">mlist</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">_bs</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
+</span><span class='line'>            <span class="c"># empty</span>
+</span><span class='line'>            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>            <span class="c"># singleton</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">mlist</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">start</span>
+</span><span class='line'>            <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">med</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">mlist</span><span class="p">[</span><span class="n">med</span><span class="p">]</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">med</span>
+</span><span class='line'>            <span class="k">elif</span> <span class="n">mlist</span><span class="p">[</span><span class="n">med</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">item</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">_bs</span><span class="p">(</span><span class="n">med</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">_bs</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">med</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="n">mlist</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">_bs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Binary search (iterative)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># TODO</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Variations: Binary search to find start and end indices.</p>
+
+<figure class='code'><figcaption><span>Find start index</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">search_start</span><span class="p">(</span><span class="n">mlist</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">mlist</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">lo</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>        <span class="n">hi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">while</span> <span class="n">lo</span> <span class="o">&lt;</span> <span class="n">hi</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">hi</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">mlist</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">mid</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">mlist</span><span class="p">[</span><span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>  <span class="c"># add this</span>
+</span><span class='line'>                    <span class="n">hi</span> <span class="o">=</span> <span class="n">mid</span>  <span class="c"># add this</span>
+</span><span class='line'>                <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                    <span class="k">return</span> <span class="n">mid</span>
+</span><span class='line'>            <span class="k">elif</span> <span class="n">mlist</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">lo</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>            <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">hi</span> <span class="o">=</span> <span class="n">mid</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Binary Search Tree</h3>
+
+<p>From HackerRank.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -130,6 +252,171 @@ class BSTreeNode: def __init__(self, node_value): self.value = node_value self.l
 </span><span class='line'>        <span class="k">else</span><span class="p">:</span>
 </span><span class='line'>            <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">_insert_node_into_binarysearchtree</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
 </span><span class='line'>    <span class="k">return</span> <span class="n">node</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Insert node (iterative)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">insert_node</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">BstNode</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">BstNode</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">prev</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>    <span class="n">cur</span> <span class="o">=</span> <span class="n">root</span>
+</span><span class='line'>    <span class="k">while</span> <span class="n">cur</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">cur</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="n">cur</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">val</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">prev</span> <span class="o">=</span> <span class="n">cur</span>
+</span><span class='line'>            <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">right</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">prev</span> <span class="o">=</span> <span class="n">cur</span>
+</span><span class='line'>            <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">left</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">cur</span> <span class="o">=</span> <span class="n">BstNode</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">prev</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">prev</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">cur</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">prev</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">cur</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">root</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Delete node</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">delete_node</span><span class="p">(</span><span class="n">root</span><span class="p">:</span><span class="n">BinaryTreeNode</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BinaryTreeNode</span><span class="p">:</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;Delete a given value from a BST rooted at given node.&quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">element</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">new_left</span> <span class="o">=</span> <span class="n">delete_node</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">(),</span> <span class="n">target</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">root</span><span class="o">.</span><span class="n">set_left</span><span class="p">(</span><span class="n">new_left</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">root</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">element</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">new_right</span> <span class="o">=</span> <span class="n">delete_node</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">(),</span> <span class="n">target</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">root</span><span class="o">.</span><span class="n">set_right</span><span class="p">(</span><span class="n">new_right</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">root</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="c"># root.element() == target</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">()</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">()</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>            <span class="c"># del root or let garbage collector delete the node</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">None</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">()</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">()</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">right_min</span> <span class="o">=</span> <span class="n">find_min</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">())</span>
+</span><span class='line'>            <span class="n">root</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">right_min</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">new_right</span> <span class="o">=</span> <span class="n">delete_node</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">(),</span> <span class="n">right_min</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">root</span><span class="o">.</span><span class="n">set_right</span><span class="p">(</span><span class="n">new_right</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">root</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Find successor</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">find_sucessor</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">BinaryTreeNode</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;Get the successor of a value in a BST rooted by given node. Returns int.&quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="bp">None</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">prev</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>    <span class="n">curr</span> <span class="o">=</span> <span class="n">root</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">while</span> <span class="n">curr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">curr</span><span class="o">.</span><span class="n">element</span><span class="p">()</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">curr</span><span class="o">.</span><span class="n">right</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">find_min</span><span class="p">(</span><span class="n">curr</span><span class="o">.</span><span class="n">right</span><span class="p">())</span>
+</span><span class='line'>            <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">prev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">prev</span><span class="o">.</span><span class="n">element</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
+</span><span class='line'>                    <span class="k">return</span> <span class="n">prev</span><span class="o">.</span><span class="n">element</span><span class="p">()</span>
+</span><span class='line'>                <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                    <span class="k">return</span> <span class="bp">None</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="n">curr</span><span class="o">.</span><span class="n">element</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+</span><span class='line'>            <span class="c"># prev = curr  # TRICKY: enabling this is a bug</span>
+</span><span class='line'>            <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">right</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span>
+</span><span class='line'>            <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">left</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="bp">None</span>
 </span></code></pre></td></tr></table></div></figure>
 
 </div>
@@ -231,7 +518,7 @@ class BSTreeNode: def __init__(self, node_value): self.value = node_value self.l
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (12)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (13)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 

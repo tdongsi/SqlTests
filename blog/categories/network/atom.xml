@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Network | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-06-01T13:41:19-07:00</updated>
+  <updated>2018-06-22T17:08:23-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -98,6 +98,7 @@ D       224.0.0.0/4     224.0.0.0   239.255.255.255
 <li>Basic understanding of SSL/TLS.</li>
 <li>Other application protocols (FTP, IMAP, SSH etc.)</li>
 <li>What is REST and how it&rsquo;s used.</li>
+<li>Three-way handshake in TCP.</li>
 </ol>
 
 
@@ -142,6 +143,12 @@ Built on top of Internet Protocol (IP). The packets are sent to an IP address.</
 <li>Example usage: game, live video stream.</li>
 </ol>
 
+
+<p>(8)
+Phase 1: Client sends SYN=M.
+Phase 2: Server sends SYN=N, ACK=M+1.
+Phase 3: Client sends ACK=N+1.
+Now connection is established.</p>
 
 <h4>Section B</h4>
 

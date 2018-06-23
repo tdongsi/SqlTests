@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apple | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/apple/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-06-01T13:41:19-07:00</updated>
+  <updated>2018-06-22T17:08:23-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -28,6 +28,8 @@
 <li>What is big-endian? What is little-endian?</li>
 <li>How would you determine if the system is big-endian or little-endian.</li>
 <li>Isolate the right-most 1 bit in <code>x</code>.</li>
+<li>Hamming Weight of an integer (Hamming distance).</li>
+<li>Java: Write a function to calculate the absolute value of a 32-bit integer without branching.</li>
 </ol>
 
 
@@ -86,6 +88,35 @@ printf( "data.str[0]: %d\n", data.str[0]);
 If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.</p>
 
 <p>(7) <code>x &amp; ~(x-1)</code>.</p>
+
+<p>(8)</p>
+
+<pre><code class="python Hamming weight">def hamming_weight(x: int) -&gt; int:
+    """ Hamming weight is effectively Hamming distance between x and 0.
+    """
+    count = 0
+
+    while x != 0:
+        # increment the cound
+        count += 1
+        # clear the least significant bit
+        x &amp;= x - 1
+
+    return count
+</code></pre>
+
+<p>(9)</p>
+
+<pre><code class="java Absolute without branching">public int abs(int num) {
+    // mask will be all 1s for negative, all 0s for positive
+    int mask = num &gt;&gt; 31
+
+    // Effectively: if num &lt; 0
+    // Toggle the bits and add 1. 
+    // For two's complement format. All 1s = -1
+    return num ^ mask - mask
+}
+</code></pre>
 ]]></content>
   </entry>
   

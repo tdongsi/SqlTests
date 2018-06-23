@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Design | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/design/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-06-01T13:41:19-07:00</updated>
+  <updated>2018-06-22T17:08:23-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -328,6 +328,18 @@ public class StatefulObject {
 <p>Read : Existing designs/research - Zookeeper, Haystack , Cassandra, MapReduce, HDFS/Hadoop, Spanner (too many to list)</p>
 
 <p>Scale : Practice analyzing bottlenecks in all the systems above. Throughput/Storage/Number of Items/something else? Network/memory/cpu/IOPS/&hellip;/$$</p>
+
+<ol>
+<li>Distributed: using microservice architecture instead of monolith</li>
+<li>-> Parallel/Concurrent processing</li>
+<li>Load balancing</li>
+<li>Highly available/Fault tolerance: something will fail</li>
+<li>Horizontal scaling</li>
+<li>Design for asynchronous processing (message queues, pubsub)</li>
+<li>Avoid sync/point of contention.</li>
+<li>Cache like crazy: distributed key/value stores. Avoid writing to disk.</li>
+</ol>
+
 
 <p>Like in real projects, understand requirements - ask questions and/or state assumptions you are making. Do not BS - no need to take any risk here, just ask for help when you need it.</p>
 

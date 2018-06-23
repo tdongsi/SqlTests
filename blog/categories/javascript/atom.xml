@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Javascript | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2018-06-01T13:41:19-07:00</updated>
+  <updated>2018-06-22T17:08:23-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -54,6 +54,95 @@
 </li>
 </ul>
 
+
+<p>Warm-up question 1: Write a function that reads file numbers.txt and outputs numbers-mult.txt where each number in numbers.txt is multiplied by its line number, starting from 1.</p>
+
+<pre><code class="python Warm up exercise">def mult_file(INFILE='numbers.txt', OUTFILE='numbers-mult.txt'):
+    try:
+        with open(INFILE, 'r') as infile, open(OUTFILE, 'w') as outfile:
+            for count, line in enumerate(infile, 1):
+                line.strip()
+                if line:
+                    out = count * int(line)
+                    outfile.write("%d\n" % out)
+    except IOError as e:
+        print("Can't open files %s" % e)
+</code></pre>
+
+<p>This is a good warm-up exercise for Python since it touches many common operations in Python: reading from/writing to files, string to int.
+It is aslo not trivial to write Pythonic code for it.</p>
+
+<p>Warm-up question 2: You are given a search string and a magazine.
+You seek to generate all the characters in search string by cutting them out from the magazine.
+Give an algorithm to efficiently determine whether the magazine contains all the letters in the search string.</p>
+
+<pre><code class="python Text from magazine">def create_text_from_magazine(text, magazine):
+    """ Create search string from magazines.
+    :param text: Text you want to generate.
+    :param magazine: Where you get characters from.
+    :return: True or False
+    """
+    from collections import Counter
+
+    text_count = Counter(text.strip().lower())
+    del text_count[' ']  # We don't care about spaces
+
+    lines = magazine.split("\n")
+    for line in lines:
+        mag_count = Counter(line.strip().lower())
+        text_count -= mag_count
+        # print(text_count)
+        if not text_count:
+            return True
+
+    return False
+</code></pre>
+
+<p>Question 3: Define abstract class in Python.</p>
+
+<pre><code class="python Abstract class">from abc import ABCMeta, abstractmethod
+
+class Sequence(metaclass=ABCMeta):
+    """Simulate collections.Sequence"""
+
+    @abstractmethod
+    def __len__(self):
+        """Return the length of the sequence"""
+
+    @abstractmethod
+    def __getitem__(self, j):
+        """Return the element at index j"""
+
+    def __contains__(self, item):
+        """Concrete behavior based on abstract methods"""
+        for j in range(len(self)):
+            if self[j] == item:
+                return True
+
+        return False
+</code></pre>
+
+<p>Question 4: Write a generator that returns factors of an integer.</p>
+
+<pre><code class="python Generator">def factors(n):
+    """ Generator of factors for n
+    """
+    if n &lt; 1:
+        raise ValueError("n must be larger than 0")
+
+    k = 1
+    while k*k &lt; n:
+        a, b = divmod(n, k)
+
+        if b == 0:
+            yield k
+            yield a
+
+        k += 1
+
+    if k*k == n:
+        yield k
+</code></pre>
 
 <h3><a href="https://tdongsi.github.io/javascript/">JavaScript</a></h3>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="There are reasons that these interview questions are just popular. Singleton design pattern This question seems to be common because it shows that if &hellip;">
+  <meta name="description" content="There are reasons that these interview questions are just popular. How to implement a hash map https://www.geeksforgeeks.org/internal-working-of- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +89,112 @@
 <div class="entry-content"><p>There are reasons that these interview questions are just popular.</p>
 
 <!--more-->
+
+
+<h3>How to implement a hash map</h3>
+
+<p><a href="https://www.geeksforgeeks.org/internal-working-of-hashmap-java/">https://www.geeksforgeeks.org/internal-working-of-hashmap-java/</a></p>
+
+<p>ArrayList of LinkedList of Entry (Key, Value).
+Convert hashcode of Key to integer index (H % bucket).
+Use index to move in array.
+Use Key to find entry in LinkedList.</p>
+
+<h3>Reverse linked list. Find cycle in linked list</h3>
+
+<p>The first problem &ldquo;reversing a linked list&rdquo; used to be the &ldquo;foobar&rdquo; challenge, although slightly harder.
+They just want to check if you know the most basic stuffs.
+Now, they are usually used as a warm-up question.
+However, there is a reason for &ldquo;foobar&rdquo; challenges since reversing linked list can be tricky with corner cases even for experienced but ill-prepared candidates.
+In addition, if you are interviewing for senior positions, they expect you to solve this question quickly (as if you do interview every single day).
+So, you usually have no choice but make sure that you can do this problem quickly.</p>
+
+<figure class='code'><figcaption><span>Reverse linked list</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">reverse_list</span><span class="p">(</span><span class="n">head</span><span class="p">:</span><span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; Write a function that reverses a linked list</span>
+</span><span class='line'><span class="sd">    :param head: The head of the linked list.</span>
+</span><span class='line'><span class="sd">    :return: The new head of the reversed list.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">prev</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>    <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">while</span> <span class="n">cur</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">temp</span> <span class="o">=</span> <span class="n">cur</span>
+</span><span class='line'>        <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">get_next</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">temp</span><span class="o">.</span><span class="n">set_next</span><span class="p">(</span><span class="n">prev</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">prev</span> <span class="o">=</span> <span class="n">temp</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">prev</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Check if there is a cycle in a linked list.
+TODO: Floyd algorithm.</p>
+
+<h3>LRU Cache</h3>
+
+<p>The LRU cache can be easily implemented in Java using LinkedHashMap.
+There is a <code>protected</code> method that allow you to override to specify the cache size.
+TODO: that method.</p>
+
+<p>In Python, the natural equivalent to Java&rsquo;s LinkedHashMap is OrderedDict.
+In fact, one implementation of LRU cache can be as follows:</p>
+
+<figure class='code'><figcaption><span>LRU cache</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">LRUCache</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="p">):</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span class='line'>            <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">value</span>
+</span><span class='line'>        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">None</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>            <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span><span class="p">:</span>
+</span><span class='line'>                <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">popitem</span><span class="p">(</span><span class="n">last</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>Singleton design pattern</h3>
@@ -390,7 +496,7 @@ Just copy and paste &ndash; normally not a good idea, but appropriate here:</p>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (12)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (13)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 

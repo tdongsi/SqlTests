@@ -98,6 +98,8 @@ Odd Man Out: Given an unsorted array of integers where every &hellip;">
 <li>What is big-endian? What is little-endian?</li>
 <li>How would you determine if the system is big-endian or little-endian.</li>
 <li>Isolate the right-most 1 bit in <code>x</code>.</li>
+<li>Hamming Weight of an integer (Hamming distance).</li>
+<li>Java: Write a function to calculate the absolute value of a 32-bit integer without branching.</li>
 </ol>
 
 
@@ -179,6 +181,58 @@ For this reason, big-endian byte order is also referred to as network byte order
 If outputs are the same as inputs, it is big-endian since data is transmitted in big-endian order in many Internet protocols.</p>
 
 <p>(7) <code>x &amp; ~(x-1)</code>.</p>
+
+<p>(8)</p>
+
+<figure class='code'><figcaption><span>Hamming weight</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">hamming_weight</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; Hamming weight is effectively Hamming distance between x and 0.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">while</span> <span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>        <span class="c"># increment the cound</span>
+</span><span class='line'>        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>        <span class="c"># clear the least significant bit</span>
+</span><span class='line'>        <span class="n">x</span> <span class="o">&amp;=</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">count</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(9)</p>
+
+<figure class='code'><figcaption><span>Absolute without branching</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">int</span> <span class="nf">abs</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="c1">// mask will be all 1s for negative, all 0s for positive</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">num</span> <span class="o">&gt;&gt;</span> <span class="mi">31</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Effectively: if num &lt; 0</span>
+</span><span class='line'>    <span class="c1">// Toggle the bits and add 1. </span>
+</span><span class='line'>    <span class="c1">// For two&#39;s complement format. All 1s = -1</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">num</span> <span class="o">^</span> <span class="n">mask</span> <span class="o">-</span> <span class="n">mask</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -284,7 +338,7 @@ If outputs are the same as inputs, it is big-endian since data is transmitted in
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (12)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (13)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 

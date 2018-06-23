@@ -192,6 +192,57 @@ In that case, we can do preprocessing to remove the unchanged portions.</li>
 <li>If only the length of the LCS is required, the matrix can be reduced to a <code>2*min(n,m)</code> matrix with ease, or to a <code>min(m,n)+1</code> vector as the DP approach only needs the current and previous columns of the matrix.</li>
 </ul>
 
+
+<h3>Subset sum problem</h3>
+
+<p>TODO: NP-complete problem. Pseudo-polynomial solution.</p>
+
+<figure class='code'><figcaption><span>Subset sum problem</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">subset_sum</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">total</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; Given an array of non-negative numbers and a total, is there a way to add up those numbers to the total.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="bp">False</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">check</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">False</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">total</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># if sum == 0, it is True no matter how many in the set</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">check</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">total</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+</span><span class='line'>                <span class="n">check</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">check</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+</span><span class='line'>            <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">check</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">check</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="ow">or</span> <span class="n">check</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">check</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">total</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -297,7 +348,7 @@ In that case, we can do preprocessing to remove the unchanged portions.</li>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (12)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (13)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 
