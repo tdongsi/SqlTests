@@ -41,6 +41,26 @@ def BFS(g:Graph, s:Vertex, discovered):
         level = next_level
 ```
 
+``` python Construct path
+def construct_path(u:Vertex, v:Vertex, discovered):
+    """ Construct a path from u to v."""
+    path = []
+
+    if v in discovered:
+        path.append(v)
+
+        walk = v
+        while walk is not u:
+            e = discovered[walk]
+            parent = e.opposite(walk)
+            path.append(parent)
+            walk = parent
+
+        path.reverse()
+
+    return path
+```
+
 ### Transitive Closure
 
 Background: If the graph representation is adjacency list or adjacency map, we can answer the question of reachability for any u and v in `O(n+m)` (where `n` is the number of nodes, `m` is the number of edges).
