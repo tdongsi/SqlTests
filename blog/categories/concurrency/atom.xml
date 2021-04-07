@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Concurrency | Personal Interview Notes]]></title>
+  <link href="http://tdongsi.github.io/SqlTests/blog/categories/concurrency/atom.xml" rel="self"/>
+  <link href="http://tdongsi.github.io/SqlTests/"/>
+  <updated>2021-04-06T21:24:56-07:00</updated>
+  <id>http://tdongsi.github.io/SqlTests/</id>
+  <author>
+    <name><![CDATA[Cuong Dong-Si]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: Concurrent Cache]]></title>
+    <link href="http://tdongsi.github.io/SqlTests/blog/2016/04/06/tutorial-concurrent-cache/"/>
+    <updated>2016-04-06T21:08:39-07:00</updated>
+    <id>http://tdongsi.github.io/SqlTests/blog/2016/04/06/tutorial-concurrent-cache</id>
+    <content type="html"><![CDATA[<p>One common interview question is &ldquo;How to design/implement a Concurrent Cache (or Concurrent HashMap)?&rdquo;.
+After reading &ldquo;Go Programming Language&rdquo; book, this problem can be approached in a methodical way, especially in Go.</p>
+
+<!--more-->
+
+
+<h3>Summary</h3>
+
+<ul>
+<li>Naive answer: putting a HashMap in a Critical Section, guarded by a Mutex. It will be blocking for anyone who tries to access it.</li>
+<li>Better: Separate locking/unlocking for first entry and repeated entry.</li>
+<li>Expected: Duplicate supression.</li>
+</ul>
+
+
+<h3>Naive design</h3>
+
+<pre><code class="go">// A Memo caches the results of calling a Func.
+type Memo struct {
+    f Func
+    mu sync.Mutex // guards cache
+    cache map[string]result
+}
+
+// Func is the type of the function to memoize.
+type Func func(key string) (interface{}, error)
+
+type result struct {
+    value interface{}
+    err error
+}
+
+func New(f Func) *Memo {
+    return &amp;Memo {
+        f: f,
+        cache: make(map[string]result),
+    }
+}
+
+func (memo *Memo) Get(key string) (interface{}, error) {
+    memo.mu.Lock()
+    res, ok := memo.cache[key]
+    if !ok {
+        res.value, res.err = memo.f(key)
+        memo.cache[key] = res
+    }
+    memo.mu.Unlock()
+    return res.value, res.err
+}
+</code></pre>
+
+<h3>Better: Separate locking/unlocking for repeated entries</h3>
+
+<pre><code class="go">// A Memo caches the results of calling a Func.
+type Memo struct {
+    f Func
+    mu sync.Mutex // guards cache
+    cache map[string]result
+}
+
+// Func is the type of the function to memoize.
+type Func func(key string) (interface{}, error)
+
+type result struct {
+    value interface{}
+    err error
+}
+
+func New(f Func) *Memo {
+    return &amp;Memo {
+        f: f,
+        cache: make(map[string]result),
+    }
+}
+
+func (memo *Memo) Get(key string) (interface{}, error) {
+    memo.mu.Lock()
+    res, ok := memo.cache[key]
+    memo.mu.Unlock()
+
+    if !ok {
+        res.value, res.err = memo.f(key)
+
+        memo.mu.Lock()
+        memo.cache[key] = res
+        memo.mu.Unlock()
+    }
+
+    return res.value, res.err
+}
+</code></pre>
+
+<h3>Expected: Duplicate-suppressing</h3>
+
+<pre><code class="go">// A Memo caches the results of calling a Func.
+type Memo struct {
+    f Func
+    mu sync.Mutex // guards cache
+    cache map[string]*entry
+}
+
+// Func is the type of the function to memoize.
+type Func func(key string) (interface{}, error)
+
+type entry struct {
+    res result
+    ready chan struct{}  // closed when res is ready
+}
+
+type result struct {
+    value interface{}
+    err error
+}
+
+func New(f Func) *Memo {
+    return &amp;Memo {
+        f: f,
+        cache: make(map[string]*entry),
+    }
+}
+
+func (memo *Memo) Get(key string) (interface{}, error) {
+    memo.mu.Lock()
+    e := memo.cache[key]
+    if e == nil {
+        // first request
+        e = &amp;entry{ready: make(chan struct{})}
+        memo.cache[key] = e
+        memo.mu.Unlock()
+
+        e.res.value, e.res.err = memo.f(key)
+
+        close(e.ready) // broadcast ready condition
+    } else {
+        // repeat request
+        memo.mu.Unlock()
+
+        &lt;- e.ready // wait for ready condition
+    }
+
+    return e.res.value, e.res.err
+}
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

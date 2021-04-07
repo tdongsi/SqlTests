@@ -138,6 +138,45 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
+
+
+<figure class='code'><figcaption><span>Construct path</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">construct_path</span><span class="p">(</span><span class="n">u</span><span class="p">:</span><span class="n">Vertex</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span><span class="n">Vertex</span><span class="p">,</span> <span class="n">discovered</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; Construct a path from u to v.&quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">discovered</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">walk</span> <span class="o">=</span> <span class="n">v</span>
+</span><span class='line'>        <span class="k">while</span> <span class="n">walk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">u</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">e</span> <span class="o">=</span> <span class="n">discovered</span><span class="p">[</span><span class="n">walk</span><span class="p">]</span>
+</span><span class='line'>            <span class="n">parent</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">opposite</span><span class="p">(</span><span class="n">walk</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">walk</span> <span class="o">=</span> <span class="n">parent</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">path</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">path</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <h3>Transitive Closure</h3>
 
 <p>Background: If the graph representation is adjacency list or adjacency map, we can answer the question of reachability for any u and v in <code>O(n+m)</code> (where <code>n</code> is the number of nodes, <code>m</code> is the number of edges).
@@ -653,7 +692,7 @@ Because of using the same data structure, you can reuse the method <code>constru
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (13)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (13)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/concurrency/'>concurrency (1)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/golang/'>golang (1)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (2)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (2)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 
@@ -665,7 +704,7 @@ Because of using the same data structure, you can reuse the method <code>constru
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2018 - Cuong Dong-Si -
+  Copyright &copy; 2021 - Cuong Dong-Si -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

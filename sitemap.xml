@@ -93,6 +93,10 @@
 <lastmod>2016-06-02T00:35:03-07:00</lastmod>
 </url>
 <url>
+<loc>http://tdongsi.github.io/SqlTests/blog/2016/04/06/tutorial-concurrent-cache/</loc>
+<lastmod>2016-04-06T21:08:39-07:00</lastmod>
+</url>
+<url>
 <loc>http://tdongsi.github.io/SqlTests/blog/2015/05/02/graph-data-structures/</loc>
 <lastmod>2015-05-02T10:54:59-07:00</lastmod>
 </url>
@@ -296,6 +300,12 @@
 </url>
 <url>
 <loc>http://tdongsi.github.io/SqlTests/blog/categories/algorithmdesign/</loc>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/categories/concurrency/</loc>
+</url>
+<url>
+<loc>http://tdongsi.github.io/SqlTests/blog/categories/golang/</loc>
 </url>
 <url>
 <loc>http://tdongsi.github.io/SqlTests/blog/categories/os/</loc>
