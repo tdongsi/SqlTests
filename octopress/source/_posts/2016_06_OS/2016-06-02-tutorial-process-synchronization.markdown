@@ -5,9 +5,8 @@ date: 2016-06-02 00:35:03 -0700
 comments: true
 categories: 
 - Tutorial
-- OS
+- Concurrency
 - Java
-- TODO
 ---
 
 Summary of chapter 5 of "Operating System concepts" (Dinosaur book).
@@ -131,18 +130,20 @@ to swap the contents of two words atomically—that is, as one uninterruptible u
 
 Atomic test_and_set() and compare_and_swap() for locking:
 
+```c
 boolean test_and_set(boolean *target) {
-boolean rv = *target;
-*target = true;
-return rv;
+  boolean rv = *target;
+  *target = true;
+  return rv;
 }
 
 int compare_and_swap(int *value, int expected, int new value) {
-int temp = *value;
-if (*value == expected)
-    *value = new value;
-return temp;
+  int temp = *value;
+  if (*value == expected)
+      *value = new value;
+  return temp;
 }
+```
 
 Simple Mutex with atomic test_and_set()
 Figure 5.5
@@ -158,17 +159,21 @@ We use the mutex to lock to protect critical regions and thus prevent race condi
 
 Calls to either acquire() or release() must be performed atomically.
 
+```c
 acquire() {
-while (!available)
-; /* busy wait */
-available = false;
+  while (!available)
+    ; /* busy wait */
+  available = false;
 }
 
 release() {
-available = true;
+  available = true;
 }
+```
+
 Usage:
 
+```c
 acquire()
 
 // start of CS
@@ -176,8 +181,7 @@ acquire()
 // end of CS
 
 release()
-
-
+```
 
 The main disadvantage of the implementation given here is that it requires busy waiting. This type of mutex lock is also called a spinlock.
 Spinlocks do have an advantage, however, in that no context switch is required.
@@ -187,15 +191,17 @@ Spinlocks do have an advantage, however, in that no context switch is required.
 A semaphore S is an integer variable that, apart from initialization, is
 accessed only through two standard atomic operations: wait() and signal().
 
+```c
 wait(S) {
-while (S <= 0 )
-; // busy wait
-S--;
+  while (S <= 0 )
+    ; // busy wait
+  S--;
 }
 
 signal(S) {
-S++;
+  S++;
 }
+```
 
 The value of a counting semaphore can range over an unrestricted domain. Versus binary semaphore, which is similar to mutex.
 Counting semaphores can be used to control access to a given resources of a finite number of instances.
@@ -206,17 +212,25 @@ S1 and P2 with a statement S2 . Suppose we require that S2 be executed only
 after S1 has completed. We can implement this scheme readily by letting P1
 and P2 share a common semaphore synch, initialized to 0. In process P1 , we
 insert the statements
+
+```c
 S1;
 signal(synch);
+```
 
 In process P2 , we insert the statements
+
+```c
 wait(synch);
-S 2 ;
+S2;
+```
 
 Because synch is initialized to 0, P2 will execute S2 only after P1 has invoked
 signal(synch) , which is after statement S1 has been executed.
 
 Deadlock:
+
+```
 P 0 P 1
 wait(S); wait(Q);
 wait(Q); wait(S);
@@ -225,10 +239,13 @@ wait(Q); wait(S);
 . .
 signal(S); signal(Q);
 signal(Q); signal(S);
+```
 
 Priority inversion:
+
 The problem of priority inversion is when three processes of different priorities L < M < H. H is waiting for L to finish with a certain resource. M process becomes runnable and preempts L. Indirectly, process M with lower priority affects how long process H must wait for resource.
 It occurs when the system has more than two priorities. However, it is almost always the case.
+
 Solution: priority-inheritance protocol: all processes that use a resource, waited by a higher priority process, will inherit the highest priority until they are done with the resource.
 
 #### Semaphore implementation
@@ -249,12 +266,14 @@ Bounded-Buffer (Consumer-Producer) problem
 Problem: See 5.1.
 Solution: The producer and consumer share the following data structure:
 The mutex is used to provide mutual exclusion for accesses to the buffer pool.
+
+```c
 int n;
 semaphore mutex = 1;
 semaphore empty = n;
 semaphore full = 0
 
-Producer	Consumer
+// Producer
 do {
 . . .
 /* produce an item in next produced */
@@ -267,6 +286,8 @@ wait(mutex);
 signal(mutex);
 signal(full);
 } while (true);
+
+// Consumer
 do {
 wait(full);
 wait(mutex);
@@ -279,6 +300,7 @@ signal(empty);
 /* consume the item in next consumed */
 . . .
 } while (true);
+```
 
 
 Reader-Writer problem:
@@ -296,7 +318,8 @@ The mutex semaphore is used to ensure mutual exclusion when the variable read co
 The read count variable keeps track of how many processes are currently reading the object. 
 The semaphore rw_mutex functions as a mutual exclusion semaphore for the writers.
 
-Writer	Reader
+```c
+// Writer	
 do {
 wait(rw mutex);
 . . .
@@ -304,6 +327,8 @@ wait(rw mutex);
 . . .
 signal(rw mutex);
 } while (true);
+
+// Reader
 do {
 wait(mutex);
 read count++;
@@ -319,8 +344,11 @@ if (read count == 0)
 signal(rw mutex);
 signal(mutex);
 } while (true);
+```
 
 Dining Philosopher problem: This solution can create a deadlock
+
+```c
 semaphore chopstick[5];
 
 do {
@@ -335,12 +363,14 @@ signal(chopstick[(i+1) % 5]);
 /* think for awhile */
 . . .
 } while (true);
+```
 
 Several possible remedies to the deadlock problem are replaced by:
-• Allow at most four philosophers to be sitting simultaneously at the table.
-• Allow a philosopher to pick up her chopsticks only if both chopsticks are
+
+* Allow at most four philosophers to be sitting simultaneously at the table.
+* Allow a philosopher to pick up her chopsticks only if both chopsticks are
 available (to do this, she must pick them up in a critical section).
-• Use an asymmetric solution—that is,an odd-numbered philosopher picks
+* Use an asymmetric solution—that is,an odd-numbered philosopher picks
 up first her left chopstick and then her right chopstick, whereas an even-
 numbered philosopher picks up her right chopstick and then her left
 chopstick.
@@ -357,7 +387,6 @@ wait() or signal() or both are omitted: mutual exclusion violated or deadlock.
 
 Syntax of a monitor:
 
-
 Local variables of a monitor can be accessed by only the local functions. Only one process at a time is active within the monitor.
 We also defines condition construct: condition x, y; // condition variables
 The only operations that can be invoked on a condition variable are wait() and signal().
@@ -368,14 +397,6 @@ The x.signal() operation resumes exactly one suspended process. If no process is
 Dining Philosophers solution using Monitors:
 Monitor is acting like a waiter/moderator. Before a philosopher starts eating, she informs the waiter (invoked operation pickup()) and the waiter will tell her what to do.
 After she is done eating, she again informs the waiter (putdown()). It is still possible that some philosopher will starve to death.
-
-
-
-condition self[5];
-allows philosopher i to delay herself when she is hungry but is unable to obtain the chopsticks she needs.
-
-Implement a Monitor with Semaphores
-Check Section 5.8.3 page 229.
 
 Resuming Processes within a Monitor
 One simple solution is to use FIFO ordering.

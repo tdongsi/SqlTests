@@ -21,7 +21,7 @@ After reading "Go Programming Language" book, this problem can be approached in 
 
 ### Naive design
 
-```golang
+```go
 // A Memo caches the results of calling a Func.
 type Memo struct {
 	f Func
@@ -58,7 +58,7 @@ func (memo *Memo) Get(key string) (interface{}, error) {
 
 ### Better: Separate locking/unlocking for repeated entries
 
-```golang
+```go
 // A Memo caches the results of calling a Func.
 type Memo struct {
 	f Func
@@ -100,7 +100,7 @@ func (memo *Memo) Get(key string) (interface{}, error) {
 
 ### Expected: Duplicate-suppressing
 
-```golang
+```go
 // A Memo caches the results of calling a Func.
 type Memo struct {
 	f Func
