@@ -10,7 +10,7 @@
 
   
   <meta name="description" content="There are reasons that these interview questions are just popular.
-The goal is not to fail at the same question TWICE. Largest rectangle under &hellip;">
+The goal is not to fail at the same question TWICE. Maximum subarray TODO: Maximum &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,6 +91,77 @@ The goal is not to fail at the same question TWICE. Largest rectangle under &hel
 The goal is not to fail at the same question TWICE.</p>
 
 <!--more-->
+
+
+<h3>Maximum subarray</h3>
+
+<p>TODO: Maximum subarray should be the main problem and &ldquo;buying stock&rdquo; should be the derivative problem.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">buy_stock</span><span class="p">(</span><span class="n">prices</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;Find when to buy and sell to maximize profit from list of stock prices&quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">profit</span><span class="p">,</span> <span class="n">buy</span><span class="p">,</span> <span class="n">sell</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="n">min_price</span><span class="p">,</span> <span class="n">min_idx</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)):</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_price</span> <span class="o">&gt;</span> <span class="n">profit</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">profit</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_price</span>
+</span><span class='line'>            <span class="n">buy</span><span class="p">,</span> <span class="n">sell</span> <span class="o">=</span> <span class="n">min_idx</span><span class="p">,</span> <span class="n">i</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min_price</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">min_price</span><span class="p">,</span> <span class="n">min_idx</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">profit</span><span class="p">,</span> <span class="n">buy</span><span class="p">,</span> <span class="n">sell</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">maximum_subarray</span><span class="p">(</span><span class="n">numbers</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; Largest Sum Contiguous Subarray.</span>
+</span><span class='line'><span class="sd">    https://en.wikipedia.org/wiki/Maximum_subarray_problem</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="n">accu</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c"># accumulated sum of &quot;numbers&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">total</span> <span class="o">+=</span> <span class="n">num</span>
+</span><span class='line'>        <span class="n">accu</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">max_val</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">buy_stock</span><span class="p">(</span><span class="n">accu</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="n">max_val</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">numbers</span><span class="p">[(</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">):(</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>Largest rectangle under histogram</h3>
