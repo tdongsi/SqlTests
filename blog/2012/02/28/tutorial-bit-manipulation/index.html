@@ -98,8 +98,9 @@ Odd Man Out: Given an unsorted array of integers where every &hellip;">
 <li>What is big-endian? What is little-endian?</li>
 <li>How would you determine if the system is big-endian or little-endian.</li>
 <li>Isolate the right-most 1 bit in <code>x</code>.</li>
-<li>Hamming Weight of an integer (Hamming distance).</li>
+<li>Hamming Weight of an integer x (Hamming distance of x and 0).</li>
 <li>Java: Write a function to calculate the absolute value of a 32-bit integer without branching.</li>
+<li>Hamming Distance of two integers a and b.</li>
 </ol>
 
 
@@ -231,6 +232,33 @@ If outputs are the same as inputs, it is big-endian since data is transmitted in
 </span><span class='line'>    <span class="c1">// For two&#39;s complement format. All 1s = -1</span>
 </span><span class='line'>    <span class="k">return</span> <span class="n">num</span> <span class="o">^</span> <span class="n">mask</span> <span class="o">-</span> <span class="n">mask</span>
 </span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(10)</p>
+
+<figure class='code'><figcaption><span>Hamming distance</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">hamming_distance_int</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">diff</span> <span class="o">=</span> <span class="n">x</span> <span class="o">^</span> <span class="n">y</span>
+</span><span class='line'>    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">while</span> <span class="n">diff</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>        <span class="c"># increment the cound</span>
+</span><span class='line'>        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>        <span class="c"># clear the least significant bit</span>
+</span><span class='line'>        <span class="n">diff</span> <span class="o">&amp;=</span> <span class="n">diff</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">count</span>
 </span></code></pre></td></tr></table></div></figure>
 
 </div>

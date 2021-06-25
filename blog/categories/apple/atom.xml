@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apple | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/apple/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-04-06T21:40:38-07:00</updated>
+  <updated>2021-06-25T00:34:52-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -28,8 +28,9 @@
 <li>What is big-endian? What is little-endian?</li>
 <li>How would you determine if the system is big-endian or little-endian.</li>
 <li>Isolate the right-most 1 bit in <code>x</code>.</li>
-<li>Hamming Weight of an integer (Hamming distance).</li>
+<li>Hamming Weight of an integer x (Hamming distance of x and 0).</li>
 <li>Java: Write a function to calculate the absolute value of a 32-bit integer without branching.</li>
+<li>Hamming Distance of two integers a and b.</li>
 </ol>
 
 
@@ -116,6 +117,21 @@ If outputs are the same as inputs, it is big-endian since data is transmitted in
     // For two's complement format. All 1s = -1
     return num ^ mask - mask
 }
+</code></pre>
+
+<p>(10)</p>
+
+<pre><code class="python Hamming distance">def hamming_distance_int(x: int, y: int) -&gt; int:
+    diff = x ^ y
+    count = 0
+
+    while diff != 0:
+        # increment the cound
+        count += 1
+        # clear the least significant bit
+        diff &amp;= diff - 1
+
+    return count
 </code></pre>
 ]]></content>
   </entry>
