@@ -9,8 +9,48 @@ categories:
 ---
 
 There are reasons that these interview questions are just popular.
+The goal is not to fail at the same question TWICE. 
 
 <!--more-->
+
+### Largest rectangle under histogram
+
+The stack-based solution is `O(n)`. 
+There is another solution which is divide-and-conquer and more intuitive that runs in `O(n logn)`.
+
+``` python Largest rectangle
+def largest_rect_histogram(heights: list) -> int:
+    stack = []
+    max_area = 0
+
+    for idx, e in enumerate(heights):
+        save_idx = idx
+        while stack:
+            # peek top of the stack
+            peek_idx, peek_height = stack[-1]
+            if e < peek_height:
+                stack.pop()
+                save_idx = peek_idx
+
+                temp = peek_height * (idx - peek_idx)
+                if max_area < temp:
+                    max_area = temp
+            else:
+                break
+
+        # push back the current bar
+        stack.append((save_idx, e))
+
+    # Handle the bars still in the stack
+    idx = len(heights)
+    while stack:
+        peek_idx, peek_height = stack.pop()
+        temp = peek_height * (idx - peek_idx)
+        if max_area < temp:
+            max_area = temp
+
+    return max_area
+```
 
 ### Merge intervals
 
