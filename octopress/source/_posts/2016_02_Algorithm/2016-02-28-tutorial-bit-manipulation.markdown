@@ -19,8 +19,9 @@ categories:
 5. What is big-endian? What is little-endian?
 6. How would you determine if the system is big-endian or little-endian.
 7. Isolate the right-most 1 bit in `x`.
-8. Hamming Weight of an integer (Hamming distance).
+8. Hamming Weight of an integer x (Hamming distance of x and 0).
 9. Java: Write a function to calculate the absolute value of a 32-bit integer without branching.
+10. Hamming Distance of two integers a and b.
 
 <!--more-->
 
@@ -109,4 +110,20 @@ public int abs(int num) {
     // For two's complement format. All 1s = -1
     return num ^ mask - mask
 }
+```
+
+(10)
+
+```python Hamming distance
+def hamming_distance_int(x: int, y: int) -> int:
+    diff = x ^ y
+    count = 0
+
+    while diff != 0:
+        # increment the cound
+        count += 1
+        # clear the least significant bit
+        diff &= diff - 1
+
+    return count
 ```
