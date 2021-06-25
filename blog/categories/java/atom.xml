@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-06-25T00:51:29-07:00</updated>
+  <updated>2021-06-25T01:13:17-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -418,10 +418,49 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
     <link href="http://tdongsi.github.io/SqlTests/blog/2011/01/21/classic-interview-questions/"/>
     <updated>2011-01-21T15:18:42-08:00</updated>
     <id>http://tdongsi.github.io/SqlTests/blog/2011/01/21/classic-interview-questions</id>
-    <content type="html"><![CDATA[<p>There are reasons that these interview questions are just popular.</p>
+    <content type="html"><![CDATA[<p>There are reasons that these interview questions are just popular.
+The goal is not to fail at the same question TWICE.</p>
 
 <!--more-->
 
+
+<h3>Largest rectangle under histogram</h3>
+
+<p>The stack-based solution is <code>O(n)</code>.
+There is another solution which is divide-and-conquer and more intuitive that runs in <code>O(n logn)</code>.</p>
+
+<pre><code class="python Largest rectangle">def largest_rect_histogram(heights: list) -&gt; int:
+    stack = []
+    max_area = 0
+
+    for idx, e in enumerate(heights):
+        save_idx = idx
+        while stack:
+            # peek top of the stack
+            peek_idx, peek_height = stack[-1]
+            if e &lt; peek_height:
+                stack.pop()
+                save_idx = peek_idx
+
+                temp = peek_height * (idx - peek_idx)
+                if max_area &lt; temp:
+                    max_area = temp
+            else:
+                break
+
+        # push back the current bar
+        stack.append((save_idx, e))
+
+    # Handle the bars still in the stack
+    idx = len(heights)
+    while stack:
+        peek_idx, peek_height = stack.pop()
+        temp = peek_height * (idx - peek_idx)
+        if max_area &lt; temp:
+            max_area = temp
+
+    return max_area
+</code></pre>
 
 <h3>Merge intervals</h3>
 

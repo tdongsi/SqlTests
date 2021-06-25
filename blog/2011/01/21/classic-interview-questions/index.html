@@ -9,7 +9,8 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="There are reasons that these interview questions are just popular. Merge intervals Given a collection of intervals (start, end), merge all &hellip;">
+  <meta name="description" content="There are reasons that these interview questions are just popular.
+The goal is not to fail at the same question TWICE. Largest rectangle under &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,9 +87,80 @@
   </header>
 
 
-<div class="entry-content"><p>There are reasons that these interview questions are just popular.</p>
+<div class="entry-content"><p>There are reasons that these interview questions are just popular.
+The goal is not to fail at the same question TWICE.</p>
 
 <!--more-->
+
+
+<h3>Largest rectangle under histogram</h3>
+
+<p>The stack-based solution is <code>O(n)</code>.
+There is another solution which is divide-and-conquer and more intuitive that runs in <code>O(n logn)</code>.</p>
+
+<figure class='code'><figcaption><span>Largest rectangle</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">largest_rect_histogram</span><span class="p">(</span><span class="n">heights</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>    <span class="n">max_area</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">heights</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">save_idx</span> <span class="o">=</span> <span class="n">idx</span>
+</span><span class='line'>        <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+</span><span class='line'>            <span class="c"># peek top of the stack</span>
+</span><span class='line'>            <span class="n">peek_idx</span><span class="p">,</span> <span class="n">peek_height</span> <span class="o">=</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">e</span> <span class="o">&lt;</span> <span class="n">peek_height</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'>                <span class="n">save_idx</span> <span class="o">=</span> <span class="n">peek_idx</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="n">temp</span> <span class="o">=</span> <span class="n">peek_height</span> <span class="o">*</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="n">peek_idx</span><span class="p">)</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">max_area</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="p">:</span>
+</span><span class='line'>                    <span class="n">max_area</span> <span class="o">=</span> <span class="n">temp</span>
+</span><span class='line'>            <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">break</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c"># push back the current bar</span>
+</span><span class='line'>        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">save_idx</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Handle the bars still in the stack</span>
+</span><span class='line'>    <span class="n">idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">peek_idx</span><span class="p">,</span> <span class="n">peek_height</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">temp</span> <span class="o">=</span> <span class="n">peek_height</span> <span class="o">*</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="n">peek_idx</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">max_area</span> <span class="o">&lt;</span> <span class="n">temp</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">max_area</span> <span class="o">=</span> <span class="n">temp</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">max_area</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>Merge intervals</h3>
