@@ -12,6 +12,34 @@ There are reasons that these interview questions are just popular.
 
 <!--more-->
 
+### Merge intervals
+
+Given a collection of intervals (start, end), merge all overlapping intervals.
+
+Example: `[[1, 4], [4, 5], [3, 4]] -> [[1, 5]]`
+
+``` python Merge intervals
+def merge_intervals(mlol):
+    """ Given a collection of intervals, merge all overlapping intervals.
+
+    :param mlol: List of lists
+    :return: overlapping intervals.
+    """
+    mlol.sort(key=lambda x: x[0])
+
+    output = []
+    for interval in mlol:
+        # if the output list is empty or if the current interval does not overlap with the previous,
+        # simply append it.
+        if not output or output[-1][1] < interval[0]:
+            output.append(interval)
+        else:
+            # otherwise, there is overlap, so we combine the current and previous intervals.
+            output[-1][1] = max(output[-1][1], interval[1])
+
+    return output
+```
+
 ### How to implement a hash map
 
 https://www.geeksforgeeks.org/internal-working-of-hashmap-java/
