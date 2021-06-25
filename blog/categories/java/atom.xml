@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Java | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-06-25T00:34:52-07:00</updated>
+  <updated>2021-06-25T00:51:29-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -422,6 +422,33 @@ The Java Object class’s method wait() and notify() are similar to wait() and s
 
 <!--more-->
 
+
+<h3>Merge intervals</h3>
+
+<p>Given a collection of intervals (start, end), merge all overlapping intervals.</p>
+
+<p>Example: <code>[[1, 4], [4, 5], [3, 4]] -&gt; [[1, 5]]</code></p>
+
+<pre><code class="python Merge intervals">def merge_intervals(mlol):
+    """ Given a collection of intervals, merge all overlapping intervals.
+
+    :param mlol: List of lists
+    :return: overlapping intervals.
+    """
+    mlol.sort(key=lambda x: x[0])
+
+    output = []
+    for interval in mlol:
+        # if the output list is empty or if the current interval does not overlap with the previous,
+        # simply append it.
+        if not output or output[-1][1] &lt; interval[0]:
+            output.append(interval)
+        else:
+            # otherwise, there is overlap, so we combine the current and previous intervals.
+            output[-1][1] = max(output[-1][1], interval[1])
+
+    return output
+</code></pre>
 
 <h3>How to implement a hash map</h3>
 

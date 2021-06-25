@@ -9,7 +9,7 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="There are reasons that these interview questions are just popular. How to implement a hash map https://www.geeksforgeeks.org/internal-working-of- &hellip;">
+  <meta name="description" content="There are reasons that these interview questions are just popular. Merge intervals Given a collection of intervals (start, end), merge all &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +89,53 @@
 <div class="entry-content"><p>There are reasons that these interview questions are just popular.</p>
 
 <!--more-->
+
+
+<h3>Merge intervals</h3>
+
+<p>Given a collection of intervals (start, end), merge all overlapping intervals.</p>
+
+<p>Example: <code>[[1, 4], [4, 5], [3, 4]] -&gt; [[1, 5]]</code></p>
+
+<figure class='code'><figcaption><span>Merge intervals</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">merge_intervals</span><span class="p">(</span><span class="n">mlol</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; Given a collection of intervals, merge all overlapping intervals.</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">    :param mlol: List of lists</span>
+</span><span class='line'><span class="sd">    :return: overlapping intervals.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">mlol</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">mlol</span><span class="p">:</span>
+</span><span class='line'>        <span class="c"># if the output list is empty or if the current interval does not overlap with the previous,</span>
+</span><span class='line'>        <span class="c"># simply append it.</span>
+</span><span class='line'>        <span class="k">if</span> <span class="ow">not</span> <span class="n">output</span> <span class="ow">or</span> <span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+</span><span class='line'>            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="c"># otherwise, there is overlap, so we combine the current and previous intervals.</span>
+</span><span class='line'>            <span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">output</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>How to implement a hash map</h3>
