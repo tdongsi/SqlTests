@@ -340,6 +340,8 @@ The standard implementation is as follows, but see <a href="/SqlTests/blog/2016/
 
 <h3>Insertion Sort</h3>
 
+<p>NOTE: Updated to Python3 in 2021 June.</p>
+
 <figure class='code'><figcaption><span>Insertion sort</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -358,7 +360,7 @@ The standard implementation is as follows, but see <a href="/SqlTests/blog/2016/
 </span><span class='line'>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
 </span><span class='line'>        <span class="k">return</span> <span class="n">mlist</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">)):</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">)):</span>
 </span><span class='line'>        <span class="n">pos</span> <span class="o">=</span> <span class="n">i</span>
 </span><span class='line'>        <span class="n">cur</span> <span class="o">=</span> <span class="n">mlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </span><span class='line'>
