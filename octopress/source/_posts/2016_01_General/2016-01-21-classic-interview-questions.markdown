@@ -123,10 +123,12 @@ def merge_intervals(mlol):
 
 https://www.geeksforgeeks.org/internal-working-of-hashmap-java/
 
-ArrayList of LinkedList of Entry (Key, Value).
-Convert hashcode of Key to integer index (H % bucket).
-Use index to move in array.
-Use Key to find entry in LinkedList.
+Main ideas:
+
+* ArrayList of LinkedList of Entry (Key, Value).
+* Convert hashcode of Key to integer index (H % bucket).
+* Use index to move in array.
+* Use Key to find entry in LinkedList.
 
 ### Reverse linked list. Find cycle in linked list
 
