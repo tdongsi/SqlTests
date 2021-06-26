@@ -142,12 +142,14 @@ def heap_sort(mlist):
 
 ### Insertion Sort
 
+NOTE: Updated to Python3 in 2021 June.
+
 ``` python Insertion sort
 def insertion_sort(mlist):
     if len(mlist) <= 1:
         return mlist
 
-    for i in xrange(1, len(mlist)):
+    for i in range(1, len(mlist)):
         pos = i
         cur = mlist[i]
 
