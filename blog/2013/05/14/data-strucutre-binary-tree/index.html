@@ -9,32 +9,8 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="Binary Search See &ldquo;Sorting&rdquo;. Binary search (recrusive)1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-def binary_search &hellip;">
+  <meta name="description" content="Binary Search See &ldquo;Sorting&rdquo;.
+The iterative version is recommended over the recursive version since it is likely expected by interviewers &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -113,7 +89,45 @@ def binary_search &hellip;">
 
 <div class="entry-content"><h3>Binary Search</h3>
 
-<p>See &ldquo;Sorting&rdquo;.</p>
+<p>See &ldquo;Sorting&rdquo;.
+The iterative version is recommended over the recursive version since it is likely expected by interviewers as well as shorter to write.</p>
+
+<figure class='code'><figcaption><span>Binary search (iterative)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">binary_search_iterative</span><span class="p">(</span><span class="n">mlist</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">mlist</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">lo</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="n">hi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">while</span> <span class="n">lo</span> <span class="o">&lt;</span> <span class="n">hi</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">lo</span><span class="o">+</span><span class="n">hi</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">mlist</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">mid</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="n">mlist</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">lo</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">hi</span> <span class="o">=</span> <span class="n">mid</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 
 <figure class='code'><figcaption><span>Binary search (recrusive)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -165,13 +179,6 @@ def binary_search &hellip;">
 </span><span class='line'>        <span class="k">return</span> <span class="n">_bs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">mlist</span><span class="p">))</span>
 </span><span class='line'>    <span class="k">else</span><span class="p">:</span>
 </span><span class='line'>        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>Binary search (iterative)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># TODO</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
