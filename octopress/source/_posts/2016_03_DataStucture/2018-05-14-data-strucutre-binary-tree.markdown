@@ -8,7 +8,27 @@ categories:
 
 ### Binary Search
 
-See "Sorting".
+See "Sorting". 
+The iterative version is recommended over the recursive version since it is likely expected by interviewers as well as shorter to write.
+
+``` python Binary search (iterative)
+def binary_search_iterative(mlist, target):
+    if mlist is None:
+        return -1
+
+    lo = 0
+    hi = len(mlist)
+    while lo < hi:
+        mid = (lo+hi) // 2
+        if mlist[mid] == target:
+            return mid
+        elif mlist[mid] < target:
+            lo = mid+1
+        else:
+            hi = mid
+
+    return -1
+```
 
 ``` python Binary search (recrusive)
 def binary_search(mlist, item):
@@ -36,10 +56,6 @@ def binary_search(mlist, item):
         return _bs(0, len(mlist))
     else:
         return -1
-```
-
-``` python Binary search (iterative)
-# TODO
 ```
 
 Variations: Binary search to find start and end indices.
