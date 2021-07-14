@@ -15,41 +15,30 @@ The goal is not to fail at the same question TWICE.
 
 ### Maximum subarray
 
-TODO: Maximum subarray should be the main problem and "buying stock" should be the derivative problem.
+The problem is based on [Wikipedia](https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm), with comments for more clarity.
 
 ``` python 
-def buy_stock(prices:list) -> Tuple[int, int, int]:
-    """Find when to buy and sell to maximize profit from list of stock prices"""
-    profit, buy, sell = 0, 0, 0
-    min_price, min_idx = prices[0], 0
+def maximum_subarray(nums: list) -> list:
+    """Maximum subarray without using helper function buy_stock."""
+    best_sum = 0  # NOTE: not infinity since you have a choice of empty sub-array.
+    best_start = best_end = 0
+    cur_sum, cur_start = 0, 0
 
-    for i in range(1, len(prices)):
-        if prices[i] - min_price > profit:
-            profit = prices[i] - min_price
-            buy, sell = min_idx, i
+    for cur_end, e in enumerate(nums):
+        if cur_sum <= 0:
+            # Start a new sequence
+            cur_start = cur_end
+            cur_sum = e
+        else:
+            # Extend the current sequence
+            cur_sum += e
 
-        if prices[i] < min_price:
-            min_price, min_idx = prices[i], i
+        if cur_sum > best_sum:
+            best_sum = cur_sum
+            best_start = cur_start
+            best_end = cur_end + 1
 
-    return profit, buy, sell
-
-
-def maximum_subarray(numbers:list) -> list:
-    """ Largest Sum Contiguous Subarray.
-    https://en.wikipedia.org/wiki/Maximum_subarray_problem
-    """
-    total = 0
-    accu = []  # accumulated sum of "numbers"
-
-    for num in numbers:
-        total += num
-        accu.append(total)
-
-    max_val, start, end = buy_stock(accu)
-
-    print(max_val)
-
-    return numbers[(start+1):(end+1)]
+    return nums[best_start:best_end]
 ```
 
 ### Largest rectangle under histogram
