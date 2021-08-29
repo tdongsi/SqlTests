@@ -18,7 +18,7 @@ Summary of chapter 14 "Graph Algorithms" in "Data Structures & Algorithms in Pyt
 
 #### DFS
 
-``` python Iterative version
+``` python Stack version
 def DFS_iter(g: Graph, s: Vertex) -> dict:
     """DFS traversal using a stack."""
     to_visit = [s]
@@ -36,7 +36,7 @@ def DFS_iter(g: Graph, s: Vertex) -> dict:
     return discovered
 ```
 
-The book version (shown below) is using tail-recusion which may not pass for interviews.
+The book version (shown below) is using recusion (still practical since it's tail-recursion) but some interviewers may not like it.
 
 ``` python Book version
 def DFS(g:Graph, u:Vertex, discovered):
@@ -60,6 +60,29 @@ def DFS(g:Graph, u:Vertex, discovered):
 
 
 #### BFS
+
+``` python Queue version
+def BFS(g: Graph, s: Vertex) -> dict:
+    from collections import deque
+    
+    to_visit = deque([s])
+    discovered = {s: None}
+    
+    while to_visit:
+        u = to_visit.popleft()
+        
+        for e in g.incident_edges(u):
+            v = e.opposite(u)
+            
+            if v not in discovered:
+                discovered[v] = e
+                to_visit.append(v)
+                
+    return discovered
+```
+
+The queue version is very similar to DFS (stack version).
+The book version (shown below) is iterative but looks much more clumsy, due to constructing a queue (`level`, `next_level`) without using `deque`.
 
 ``` python Book version
 def BFS(g:Graph, s:Vertex, discovered):
