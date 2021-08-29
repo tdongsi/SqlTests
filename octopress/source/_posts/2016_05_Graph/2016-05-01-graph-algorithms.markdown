@@ -57,8 +57,6 @@ def DFS(g:Graph, u:Vertex, discovered):
     pass
 ```
 
-
-
 #### BFS
 
 ``` python Queue version
@@ -106,6 +104,10 @@ def BFS(g:Graph, s:Vertex, discovered):
 
         level = next_level
 ```
+
+#### Others
+
+Path construction after traversal (either DFS or BFS).
 
 ``` python Construct path
 def construct_path(u:Vertex, v:Vertex, discovered):
