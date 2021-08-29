@@ -9,7 +9,7 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG. Graph traversals DFS &hellip;">
+  <meta name="description" content="Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG. Graph traversals DFS Stack &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -95,7 +95,7 @@
 
 <h4>DFS</h4>
 
-<figure class='code'><figcaption><span>Iterative version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>Stack version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -128,7 +128,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The book version (shown below) is using tail-recusion which may not pass for interviews.</p>
+<p>The book version (shown below) is using recusion (still practical since it&rsquo;s tail-recursion) but some interviewers may not like it.</p>
 
 <figure class='code'><figcaption><span>Book version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -166,6 +166,46 @@
 
 
 <h4>BFS</h4>
+
+<figure class='code'><figcaption><span>Queue version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">BFS</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">Vertex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span class='line'>    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">to_visit</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">s</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">discovered</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">while</span> <span class="n">to_visit</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">u</span> <span class="o">=</span> <span class="n">to_visit</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">incident_edges</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+</span><span class='line'>            <span class="n">v</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">opposite</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">discovered</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">discovered</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span>
+</span><span class='line'>                <span class="n">to_visit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">discovered</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The queue version is very similar to DFS (stack version).
+The book version (shown below) is iterative but looks much more clumsy, due to constructing a queue (<code>level</code>, <code>next_level</code>) without using <code>deque</code>.</p>
 
 <figure class='code'><figcaption><span>Book version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -210,7 +250,9 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h4>Others</h4>
 
+<p>Path construction after traversal (either DFS or BFS).</p>
 
 <figure class='code'><figcaption><span>Construct path</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

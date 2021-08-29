@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Gtg | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/gtg/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-08-28T23:11:35-07:00</updated>
+  <updated>2021-08-29T00:31:12-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -164,7 +164,7 @@
 
 <h4>DFS</h4>
 
-<pre><code class="python Iterative version">def DFS_iter(g: Graph, s: Vertex) -&gt; dict:
+<pre><code class="python Stack version">def DFS_iter(g: Graph, s: Vertex) -&gt; dict:
     """DFS traversal using a stack."""
     to_visit = [s]
     discovered = {s: None}
@@ -181,7 +181,7 @@
     return discovered
 </code></pre>
 
-<p>The book version (shown below) is using tail-recusion which may not pass for interviews.</p>
+<p>The book version (shown below) is using recusion (still practical since it&rsquo;s tail-recursion) but some interviewers may not like it.</p>
 
 <pre><code class="python Book version">def DFS(g:Graph, u:Vertex, discovered):
     """ DFS traversal of the undiscovered portion of Graph g starting at Vertex u.
@@ -202,6 +202,28 @@
 </code></pre>
 
 <h4>BFS</h4>
+
+<pre><code class="python Queue version">def BFS(g: Graph, s: Vertex) -&gt; dict:
+    from collections import deque
+
+    to_visit = deque([s])
+    discovered = {s: None}
+
+    while to_visit:
+        u = to_visit.popleft()
+
+        for e in g.incident_edges(u):
+            v = e.opposite(u)
+
+            if v not in discovered:
+                discovered[v] = e
+                to_visit.append(v)
+
+    return discovered
+</code></pre>
+
+<p>The queue version is very similar to DFS (stack version).
+The book version (shown below) is iterative but looks much more clumsy, due to constructing a queue (<code>level</code>, <code>next_level</code>) without using <code>deque</code>.</p>
 
 <pre><code class="python Book version">def BFS(g:Graph, s:Vertex, discovered):
     """ BFS traversal of the undiscovered portion of Graph g starting at vertex s.
@@ -224,6 +246,10 @@
 
         level = next_level
 </code></pre>
+
+<h4>Others</h4>
+
+<p>Path construction after traversal (either DFS or BFS).</p>
 
 <pre><code class="python Construct path">def construct_path(u:Vertex, v:Vertex, discovered):
     """ Construct a path from u to v."""
