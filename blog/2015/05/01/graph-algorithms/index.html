@@ -9,7 +9,7 @@
   <meta name="author" content="Cuong Dong-Si">
 
   
-  <meta name="description" content="Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG. Graph traversals BFS Book &hellip;">
+  <meta name="description" content="Summary of chapter 14 &ldquo;Graph Algorithms&rdquo; in &ldquo;Data Structures &amp; Algorithms in Python&rdquo; by GTG. Graph traversals DFS &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -92,6 +92,78 @@
 
 
 <h3>Graph traversals</h3>
+
+<h4>DFS</h4>
+
+<figure class='code'><figcaption><span>Iterative version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">DFS_iter</span><span class="p">(</span><span class="n">g</span><span class="p">:</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">Vertex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;DFS traversal using a stack.&quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">to_visit</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">discovered</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">while</span> <span class="n">to_visit</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">u</span> <span class="o">=</span> <span class="n">to_visit</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">incident_edges</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+</span><span class='line'>            <span class="n">v</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">opposite</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">discovered</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">discovered</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span>
+</span><span class='line'>                <span class="n">to_visit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">discovered</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The book version (shown below) is using tail-recusion which may not pass for interviews.</p>
+
+<figure class='code'><figcaption><span>Book version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">DFS</span><span class="p">(</span><span class="n">g</span><span class="p">:</span><span class="n">Graph</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span><span class="n">Vertex</span><span class="p">,</span> <span class="n">discovered</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot; DFS traversal of the undiscovered portion of Graph g starting at Vertex u.</span>
+</span><span class='line'><span class="sd">    Example: start DFS traversal with DFS(g, u, {u: None}).</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">    :param g: given Graph</span>
+</span><span class='line'><span class="sd">    :param u: starting Vertex</span>
+</span><span class='line'><span class="sd">    :param discovered: Mapping each vertex to the edge used to discover it.</span>
+</span><span class='line'><span class="sd">    :return:</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">incident_edges</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">v</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">opposite</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">discovered</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">discovered</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span>
+</span><span class='line'>            <span class="n">DFS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">discovered</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">pass</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h4>BFS</h4>
 

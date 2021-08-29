@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-07-14T11:56:26-07:00</updated>
+  <updated>2021-08-28T23:11:35-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -161,6 +161,45 @@
 
 
 <h3>Graph traversals</h3>
+
+<h4>DFS</h4>
+
+<pre><code class="python Iterative version">def DFS_iter(g: Graph, s: Vertex) -&gt; dict:
+    """DFS traversal using a stack."""
+    to_visit = [s]
+    discovered = {s: None}
+
+    while to_visit:
+        u = to_visit.pop()
+
+        for e in g.incident_edges(u):
+            v = e.opposite(u)
+            if v not in discovered:
+                discovered[v] = e
+                to_visit.append(v)
+
+    return discovered
+</code></pre>
+
+<p>The book version (shown below) is using tail-recusion which may not pass for interviews.</p>
+
+<pre><code class="python Book version">def DFS(g:Graph, u:Vertex, discovered):
+    """ DFS traversal of the undiscovered portion of Graph g starting at Vertex u.
+    Example: start DFS traversal with DFS(g, u, {u: None}).
+
+    :param g: given Graph
+    :param u: starting Vertex
+    :param discovered: Mapping each vertex to the edge used to discover it.
+    :return:
+    """
+    for e in g.incident_edges(u):
+        v = e.opposite(u)
+        if v not in discovered:
+            discovered[v] = e
+            DFS(g, v, discovered)
+
+    pass
+</code></pre>
 
 <h4>BFS</h4>
 
