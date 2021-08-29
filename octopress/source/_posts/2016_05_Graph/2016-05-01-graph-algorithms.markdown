@@ -16,6 +16,49 @@ Summary of chapter 14 "Graph Algorithms" in "Data Structures & Algorithms in Pyt
 
 ### Graph traversals
 
+#### DFS
+
+``` python Iterative version
+def DFS_iter(g: Graph, s: Vertex) -> dict:
+    """DFS traversal using a stack."""
+    to_visit = [s]
+    discovered = {s: None}
+
+    while to_visit:
+        u = to_visit.pop()
+
+        for e in g.incident_edges(u):
+            v = e.opposite(u)
+            if v not in discovered:
+                discovered[v] = e
+                to_visit.append(v)
+
+    return discovered
+```
+
+The book version (shown below) is using tail-recusion which may not pass for interviews.
+
+``` python Book version
+def DFS(g:Graph, u:Vertex, discovered):
+    """ DFS traversal of the undiscovered portion of Graph g starting at Vertex u.
+    Example: start DFS traversal with DFS(g, u, {u: None}).
+
+    :param g: given Graph
+    :param u: starting Vertex
+    :param discovered: Mapping each vertex to the edge used to discover it.
+    :return:
+    """
+    for e in g.incident_edges(u):
+        v = e.opposite(u)
+        if v not in discovered:
+            discovered[v] = e
+            DFS(g, v, discovered)
+
+    pass
+```
+
+
+
 #### BFS
 
 ``` python Book version
