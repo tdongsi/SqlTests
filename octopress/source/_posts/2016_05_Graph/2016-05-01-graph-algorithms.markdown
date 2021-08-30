@@ -370,3 +370,42 @@ Shortest path from JFK to LAX
 [Vertex: DFW]
 [Vertex: LAX]
 ```
+
+### Graph in interviews and example
+
+Unfortunately, during interviews, the graph's underlying data structure and/or its interface provided in problems may not be the same that you see here.
+You MUST be ready to change your code (e.g, DFS, BFS) to use the provided graph interface/data structure accordingly.
+For example, in [this Leetcode problem](https://leetcode.com/problems/clone-graph/): 
+
+* only the root node of the graph is provided.
+* it is using adjacency list (i.e., a list of its neighbors) instead of adjacency map. 
+* usually, you must do something else while traversing the graph.
+
+The modified DFS will look like this:
+
+``` python Modified DFS
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if node is None:
+            return None
+        
+        to_visit = [node]
+        clone = Node(node.val)
+        discovered = {node: clone}  # mapping current with clone
+        
+        while to_visit:
+            u = to_visit.pop()
+            
+            for v in u.neighbors:                
+                if v not in discovered:
+                    # new node
+                    v_clone = Node(v.val)
+                    
+                    discovered[v] = v_clone
+                    to_visit.append(v)
+                
+                # Clone grapph
+                discovered[u].neighbors.append(discovered[v])
+                    
+        return clone
+```
