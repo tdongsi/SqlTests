@@ -207,7 +207,7 @@ A directed graph may have more than one topological ordering.
 
 > **Proposition 14.22**: Let G be the directed graph with n vertices and m edges, using an adjacency list representation. The topological sorting algorithm runs in O(n+m) time using O(n) auxiliary space, and either computes a topological ordering of G or fails to include some vertices, which indicates that G has a directed cycle.
 
-AKA/Summary of propositions:
+Summary of propositions:
 
 * Time complexity O(n+m). Space complexity O(n)
 * The vertices NOT included "topo" must contain a directed cycle.
