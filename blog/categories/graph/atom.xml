@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Graph | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/graph/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-08-29T00:31:12-07:00</updated>
+  <updated>2021-08-30T00:50:39-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -311,10 +311,6 @@ However, when the graph is sparse, repeated DFS traversal approach is better in 
 
 <h3>DAG and topological sorting.</h3>
 
-<p>A directed graph may have more than one topological ordering.</p>
-
-<blockquote><p><strong>Proposition</strong>: A directed graph has a topological sorting if and only if it is acyclic.</p></blockquote>
-
 <pre><code class="python Topological sorting">def topological_sort(g: Graph) -&gt; list:
     """ Return a list of vertices of DAG in topological order
 
@@ -326,7 +322,7 @@ However, when the graph is sparse, repeated DFS traversal approach is better in 
     incount = {}
 
     for u in g.vertices():
-        incount[u] = g.degree(u, False)
+        incount[u] = g.degree(u, False)  # incoming count/degree
         if incount[u] == 0:
             # u is free of constraints
             ready.append(u)
@@ -343,6 +339,20 @@ However, when the graph is sparse, repeated DFS traversal approach is better in 
 
     return topo
 </code></pre>
+
+<p>A directed graph may have more than one topological ordering.</p>
+
+<blockquote><p><strong>Proposition 14.21</strong>: A directed graph has a topological sorting if and only if it is acyclic.</p>
+
+<p><strong>Proposition 14.22</strong>: Let G be the directed graph with n vertices and m edges, using an adjacency list representation. The topological sorting algorithm runs in O(n+m) time using O(n) auxiliary space, and either computes a topological ordering of G or fails to include some vertices, which indicates that G has a directed cycle.</p></blockquote>
+
+<p>AKA/Summary of propositions:</p>
+
+<ul>
+<li>Time complexity O(n+m). Space complexity O(n)</li>
+<li>The vertices NOT included &ldquo;topo&rdquo; must contain a directed cycle.</li>
+</ul>
+
 
 <h3>Shortest Paths</h3>
 
@@ -428,8 +438,8 @@ A few assumptions must be true in this implementation:</p>
         pqlocator[v] = pq.add(d[v], v)
 
     while not pq.is_empty():
-        key, u = pq.remove_min()
-        cloud[u] = key
+        dist, u = pq.remove_min()
+        cloud[u] = dist
 
         for e in g.incident_edges(u):
             v = e.opposite(u)
@@ -494,6 +504,47 @@ Because of using the same data structure, you can reuse the method <code>constru
 [Vertex: ORD]
 [Vertex: DFW]
 [Vertex: LAX]
+</code></pre>
+
+<h3>In interviews and example</h3>
+
+<p>Unfortunately, during interviews, the graph&rsquo;s underlying data structure provided in problems may not have the same interface that you see here.
+You MUST be ready to change your code (e.g, DFS, BFS) to use the provided graph interface/data structure accordingly.
+For example, in <a href="https://leetcode.com/problems/clone-graph/">this Leetcode problem</a>:</p>
+
+<ul>
+<li>only the root node of the graph is provided.</li>
+<li>it is using adjacency list (i.e., a list of its neighbors) instead of adjacency map.</li>
+<li>you must do something else while traversing the graph.</li>
+</ul>
+
+
+<p>The modified DFS will look like this:</p>
+
+<pre><code class="python Modified DFS">class Solution:
+    def cloneGraph(self, node: 'Node') -&gt; 'Node':
+        if node is None:
+            return None
+
+        to_visit = [node]
+        clone = Node(node.val)
+        discovered = {node: clone}  # mapping current with clone
+
+        while to_visit:
+            u = to_visit.pop()
+
+            for v in u.neighbors:                
+                if v not in discovered:
+                    # new node
+                    v_clone = Node(v.val)
+
+                    discovered[v] = v_clone
+                    to_visit.append(v)
+
+                # Clone grapph
+                discovered[u].neighbors.append(discovered[v])
+
+        return clone
 </code></pre>
 ]]></content>
   </entry>

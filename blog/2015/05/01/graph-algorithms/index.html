@@ -355,10 +355,6 @@ However, when the graph is sparse, repeated DFS traversal approach is better in 
 
 <h3>DAG and topological sorting.</h3>
 
-<p>A directed graph may have more than one topological ordering.</p>
-
-<blockquote><p><strong>Proposition</strong>: A directed graph has a topological sorting if and only if it is acyclic.</p></blockquote>
-
 <figure class='code'><figcaption><span>Topological sorting</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -397,7 +393,7 @@ However, when the graph is sparse, repeated DFS traversal approach is better in 
 </span><span class='line'>    <span class="n">incount</span> <span class="o">=</span> <span class="p">{}</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">vertices</span><span class="p">():</span>
-</span><span class='line'>        <span class="n">incount</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">incount</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>  <span class="c"># incoming count/degree</span>
 </span><span class='line'>        <span class="k">if</span> <span class="n">incount</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 </span><span class='line'>            <span class="c"># u is free of constraints</span>
 </span><span class='line'>            <span class="n">ready</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
@@ -414,6 +410,20 @@ However, when the graph is sparse, repeated DFS traversal approach is better in 
 </span><span class='line'>
 </span><span class='line'>    <span class="k">return</span> <span class="n">topo</span>
 </span></code></pre></td></tr></table></div></figure>
+
+
+<p>A directed graph may have more than one topological ordering.</p>
+
+<blockquote><p><strong>Proposition 14.21</strong>: A directed graph has a topological sorting if and only if it is acyclic.</p>
+
+<p><strong>Proposition 14.22</strong>: Let G be the directed graph with n vertices and m edges, using an adjacency list representation. The topological sorting algorithm runs in O(n+m) time using O(n) auxiliary space, and either computes a topological ordering of G or fails to include some vertices, which indicates that G has a directed cycle.</p></blockquote>
+
+<p>AKA/Summary of propositions:</p>
+
+<ul>
+<li>Time complexity O(n+m). Space complexity O(n)</li>
+<li>The vertices NOT included &ldquo;topo&rdquo; must contain a directed cycle.</li>
+</ul>
 
 
 <h3>Shortest Paths</h3>
@@ -571,8 +581,8 @@ A few assumptions must be true in this implementation:</p>
 </span><span class='line'>        <span class="n">pqlocator</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="k">while</span> <span class="ow">not</span> <span class="n">pq</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
-</span><span class='line'>        <span class="n">key</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">remove_min</span><span class="p">()</span>
-</span><span class='line'>        <span class="n">cloud</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+</span><span class='line'>        <span class="n">dist</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">remove_min</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">cloud</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span>
 </span><span class='line'>
 </span><span class='line'>        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">incident_edges</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
 </span><span class='line'>            <span class="n">v</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">opposite</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
@@ -700,6 +710,72 @@ Because of using the same data structure, you can reuse the method <code>constru
 </span><span class='line'>[Vertex: ORD]
 </span><span class='line'>[Vertex: DFW]
 </span><span class='line'>[Vertex: LAX]</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>In interviews and example</h3>
+
+<p>Unfortunately, during interviews, the graph&rsquo;s underlying data structure provided in problems may not have the same interface that you see here.
+You MUST be ready to change your code (e.g, DFS, BFS) to use the provided graph interface/data structure accordingly.
+For example, in <a href="https://leetcode.com/problems/clone-graph/">this Leetcode problem</a>:</p>
+
+<ul>
+<li>only the root node of the graph is provided.</li>
+<li>it is using adjacency list (i.e., a list of its neighbors) instead of adjacency map.</li>
+<li>you must do something else while traversing the graph.</li>
+</ul>
+
+
+<p>The modified DFS will look like this:</p>
+
+<figure class='code'><figcaption><span>Modified DFS</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">cloneGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="s">&#39;Node&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s">&#39;Node&#39;</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="bp">None</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">to_visit</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">clone</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">discovered</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="n">clone</span><span class="p">}</span>  <span class="c"># mapping current with clone</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">while</span> <span class="n">to_visit</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">u</span> <span class="o">=</span> <span class="n">to_visit</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">neighbors</span><span class="p">:</span>
+</span><span class='line'>                <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">discovered</span><span class="p">:</span>
+</span><span class='line'>                    <span class="c"># new node</span>
+</span><span class='line'>                    <span class="n">v_clone</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>                    <span class="n">discovered</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_clone</span>
+</span><span class='line'>                    <span class="n">to_visit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="c"># Clone grapph</span>
+</span><span class='line'>                <span class="n">discovered</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">discovered</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">clone</span>
+</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
