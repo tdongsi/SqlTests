@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Gtg | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/gtg/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-08-30T00:50:39-07:00</updated>
+  <updated>2021-08-30T00:54:34-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -346,7 +346,7 @@ However, when the graph is sparse, repeated DFS traversal approach is better in 
 
 <p><strong>Proposition 14.22</strong>: Let G be the directed graph with n vertices and m edges, using an adjacency list representation. The topological sorting algorithm runs in O(n+m) time using O(n) auxiliary space, and either computes a topological ordering of G or fails to include some vertices, which indicates that G has a directed cycle.</p></blockquote>
 
-<p>AKA/Summary of propositions:</p>
+<p>Summary of propositions:</p>
 
 <ul>
 <li>Time complexity O(n+m). Space complexity O(n)</li>
@@ -506,16 +506,16 @@ Because of using the same data structure, you can reuse the method <code>constru
 [Vertex: LAX]
 </code></pre>
 
-<h3>In interviews and example</h3>
+<h3>Graph in interviews and example</h3>
 
-<p>Unfortunately, during interviews, the graph&rsquo;s underlying data structure provided in problems may not have the same interface that you see here.
+<p>Unfortunately, during interviews, the graph&rsquo;s underlying data structure and/or its interface provided in problems may not be the same that you see here.
 You MUST be ready to change your code (e.g, DFS, BFS) to use the provided graph interface/data structure accordingly.
 For example, in <a href="https://leetcode.com/problems/clone-graph/">this Leetcode problem</a>:</p>
 
 <ul>
 <li>only the root node of the graph is provided.</li>
 <li>it is using adjacency list (i.e., a list of its neighbors) instead of adjacency map.</li>
-<li>you must do something else while traversing the graph.</li>
+<li>usually, you must do something else while traversing the graph.</li>
 </ul>
 
 
