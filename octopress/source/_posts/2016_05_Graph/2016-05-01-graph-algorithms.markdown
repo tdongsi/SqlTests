@@ -171,10 +171,6 @@ def floyd_warshall(g:Graph) -> Graph:
 
 ### DAG and topological sorting.
 
-A directed graph may have more than one topological ordering.
-
-> **Proposition**: A directed graph has a topological sorting if and only if it is acyclic.
-
 ``` python Topological sorting
 def topological_sort(g: Graph) -> list:
     """ Return a list of vertices of DAG in topological order
@@ -187,7 +183,7 @@ def topological_sort(g: Graph) -> list:
     incount = {}
 
     for u in g.vertices():
-        incount[u] = g.degree(u, False)
+        incount[u] = g.degree(u, False)  # incoming count/degree
         if incount[u] == 0:
             # u is free of constraints
             ready.append(u)
@@ -205,7 +201,16 @@ def topological_sort(g: Graph) -> list:
     return topo
 ```
 
+A directed graph may have more than one topological ordering.
 
+> **Proposition 14.21**: A directed graph has a topological sorting if and only if it is acyclic.
+
+> **Proposition 14.22**: Let G be the directed graph with n vertices and m edges, using an adjacency list representation. The topological sorting algorithm runs in O(n+m) time using O(n) auxiliary space, and either computes a topological ordering of G or fails to include some vertices, which indicates that G has a directed cycle.
+
+AKA/Summary of propositions:
+
+* Time complexity O(n+m). Space complexity O(n)
+* The vertices NOT included "topo" must contain a directed cycle.
 
 ### Shortest Paths
 
@@ -287,8 +292,8 @@ def shortest_path_lengths(g:Graph, s:Vertex):
         pqlocator[v] = pq.add(d[v], v)
 
     while not pq.is_empty():
-        key, u = pq.remove_min()
-        cloud[u] = key
+        dist, u = pq.remove_min()
+        cloud[u] = dist
 
         for e in g.incident_edges(u):
             v = e.opposite(u)
