@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-10-23T19:56:22-07:00</updated>
+  <updated>2021-10-23T20:34:25-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -142,6 +142,15 @@ The goal is not to fail at the same question TWICE.</p>
 <p>Read the <a href="https://en.wikipedia.org/wiki/Lowest_common_ancestor">Wikipedia entry</a> for full description and its usage.
 For example, the LCA is involved in the definition of distance between two nodes in a tree.</p>
 
+<p>There are a few variants of LCA problem that are covered in this section:</p>
+
+<ul>
+<li>Binary Search Tree</li>
+<li>Binary Tree</li>
+<li>Binary Tree with parent pointer</li>
+</ul>
+
+
 <h4>Binary Search Tree (BST)</h4>
 
 <p>By using <a href="https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree/">BST property</a>, finding LCA can be done easily by performing a binary search (<a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/submissions/">Leetcode example</a>):</p>
@@ -204,6 +213,55 @@ The recursive solution perform a single traversal in one path, as follows:</p>
         return left_lca
     else:
         return right_lca
+</code></pre>
+
+<p>For iterative solution, converting the above recursive solution into one using stack may not be easy or clean.
+Instead, one iterative approach is to perform DFS to construct a mapping of (node -> its parent) and, then, solve the much easier variant of <a href="https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-tree-set-2-using-parent-pointer/">LCA with parent pointer</a>.</p>
+
+<pre><code class="python">def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -&gt; 'TreeNode':
+
+    if root is None:
+        return None
+
+    to_visit = [root]
+    discovered = {root: None}
+
+    # Perform DFS to build a mapping of node -&gt; its parent
+    while to_visit:
+        cur = to_visit.pop()
+
+        children = []
+        if cur.left:
+            children.append(cur.left)
+        if cur.right:
+            children.append(cur.right)
+
+        for e in children:
+            if e not in discovered:
+                to_visit.append(e)
+                discovered[e] = cur
+
+    # Now, we have a mapping of node -&gt; its parent
+    if p in discovered and q in discovered:
+        # set of p's ancestors
+        p_anc = set()
+
+        # Use the mapping to find p's ancestors
+        cur = p
+        while cur:
+            p_anc.add(cur)
+            cur = discovered[cur]
+
+        # Use the set p_anc to detect the first occurence
+        # of q's ancestor in p's ancestors
+        cur = q
+        while cur:
+            if cur in p_anc:
+                return cur                
+            cur = discovered[cur]
+
+    # Should not reach here        
+    return None
 </code></pre>
 
 <h3>Maximum Subarray (LinkedIn 2021, Facebook 2018)</h3>
