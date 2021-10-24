@@ -150,6 +150,63 @@ For example, the LCA is involved in the definition of distance between two nodes
 
 <h4>Binary Tree</h4>
 
+<p>The strategy is to find the paths from root to two nodes <code>p</code> and <code>q</code> and, then, from the two paths, find the last common node.
+The <a href="https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/">naive solution</a> requires three traversal of the tree and extra storage space to keep the paths.
+The recursive solution perform a single traversal in one path, as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="s">&#39;TreeNode&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="s">&#39;TreeNode&#39;</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="s">&#39;TreeNode&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s">&#39;TreeNode&#39;</span><span class="p">:</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Base case</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="bp">None</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Base case 2: </span>
+</span><span class='line'>    <span class="c"># If either n1 or n2 matches with root&#39;s key, report presence by returning root</span>
+</span><span class='line'>    <span class="c"># If n1 &amp; n2 on the same side, it is also the LCA</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="n">val</span> <span class="ow">or</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">q</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">root</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">left_lca</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">right_lca</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># If both are not None, then n1 and n2 on the opposite side</span>
+</span><span class='line'>    <span class="c"># root is the LCA</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">left_lca</span> <span class="ow">and</span> <span class="n">right_lca</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">root</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Otherwise, not-None result is the recursive solution</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">right_lca</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">left_lca</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">right_lca</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <h3>Maximum Subarray (LinkedIn 2021, Facebook 2018)</h3>
 
 <p>The problem is based on <a href="https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm">Wikipedia</a>, with comments for more clarity.</p>
@@ -378,8 +435,7 @@ TODO: Floyd algorithm.</p>
 <h3>LRU Cache (Box 2018)</h3>
 
 <p>The LRU cache can be easily implemented in Java using LinkedHashMap.
-There is a <code>protected</code> method that allow you to override to specify the cache size.
-TODO: that method.</p>
+There is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html#removeEldestEntry-java.util.Map.Entry-">a <code>protected</code> method &ldquo;removeEldestEntry&rdquo;</a> that allow you to override to keep the cache size constant.</p>
 
 <p>In Python, the natural equivalent to Java&rsquo;s LinkedHashMap is OrderedDict.
 In fact, one implementation of LRU cache can be as follows:</p>
