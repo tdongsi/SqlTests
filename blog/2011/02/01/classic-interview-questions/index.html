@@ -429,198 +429,7 @@ In fact, one implementation of LRU cache can be as follows:</p>
 
 <h3>Singleton design pattern (Salesforce 2016)</h3>
 
-<p>This question seems to be common because it shows that if a candidate knows “design pattern”, best practices, concurrency (<code>synchronized</code>, <code>volatile</code> keywords), and <code>enum</code> (newer, less common Java features).
-It also involves lazy initialization and performance, leaving opportunities to drill further.</p>
-
-<h4>Standard Singleton</h4>
-
-<p>According to &ldquo;Effective Java&rdquo; book, the best way to implement Singleton is to use single-item <code>enum</code>.</p>
-
-<figure class='code'><figcaption><span>Singeton with example attribute, constructor, and method.</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">enum</span> <span class="n">OnlyOneOfMe</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">SINGLETON</span><span class="o">(</span><span class="s">&quot;King&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">OnlyOneOfMe</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;Hello&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Interviewers while appreciating that you know <code>enum</code> and best practices, they won&rsquo;t let you go easily.
-They will ask how it is implemented under the hood or using the older version.
-Then, you should provide the standard idiom with lazy initialization and private constructor.</p>
-
-<figure class='code'><figcaption><span>Singleton with private constructor</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnlyOneOfMe</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">OnlyOneOfMe</span> <span class="n">singleton</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">private</span> <span class="nf">OnlyOneOfMe</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="c1">// init code</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">OnlyOneOfMe</span> <span class="nf">getSingleton</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">singleton</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">singleton</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">OnlyOneOfMe</span><span class="o">();</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">singleton</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The common follow-up question is to ask whether if it is thread-safe.
-You should be able to point out that since there are write operations on <code>singleton</code> variable, it is not thread-safe if many threads call <code>getSingleton</code> method.
-To make it thread-safe (the next question), the simple fix is to add <code>synchronized</code> keyword to the function.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">synchronized</span> <span class="kd">static</span> <span class="n">OnlyOneOfMe</span> <span class="nf">getSingleton</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="o">...</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you come this far, the next question is whether it is fast.
-You should be able to point out that since there are locking at &ldquo;getSingleton&rdquo; method, it will be a bottleneck when many threads want to get the singleton instance.
-The next subsection will address the best ways to do lazy initialization for performance.
-However, it is shown here for completeness.</p>
-
-<figure class='code'><figcaption><span>Lazy initialization for performance</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnlyOneOfMe</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SingletonHolder</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">static</span> <span class="kd">final</span> <span class="n">OnlyOneOfMe</span> <span class="n">singleton</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">OnlyOneOfMe</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">private</span> <span class="nf">OnlyOneOfMe</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="c1">// init code</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">OnlyOneOfMe</span> <span class="nf">getSingleton</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">SingletonHolder</span><span class="o">.</span><span class="na">singleton</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Lazy initialization and Performance</h4>
-
-<p>According to <a href="http://www.oracle.com/technetwork/articles/javase/bloch-effective-08-qa-140880.html">Bloch (&ldquo;Effective Java&rdquo; author)</a>, the single most important piece of advice is &ldquo;Don&rsquo;t do it unless you need to.&rdquo; The great majority of your initialization code should look like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// Normal initialization, not lazy!</span>
-</span><span class='line'><span class="kd">private</span> <span class="kd">final</span> <span class="n">FieldType</span> <span class="n">field</span> <span class="o">=</span> <span class="n">computeFieldValue</span><span class="o">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you need lazy initialization for correctness &ndash; but not for performance &ndash; just use a <code>synchronized</code> accessor. It&rsquo;s simple and clearly correct.</p>
-
-<p>If you need better performance, your best choice depends on whether you&rsquo;re initializing a static field or an instance field. If it&rsquo;s a static field, use the lazy initialization holder class idiom:</p>
-
-<figure class='code'><figcaption><span>Singleton static field.</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// Lazy initialization holder class idiom for static fields</span>
-</span><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">FieldHolder</span> <span class="o">{</span>
-</span><span class='line'>     <span class="kd">static</span> <span class="kd">final</span> <span class="n">FieldType</span> <span class="n">field</span> <span class="o">=</span> <span class="n">computeFieldValue</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'><span class="kd">static</span> <span class="n">FieldType</span> <span class="nf">getField</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">FieldHolder</span><span class="o">.</span><span class="na">field</span><span class="o">;</span> <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This idiom is almost magical. There&rsquo;s synchronization going on, but it&rsquo;s invisible.
-The Java Runtime Environment does it for you, behind the scenes.
-And many VMs actually patch the code to eliminate the synchronization once it&rsquo;s no longer necessary, so this idiom is extremely fast.</p>
-
-<p>If you need high-performance lazy initializing of an instance field, use the double-check idiom with a volatile field.
-This idiom wasn&rsquo;t guaranteed to work until release 5.0, when the platform got a new memory model.
-The idiom is very fast but also complicated and delicate, so don&rsquo;t be tempted to modify it in any way.
-Just copy and paste &ndash; normally not a good idea, but appropriate here:</p>
-
-<figure class='code'><figcaption><span>Double-check idiom for Singleton instance fields.</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// Double-check idiom for lazy initialization of instance fields.</span>
-</span><span class='line'><span class="kd">private</span> <span class="kd">volatile</span> <span class="n">FieldType</span> <span class="n">field</span><span class="o">;</span>
-</span><span class='line'><span class="n">FieldType</span> <span class="nf">getField</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">FieldType</span> <span class="n">result</span> <span class="o">=</span> <span class="n">field</span><span class="o">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">result</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// First check (no locking)</span>
-</span><span class='line'>        <span class="kd">synchronized</span><span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">result</span> <span class="o">=</span> <span class="n">field</span><span class="o">;</span>
-</span><span class='line'>            <span class="k">if</span> <span class="o">(</span><span class="n">result</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="c1">// Second check (with locking)</span>
-</span><span class='line'>                <span class="n">field</span> <span class="o">=</span> <span class="n">result</span> <span class="o">=</span> <span class="n">computeFieldValue</span><span class="o">();</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>References</h4>
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Double-checked_locking#Usage_in_Java">Double-checked locking</a></li>
-<li><a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html">Analysis of idiom before Java 1.5</a></li>
-<li><a href="http://www.oracle.com/technetwork/articles/javase/bloch-effective-08-qa-140880.html">Bloch&rsquo;s interview</a></li>
-</ul>
-
+<p>Check <a href="https://tdongsi.github.io/SqlTests/blog/archives/">Blog Archive</a> for the standalone post.</p>
 </div>
 
 
@@ -641,7 +450,7 @@ Just copy and paste &ndash; normally not a good idea, but appropriate here:</p>
 
 <span class="categories">
   
-    <a class='category' href='/SqlTests/blog/categories/java/'>java</a>, <a class='category' href='/SqlTests/blog/categories/questions/'>questions</a>
+    <a class='category' href='/SqlTests/blog/categories/python/'>python</a>, <a class='category' href='/SqlTests/blog/categories/questions/'>questions</a>
   
 </span>
 
@@ -664,7 +473,7 @@ Just copy and paste &ndash; normally not a good idea, but appropriate here:</p>
         <a class="basic-alignment left" href="/SqlTests/blog/2011/01/11/compare-languages-java-vs-c-plus-plus/" title="Previous Post: Compare languages: Java vs. C++">&laquo; Compare languages: Java vs. C++</a>
       
       
-        <a class="basic-alignment right" href="/SqlTests/blog/2012/01/01/tutorial-sorting-algorithms/" title="Next Post: Tutorial: Sorting algorithms">Tutorial: Sorting algorithms &raquo;</a>
+        <a class="basic-alignment right" href="/SqlTests/blog/2011/02/02/classic-singleton-implementation/" title="Next Post: (Classic) Singleton implementation">(Classic) Singleton implementation &raquo;</a>
       
     </p>
   </footer>
@@ -726,7 +535,7 @@ Just copy and paste &ndash; normally not a good idea, but appropriate here:</p>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (13)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/concurrency/'>concurrency (2)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/golang/'>golang (1)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (1)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (3)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (9)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (1)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
+    <ul id="category-list"><li><a href='/SqlTests/blog/categories/addepar/'>addepar (1)</a></li><li><a href='/SqlTests/blog/categories/algorithm/'>algorithm (13)</a></li><li><a href='/SqlTests/blog/categories/algorithmdesign/'>algorithmdesign (1)</a></li><li><a href='/SqlTests/blog/categories/apple/'>apple (1)</a></li><li><a href='/SqlTests/blog/categories/aws/'>aws (1)</a></li><li><a href='/SqlTests/blog/categories/bash/'>bash (3)</a></li><li><a href='/SqlTests/blog/categories/book/'>book (4)</a></li><li><a href='/SqlTests/blog/categories/c-plus-plus/'>c++ (1)</a></li><li><a href='/SqlTests/blog/categories/computervision/'>computervision (1)</a></li><li><a href='/SqlTests/blog/categories/concurrency/'>concurrency (2)</a></li><li><a href='/SqlTests/blog/categories/database/'>database (3)</a></li><li><a href='/SqlTests/blog/categories/design/'>design (3)</a></li><li><a href='/SqlTests/blog/categories/facebook/'>facebook (5)</a></li><li><a href='/SqlTests/blog/categories/golang/'>golang (1)</a></li><li><a href='/SqlTests/blog/categories/google/'>google (1)</a></li><li><a href='/SqlTests/blog/categories/graph/'>graph (3)</a></li><li><a href='/SqlTests/blog/categories/gtg/'>gtg (3)</a></li><li><a href='/SqlTests/blog/categories/java/'>java (5)</a></li><li><a href='/SqlTests/blog/categories/javascript/'>javascript (2)</a></li><li><a href='/SqlTests/blog/categories/machinelearning/'>machinelearning (1)</a></li><li><a href='/SqlTests/blog/categories/math/'>math (2)</a></li><li><a href='/SqlTests/blog/categories/mysql/'>mysql (1)</a></li><li><a href='/SqlTests/blog/categories/network/'>network (2)</a></li><li><a href='/SqlTests/blog/categories/os/'>os (1)</a></li><li><a href='/SqlTests/blog/categories/python/'>python (4)</a></li><li><a href='/SqlTests/blog/categories/questions/'>questions (10)</a></li><li><a href='/SqlTests/blog/categories/salesforce/'>salesforce (1)</a></li><li><a href='/SqlTests/blog/categories/sql/'>sql (3)</a></li><li><a href='/SqlTests/blog/categories/sqlrunner/'>sqlrunner (8)</a></li><li><a href='/SqlTests/blog/categories/systemdesign/'>systemdesign (1)</a></li><li><a href='/SqlTests/blog/categories/testing/'>testing (9)</a></li><li><a href='/SqlTests/blog/categories/todo/'>todo (1)</a></li><li><a href='/SqlTests/blog/categories/tutorial/'>tutorial (10)</a></li><li><a href='/SqlTests/blog/categories/vertica/'>vertica (3)</a></li></ul>
 </section>
 
 
