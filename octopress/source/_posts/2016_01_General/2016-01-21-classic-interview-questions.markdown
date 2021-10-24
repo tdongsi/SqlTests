@@ -49,6 +49,37 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
 
 #### Binary Tree
 
+The strategy is to find the paths from root to two nodes `p` and `q` and, then, from the two paths, find the last common node.
+The [naive solution](https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/) requires three traversal of the tree and extra storage space to keep the paths.
+The recursive solution perform a single traversal in one path, as follows:
+
+``` python
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    
+    # Base case
+    if root is None:
+        return None
+    
+    # Base case 2: 
+    # If either n1 or n2 matches with root's key, report presence by returning root
+    # If n1 & n2 on the same side, it is also the LCA
+    if root.val == p.val or root.val == q.val:
+        return root
+    
+    left_lca = lowestCommonAncestor(root.left, p, q)
+    right_lca = lowestCommonAncestor(root.right, p, q)
+    
+    # If both are not None, then n1 and n2 on the opposite side
+    # root is the LCA
+    if left_lca and right_lca:
+        return root
+    
+    # Otherwise, not-None result is the recursive solution
+    if not right_lca:
+        return left_lca
+    else:
+        return right_lca
+```
 
 
 
@@ -191,8 +222,7 @@ TODO: Floyd algorithm.
 ### LRU Cache (Box 2018)
 
 The LRU cache can be easily implemented in Java using LinkedHashMap.
-There is a `protected` method that allow you to override to specify the cache size. 
-TODO: that method.
+There is [a `protected` method "removeEldestEntry"](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html#removeEldestEntry-java.util.Map.Entry-) that allow you to override to keep the cache size constant. 
 
 In Python, the natural equivalent to Java's LinkedHashMap is OrderedDict.
 In fact, one implementation of LRU cache can be as follows:
