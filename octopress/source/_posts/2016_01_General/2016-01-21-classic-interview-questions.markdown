@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Classic interview questions"
-date: 2011-01-21 16:18:42 -0700
+date: 2011-02-01 16:18:42 -0700
 comments: true
 categories: 
 - Java
@@ -13,7 +13,46 @@ The goal is not to fail at the same question TWICE.
 
 <!--more-->
 
-### Maximum subarray
+### Lowest Common Ancestor (LCA) (LinkedIn 2021, DoorDash 2021)
+
+Read the [Wikipedia entry](https://en.wikipedia.org/wiki/Lowest_common_ancestor) for full description and its usage.
+For example, the LCA is involved in the definition of distance between two nodes in a tree.
+
+#### Binary Search Tree (BST)
+
+By using [BST property](https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree/), finding LCA can be done easily by performing a binary search ([Leetcode example](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/submissions/)):
+
+* if the current node’s value is greater than both n1 and n2 then our LCA lies in the left side of the node.
+* if it’s is smaller than both n1 and n2, then LCA lies on the right side
+* otherwise, the root is LCA (assuming that both n1 and n2 are present in BST)
+
+``` python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    cur = root
+    
+    while cur:
+        if cur.val > p.val and cur.val > q.val:
+            cur = cur.left
+        elif cur.val < p.val and cur.val < q.val:
+            cur = cur.right
+        else:
+            return cur
+        
+    return cur
+```
+
+#### Binary Tree
+
+
+
+
+### Maximum Subarray (LinkedIn 2021, Facebook 2018)
 
 The problem is based on [Wikipedia](https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm), with comments for more clarity.
 
@@ -41,7 +80,7 @@ def maximum_subarray(nums: list) -> list:
     return nums[best_start:best_end]
 ```
 
-### Largest rectangle under histogram
+### Largest rectangle under histogram (AirBnB 2018, TIBCO 2014)
 
 The stack-based solution is `O(n)`. 
 There is another solution which is divide-and-conquer and more intuitive that runs in `O(n logn)`.
@@ -80,7 +119,7 @@ def largest_rect_histogram(heights: list) -> int:
     return max_area
 ```
 
-### Merge intervals
+### Merge intervals (Facebook 2016)
 
 Given a collection of intervals (start, end), merge all overlapping intervals.
 
@@ -108,7 +147,7 @@ def merge_intervals(mlol):
     return output
 ```
 
-### How to implement a hash map
+### How to implement a hash map (Apple 2018, Salesforce 2016)
 
 https://www.geeksforgeeks.org/internal-working-of-hashmap-java/
 
@@ -119,7 +158,7 @@ Main ideas:
 * Use index to move in array.
 * Use Key to find entry in LinkedList.
 
-### Reverse linked list. Find cycle in linked list
+### Reverse linked list. Find cycle in linked list (Apple 2014)
 
 The first problem "reversing a linked list" used to be the "foobar" challenge, although slightly harder.
 They just want to check if you know the most basic stuffs.
@@ -149,7 +188,7 @@ def reverse_list(head:Node) -> Node:
 Check if there is a cycle in a linked list. 
 TODO: Floyd algorithm.
 
-### LRU Cache 
+### LRU Cache (Box 2018)
 
 The LRU cache can be easily implemented in Java using LinkedHashMap.
 There is a `protected` method that allow you to override to specify the cache size. 
@@ -181,7 +220,7 @@ class LRUCache:
         self.cache[key] = value
 ```
 
-### Singleton design pattern
+### Singleton design pattern (Salesforce 2016)
 
 This question seems to be common because it shows that if a candidate knows “design pattern”, best practices, concurrency (`synchronized`, `volatile` keywords), and `enum` (newer, less common Java features).
 It also involves lazy initialization and performance, leaving opportunities to drill further.
