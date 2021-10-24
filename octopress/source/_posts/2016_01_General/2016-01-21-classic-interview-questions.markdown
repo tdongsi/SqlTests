@@ -18,6 +18,12 @@ The goal is not to fail at the same question TWICE.
 Read the [Wikipedia entry](https://en.wikipedia.org/wiki/Lowest_common_ancestor) for full description and its usage.
 For example, the LCA is involved in the definition of distance between two nodes in a tree.
 
+There are a few variants of LCA problem that are covered in this section:
+
+* Binary Search Tree
+* Binary Tree
+* Binary Tree with parent pointer
+
 #### Binary Search Tree (BST)
 
 By using [BST property](https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree/), finding LCA can be done easily by performing a binary search ([Leetcode example](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/submissions/)):
@@ -81,7 +87,55 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
         return right_lca
 ```
 
+For iterative solution, converting the above recursive solution into one using stack may not be easy or clean. 
+Instead, one iterative approach is to perform DFS to construct a mapping of (node -> its parent) and, then, solve the much easier variant of [LCA with parent pointer](https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-tree-set-2-using-parent-pointer/).
 
+``` python
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        
+    if root is None:
+        return None
+    
+    to_visit = [root]
+    discovered = {root: None}
+    
+    # Perform DFS to build a mapping of node -> its parent
+    while to_visit:
+        cur = to_visit.pop()
+        
+        children = []
+        if cur.left:
+            children.append(cur.left)
+        if cur.right:
+            children.append(cur.right)
+        
+        for e in children:
+            if e not in discovered:
+                to_visit.append(e)
+                discovered[e] = cur
+                
+    # Now, we have a mapping of node -> its parent
+    if p in discovered and q in discovered:
+        # set of p's ancestors
+        p_anc = set()
+        
+        # Use the mapping to find p's ancestors
+        cur = p
+        while cur:
+            p_anc.add(cur)
+            cur = discovered[cur]
+            
+        # Use the set p_anc to detect the first occurence
+        # of q's ancestor in p's ancestors
+        cur = q
+        while cur:
+            if cur in p_anc:
+                return cur                
+            cur = discovered[cur]
+            
+    # Should not reach here        
+    return None
+```
 
 ### Maximum Subarray (LinkedIn 2021, Facebook 2018)
 
