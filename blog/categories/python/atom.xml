@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-10-23T20:34:25-07:00</updated>
+  <updated>2021-10-23T20:57:45-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -405,7 +405,7 @@ TODO: Floyd algorithm.</p>
 There is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html#removeEldestEntry-java.util.Map.Entry-">a <code>protected</code> method &ldquo;removeEldestEntry&rdquo;</a> that allow you to override to keep the cache size constant.</p>
 
 <p>In Python, the natural equivalent to Java&rsquo;s LinkedHashMap is OrderedDict.
-In fact, one implementation of LRU cache can be as follows:</p>
+In fact, <a href="https://www.kunxi.org/blog/2014/05/lru-cache-in-python/">one implementation</a> of LRU cache can be as follows:</p>
 
 <pre><code class="python LRU cache">class LRUCache:
     def __init__(self, capacity):
@@ -428,6 +428,8 @@ In fact, one implementation of LRU cache can be as follows:</p>
                 self.cache.popitem(last=False)
         self.cache[key] = value
 </code></pre>
+
+<p>NOTE on Oct 2021: OrderedDict in Python3 has method <code>move_to_end(key)</code></p>
 
 <h3>Singleton design pattern (Salesforce 2016)</h3>
 

@@ -541,7 +541,7 @@ TODO: Floyd algorithm.</p>
 There is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html#removeEldestEntry-java.util.Map.Entry-">a <code>protected</code> method &ldquo;removeEldestEntry&rdquo;</a> that allow you to override to keep the cache size constant.</p>
 
 <p>In Python, the natural equivalent to Java&rsquo;s LinkedHashMap is OrderedDict.
-In fact, one implementation of LRU cache can be as follows:</p>
+In fact, <a href="https://www.kunxi.org/blog/2014/05/lru-cache-in-python/">one implementation</a> of LRU cache can be as follows:</p>
 
 <figure class='code'><figcaption><span>LRU cache</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -585,6 +585,8 @@ In fact, one implementation of LRU cache can be as follows:</p>
 </span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>NOTE on Oct 2021: OrderedDict in Python3 has method <code>move_to_end(key)</code></p>
 
 <h3>Singleton design pattern (Salesforce 2016)</h3>
 
