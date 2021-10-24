@@ -10,7 +10,7 @@
 
   
   <meta name="description" content="There are reasons that these interview questions are just popular.
-The goal is not to fail at the same question TWICE. Maximum subarray The problem &hellip;">
+The goal is not to fail at the same question TWICE. Lowest Common Ancestor (LCA) ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ The goal is not to fail at the same question TWICE. Maximum subarray The problem
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2011/01/21/classic-interview-questions/">
+  <link rel="canonical" href="http://tdongsi.github.io/SqlTests/blog/2011/02/01/classic-interview-questions/">
   <link href="/SqlTests/favicon.png" rel="icon">
   <link href="/SqlTests/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Personal Interview Notes" type="application/atom+xml">
@@ -80,7 +80,7 @@ The goal is not to fail at the same question TWICE. Maximum subarray The problem
 
 
 
-<time class='entry-date' datetime='2011-01-21T15:18:42-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>3:18 pm</span></time>
+<time class='entry-date' datetime='2011-02-01T15:18:42-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>3:18 pm</span></time>
         
       </p>
     
@@ -93,7 +93,64 @@ The goal is not to fail at the same question TWICE.</p>
 <!--more-->
 
 
-<h3>Maximum subarray</h3>
+<h3>Lowest Common Ancestor (LCA) (LinkedIn 2021, DoorDash 2021)</h3>
+
+<p>Read the <a href="https://en.wikipedia.org/wiki/Lowest_common_ancestor">Wikipedia entry</a> for full description and its usage.
+For example, the LCA is involved in the definition of distance between two nodes in a tree.</p>
+
+<h4>Binary Search Tree (BST)</h4>
+
+<p>By using <a href="https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree/">BST property</a>, finding LCA can be done easily by performing a binary search (<a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/submissions/">Leetcode example</a>):</p>
+
+<ul>
+<li>if the current node’s value is greater than both n1 and n2 then our LCA lies in the left side of the node.</li>
+<li>if it’s is smaller than both n1 and n2, then LCA lies on the right side</li>
+<li>otherwise, the root is LCA (assuming that both n1 and n2 are present in BST)</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># Definition for a binary tree node.</span>
+</span><span class='line'><span class="c"># class TreeNode:</span>
+</span><span class='line'><span class="c">#     def __init__(self, x):</span>
+</span><span class='line'><span class="c">#         self.val = x</span>
+</span><span class='line'><span class="c">#         self.left = None</span>
+</span><span class='line'><span class="c">#         self.right = None</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">lowestCommonAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="s">&#39;TreeNode&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="s">&#39;TreeNode&#39;</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="s">&#39;TreeNode&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s">&#39;TreeNode&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">cur</span> <span class="o">=</span> <span class="n">root</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">while</span> <span class="n">cur</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">cur</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">p</span><span class="o">.</span><span class="n">val</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">q</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">left</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="n">cur</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">p</span><span class="o">.</span><span class="n">val</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">q</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">right</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">cur</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">cur</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Binary Tree</h4>
+
+<h3>Maximum Subarray (LinkedIn 2021, Facebook 2018)</h3>
 
 <p>The problem is based on <a href="https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm">Wikipedia</a>, with comments for more clarity.</p>
 
@@ -142,7 +199,7 @@ The goal is not to fail at the same question TWICE.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>Largest rectangle under histogram</h3>
+<h3>Largest rectangle under histogram (AirBnB 2018, TIBCO 2014)</h3>
 
 <p>The stack-based solution is <code>O(n)</code>.
 There is another solution which is divide-and-conquer and more intuitive that runs in <code>O(n logn)</code>.</p>
@@ -212,7 +269,7 @@ There is another solution which is divide-and-conquer and more intuitive that ru
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>Merge intervals</h3>
+<h3>Merge intervals (Facebook 2016)</h3>
 
 <p>Given a collection of intervals (start, end), merge all overlapping intervals.</p>
 
@@ -259,7 +316,7 @@ There is another solution which is divide-and-conquer and more intuitive that ru
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>How to implement a hash map</h3>
+<h3>How to implement a hash map (Apple 2018, Salesforce 2016)</h3>
 
 <p><a href="https://www.geeksforgeeks.org/internal-working-of-hashmap-java/">https://www.geeksforgeeks.org/internal-working-of-hashmap-java/</a></p>
 
@@ -273,7 +330,7 @@ There is another solution which is divide-and-conquer and more intuitive that ru
 </ul>
 
 
-<h3>Reverse linked list. Find cycle in linked list</h3>
+<h3>Reverse linked list. Find cycle in linked list (Apple 2014)</h3>
 
 <p>The first problem &ldquo;reversing a linked list&rdquo; used to be the &ldquo;foobar&rdquo; challenge, although slightly harder.
 They just want to check if you know the most basic stuffs.
@@ -318,7 +375,7 @@ So, you usually have no choice but make sure that you can do this problem quickl
 <p>Check if there is a cycle in a linked list.
 TODO: Floyd algorithm.</p>
 
-<h3>LRU Cache</h3>
+<h3>LRU Cache (Box 2018)</h3>
 
 <p>The LRU cache can be easily implemented in Java using LinkedHashMap.
 There is a <code>protected</code> method that allow you to override to specify the cache size.
@@ -370,7 +427,7 @@ In fact, one implementation of LRU cache can be as follows:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>Singleton design pattern</h3>
+<h3>Singleton design pattern (Salesforce 2016)</h3>
 
 <p>This question seems to be common because it shows that if a candidate knows “design pattern”, best practices, concurrency (<code>synchronized</code>, <code>volatile</code> keywords), and <code>enum</code> (newer, less common Java features).
 It also involves lazy initialization and performance, leaving opportunities to drill further.</p>
@@ -579,7 +636,7 @@ Just copy and paste &ndash; normally not a good idea, but appropriate here:</p>
 
 
 
-<time class='entry-date' datetime='2011-01-21T15:18:42-08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>3:18 pm</span></time>
+<time class='entry-date' datetime='2011-02-01T15:18:42-08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2011</span></span> <span class='time'>3:18 pm</span></time>
       
 
 <span class="categories">
@@ -593,7 +650,7 @@ Just copy and paste &ndash; normally not a good idea, but appropriate here:</p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2011/01/21/classic-interview-questions/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2011/01/21/classic-interview-questions/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tdongsi.github.io/SqlTests/blog/2011/02/01/classic-interview-questions/" data-via="" data-counturl="http://tdongsi.github.io/SqlTests/blog/2011/02/01/classic-interview-questions/" >Tweet</a>
   
   
   
