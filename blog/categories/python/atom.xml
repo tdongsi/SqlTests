@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-10-23T20:57:45-07:00</updated>
+  <updated>2021-10-27T00:53:32-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -145,9 +145,9 @@ For example, the LCA is involved in the definition of distance between two nodes
 <p>There are a few variants of LCA problem that are covered in this section:</p>
 
 <ul>
-<li>Binary Search Tree</li>
-<li>Binary Tree</li>
-<li>Binary Tree with parent pointer</li>
+<li>Binary Search Tree. Reference: <a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/">Leetcode 235</a></li>
+<li>Binary Tree. Reference: <a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">Leetcode 236</a></li>
+<li>Binary Tree with parent pointer.</li>
 </ul>
 
 
@@ -293,38 +293,72 @@ Instead, one iterative approach is to perform DFS to construct a mapping of (nod
 
 <h3>Largest rectangle under histogram (AirBnB 2018, TIBCO 2014)</h3>
 
+<p>Reference: <a href="https://leetcode.com/problems/largest-rectangle-in-histogram/">Leetcode 84</a>.
+Related: <a href="https://leetcode.com/problems/maximal-rectangle/">Leetcode 85</a>.</p>
+
 <p>The stack-based solution is <code>O(n)</code>.
 There is another solution which is divide-and-conquer and more intuitive that runs in <code>O(n logn)</code>.</p>
 
-<pre><code class="python Largest rectangle">def largest_rect_histogram(heights: list) -&gt; int:
-    stack = []
-    max_area = 0
+<p>The best explanation of the intuition is in <a href="https://www.youtube.com/watch?v=vcv3REtIvEo">this Youtube video</a>:</p>
 
-    for idx, e in enumerate(heights):
+<ul>
+<li>To compute area, you need height (already given) and left/right bounds of the rectangles.</li>
+<li>It&rsquo;s possible to traverse from left to right and compute the left bound.</li>
+<li>Similarly, it&rsquo;s also possible to traverse from right to left and compute the right bound.</li>
+<li>The final traversal is to compute rectangle areas and the max area. This traversal can be done at the same time with the second traversal.</li>
+<li>The stack is used to keep track of minimum previous height/index to determine the left/right bound.</li>
+</ul>
+
+
+<pre><code class="python Largest rectangle">def largest_rect_histogram_stack(heights: list) -&gt; int:
+    """ Find the largest rectangular area possible in a given histogram
+    where the largest rectangle can be made of a number of contiguous bars.
+
+    Based on the intuition in this video https://www.youtube.com/watch?v=vcv3REtIvEo
+
+    :param mlist: list of bar heights, each bar width = 1.
+    :return: area of the largest rectangle.
+    """
+
+    stack = []
+
+    # Find left bound
+    left_bound = []
+    for idx, h in enumerate(heights):
         save_idx = idx
         while stack:
             # peek top of the stack
             peek_idx, peek_height = stack[-1]
-            if e &lt; peek_height:
+            if h &lt;= peek_height:  # NOTE: "less AND equal"
                 stack.pop()
                 save_idx = peek_idx
-
-                temp = peek_height * (idx - peek_idx)
-                if max_area &lt; temp:
-                    max_area = temp
             else:
                 break
 
-        # push back the current bar
-        stack.append((save_idx, e))
+        stack.append((save_idx, h))
+        left_bound.append(save_idx)
 
-    # Handle the bars still in the stack
-    idx = len(heights)
-    while stack:
-        peek_idx, peek_height = stack.pop()
-        temp = peek_height * (idx - peek_idx)
-        if max_area &lt; temp:
-            max_area = temp
+    # Find right bound
+    stack.clear()  # clear the stack for right bound
+    right_bound = [0] * len(heights)  # Need pre-populated list
+    for idx, h in reversed(list(enumerate(heights))):
+        save_idx = idx
+        while stack:
+            peek_idx, peek_height = stack[-1]
+            if h &lt;= peek_height:  # NOTE: "less AND equal"
+                stack.pop()
+                save_idx = peek_idx
+            else:
+                break
+
+        stack.append((save_idx, h))
+        right_bound[idx] = save_idx
+
+    # Find max area
+    max_area = 0
+    for h, l, r in zip(heights, left_bound, right_bound):
+        area = h * (r - l + 1)
+        max_area = max(area, max_area)
 
     return max_area
 </code></pre>
@@ -405,7 +439,7 @@ TODO: Floyd algorithm.</p>
 There is <a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html#removeEldestEntry-java.util.Map.Entry-">a <code>protected</code> method &ldquo;removeEldestEntry&rdquo;</a> that allow you to override to keep the cache size constant.</p>
 
 <p>In Python, the natural equivalent to Java&rsquo;s LinkedHashMap is OrderedDict.
-In fact, <a href="https://www.kunxi.org/blog/2014/05/lru-cache-in-python/">one implementation</a> of LRU cache can be as follows:</p>
+In fact, one implementation of LRU cache can be as follows:</p>
 
 <pre><code class="python LRU cache">class LRUCache:
     def __init__(self, capacity):
@@ -428,8 +462,6 @@ In fact, <a href="https://www.kunxi.org/blog/2014/05/lru-cache-in-python/">one i
                 self.cache.popitem(last=False)
         self.cache[key] = value
 </code></pre>
-
-<p>NOTE on Oct 2021: OrderedDict in Python3 has method <code>move_to_end(key)</code></p>
 
 <h3>Singleton design pattern (Salesforce 2016)</h3>
 
