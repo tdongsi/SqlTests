@@ -20,9 +20,9 @@ For example, the LCA is involved in the definition of distance between two nodes
 
 There are a few variants of LCA problem that are covered in this section:
 
-* Binary Search Tree
-* Binary Tree
-* Binary Tree with parent pointer
+* Binary Search Tree. Reference: [Leetcode 235](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+* Binary Tree. Reference: [Leetcode 236](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+* Binary Tree with parent pointer. 
 
 #### Binary Search Tree (BST)
 
@@ -167,39 +167,70 @@ def maximum_subarray(nums: list) -> list:
 
 ### Largest rectangle under histogram (AirBnB 2018, TIBCO 2014)
 
+Reference: [Leetcode 84](https://leetcode.com/problems/largest-rectangle-in-histogram/).
+Related: [Leetcode 85](https://leetcode.com/problems/maximal-rectangle/).
+
 The stack-based solution is `O(n)`. 
 There is another solution which is divide-and-conquer and more intuitive that runs in `O(n logn)`.
 
-``` python Largest rectangle
-def largest_rect_histogram(heights: list) -> int:
-    stack = []
-    max_area = 0
+The best explanation of the intuition is in [this Youtube video](https://www.youtube.com/watch?v=vcv3REtIvEo):
 
-    for idx, e in enumerate(heights):
+* To compute area, you need height (already given) and left/right bounds of the rectangles.
+* It's possible to traverse from left to right and compute the left bound.
+* Similarly, it's also possible to traverse from right to left and compute the right bound.
+* The final traversal is to compute rectangle areas and the max area. This traversal can be done at the same time with the second traversal.
+* The stack is used to keep track of minimum previous height/index to determine the left/right bound.
+
+``` python Largest rectangle
+def largest_rect_histogram_stack(heights: list) -> int:
+    """ Find the largest rectangular area possible in a given histogram
+    where the largest rectangle can be made of a number of contiguous bars.
+
+    Based on the intuition in this video https://www.youtube.com/watch?v=vcv3REtIvEo
+
+    :param mlist: list of bar heights, each bar width = 1.
+    :return: area of the largest rectangle.
+    """
+
+    stack = []
+
+    # Find left bound
+    left_bound = []
+    for idx, h in enumerate(heights):
         save_idx = idx
         while stack:
             # peek top of the stack
             peek_idx, peek_height = stack[-1]
-            if e < peek_height:
+            if h <= peek_height:  # NOTE: "less AND equal"
                 stack.pop()
                 save_idx = peek_idx
-
-                temp = peek_height * (idx - peek_idx)
-                if max_area < temp:
-                    max_area = temp
             else:
                 break
 
-        # push back the current bar
-        stack.append((save_idx, e))
+        stack.append((save_idx, h))
+        left_bound.append(save_idx)
 
-    # Handle the bars still in the stack
-    idx = len(heights)
-    while stack:
-        peek_idx, peek_height = stack.pop()
-        temp = peek_height * (idx - peek_idx)
-        if max_area < temp:
-            max_area = temp
+    # Find right bound
+    stack.clear()  # clear the stack for right bound
+    right_bound = [0] * len(heights)  # Need pre-populated list
+    for idx, h in reversed(list(enumerate(heights))):
+        save_idx = idx
+        while stack:
+            peek_idx, peek_height = stack[-1]
+            if h <= peek_height:  # NOTE: "less AND equal"
+                stack.pop()
+                save_idx = peek_idx
+            else:
+                break
+
+        stack.append((save_idx, h))
+        right_bound[idx] = save_idx
+
+    # Find max area
+    max_area = 0
+    for h, l, r in zip(heights, left_bound, right_bound):
+        area = h * (r - l + 1)
+        max_area = max(area, max_area)
 
     return max_area
 ```
