@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | Personal Interview Notes]]></title>
   <link href="http://tdongsi.github.io/SqlTests/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://tdongsi.github.io/SqlTests/"/>
-  <updated>2021-10-27T00:53:32-07:00</updated>
+  <updated>2021-10-28T01:46:22-07:00</updated>
   <id>http://tdongsi.github.io/SqlTests/</id>
   <author>
     <name><![CDATA[Cuong Dong-Si]]></name>
@@ -461,6 +461,32 @@ In fact, one implementation of LRU cache can be as follows:</p>
             if len(self.cache) &gt;= self.capacity:
                 self.cache.popitem(last=False)
         self.cache[key] = value
+</code></pre>
+
+<p>Python 3&rsquo;s recent version added <code>move_to_end</code> method to <code>OrderedDict</code> class.
+That makes to code much more easier to write.
+Before: you have to pop the key and reset the key to simulate the order update.
+Now: you simply get/set the key and call <code>move_to_end</code> to update order.</p>
+
+<pre><code class="python">class LruCache:
+
+    def __init__(self, capacity):
+        self._cap = capacity
+        self._cache = OrderedDict()
+
+    def get(self, key):
+        try:
+            value = self._cache[key]
+            self._cache.move_to_end(key)
+            return value
+        except KeyError:
+            return None
+
+    def set(self, key, value):
+        self._cache[key] = value
+        self._cache.move_to_end(key)
+        if len(self._cache) &gt; self._cap:
+            self._cache.popitem(last=False)
 </code></pre>
 
 <h3>Singleton design pattern (Salesforce 2016)</h3>
