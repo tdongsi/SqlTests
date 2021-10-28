@@ -335,6 +335,33 @@ class LRUCache:
         self.cache[key] = value
 ```
 
+Python 3's recent version added `move_to_end` method to `OrderedDict` class.
+That makes to code much more easier to write.
+Before: you have to pop the key and reset the key to simulate the order update.
+Now: you simply get/set the key and call `move_to_end` to update order.
+
+``` python
+class LruCache:
+    
+    def __init__(self, capacity):
+        self._cap = capacity
+        self._cache = OrderedDict()
+        
+    def get(self, key):
+        try:
+            value = self._cache[key]
+            self._cache.move_to_end(key)
+            return value
+        except KeyError:
+            return None
+            
+    def set(self, key, value):
+        self._cache[key] = value
+        self._cache.move_to_end(key)
+        if len(self._cache) > self._cap:
+            self._cache.popitem(last=False)
+```
+
 ### Singleton design pattern (Salesforce 2016)
 
 Check [Blog Archive](https://tdongsi.github.io/SqlTests/blog/archives/) for the standalone post.
